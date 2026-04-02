@@ -272,40 +272,205 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: calc(100vh - 72px);
-  align-items: center;
-  padding: 80px 60px;
-  gap: 80px;
-  max-width: 1400px;
-  margin: 0 auto;
+  align-items: stretch;
+  width: 100%;
 }
 
-.hero-left {}
+/* LEFT — text + photo slot */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-.hero-left h1 {
+/* RIGHT — portrait video with overlaid bubbles */
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  border-left: 1px solid var(--border);
+}
+
+.hero-video-slot {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+}
+
+.hero-video-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border: 2px dashed var(--border);
+}
+
+/* Bubbles overlaid on the video */
+.hero-bubble {
+  position: absolute;
+  z-index: 10;
+}
+
+.hero-bubble.card-b {
+  top: 40px;
+  right: 40px;
+  left: auto;
+}
+
+.hero-bubble.card-c {
+  bottom: 40px;
+  left: 40px;
+}
+
+/* Bubble stack container — absolutely positioned on the video */
+.hero-bubble-stack {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-bubble-stack .stat-card {
+  position: relative;
+  width: 100%;
+}
+
+/* "What we do" bubble on the video */
+.hero-what-bubble {
+  padding: 36px 40px;
+}
+
+.hero-what-heading {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 8px 0 16px;
+  color: var(--text);
+}
+
+.hero-what-body {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Research CTA bubble on the video */
+.hero-research-bubble {
+  padding: 20px 28px;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.hero-research-bubble:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Product card replacing photo slot */
+.hero-product-card {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+  background: var(--surface);
+  min-height: 200px;
+}
+
+.hero-product-card:hover {
+  background: #f0f0ec;
+}
+
+.hero-product-img-slot {
+  width: 180px;
+  flex-shrink: 0;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+  padding: 16px;
+  text-align: center;
+}
+
+.hero-product-info {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hero-product-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.hero-product-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.hero-product-price span {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.hero-text {
+  padding: 80px 60px 40px 60px;
+}
+
+.hero-text h1 {
   margin-bottom: 28px;
 }
 
-.hero-left p {
+.hero-text p {
   max-width: 460px;
   margin-bottom: 36px;
 }
 
-.hero-right {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Media slot — top-right quarter of the viewport */
+/* Photo slot — bottom-right, bleeds to page edge */
 .hero-media-slot {
   position: relative;
   width: 100%;
-  height: 50vh;
-  min-height: 260px;
-  border-radius: var(--radius-md);
+  flex: 1;
+  min-height: 280px;
+  border-radius: 0;
   overflow: hidden;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
 .hero-media-img {
@@ -333,7 +498,6 @@ p {
   font-size: 13px;
   letter-spacing: 0.06em;
   border: 2px dashed var(--border);
-  border-radius: var(--radius-md);
 }
 
 /* Stacked stat cards on hero right */
@@ -492,6 +656,10 @@ p {
   max-width: 1200px;
 }
 
+.page-header--with-video .research-video-wrap {
+  margin-top: 160px;
+}
+
 .page-header--with-video .page-header-text p {
   max-width: none;
 }
@@ -500,12 +668,18 @@ p {
 /* ════════════════════════════════
    RESEARCH PAGE
 ════════════════════════════════ */
+.research-intro-header {
+  padding: 80px 60px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .research-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: start;
-  padding: 80px 60px;
+  padding: 32px 60px 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -665,6 +839,44 @@ p {
   display: block;
 }
 
+/* Footnote references */
+.footnote-ref {
+  color: var(--accent);
+  font-size: 0.75em;
+  font-weight: 600;
+  text-decoration: none;
+  vertical-align: super;
+}
+
+.footnote-ref:hover {
+  text-decoration: underline;
+}
+
+.footnotes {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  list-style: decimal;
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footnotes li {
+  margin-bottom: 6px;
+}
+
+.footnotes a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footnotes a:hover {
+  color: var(--accent);
+}
+
 
 /* ════════════════════════════════
    PRODUCTS PAGE
@@ -701,6 +913,100 @@ p {
   font-weight: 300;
   color: var(--accent);
   margin: 24px 0;
+}
+
+/* ════════════════════════════════
+   PILLS-ONLY PRODUCT
+════════════════════════════════ */
+.pills-section {
+  padding: 80px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+.pills-section h2 {
+  margin: 12px 0 8px;
+}
+
+.pills-section > p {
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+.pills-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pills-card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--surface);
+}
+
+.pills-card--featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.pills-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pills-qty {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text);
+}
+
+.pills-qty span {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-family: 'Figtree', sans-serif;
+}
+
+.pills-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: -6px;
+}
+
+.pills-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pills-per {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.pills-card .btn {
+  margin-top: auto;
+  text-align: center;
 }
 
 .how-it-works {
