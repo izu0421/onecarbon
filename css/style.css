@@ -4,16 +4,21 @@
    ============================================================
 
    COLOUR VARIABLES — edit these to retheme the whole site:
-   --accent      : emerald green (buttons, highlights, links)
+   --accent      : buttons, highlights, links
    --bg          : warm off-white page background
    --surface     : pure white (cards, nav)
    --text        : near-black body text
    --text-muted  : mid-grey secondary text
+
+   ORIGINAL COLOURS (teal-green theme):
+   --accent:       #1a7a6b
+   --accent-dark:  #145f54
+   footer-logo span (hardcoded): #5ab89e
    ============================================================ */
 
 :root {
-  --accent:       #1a7a6b;
-  --accent-dark:  #145f54;
+  --accent:       #456BB7;
+  --accent-dark:  #2f4f8f;
   --bg:           #F7F5F0;
   --surface:      #ffffff;
   --text:         #1a1a18;
@@ -1191,7 +1196,7 @@ textarea.form-control {
   color: #fff;
 }
 
-.footer-logo span { color: #5ab89e; }
+.footer-logo span { color: var(--accent); }
 
 .footer-links {
   display: flex;
