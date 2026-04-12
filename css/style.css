@@ -83,7 +83,7 @@ h2 { font-size: clamp(2rem, 3.5vw, 3.5rem); }
 h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 h4 { font-size: 1.2rem; }
 
-h1 em, h2 em { font-style: italic; color: var(--accent); }
+h1 em, h2 em { font-style: normal; color: #1a73e8; }
 
 p {
   font-size: 1.0625rem; /* 17px */
@@ -1267,8 +1267,8 @@ textarea.form-control {
 }
 
 .profile-cta-text h2 em {
-  color: rgba(255, 255, 255, 0.85);
-  font-style: italic;
+  color: #1a73e8;
+  font-style: normal;
 }
 
 .profile-cta-text p {
