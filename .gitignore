@@ -1,0 +1,3 @@
+# Large video files — hosted on Cloudflare R2, not in git
+media/*.mp4
+media/*.webm
