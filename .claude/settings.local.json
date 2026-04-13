@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:scholar.google.co.uk)",
+      "Bash(du -sh /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon/media/ocean*.mp4)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(ls /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon/*.html)",
+      "Bash(grep -rn \"IC-001\\\\|IC001\" /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon/*.html)"
+    ]
+  }
+}
