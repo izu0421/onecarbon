@@ -34,7 +34,7 @@
       <div class="eyebrow">Our product</div>
       <h1>1C-01 +<br>Biomarker <em>Testing</em></h1>
       <p>
-        Receive a <em>three-month supply</em> of 1C-01 probiotic capsules and an <em>at-home</em> blood and stool
+        Receive a three-month supply of 1C-01 probiotic capsules and an <em>at-home</em> blood and stool
         testing kit. We will send you a personalised microbiome report,
         as well as a nutritional report gathered from your blood plasma.
         Your feedback will be sent to you via email.
@@ -95,7 +95,7 @@
             1C-01 is the product of years of One Carbon's research. The one-carbon
             cycle is your body's natural defense mechanism against diseases, including Alzheimer's. 
             People with elevated one-carbon metabolism experience slower AD-related neurodegeneration. 
-            With 1C-01, we aim to boost this metabolism, helping your body fight Alzheimer's. 
+            With 1C-01, we aim to boost this metabolism, potentially helping your body fight Alzheimer's. 
           </p>
           <p>
             Our tests in animal and disease models demonstrated increased neuroresilience against Alzheimer's Disease after
@@ -151,8 +151,7 @@
       fetch('https://ipapi.co/json/')
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          var cc = 'US';
-
+          var cc = data.country_code;
           var currency = 'GBP';
           if (cc === 'US' || cc === 'CA' && false) currency = 'USD'; // CA gets CAD below
           else if (cc === 'CA') currency = 'CAD';
