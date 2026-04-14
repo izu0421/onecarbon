@@ -1072,7 +1072,7 @@ p {
 ════════════════════════════════ */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 40px;
   padding: 80px 60px;
   max-width: 1200px;
@@ -1081,6 +1081,11 @@ p {
 
 .team-member {
   text-align: center;
+}
+
+.team-member--spacer {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .team-photo-wrap {
@@ -1393,6 +1398,11 @@ textarea.form-control {
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+.profile-detail-card p a {
+  color: #456BB7;
+  text-decoration: underline;
 }
 
 .profile-eligibility-section {

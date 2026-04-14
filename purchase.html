@@ -39,7 +39,7 @@
         as well as a nutritional report gathered from your blood plasma.
         Your feedback will be sent to you via email.
       </p>
-      <div class="product-price">£499 <span style="font-size:1rem;font-weight:400;color:var(--text-muted);"></span></div>
+      <div class="product-price" id="price-bundle">£499</div>
       <div class="btn-row">
         <a href="https://buy.stripe.com/test_7sYbITgHtb5M876461gnK00" class="btn btn-accent" target="_blank">Buy now</a>
         <a href="research.html" class="btn-ghost">How it works ↗</a>
@@ -58,16 +58,16 @@
       <div class="pills-card">
         <div class="pills-qty">30 <span>pills</span></div>
         <div class="pills-desc">One-month supply</div>
-        <div class="pills-price">£30</div>
-        <div class="pills-per"><em>£1.00 per pill</em></div>
+        <div class="pills-price" id="price-30">£30</div>
+        <div class="pills-per"><em id="per-30">£1.00 per pill</em></div>
         <a href="https://buy.stripe.com/test_dRm00bcrdc9Qbji9qlgnK03" class="btn btn-accent" target="_blank">Buy now</a>
       </div>
 
       <div class="pills-card">
         <div class="pills-qty">120 <span>pills</span></div>
         <div class="pills-desc">Four-month supply</div>
-        <div class="pills-price">£100</div>
-        <div class="pills-per"><em>£0.83 per pill</em></div>
+        <div class="pills-price" id="price-120">£100</div>
+        <div class="pills-per"><em id="per-120">£0.83 per pill</em></div>
         <a href="https://buy.stripe.com/test_3cIeV5aj52zg3QQbytgnK02" class="btn btn-accent" target="_blank">Buy now</a>
       </div>
 
@@ -75,8 +75,8 @@
         <div class="pills-badge">Best value</div>
         <div class="pills-qty">360 <span>pills</span></div>
         <div class="pills-desc">Year's supply</div>
-        <div class="pills-price">£250</div>
-        <div class="pills-per"><em>£0.69 per pill</em></div>
+        <div class="pills-price" id="price-360">£250</div>
+        <div class="pills-per"><em id="per-360">£0.69 per pill</em></div>
         <a href="https://buy.stripe.com/test_6oU00b3UH0r8afebytgnK01" class="btn btn-accent" target="_blank">Buy now</a>
       </div>
 
@@ -129,5 +129,40 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var prices = {
+        GBP: { s: '£', bundle: 499,  p30: 30,   p120: 100,  p360: 250,  pp30: '1.00', pp120: '0.83', pp360: '0.69' },
+        USD: { s: '$', bundle: 630,  p30: 38,   p120: 125,  p360: 315,  pp30: '1.27', pp120: '1.05', pp360: '0.88' },
+        EUR: { s: '€', bundle: 580,  p30: 35,   p120: 115,  p360: 290,  pp30: '1.17', pp120: '0.96', pp360: '0.81' },
+        AUD: { s: 'A$', bundle: 960, p30: 58,   p120: 190,  p360: 480,  pp30: '1.93', pp120: '1.58', pp360: '1.33' },
+        CAD: { s: 'C$', bundle: 860, p30: 52,   p120: 170,  p360: 430,  pp30: '1.73', pp120: '1.42', pp360: '1.19' },
+      };
+      var euCountries = ['DE','FR','IT','ES','NL','BE','PT','AT','IE','FI','GR','LU','SK','SI','EE','LV','LT','CY','MT'];
+      function applyPrices(r) {
+        document.getElementById('price-bundle').textContent = r.s + r.bundle;
+        document.getElementById('price-30').textContent   = r.s + r.p30;
+        document.getElementById('price-120').textContent  = r.s + r.p120;
+        document.getElementById('price-360').textContent  = r.s + r.p360;
+        document.getElementById('per-30').textContent     = r.s + r.pp30 + ' per pill';
+        document.getElementById('per-120').textContent    = r.s + r.pp120 + ' per pill';
+        document.getElementById('per-360').textContent    = r.s + r.pp360 + ' per pill';
+      }
+      fetch('https://ipapi.co/json/')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          var cc = 'US';
+
+          var currency = 'GBP';
+          if (cc === 'US' || cc === 'CA' && false) currency = 'USD'; // CA gets CAD below
+          else if (cc === 'CA') currency = 'CAD';
+          else if (cc === 'AU') currency = 'AUD';
+          else if (euCountries.indexOf(cc) > -1) currency = 'EUR';
+          else if (cc !== 'GB') currency = 'USD'; // fallback for other countries
+          applyPrices(prices[currency]);
+        })
+        .catch(function() {}); // silently keep GBP on error
+    })();
+  </script>
 </body>
 </html>
