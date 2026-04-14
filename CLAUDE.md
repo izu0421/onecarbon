@@ -2,13 +2,13 @@
 
 ## Stack
 Static HTML/CSS/JS. No framework. Deployed via GitHub to github.com/izu0421/onecarbon.
-Fonts: Syne (headings) + Outfit (body) via Google Fonts.
+Fonts: DM Sans Medium 500 (headings) + Outfit (body) via Google Fonts.
 Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 
 ## Colours
 - --accent: #456BB7
 - --accent-dark: #2f4f8f
-- Original fonts (before Syne/Outfit): Fraunces / Figtree
+- Original fonts (before DM Sans/Outfit): Fraunces / Figtree
 
 ## Pages
 - index.html — landing page, hero video (ocean2.mp4 on R2), PROFILE sign-up form
