@@ -8,6 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #2f4f8f; color: #ffffff; }
+    .site-nav { background: #2f4f8f; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .site-nav a, .nav-links a { color: #ffffff; }
+    .nav-logo span { color: rgba(255,255,255,0.6); }
+    .eyebrow { color: rgba(255,255,255,0.6); }
+    .pills-card .eyebrow { color: #456BB7; }
+    h1, h2, h3, p { color: #ffffff; }
+    .product-details p, .how-it-works-copy p { color: rgba(255,255,255,0.8); }
+    .how-it-works { background: rgba(0,0,0,0.15); }
+    .site-footer { background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.1); }
+    .site-footer, .footer-links a, .footer-copy { color: rgba(255,255,255,0.7); }
+    .btn-ghost { color: #ffffff; border-color: rgba(255,255,255,0.4); }
+    .pills-card .btn-ghost { color: #555555; border-color: #555555; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+  </style>
 </head>
 <body>
 
@@ -30,10 +46,10 @@
       <!-- Replace with your product image -->
       <img src="media/product_img.png" alt="1C-01 product kit">
     </div>
-    <div class="product-details">
+    <div class="pills-card pills-card--featured" style="flex:1;text-align:left;">
       <div class="eyebrow">Our product</div>
-      <h1>1C-01 +<br>Biomarker <em>Testing</em></h1>
-      <p>
+      <h1 style="font-size:1.6rem;margin:0;color:var(--text);">1C-01 +<br>Biomarker <em>Testing</em></h1>
+      <p style="color:var(--text-muted);font-size:14px;line-height:1.7;">
         Receive a three-month supply of 1C-01 probiotic capsules and an <em>at-home</em> blood and stool
         testing kit. We will send you a personalised microbiome report,
         as well as a nutritional report gathered from your blood plasma.
@@ -51,7 +67,7 @@
   <section class="pills-section">
     <div class="eyebrow">Also available</div>
     <h2>1C-01 <em>Probiotics</em></h2>
-    <p>Just the capsules. Choose the quantity that suits you.</p>
+    <p style="color:#ffffff;">Just the capsules. Choose the quantity that suits you.</p>
 
     <div class="pills-options">
 
@@ -92,15 +108,13 @@
       <div class="how-it-works-grid">
         <div class="how-it-works-copy">
           <p>
-            1C-01 is the product of years of One Carbon's research. The one-carbon
-            cycle is your body's natural defense mechanism against diseases, including Alzheimer's. 
-            People with elevated one-carbon metabolism experience slower AD-related neurodegeneration. 
-            With 1C-01, we aim to boost this metabolism, potentially helping your body fight Alzheimer's. 
+            1C-01 is a food-grade, non-GMO probiotic that produces high concentrations 
+            of metabolites key for One-Carbon metabolism.
           </p>
           <p>
-            Our tests in animal and disease models demonstrated increased neuroresilience against Alzheimer's Disease after
-            ingesting 1C-01. We are investigating now if the same effect occurs in humans. 
-            By purchasing a biomarker testing package, you will be helping us learn if 1C-01 can slow Alzheimer's Disease.
+            One-carbon metabolism is a metabolic cycle that is involved in cellular energy. 
+            Read more about the importance of One-Carbon metabolism and the rationale behind 
+            1C-01 on <a href="research.html" style="color:#1a73e8;text-decoration:underline;text-underline-offset:3px;">our research page</a>.
           </p>
         </div>
         <div>
@@ -113,17 +127,17 @@
 
   <!-- ── FOOTER ── -->
   <footer class="site-footer">
-    <div class="footer-logo">One<span>Carbon</span></div>
+    <div class="footer-logo">One<span>Carbon</span>&nbsp;Technologies</div>
     <nav class="footer-links">
       <a href="research.html">Research</a>
       <a href="profile.html">PROFILE</a>
       <a href="team.html">Team</a>
       <a href="purchase.html">Products</a>
       <a href="contact.html">Contact</a>
+      <a href="refund-policy.html">Refund Policy</a>
     </nav>
     <div class="social-links">
-      <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
     <p class="footer-copy">© 2025 One Carbon. All rights reserved.</p>
   </footer>

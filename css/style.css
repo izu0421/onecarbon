@@ -673,19 +673,17 @@ p {
 
 .page-header p {
   max-width: 560px;
-  font-size: 1.125rem;
 }
 
 .page-header--with-video {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
   max-width: 1200px;
+  overflow: hidden;
 }
 
 .page-header--with-video .research-video-wrap {
-  margin-top: 160px;
+  float: right;
+  width: 45%;
+  margin: 0 0 24px 40px;
 }
 
 .page-header--with-video .page-header-text p {
@@ -1221,6 +1219,7 @@ textarea.form-control {
   font-family: 'Syne', sans-serif;
   font-size: 18px;
   font-weight: 600;
+  font-style: normal;
   color: #fff;
 }
 
