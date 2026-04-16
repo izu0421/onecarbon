@@ -1311,6 +1311,51 @@ textarea.form-control {
 /* ════════════════════════════════
    PROFILE CTA SECTION (homepage)
 ════════════════════════════════ */
+/* ── Recognised By section (between stats strip and PROFILE CTA) ── */
+.recognised-by-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 28px 60px;
+  background: var(--bg);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  flex-wrap: wrap;
+}
+.recognised-by-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.recognised-by-logos {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.recognised-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: opacity 0.2s, filter 0.2s;
+}
+.recognised-logo:hover {
+  opacity: 0.9;
+  filter: grayscale(0);
+}
+.recognised-logo-placeholder {
+  height: 60px;
+  width: 120px;
+  border: 1px dashed rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
 .profile-cta-section {
   background: var(--accent);
   padding: 80px 60px;
