@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — One Carbon Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .policy-section {
+      max-width: 1100px;
+      padding: 80px 60px 120px;
+    }
+    .policy-header {
+      max-width: 680px;
+      padding-bottom: 40px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-meta {
+      font-size: 13px;
+      color: var(--text-faint);
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+    .policy-wrapper {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
+    .policy-sidebar {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+    }
+    .toc-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+    .policy-toc {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .policy-toc li { margin-bottom: 1px; }
+    .policy-toc a {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .policy-toc a:hover {
+      color: var(--accent);
+      background: rgba(69,107,183,0.06);
+    }
+    .policy-toc a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(69,107,183,0.07);
+      font-weight: 600;
+    }
+    .policy-main { flex: 1; min-width: 0; }
+    .policy-intro { margin-bottom: 8px; }
+    .policy-intro p {
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .policy-block {
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .policy-block h2 {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      margin-bottom: 20px;
+    }
+    .policy-block h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 10px;
+    }
+    .policy-block p {
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+    .policy-block ul {
+      margin: 8px 0 20px 22px;
+      line-height: 2;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .policy-block a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .policy-address {
+      margin: 12px 0 20px 22px;
+      line-height: 2;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-style: normal;
+    }
+    .policy-uppercase {
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .policy-sidebar { display: none; }
+      .policy-wrapper { display: block; }
+    }
+    @media (max-width: 860px) {
+      .policy-section { padding-left: 40px; padding-right: 40px; }
+    }
+    @media (max-width: 600px) {
+      .policy-section { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">One<span>Carbon</span>&nbsp;Technologies</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="profile.html">PROFILE</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="purchase.html" class="nav-cta">Products</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── TERMS CONTENT ── -->
+  <section class="policy-section">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="policy-header">
+      <div class="eyebrow">Legal</div>
+      <h1>Terms of <em>Service</em></h1>
+      <p class="policy-meta">Last updated April 16, 2026</p>
+    </div>
+
+    <!-- ── TWO-COLUMN WRAPPER ── -->
+    <div class="policy-wrapper">
+
+      <!-- ── SIDEBAR TOC ── -->
+      <aside class="policy-sidebar">
+        <p class="toc-label">Contents</p>
+        <ul class="policy-toc">
+          <li><a href="#agreement">Agreement to our legal terms</a></li>
+          <li><a href="#s1">1. Our services</a></li>
+          <li><a href="#s2">2. Intellectual property rights</a></li>
+          <li><a href="#s3">3. User representations</a></li>
+          <li><a href="#s4">4. Products</a></li>
+          <li><a href="#s5">5. Purchases and payment</a></li>
+          <li><a href="#s6">6. Return policy</a></li>
+          <li><a href="#s7">7. Prohibited activities</a></li>
+          <li><a href="#s8">8. User generated contributions</a></li>
+          <li><a href="#s9">9. Contribution licence</a></li>
+          <li><a href="#s10">10. Third-party websites and content</a></li>
+          <li><a href="#s11">11. Services management</a></li>
+          <li><a href="#s12">12. Privacy policy</a></li>
+          <li><a href="#s13">13. Term and termination</a></li>
+          <li><a href="#s14">14. Modifications and interruptions</a></li>
+          <li><a href="#s15">15. Governing law</a></li>
+          <li><a href="#s16">16. Dispute resolution</a></li>
+          <li><a href="#s17">17. Corrections</a></li>
+          <li><a href="#s18">18. Disclaimer</a></li>
+          <li><a href="#s19">19. Limitations of liability</a></li>
+          <li><a href="#s20">20. Indemnification</a></li>
+          <li><a href="#s21">21. User data</a></li>
+          <li><a href="#s22">22. Electronic communications</a></li>
+          <li><a href="#s23">23. Miscellaneous</a></li>
+          <li><a href="#s24">24. Contact us</a></li>
+        </ul>
+      </aside>
+
+      <!-- ── MAIN CONTENT ── -->
+      <div class="policy-main">
+
+        <!-- ── AGREEMENT ── -->
+        <div class="policy-block" id="agreement">
+          <h2>Agreement to our legal terms</h2>
+          <p>We are Healthspan Biotics Limited, doing business as OneCarbon ('Company', 'we', 'us', or 'our'), a company registered in England at Unit 5 Avenue Business Park, Elsworth, Cambridgeshire CB23 4EY.</p>
+          <p>We operate the website onecarbon.com (the 'Site'), as well as any other related products and services that refer or link to these legal terms (the 'Legal Terms') (collectively, the 'Services').</p>
+          <p>You can contact us by email at <a href="mailto:team@onecarbon.com">team@onecarbon.com</a> or by mail to Unit 5 Avenue Business Park, Elsworth, Cambridgeshire CB23 4EY, England.</p>
+          <p>These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity ('you'), and Healthspan Biotics Limited, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.</p>
+          <p>Supplemental terms and conditions or documents that may be posted on the Services from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Legal Terms from time to time. We will alert you about any changes by updating the 'Last updated' date of these Legal Terms, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Legal Terms to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Legal Terms by your continued use of the Services after the date such revised Legal Terms are posted.</p>
+          <p>The Services are intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Services.</p>
+          <p>We recommend that you print a copy of these Legal Terms for your records.</p>
+        </div>
+
+        <!-- ── 1. OUR SERVICES ── -->
+        <div class="policy-block" id="s1">
+          <h2>1. Our services</h2>
+          <p>The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Services from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.</p>
+          <p>The Services are subject to the following industry-specific laws and regulations: Food Supplements (England) Regulations 2003; Retained Regulation (EC) No 1924/2006; General Food Law (Regulation (EC) 178/2002).</p>
+        </div>
+
+        <!-- ── 2. INTELLECTUAL PROPERTY ── -->
+        <div class="policy-block" id="s2">
+          <h2>2. Intellectual property rights</h2>
+          <h3>Our intellectual property</h3>
+          <p>We are the owner or the licensee of all intellectual property rights in our Services, including all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics in the Services (collectively, the 'Content'), as well as the trademarks, service marks, and logos contained therein (the 'Marks').</p>
+          <p>Our Content and Marks are protected by copyright and trademark laws (and various other intellectual property rights and unfair competition laws) and treaties around the world.</p>
+          <p>The Content and Marks are provided in or through the Services 'AS IS' for your personal, non-commercial use only.</p>
+          <h3>Your use of our Services</h3>
+          <p>Subject to your compliance with these Legal Terms, including the PROHIBITED ACTIVITIES section below, we grant you a non-exclusive, non-transferable, revocable licence to: access the Services; and download or print a copy of any portion of the Content to which you have properly gained access, solely for your personal, non-commercial use.</p>
+          <p>Except as set out in this section or elsewhere in our Legal Terms, no part of the Services and no Content or Marks may be copied, reproduced, aggregated, republished, uploaded, posted, publicly displayed, encoded, translated, transmitted, distributed, sold, licensed, or otherwise exploited for any commercial purpose whatsoever, without our express prior written permission.</p>
+          <p>If you wish to make any use of the Services, Content, or Marks other than as set out in this section or elsewhere in our Legal Terms, please address your request to: <a href="mailto:team@onecarbon.com">team@onecarbon.com</a>. If we ever grant you the permission to post, reproduce, or publicly display any part of our Services or Content, you must identify us as the owners or licensors of the Services, Content, or Marks and ensure that any copyright or proprietary notice appears or is visible on posting, reproducing, or displaying our Content.</p>
+          <p>We reserve all rights not expressly granted to you in and to the Services, Content, and Marks.</p>
+          <p>Any breach of these Intellectual Property Rights will constitute a material breach of our Legal Terms and your right to use our Services will terminate immediately.</p>
+          <h3>Your submissions</h3>
+          <p>Please review this section and the PROHIBITED ACTIVITIES section carefully prior to using our Services to understand the (a) rights you give us and (b) obligations you have when you post or upload any content through the Services.</p>
+          <p>Submissions: By directly sending us any question, comment, suggestion, idea, feedback, or other information about the Services ('Submissions'), you agree to assign to us all intellectual property rights in such Submission. You agree that we shall own this Submission and be entitled to its unrestricted use and dissemination for any lawful purpose, commercial or otherwise, without acknowledgment or compensation to you.</p>
+          <p>You are responsible for what you post or upload: By sending us Submissions through any part of the Services you: confirm that you have read and agree with our PROHIBITED ACTIVITIES and will not post, send, publish, upload, or transmit through the Services any Submission that is illegal, harassing, hateful, harmful, defamatory, obscene, bullying, abusive, discriminatory, threatening to any person or group, sexually explicit, false, inaccurate, deceitful, or misleading; to the extent permissible by applicable law, waive any and all moral rights to any such Submission; warrant that any such Submissions are original to you or that you have the necessary rights and licences to submit such Submissions and that you have full authority to grant us the above-mentioned rights in relation to your Submissions; and warrant and represent that your Submissions do not constitute confidential information.</p>
+          <p>You are solely responsible for your Submissions and you expressly agree to reimburse us for any and all losses that we may suffer because of your breach of (a) this section, (b) any third party's intellectual property rights, or (c) applicable law.</p>
+        </div>
+
+        <!-- ── 3. USER REPRESENTATIONS ── -->
+        <div class="policy-block" id="s3">
+          <h2>3. User representations</h2>
+          <p>By using the Services, you represent and warrant that: (1) you have the legal capacity and you agree to comply with these Legal Terms; (2) you are not a minor in the jurisdiction in which you reside; (3) you will not access the Services through automated or non-human means, whether through a bot, script or otherwise; (4) you will not use the Services for any illegal or unauthorised purpose; and (5) your use of the Services will not violate any applicable law or regulation.</p>
+          <p>If you provide any information that is untrue, inaccurate, not current, or incomplete, we have the right to suspend or terminate your account and refuse any and all current or future use of the Services (or any portion thereof).</p>
+        </div>
+
+        <!-- ── 4. PRODUCTS ── -->
+        <div class="policy-block" id="s4">
+          <h2>4. Products</h2>
+          <p>We make every effort to display as accurately as possible the colours, features, specifications, and details of the products available on the Services. However, we do not guarantee that the colours, features, specifications, and details of the products will be accurate, complete, reliable, current, or free of other errors, and your electronic display may not accurately reflect the actual colours and details of the products. All products are subject to availability, and we cannot guarantee that items will be in stock. We reserve the right to discontinue any products at any time for any reason. Prices for all products are subject to change.</p>
+        </div>
+
+        <!-- ── 5. PURCHASES AND PAYMENT ── -->
+        <div class="policy-block" id="s5">
+          <h2>5. Purchases and payment</h2>
+          <p>We accept the following forms of payment: [payment methods to be inserted].</p>
+          <p>You agree to provide current, complete, and accurate purchase and account information for all purchases made via the Services. You further agree to promptly update account and payment information, including email address, payment method, and payment card expiration date, so that we can complete your transactions and contact you as needed. Sales tax will be added to the price of purchases as deemed required by us. We may change prices at any time. All payments shall be in Pound Sterling.</p>
+          <p>You agree to pay all charges at the prices then in effect for your purchases and any applicable shipping fees, and you authorise us to charge your chosen payment provider for any such amounts upon placing your order. We reserve the right to correct any errors or mistakes in pricing, even if we have already requested or received payment.</p>
+          <p>We reserve the right to refuse any order placed through the Services. We may, in our sole discretion, limit or cancel quantities purchased per person, per household, or per order. These restrictions may include orders placed by or under the same customer account, the same payment method, and/or orders that use the same billing or shipping address. We reserve the right to limit or prohibit orders that, in our sole judgement, appear to be placed by dealers, resellers, or distributors.</p>
+        </div>
+
+        <!-- ── 6. RETURN POLICY ── -->
+        <div class="policy-block" id="s6">
+          <h2>6. Return policy</h2>
+          <p>Please review our Return Policy prior to making any purchases: <a href="refund-policy.html">https://www.onecarbon.com/refund-policy.html</a></p>
+        </div>
+
+        <!-- ── 7. PROHIBITED ACTIVITIES ── -->
+        <div class="policy-block" id="s7">
+          <h2>7. Prohibited activities</h2>
+          <p>You may not access or use the Services for any purpose other than that for which we make the Services available. The Services may not be used in connection with any commercial endeavours except those that are specifically endorsed or approved by us.</p>
+          <p>As a user of the Services, you agree not to:</p>
+          <ul>
+            <li>Systematically retrieve data or other content from the Services to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us.</li>
+            <li>Trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive account information such as user passwords.</li>
+            <li>Circumvent, disable, or otherwise interfere with security-related features of the Services, including features that prevent or restrict the use or copying of any Content or enforce limitations on the use of the Services and/or the Content contained therein.</li>
+            <li>Disparage, tarnish, or otherwise harm, in our opinion, us and/or the Services.</li>
+            <li>Use any information obtained from the Services in order to harass, abuse, or harm another person.</li>
+            <li>Make improper use of our support services or submit false reports of abuse or misconduct.</li>
+            <li>Use the Services in a manner inconsistent with any applicable laws or regulations.</li>
+            <li>Engage in unauthorised framing of or linking to the Services.</li>
+            <li>Upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other material, including excessive use of capital letters and spamming (continuous posting of repetitive text), that interferes with any party's uninterrupted use and enjoyment of the Services or modifies, impairs, disrupts, alters, or interferes with the use, features, functions, operation, or maintenance of the Services.</li>
+            <li>Engage in any automated use of the system, such as using scripts to send comments or messages, or using any data mining, robots, or similar data gathering and extraction tools.</li>
+            <li>Delete the copyright or other proprietary rights notice from any Content.</li>
+            <li>Attempt to impersonate another user or person or use the username of another user.</li>
+            <li>Upload or transmit (or attempt to upload or to transmit) any material that acts as a passive or active information collection or transmission mechanism, including without limitation, clear graphics interchange formats ('gifs'), 1x1 pixels, web bugs, cookies, or other similar devices (sometimes referred to as 'spyware' or 'passive collection mechanisms' or 'pcms').</li>
+            <li>Interfere with, disrupt, or create an undue burden on the Services or the networks or services connected to the Services.</li>
+            <li>Harass, annoy, intimidate, or threaten any of our employees or agents engaged in providing any portion of the Services to you.</li>
+            <li>Attempt to bypass any measures of the Services designed to prevent or restrict access to the Services, or any portion of the Services.</li>
+            <li>Copy or adapt the Services' software, including but not limited to Flash, PHP, HTML, JavaScript, or other code.</li>
+            <li>Except as permitted by applicable law, decipher, decompile, disassemble, or reverse engineer any of the software comprising or in any way making up a part of the Services.</li>
+            <li>Except as may be the result of standard search engine or Internet browser usage, use, launch, develop, or distribute any automated system, including without limitation, any spider, robot, cheat utility, scraper, or offline reader that accesses the Services, or use or launch any unauthorised script or other software.</li>
+            <li>Use a buying agent or purchasing agent to make purchases on the Services.</li>
+            <li>Make any unauthorised use of the Services, including collecting usernames and/or email addresses of users by electronic or other means for the purpose of sending unsolicited email, or creating user accounts by automated means or under false pretences.</li>
+            <li>Use the Services as part of any effort to compete with us or otherwise use the Services and/or the Content for any revenue-generating endeavour or commercial enterprise.</li>
+            <li>Microbial propagation and cultivation of any organism derived from our products.</li>
+            <li>IP misuse, including reverse engineering of our proprietary formulations or filing intellectual property claims derived from our products.</li>
+          </ul>
+        </div>
+
+        <!-- ── 8. USER GENERATED CONTRIBUTIONS ── -->
+        <div class="policy-block" id="s8">
+          <h2>8. User generated contributions</h2>
+          <p>The Services does not offer users to submit or post content. We may provide you with the opportunity to create, submit, post, display, transmit, perform, publish, distribute, or broadcast content and materials to us or on the Services, including but not limited to text, writings, video, audio, photographs, graphics, comments, suggestions, or personal information or other material (collectively, 'Contributions'). Contributions may be viewable by other users of the Services and through third-party websites. As such, any Contributions you transmit may be treated in accordance with the Services' Privacy Policy. When you create or make available any Contributions, you thereby represent and warrant that:</p>
+          <ul>
+            <li>The creation, distribution, transmission, public display, or performance, and the accessing, downloading, or copying of your Contributions do not and will not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, or moral rights of any third party.</li>
+            <li>You are the creator and owner of or have the necessary licences, rights, consents, releases, and permissions to use and to authorise us, the Services, and other users of the Services to use your Contributions in any manner contemplated by the Services and these Legal Terms.</li>
+            <li>You have the written consent, release, and/or permission of each and every identifiable individual person in your Contributions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of your Contributions in any manner contemplated by the Services and these Legal Terms.</li>
+            <li>Your Contributions are not false, inaccurate, or misleading.</li>
+            <li>Your Contributions are not unsolicited or unauthorised advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation.</li>
+            <li>Your Contributions are not obscene, lewd, lascivious, filthy, violent, harassing, libellous, slanderous, or otherwise objectionable (as determined by us).</li>
+            <li>Your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone.</li>
+            <li>Your Contributions are not used to harass or threaten (in the legal sense of those terms) any other person and to promote violence against a specific person or class of people.</li>
+            <li>Your Contributions do not violate any applicable law, regulation, or rule.</li>
+            <li>Your Contributions do not violate the privacy or publicity rights of any third party.</li>
+            <li>Your Contributions do not violate any applicable law concerning child pornography, or otherwise intended to protect the health or well-being of minors.</li>
+            <li>Your Contributions do not include any offensive comments that are connected to race, national origin, gender, sexual preference, or physical handicap.</li>
+            <li>Your Contributions do not otherwise violate, or link to material that violates, any provision of these Legal Terms, or any applicable law or regulation.</li>
+          </ul>
+          <p>Any use of the Services in violation of the foregoing violates these Legal Terms and may result in, among other things, termination or suspension of your rights to use the Services.</p>
+        </div>
+
+        <!-- ── 9. CONTRIBUTION LICENCE ── -->
+        <div class="policy-block" id="s9">
+          <h2>9. Contribution licence</h2>
+          <p>You and Services agree that we may access, store, process, and use any information and personal data that you provide following the terms of the Privacy Policy and your choices (including settings).</p>
+          <p>By submitting suggestions or other feedback regarding the Services, you agree that we can use and share such feedback for any purpose without compensation to you.</p>
+          <p>We do not assert any ownership over your Contributions. You retain full ownership of all of your Contributions and any intellectual property rights or other proprietary rights associated with your Contributions. We are not liable for any statements or representations in your Contributions provided by you in any area on the Services. You are solely responsible for your Contributions to the Services and you expressly agree to exonerate us from any and all responsibility and to refrain from any legal action against us regarding your Contributions.</p>
+        </div>
+
+        <!-- ── 10. THIRD-PARTY WEBSITES ── -->
+        <div class="policy-block" id="s10">
+          <h2>10. Third-party websites and content</h2>
+          <p>The Services may contain (or you may be sent via the Site) links to other websites ('Third-Party Websites') as well as articles, photographs, text, graphics, pictures, designs, music, sound, video, information, applications, software, and other content or items belonging to or originating from third parties ('Third-Party Content'). Such Third-Party Websites and Third-Party Content are not investigated, monitored, or checked for accuracy, appropriateness, or completeness by us, and we are not responsible for any Third-Party Websites accessed through the Services or any Third-Party Content posted on, available through, or installed from the Services, including the content, accuracy, offensiveness, opinions, reliability, privacy practices, or other policies of or contained in the Third-Party Websites or the Third-Party Content. Inclusion of, linking to, or permitting the use or installation of any Third-Party Websites or any Third-Party Content does not imply approval or endorsement thereof by us. If you decide to leave the Services and access the Third-Party Websites or to use or install any Third-Party Content, you do so at your own risk, and you should be aware these Legal Terms no longer govern. You should review the applicable terms and policies, including privacy and data gathering practices, of any website to which you navigate from the Services or relating to any applications you use or install from the Services. Any purchases you make through Third-Party Websites will be through other websites and from other companies, and we take no responsibility whatsoever in relation to such purchases which are exclusively between you and the applicable third party. You agree and acknowledge that we do not endorse the products or services offered on Third-Party Websites and you shall hold us blameless from any harm caused by your purchase of such products or services. Additionally, you shall hold us blameless from any losses sustained by you or harm caused to you relating to or resulting in any way from any Third-Party Content or any contact with Third-Party Websites.</p>
+        </div>
+
+        <!-- ── 11. SERVICES MANAGEMENT ── -->
+        <div class="policy-block" id="s11">
+          <h2>11. Services management</h2>
+          <p>We reserve the right, but not the obligation, to: (1) monitor the Services for violations of these Legal Terms; (2) take appropriate legal action against anyone who, in our sole discretion, violates the law or these Legal Terms, including without limitation, reporting such user to law enforcement authorities; (3) in our sole discretion and without limitation, refuse, restrict access to, limit the availability of, or disable (to the extent technologically feasible) any of your Contributions or any portion thereof; (4) in our sole discretion and without limitation, notice, or liability, to remove from the Services or otherwise disable all files and content that are excessive in size or are in any way burdensome to our systems; and (5) otherwise manage the Services in a manner designed to protect our rights and property and to facilitate the proper functioning of the Services.</p>
+        </div>
+
+        <!-- ── 12. PRIVACY POLICY ── -->
+        <div class="policy-block" id="s12">
+          <h2>12. Privacy policy</h2>
+          <p>We care about data privacy and security. Please review our Privacy Policy: <a href="privacy.html">http://www.onecarbon.com/privacy.html</a>. By using the Services, you agree to be bound by our Privacy Policy, which is incorporated into these Legal Terms. Please be advised the Services are hosted in the United Kingdom. If you access the Services from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United Kingdom, then through your continued use of the Services, you are transferring your data to the United Kingdom, and you expressly consent to have your data transferred to and processed in the United Kingdom.</p>
+        </div>
+
+        <!-- ── 13. TERM AND TERMINATION ── -->
+        <div class="policy-block" id="s13">
+          <h2>13. Term and termination</h2>
+          <p>These Legal Terms shall remain in full force and effect while you use the Services. WITHOUT LIMITING ANY OTHER PROVISION OF THESE LEGAL TERMS, WE RESERVE THE RIGHT TO, IN OUR SOLE DISCRETION AND WITHOUT NOTICE OR LIABILITY, DENY ACCESS TO AND USE OF THE SERVICES (INCLUDING BLOCKING CERTAIN IP ADDRESSES), TO ANY PERSON FOR ANY REASON OR FOR NO REASON, INCLUDING WITHOUT LIMITATION FOR BREACH OF ANY REPRESENTATION, WARRANTY, OR COVENANT CONTAINED IN THESE LEGAL TERMS OR OF ANY APPLICABLE LAW OR REGULATION. WE MAY TERMINATE YOUR USE OR PARTICIPATION IN THE SERVICES OR DELETE ANY CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN OUR SOLE DISCRETION.</p>
+          <p>If we terminate or suspend your account for any reason, you are prohibited from registering and creating a new account under your name, a fake or borrowed name, or the name of any third party, even if you may be acting on behalf of the third party. In addition to terminating or suspending your account, we reserve the right to take appropriate legal action, including without limitation pursuing civil, criminal, and injunctive redress.</p>
+        </div>
+
+        <!-- ── 14. MODIFICATIONS AND INTERRUPTIONS ── -->
+        <div class="policy-block" id="s14">
+          <h2>14. Modifications and interruptions</h2>
+          <p>We reserve the right to change, modify, or remove the contents of the Services at any time or for any reason at our sole discretion without notice. However, we have no obligation to update any information on our Services. We also reserve the right to modify or discontinue all or part of the Services without notice at any time. We will not be liable to you or any third party for any modification, price change, suspension, or discontinuance of the Services.</p>
+          <p>We cannot guarantee the Services will be available at all times. We may experience hardware, software, or other problems or need to perform maintenance related to the Services, resulting in interruptions, delays, or errors. We reserve the right to change, revise, update, suspend, discontinue, or otherwise modify the Services at any time or for any reason without notice to you. You agree that we have no liability whatsoever for any loss, damage, or inconvenience caused by your inability to access or use the Services during any downtime or discontinuance of the Services. Nothing in these Legal Terms will be construed to obligate us to maintain and support the Services or to supply any corrections, updates, or releases in connection therewith.</p>
+        </div>
+
+        <!-- ── 15. GOVERNING LAW ── -->
+        <div class="policy-block" id="s15">
+          <h2>15. Governing law</h2>
+          <p>These Legal Terms are governed by and interpreted following the laws of England and Wales, and the use of the United Nations Convention of Contracts for the International Sales of Goods is expressly excluded. If your habitual residence is in the EU, and you are a consumer, you additionally possess the protection provided to you by obligatory provisions of the law in your country of residence. Healthspan Biotics Limited and yourself both agree to submit to the non-exclusive jurisdiction of the courts of Cambridgeshire, which means that you may make a claim to defend your consumer protection rights in regards to these Legal Terms in England, or in the EU country in which you reside.</p>
+        </div>
+
+        <!-- ── 16. DISPUTE RESOLUTION ── -->
+        <div class="policy-block" id="s16">
+          <h2>16. Dispute resolution</h2>
+          <p>The European Commission provides information on consumer redress, including a list of dispute resolution bodies by country, which you can access at <a href="https://consumer-redress.ec.europa.eu/index_en" target="_blank" rel="noopener">https://consumer-redress.ec.europa.eu/index_en</a>. If you would like to bring this subject to our attention, please contact us.</p>
+        </div>
+
+        <!-- ── 17. CORRECTIONS ── -->
+        <div class="policy-block" id="s17">
+          <h2>17. Corrections</h2>
+          <p>There may be information on the Services that contains typographical errors, inaccuracies, or omissions, including descriptions, pricing, availability, and various other information. We reserve the right to correct any errors, inaccuracies, or omissions and to change or update the information on the Services at any time, without prior notice.</p>
+        </div>
+
+        <!-- ── 18. DISCLAIMER ── -->
+        <div class="policy-block" id="s18">
+          <h2>18. Disclaimer</h2>
+          <p class="policy-uppercase">THE SERVICES ARE PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. YOU AGREE THAT YOUR USE OF THE SERVICES WILL BE AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH THE SERVICES AND YOUR USE THEREOF, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE MAKE NO WARRANTIES OR REPRESENTATIONS ABOUT THE ACCURACY OR COMPLETENESS OF THE SERVICES' CONTENT OR THE CONTENT OF ANY WEBSITES OR MOBILE APPLICATIONS LINKED TO THE SERVICES AND WE WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF THE SERVICES, (3) ANY UNAUTHORISED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SERVICES, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR THROUGH THE SERVICES BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE SERVICES, ANY HYPERLINKED WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR BEST JUDGEMENT AND EXERCISE CAUTION WHERE APPROPRIATE.</p>
+        </div>
+
+        <!-- ── 19. LIMITATIONS OF LIABILITY ── -->
+        <div class="policy-block" id="s19">
+          <h2>19. Limitations of liability</h2>
+          <p class="policy-uppercase">IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SERVICES, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER AND REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US. CERTAIN US STATE LAWS AND INTERNATIONAL LAWS DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE LAWS APPLY TO YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS OR LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.</p>
+        </div>
+
+        <!-- ── 20. INDEMNIFICATION ── -->
+        <div class="policy-block" id="s20">
+          <h2>20. Indemnification</h2>
+          <p>You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and all of our respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys' fees and expenses, made by any third party due to or arising out of: (1) use of the Services; (2) breach of these Legal Terms; (3) any breach of your representations and warranties set forth in these Legal Terms; (4) your violation of the rights of a third party, including but not limited to intellectual property rights; or (5) any overt harmful act toward any other user of the Services with whom you connected via the Services. Notwithstanding the foregoing, we reserve the right, at your expense, to assume the exclusive defence and control of any matter for which you are required to indemnify us, and you agree to cooperate, at your expense, with our defence of such claims. We will use reasonable efforts to notify you of any such claim, action, or proceeding which is subject to this indemnification upon becoming aware of it.</p>
+        </div>
+
+        <!-- ── 21. USER DATA ── -->
+        <div class="policy-block" id="s21">
+          <h2>21. User data</h2>
+          <p>We will maintain certain data that you transmit to the Services for the purpose of managing the performance of the Services, as well as data relating to your use of the Services. Although we perform regular routine backups of data, you are solely responsible for all data that you transmit or that relates to any activity you have undertaken using the Services. You agree that we shall have no liability to you for any loss or corruption of any such data, and you hereby waive any right of action against us arising from any such loss or corruption of such data.</p>
+        </div>
+
+        <!-- ── 22. ELECTRONIC COMMUNICATIONS ── -->
+        <div class="policy-block" id="s22">
+          <h2>22. Electronic communications, transactions, and signatures</h2>
+          <p>Visiting the Services, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications, and you agree that all agreements, notices, disclosures, and other communications we provide to you electronically, via email and on the Services, satisfy any legal requirement that such communication be in writing. YOU HEREBY AGREE TO THE USE OF ELECTRONIC SIGNATURES, CONTRACTS, ORDERS, AND OTHER RECORDS, AND TO ELECTRONIC DELIVERY OF NOTICES, POLICIES, AND RECORDS OF TRANSACTIONS INITIATED OR COMPLETED BY US OR VIA THE SERVICES. You hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or other laws in any jurisdiction which require an original signature or delivery or retention of non-electronic records, or to payments or the granting of credits by any means other than electronic means.</p>
+        </div>
+
+        <!-- ── 23. MISCELLANEOUS ── -->
+        <div class="policy-block" id="s23">
+          <h2>23. Miscellaneous</h2>
+          <p>These Legal Terms and any policies or operating rules posted by us on the Services or in respect to the Services constitute the entire agreement and understanding between you and us. Our failure to exercise or enforce any right or provision of these Legal Terms shall not operate as a waiver of such right or provision. These Legal Terms operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control. If any provision or part of a provision of these Legal Terms is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Legal Terms and does not affect the validity and enforceability of any remaining provisions. There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Legal Terms or use of the Services. You agree that these Legal Terms will not be construed against us by virtue of having drafted them. You hereby waive any and all defences you may have based on the electronic form of these Legal Terms and the lack of signing by the parties hereto to execute these Legal Terms.</p>
+        </div>
+
+        <!-- ── 24. CONTACT US ── -->
+        <div class="policy-block" id="s24">
+          <h2>24. Contact us</h2>
+          <p>In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:</p>
+          <address class="policy-address">
+            Healthspan Biotics Limited<br>
+            Unit 5 Avenue Business Park<br>
+            Elsworth, Cambridgeshire CB23 4EY<br>
+            England<br>
+            <br>
+            <a href="mailto:team@onecarbon.com">team@onecarbon.com</a>
+          </address>
+          <p style="margin-top:40px;font-size:13px;color:var(--text-faint);">Last updated – April 16, 2026.</p>
+        </div>
+
+      </div><!-- /.policy-main -->
+    </div><!-- /.policy-wrapper -->
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-logo">One<span>Carbon</span>&nbsp;Technologies</div>
+    <nav class="footer-links">
+      <a href="research.html">Research</a>
+      <a href="profile.html">PROFILE</a>
+      <a href="team.html">Team</a>
+      <a href="purchase.html">Products</a>
+      <a href="contact.html">Contact</a>
+      <a href="refund-policy.html">Refund Policy</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-company">
+        <p>One Carbon is a trading name of Healthspan Biotics Ltd</p>
+        <p>Registered in England and Wales | Company No. 15224752</p>
+        <p>Registered Office: Unit 5 Avenue Business Park, Brockley Road, Elsworth, Cambridgeshire, United Kingdom, CB23 4EY</p>
+      </div>
+      <nav class="footer-legal">
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="cookie.html">Cookie Policy</a>
+      </nav>
+      <p class="footer-copy">© 2025 One Carbon Technologies. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Highlight active TOC link as user scrolls
+    const sections = document.querySelectorAll('.policy-block');
+    const tocLinks = document.querySelectorAll('.policy-toc a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.policy-toc a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-10% 0px -80% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
