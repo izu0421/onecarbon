@@ -8,6 +8,177 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .policy-section {
+      max-width: 1100px;
+      padding: 80px 60px 120px;
+    }
+    .policy-header {
+      max-width: 680px;
+      padding-bottom: 40px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-meta {
+      font-size: 13px;
+      color: var(--text-faint);
+      margin-top: 16px;
+      margin-bottom: 0;
+    }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .policy-wrapper {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
+    .policy-sidebar {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+    }
+    .toc-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+    .policy-toc {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .policy-toc li { margin-bottom: 2px; }
+    .policy-toc a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      border-left: 2px solid transparent;
+      line-height: 1.4;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .policy-toc a:hover {
+      color: var(--accent);
+      background: rgba(69,107,183,0.06);
+    }
+    .policy-toc a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(69,107,183,0.07);
+      font-weight: 600;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .policy-main { flex: 1; min-width: 0; }
+    .policy-intro {
+      margin-bottom: 8px;
+    }
+    .policy-intro p {
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .policy-block {
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .policy-block h2 {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      margin-bottom: 20px;
+    }
+    .policy-block h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 10px;
+    }
+    .policy-block p {
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+    .policy-block ul {
+      margin: 8px 0 20px 22px;
+      line-height: 2;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .policy-block a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .policy-callout {
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 20px 0 28px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .policy-callout p { margin-bottom: 12px; }
+    .policy-callout p:last-child { margin-bottom: 0; }
+    .policy-address {
+      margin: 12px 0 20px 22px;
+      line-height: 2;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-style: normal;
+    }
+
+    /* ── COOKIE TABLE ── */
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 0.9rem;
+    }
+    .cookie-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .cookie-table td {
+      padding: 12px 14px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .cookie-table tr:last-child td { border-bottom: none; }
+    .cookie-table td:first-child {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .policy-sidebar { display: none; }
+      .policy-wrapper { display: block; }
+    }
+    @media (max-width: 860px) {
+      .policy-section { padding-left: 40px; padding-right: 40px; }
+      .cookie-table { display: block; overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      .policy-section { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -24,11 +195,216 @@
     </ul>
   </nav>
 
-  <section class="contact-section">
-    <div class="eyebrow">Legal</div>
-    <h1>Cookie <em>Policy</em></h1>
-    <p style="font-size:13px;color:var(--text-faint);margin-top:-8px;margin-bottom:32px;">Last updated: April 2026</p>
-    <p>This page is being updated. Please check back soon or contact us at <a href="mailto:team@onecarbon.com" style="color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px;">team@onecarbon.com</a> if you have any questions.</p>
+  <!-- ── POLICY CONTENT ── -->
+  <section class="policy-section">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="policy-header">
+      <div class="eyebrow">Legal</div>
+      <h1>Cookie <em>Policy</em></h1>
+      <p class="policy-meta">Registered name: Healthspan Biotics Limited</p>
+    </div>
+
+    <!-- ── TWO-COLUMN WRAPPER ── -->
+    <div class="policy-wrapper">
+
+      <!-- ── SIDEBAR TOC ── -->
+      <aside class="policy-sidebar">
+        <p class="toc-label">Contents</p>
+        <ul class="policy-toc">
+          <li><a href="#what-are-cookies">What are cookies?</a></li>
+          <li><a href="#how-we-use">How we use cookies</a></li>
+          <li><a href="#cookies-we-use">Cookies we use</a></li>
+          <li><a href="#third-party">Third-party cookies</a></li>
+          <li><a href="#managing-cookies">Managing your cookies</a></li>
+          <li><a href="#changes">Changes to this policy</a></li>
+          <li><a href="#contact">Contact us</a></li>
+        </ul>
+      </aside>
+
+      <!-- ── MAIN CONTENT ── -->
+      <div class="policy-main">
+
+        <!-- ── INTRO ── -->
+        <div class="policy-intro">
+          <p>This Cookie Policy explains how One Carbon Technologies (a trading name of Healthspan Biotics Limited) uses cookies and similar technologies when you visit <strong>onecarbon.com</strong>. It should be read alongside our <a href="privacy.html">Privacy Policy</a>.</p>
+          <p>By continuing to use our website you agree to our use of cookies as described in this policy. You can withdraw or change your preferences at any time — see <a href="#managing-cookies">Managing your cookies</a> below.</p>
+        </div>
+
+        <!-- ── SECTION 1: WHAT ARE COOKIES ── -->
+        <div class="policy-block" id="what-are-cookies">
+          <h2>What are cookies?</h2>
+          <p>Cookies are small text files that a website stores on your device (computer, tablet, or mobile) when you visit. They allow the website to remember information about your visit — such as items in your cart or your preferred language — and can make your next visit easier and the site more useful to you.</p>
+          <p>Similar technologies include web beacons, pixel tags, and local storage. For simplicity we refer to all of these collectively as "cookies" in this policy.</p>
+          <p>Cookies are set either by us (<strong>first-party cookies</strong>) or by third parties whose services we use on our pages (<strong>third-party cookies</strong>).</p>
+        </div>
+
+        <!-- ── SECTION 2: HOW WE USE ── -->
+        <div class="policy-block" id="how-we-use">
+          <h2>How we use cookies</h2>
+          <p>We use cookies to:</p>
+          <ul>
+            <li>Keep our website secure and functioning correctly</li>
+            <li>Process payments safely and prevent fraud</li>
+            <li>Remember your cookie preference</li>
+            <li>Understand how visitors use our site so we can improve it</li>
+          </ul>
+
+          <div class="policy-callout">
+            <p><strong>Strictly necessary cookies</strong> do not require your consent under PECR and UK GDPR because they are essential for the website to function. All other cookie categories require your consent before we set them.</p>
+          </div>
+        </div>
+
+        <!-- ── SECTION 3: COOKIES WE USE ── -->
+        <div class="policy-block" id="cookies-we-use">
+          <h2>Cookies we use</h2>
+
+          <h3>Strictly necessary cookies</h3>
+          <p>These cookies are required for the website to operate and cannot be switched off. They are set in response to actions you take, such as saving your cookie preference. They do not store any personally identifiable information.</p>
+
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie name</th>
+                <th>Provider</th>
+                <th>Purpose</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>cookie_consent</td>
+                <td>onecarbon.com</td>
+                <td>Stores your cookie preference so you are not asked again</td>
+                <td>12 months</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Functional cookies</h3>
+          <p>These cookies enable enhanced functionality. They are set by third-party services embedded on our pages. If you disable these cookies, some features may not work as intended.</p>
+
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie name</th>
+                <th>Provider</th>
+                <th>Purpose</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>YSC</td>
+                <td>YouTube (Google)</td>
+                <td>Registers a unique ID to track statistics of videos watched on our Research page</td>
+                <td>Session</td>
+              </tr>
+              <tr>
+                <td>VISITOR_INFO1_LIVE</td>
+                <td>YouTube (Google)</td>
+                <td>Estimates user bandwidth on pages with embedded YouTube video</td>
+                <td>6 months</td>
+              </tr>
+              <tr>
+                <td>GPS</td>
+                <td>YouTube (Google)</td>
+                <td>Registers a unique ID on mobile devices to enable tracking based on geographical GPS location</td>
+                <td>30 minutes</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>These cookies are set automatically when the YouTube video on our <a href="research.html">Research page</a> loads. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for details.</p>
+
+          <h3>Analytics cookies</h3>
+          <p>We do not currently use any analytics or tracking cookies. Should we introduce analytics in the future, this policy will be updated and your consent will be sought before any such cookies are set.</p>
+
+          <h3>Marketing cookies</h3>
+          <p>We do not currently set any marketing or advertising cookies on this website.</p>
+        </div>
+
+        <!-- ── SECTION 4: THIRD-PARTY ── -->
+        <div class="policy-block" id="third-party">
+          <h2>Third-party cookies</h2>
+          <p>Some pages on our website use services provided by third parties that may set their own cookies. We do not control these cookies and they are governed by the respective third party's privacy and cookie policies.</p>
+
+          <h3>Stripe</h3>
+          <p>Our "Buy now" buttons link to <strong>buy.stripe.com</strong>, which is hosted by Stripe Payments Europe Limited. Stripe may set cookies on their own domain when you complete a purchase. These cookies are set by Stripe, not by us, and are governed by <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener">Stripe's Privacy Policy</a>. No Stripe cookies are set on onecarbon.com.</p>
+
+          <h3>Formsubmit.co</h3>
+          <p>Our contact and PROFILE sign-up forms submit via <strong>formsubmit.co</strong>, a third-party form delivery service. Upon first submission, formsubmit.co may set a short-lived session cookie on their domain to handle spam protection and form activation. No persistent cookies from this service are set on onecarbon.com.</p>
+
+          <h3>Google Fonts</h3>
+          <p>We load fonts from Google Fonts to render text on our website. Google may receive your IP address and browser information when your device downloads the fonts, but does not typically set persistent cookies in this context. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for details.</p>
+
+          <h3>Font Awesome</h3>
+          <p>We use Font Awesome (via Cloudflare CDN) for icons on this website. No cookies are set by Font Awesome in this usage.</p>
+        </div>
+
+        <!-- ── SECTION 5: MANAGING COOKIES ── -->
+        <div class="policy-block" id="managing-cookies">
+          <h2>Managing your cookies</h2>
+          <p>You have the right to decide whether to accept or reject non-essential cookies. You can exercise your cookie preferences at any time using the following methods:</p>
+
+          <h3>Browser settings</h3>
+          <p>Most web browsers allow you to manage cookies through their settings. You can typically find these settings in the "Options", "Preferences", or "Settings" menu of your browser. Instructions for common browsers:</p>
+          <ul>
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li>
+            <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+          </ul>
+          <p>Please note that disabling cookies may affect your ability to use certain features of our website, including the checkout process.</p>
+
+          <h3>Opt-out tools</h3>
+          <p>You can opt out of Google / YouTube's use of cookies by visiting <a href="https://myaccount.google.com/data-and-privacy" target="_blank" rel="noopener">Google's data and privacy settings</a>, or by using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out browser add-on</a>.</p>
+
+          <div class="policy-callout">
+            <p><strong>Strictly necessary cookies</strong> cannot be disabled without affecting the functionality of the website. We set these cookies on the basis of our legitimate interests in providing a secure, functional service.</p>
+          </div>
+        </div>
+
+        <!-- ── SECTION 6: CHANGES ── -->
+        <div class="policy-block" id="changes">
+          <h2>Changes to this policy</h2>
+          <p>We may update this Cookie Policy from time to time to reflect changes in technology, regulation, or our business practices. Any changes will be posted on this page with an updated "last reviewed" date. Where material changes are made, we will notify you by a prominent notice on our website or, where appropriate, by email.</p>
+          <p>We encourage you to review this policy periodically to stay informed about how we use cookies.</p>
+        </div>
+
+        <!-- ── SECTION 7: CONTACT ── -->
+        <div class="policy-block" id="contact">
+          <h2>Contact us</h2>
+          <p>If you have any questions about this Cookie Policy or how we handle your data more broadly, please contact us:</p>
+
+          <h3>Email</h3>
+          <p><a href="mailto:team@onecarbon.com">team@onecarbon.com</a></p>
+
+          <h3>Address</h3>
+          <address class="policy-address">
+            Healthspan Biotics Limited<br>
+            Unit 5 Avenue Business Park<br>
+            Brockley Road<br>
+            Elsworth<br>
+            Cambridgeshire<br>
+            CB23 4EY
+          </address>
+
+          <p>If you are not satisfied with our response, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):</p>
+          <address class="policy-address">
+            Information Commissioner's Office<br>
+            Wycliffe House, Water Lane<br>
+            Wilmslow, Cheshire<br>
+            SK9 5AF<br>
+            <br>
+            Helpline: 0303 123 1113<br>
+            Website: <a href="https://www.ico.org.uk/make-a-complaint" target="_blank" rel="noopener">ico.org.uk/make-a-complaint</a>
+          </address>
+
+          <p style="margin-top:40px;font-size:13px;color:var(--text-faint);">Last updated – April 16, 2026.</p>
+        </div>
+
+      </div><!-- /.policy-main -->
+    </div><!-- /.policy-wrapper -->
   </section>
 
   <!-- ── FOOTER ── -->
@@ -61,5 +437,20 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Highlight active TOC link as user scrolls
+    const sections = document.querySelectorAll('.policy-block');
+    const tocLinks = document.querySelectorAll('.policy-toc a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.policy-toc a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-10% 0px -80% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
 </body>
 </html>
