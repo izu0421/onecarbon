@@ -126,7 +126,7 @@ Full URLs: `https://buy.stripe.com/<suffix>`
 | Dr Yizhou Yu | Co-Founder |
 | Suleyman Noordeen | Medical Lead |
 | Laura Galbraith | Co-Founder |
-| Jake McMillan | Co-Founder |
+|  McMillan | Co-Founder |
 | Dr Simon Galbraith | Chair |
 
 ---
@@ -147,7 +147,6 @@ Full URLs: `https://buy.stripe.com/<suffix>`
 - Hero video: `ocean4_small.mp4` on R2
 - All file edits via Edit tool (not sed/bash)
 - Naming: **1C-01**, **PROFILE**, **Phase I**, **One Carbon Technologies**
-- Jake's title: **Co-Founder**
 
 ---
 
