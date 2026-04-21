@@ -299,7 +299,7 @@ p {
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 560px;
+  min-height: max(560px, calc(100vh - 175px));
   align-items: stretch;
   width: 100%;
 }

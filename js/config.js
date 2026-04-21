@@ -23,5 +23,5 @@ export const NEURON_CONFIG = {
   colorOuter:   "#456BB7",   // dendrites
   colorMid:     "#2f4f8f",   // axon
   colorInner:   "#a8ccf8",   // terminals
-  colorNucleus: "#456BB7"    // nucleus
+  colorNucleus: "#ff6600"    // nucleus
 };

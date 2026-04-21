@@ -23,6 +23,7 @@
       position: sticky; top: 0;
       width: 100%; height: 100vh;
       z-index: 1; pointer-events: none;
+      opacity: 0;
       transition: opacity 0.1s ease;
     }
     #neuron-canvas { width: 100%; height: 100%; display: block; }
@@ -174,7 +175,6 @@
   <!-- ── STORY HERO ── -->
   <section class="story-hero">
     <div class="story-hero-inner">
-      <div class="eyebrow">Our story</div>
       <h1>A decade of work, <em>traced along a single signal.</em></h1>
       <p>We started with a question no one could answer cleanly — and followed it, year by year, through labs, failures, and one very stubborn idea. Scroll to travel the length of it.</p>
     </div>
@@ -256,7 +256,6 @@
 
   <!-- ── TEAM ── -->
   <div class="story-team-label">
-    <div class="eyebrow">The team</div>
     <h2>The people <em>behind the work</em></h2>
   </div>
 
@@ -310,6 +309,17 @@
   </section>
 
   <!-- ── FOOTER ── -->
+  <!-- ── RECOGNISED BY ── -->
+  <section class="recognised-by-section">
+    <span class="recognised-by-label">Recognised by:</span>
+    <div class="recognised-by-logos">
+      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+      <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+      <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
@@ -352,7 +362,7 @@
     "colorOuter": "#456BB7",
     "colorMid": "#2f4f8f",
     "colorInner": "#a8ccf8",
-    "colorNucleus": "#456BB7"
+    "colorNucleus": "#ff6600"
   };
   </script>
 
