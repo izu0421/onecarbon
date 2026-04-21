@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products — One Carbon Technologies</title>
+  <title>Products — OneCarbon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,12 +29,13 @@
 
   <!-- ── NAVIGATION ── -->
   <nav class="site-nav">
-    <a href="index.html" class="nav-logo">One<span>Carbon</span>&nbsp;Technologies</a>
+    <a href="index.html" class="nav-logo">One<span>Carbon</span></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="our_story.html">Our Story</a></li>
       <li><a href="research.html">Research</a></li>
       <li><a href="profile.html">PROFILE</a></li>
-      <li><a href="team.html">Team</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
@@ -47,16 +48,22 @@
     </div>
     <div class="pills-card pills-card--featured" style="flex:1;text-align:left;">
       <div class="eyebrow">Our product</div>
-      <h1 style="font-size:1.6rem;margin:0;color:var(--text);">1C-01 +<br>Biomarker <em>Testing</em></h1>
+      <h1 style="font-size:1.6rem;margin:0;color:var(--text);">1C-01 +<br>Microbiome <em>Testing</em></h1>
       <p style="color:var(--text-muted);font-size:14px;line-height:1.7;">
         Receive a three-month supply of 1C-01 probiotic capsules and an <em>at-home</em> blood and stool
         testing kit. We will send you a personalised microbiome report,
         as well as a nutritional report gathered from your blood plasma.
         Your feedback will be sent to you via email.
       </p>
-      <div class="product-price" id="price-bundle">£999</div>
+      <div class="product-price" id="price-bundle">£479</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:4px 0 16px;line-height:1.5;">
+        Be in the first 100 to sign up and join our early adopters group,<br>paying only <strong id="price-early">£99</strong>.
+      </p>
       <div class="btn-row">
+        <!-- PAYMENT LINK — update href when ready:
         <a href="https://buy.stripe.com/dRmbIT42y1GD0kA9KD8N203" class="btn btn-accent" target="_blank">Buy now</a>
+        -->
+        <span class="btn btn-accent" style="opacity:0.55;cursor:default;">Coming soon</span>
         <a href="research.html" class="btn-ghost">How it works ↗</a>
       </div>
     </div>
@@ -125,7 +132,7 @@
 
   <!-- ── FOOTER ── -->
   <footer class="site-footer">
-    <div class="footer-logo">One<span>Carbon</span>&nbsp;Technologies</div>
+    <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
       <a href="research.html">Research</a>
       <a href="profile.html">PROFILE</a>
@@ -148,7 +155,7 @@
         <a href="privacy.html">Privacy Policy</a>
         <a href="cookie.html">Cookie Policy</a>
       </nav>
-      <p class="footer-copy">© 2025 One Carbon Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2025 OneCarbon. All rights reserved.</p>
     </div>
   </footer>
 
@@ -156,15 +163,16 @@
   <script>
     (function () {
       var prices = {
-        GBP: { s: '£', bundle: 999,  p30: 60,   p120: 180,  p360: 360,  pp30: '2.00', pp120: '1.50', pp360: '1.00' },
-        USD: { s: '$', bundle: 1260, p30: 76,   p120: 250,  p360: 630,  pp30: '2.53', pp120: '2.08', pp360: '1.75' },
-        EUR: { s: '€', bundle: 1160, p30: 70,   p120: 230,  p360: 580,  pp30: '2.33', pp120: '1.92', pp360: '1.61' },
-        AUD: { s: 'A$', bundle: 1920, p30: 116, p120: 380,  p360: 960,  pp30: '3.87', pp120: '3.17', pp360: '2.67' },
-        CAD: { s: 'C$', bundle: 1720, p30: 104, p120: 340,  p360: 860,  pp30: '3.47', pp120: '2.83', pp360: '2.39' },
+        GBP: { s: '£',  bundle: 479,  early: 99,  p30: 60,   p120: 180,  p360: 360,  pp30: '2.00', pp120: '1.50', pp360: '1.00' },
+        USD: { s: '$',  bundle: 605,  early: 125, p30: 76,   p120: 250,  p360: 630,  pp30: '2.53', pp120: '2.08', pp360: '1.75' },
+        EUR: { s: '€',  bundle: 555,  early: 115, p30: 70,   p120: 230,  p360: 580,  pp30: '2.33', pp120: '1.92', pp360: '1.61' },
+        AUD: { s: 'A$', bundle: 920,  early: 190, p30: 116,  p120: 380,  p360: 960,  pp30: '3.87', pp120: '3.17', pp360: '2.67' },
+        CAD: { s: 'C$', bundle: 825,  early: 170, p30: 104,  p120: 340,  p360: 860,  pp30: '3.47', pp120: '2.83', pp360: '2.39' },
       };
       var euCountries = ['DE','FR','IT','ES','NL','BE','PT','AT','IE','FI','GR','LU','SK','SI','EE','LV','LT','CY','MT'];
       function applyPrices(r) {
         document.getElementById('price-bundle').textContent = r.s + r.bundle;
+        document.getElementById('price-early').textContent  = r.s + r.early;
         document.getElementById('price-30').textContent   = r.s + r.p30;
         document.getElementById('price-120').textContent  = r.s + r.p120;
         document.getElementById('price-360').textContent  = r.s + r.p360;

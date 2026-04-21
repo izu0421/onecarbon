@@ -12,11 +12,18 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 
 ## Pages
 - index.html — landing page, hero video (ocean2.mp4 on R2), PROFILE sign-up form
+- blog.html — blog index, 4-per-row card grid; individual posts are blog-*.html files
+- our_story.html — company story + team grid (migrated from team.html)
 - research.html — publications table with hover summaries, footnotes
 - profile.html — PROFILE clinical study page
-- team.html — team grid (6-column, 3+2 staggered layout)
+- team.html — legacy page, team content now lives in our_story.html
 - purchase.html — product tiers with Stripe links
 - contact.html
+
+## Page formatting defaults
+- Content pages use `<header class="page-header">` for the top section — left-aligned, max-width 1200px, matches research.html and profile.html
+- Do NOT use `contact-section` for new content pages (that class is centered, max-width 720px, and is only appropriate for forms/contact)
+- Blog post pages use `<section class="blog-post-section">` (centered, max-width 720px, long-form reading width)
 
 ## Product / Stripe
 - £499 bundle (3-month): K00
@@ -36,4 +43,4 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - Jake's title: Co-Founder
 - Product name: 1C-01 (not IC-001, not HSB001)
 - Trial name: PROFILE, Phase I (not Phase II)
-- Company name: One Carbon Technologies (everywhere, including nav and footer)
+- Company name: OneCarbon (nav logo renders as `One<span>Carbon</span>`, plain text uses "OneCarbon")

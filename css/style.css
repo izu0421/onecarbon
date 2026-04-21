@@ -299,7 +299,7 @@ p {
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: calc(100vh - 72px);
+  min-height: 560px;
   align-items: stretch;
   width: 100%;
 }
@@ -1126,6 +1126,109 @@ p {
   line-height: 1.65;
 }
 
+
+/* ════════════════════════════════
+   BLOG
+════════════════════════════════ */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  padding: 48px 60px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.blog-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.blog-card-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-card-body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.blog-card-summary {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .blog-grid { grid-template-columns: 1fr; padding: 32px 20px 60px; }
+}
+
+/* ════════════════════════════════
+   BLOG POST PAGE
+════════════════════════════════ */
+.blog-post-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 60px 100px;
+}
+
+.blog-post-section h1 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.blog-post-meta {
+  font-size: 13px;
+  color: var(--text-faint);
+  margin-bottom: 40px;
+}
+
+.blog-post-hero {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  display: block;
+}
+
+.blog-post-section p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.blog-post-section h2 {
+  font-size: 1.4rem;
+  margin: 40px 0 16px;
+}
 
 /* ════════════════════════════════
    CONTACT PAGE

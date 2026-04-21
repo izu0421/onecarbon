@@ -8,7 +8,12 @@
       "Bash(git push:*)",
       "Bash(ls /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon/*.html)",
       "Bash(grep -rn \"IC-001\\\\|IC001\" /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon/*.html)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(git -C /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon log --oneline -10)",
+      "Bash(git -C /Users/jake/Desktop/onecarbon-healthspan/website/one-carbon status --short)",
+      "WebFetch(domain:www.bit.bio)",
+      "Bash(git remote *)",
+      "Bash(git commit *)"
     ]
   }
 }
