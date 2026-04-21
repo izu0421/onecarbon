@@ -163,7 +163,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 0 max(60px, calc((100% - 1200px) / 2 + 60px));
   height: 72px;
   transition: box-shadow 0.3s ease;
 }
