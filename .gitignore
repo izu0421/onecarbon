@@ -11,3 +11,10 @@ js/graphify-out/
 
 # Claude Code local tooling
 .claude/
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Local scratch / old format files
+old formatOur Story.html
