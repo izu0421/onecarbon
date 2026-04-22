@@ -4,6 +4,9 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
+## 3370b6a — changelog: backfill recent commits
+- `changelog.md`: added entries for commits 88b8c24 through 3b09c47
+
 ## 3b09c47 — gitignore cleanup
 - Added `.DS_Store`, `**/.DS_Store`, and `old formatOur Story.html` to `.gitignore`
 - Removed already-tracked `js/.DS_Store` and `old formatOur Story.html` from repo

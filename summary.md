@@ -1,24 +1,32 @@
-# One Carbon Technologies — Codebase Summary
+# OneCarbon — Codebase Summary
 
 ## Stack
-Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages (CNAME: onecarbon.com → izu0421.github.io/onecarbon).
+Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages.
+- **Staging remote:** `https://github.com/izu0421/twocarbon` (branch `main`)
+- **Production remote:** `https://github.com/izu0421/onecarbon` (branch `main`)
 
 ## File Map
 
 | File | Purpose |
 |---|---|
-| index.html | Landing page — hero video, stats strip, Recognition banner, PROFILE sign-up form |
+| index.html | Landing page — hero video, recognised-by bar, PROFILE sign-up form |
+| blog.html | Blog index — 4-per-row card grid |
+| blog-*.html | Four individual blog posts (all AI placeholder text — must be replaced pre-launch) |
+| our_story.html | Company story with scroll-driven Three.js neuron animation + team grid |
 | research.html | Publications table with hover summaries + footnotes |
 | profile.html | PROFILE Phase I clinical study detail page |
-| team.html | Team grid (6-column, 3+2 staggered layout) |
+| team.html | Legacy team page — content now lives in our_story.html |
 | purchase.html | Product tiers with live Stripe payment links |
 | contact.html | Contact page |
 | privacy.html | Privacy policy |
 | tos.html | Terms of service |
 | cookie.html | Cookie policy |
 | refund-policy.html | Refund policy |
-| css/style.css | Single stylesheet — 1,648 lines, CSS custom properties, all page styles |
+| css/style.css | Single stylesheet — ~1,750 lines, CSS custom properties, all page styles |
 | js/main.js | Sticky nav shadow on scroll + active nav link highlighting |
+| js/config.js | Neuron config export (currently dead code — not imported anywhere; see NOTES.md) |
+| NOTES.md | Local dev notes — gitignored, not in repo |
+| changelog.md | Per-commit change log — updated with every push |
 
 ## Design Tokens (css/style.css `:root`)
 ```
@@ -34,15 +42,35 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages (CNAM
 ```
 
 ## Fonts
-- Headings: **DM Sans** 500 — self-hosted via Cloudflare R2 (woff2)
-- Body: **Outfit** 400 — self-hosted via Cloudflare R2 (woff2)
-- R2 font base: `https://pub-cab5eb788883425eb6f15fe9339a2279.r2.dev/fonts/`
+- Headings: **DM Sans** weight 500 — loaded via Google Fonts
+- Body: **Outfit** weight 300–700 — loaded via Google Fonts
 - Previous fonts (for reference): Fraunces (headings) / Figtree (body)
 
+## Typography
+- Global `h1`: `clamp(2.8rem, 5vw, 5.5rem)`, line-height 1.05
+- Global `h2`: `clamp(2rem, 3.5vw, 3.5rem)`
+- `h1 em`, `h2 em`: `font-style: normal; color: #1a73e8` (blue accent on italic spans)
+- No eyebrow `<div class="eyebrow">` elements anywhere — all removed
+
 ## Media
-- Videos hosted on Cloudflare R2 (`pub-cab5eb788883425eb6f15fe9339a2279.r2.dev`) — **not in git** (.gitignore excludes mp4s)
+- Videos hosted on Cloudflare R2 (`pub-cab5eb788883425eb6f15fe9339a2279.r2.dev`) — **not in git**
 - Hero video on index.html: `ocean4_small.mp4` (R2)
-- Team photos and recognition logos: `media/` directory (in git)
+- Team photos, recognition logos, mechanism diagrams: `media/` directory (in git)
+
+## Three.js Neuron (our_story.html)
+- Three.js v0.160.0 via unpkg CDN, loaded as ES module
+- `<script type="importmap">` in `<head>` — only one, never duplicate
+- Config via `TWEAK_DEFAULTS` global object in a non-module `<script>` above the module
+- Current colours: outer `#456BB7`, mid `#2f4f8f`, inner `#a8ccf8`, nucleus `#ff6600`
+- Canvas fades in/out on scroll via `updateScroll()` in the inline module
+- `.neuron-stage` starts at `opacity: 0` in CSS to prevent flash on page load
+
+## Page Layout Conventions
+- Content pages: `<header class="page-header">` — left-aligned, max-width 1200px
+- Blog posts: `<section class="blog-post-section">` — centered, max-width 720px
+- Nav padding: `max(60px, calc((100% - 1200px) / 2 + 60px))` — aligns logo with content at all widths
+- Hero (index.html): `min-height: max(560px, calc(100vh - 175px))` — fills viewport so recognised-by bar sits at bottom
+- Recognised-by bar: grey (`#efefef`) on all pages; white (`#ffffff`) on index.html only; placed just before `<footer>`
 
 ## Key Integrations
 
@@ -50,7 +78,7 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages (CNAM
 - PROFILE sign-up submits to `https://formsubmit.co/jake@onecarbon.com`
 - Subject line: `"FORM RESPONSE"`
 - Fields: Full Name, Email, Location, Age, Any questions?
-- Honeypot bot protection via hidden field (`_honeypot`)
+- Bot protection: hidden `_honey` field
 
 **Payments (purchase.html)**
 - Live Stripe links (buy.stripe.com). Four tiers:
@@ -62,19 +90,24 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages (CNAM
 ## Naming Conventions (critical — never deviate)
 - Product: **1C-01** (not IC-001, not HSB001)
 - Trial: **PROFILE, Phase I** (not Phase II)
-- Company: **One Carbon Technologies** (everywhere, including nav and footer)
+- Company: **OneCarbon** (nav logo renders as `One<span>Carbon</span>`, plain text uses "OneCarbon")
+- Legal entity: **Healthspan Biotics Ltd** (footer only)
 - Jake's title: **Co-Founder**
 
-## Nav & Footer Pattern
-All pages share the same nav and footer HTML snippet. Nav logo and footer logo both read:
-`One<span>Carbon</span>&nbsp;Technologies`
-Nav CTA link: `purchase.html` (labelled "Shop")
+## Nav Pattern
+All pages: logo + links (Blog, Our Story, Research, PROFILE, Contact) + Shop CTA. No Home link.
+Nav logo: `One<span>Carbon</span>` | Footer logo: same pattern.
+
+## Pre-launch Content Warning
+The following is AI-generated placeholder and **must be replaced before launch:**
+- All four blog posts (`blog-*.html`) — titles, body, and summaries on `blog.html`
+- All six Our Story timeline events in `our_story.html` (2014 through Today)
 
 ## Git / Deploy
 ```bash
-git add -A && git commit -m "message" && git push origin main
+git add <files> && git commit -m "message" && git push origin main
 ```
-Remote: `https://github.com/izu0421/onecarbon` → branch `main`
+Always update `changelog.md` before committing a push.
 
 ---
 
