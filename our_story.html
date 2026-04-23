@@ -37,7 +37,6 @@
     /* ── Hero ── */
     .story-hero {
       position: relative; z-index: 5;
-      max-width: 1200px; margin: 0 auto;
       padding: 56px 60px 40px;
     }
     .story-hero-inner { max-width: 720px; }
@@ -58,18 +57,18 @@
     /* ── Timeline overlay ── */
     .story-overlay {
       position: relative; z-index: 5;
-      max-width: 1200px; margin: -100vh auto 0;
+      margin-top: -100vh;
       padding: 0 60px;
     }
     .timeline { padding: 8vh 0 20vh; position: relative; }
-    .tl-item { padding: 40vh 0; max-width: 440px; }
+    .tl-item { padding: 40vh 0; max-width: 520px; }
     .tl-item:first-child { padding-top: 2vh; }
     .tl-item:last-child  { padding-bottom: 10vh; }
     .tl-item.right { margin-left: auto; }
     .tl-tag {
       display: inline-block; font-size: 11px; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--text-faint);
-      padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px;
+      padding: 4px 10px; border: 1px solid var(--border); border-radius: 0;
       margin-bottom: 16px; background: rgba(247,245,240,0.8); backdrop-filter: blur(6px);
       font-family: 'Outfit', sans-serif;
     }
@@ -83,7 +82,7 @@
       backdrop-filter: blur(10px) saturate(1.1);
       -webkit-backdrop-filter: blur(10px) saturate(1.1);
       border: 1px solid var(--border);
-      border-radius: 14px; padding: 26px 28px;
+      border-radius: 0; padding: 26px 28px;
       box-shadow: 0 20px 60px -30px rgba(10,15,26,0.10);
       opacity: 0.55; transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -115,7 +114,6 @@
     /* ── Outro ── */
     .story-outro {
       position: relative; z-index: 5;
-      max-width: 1200px; margin: 0 auto;
       padding: 120px 60px 80px; text-align: center;
     }
     .story-outro h2 {
@@ -138,7 +136,6 @@
     /* ── Team label ── */
     .story-team-label {
       position: relative; z-index: 5;
-      max-width: 1200px; margin: 0 auto;
       padding: 0 60px 20px; text-align: center;
     }
     .story-team-label h2 {
@@ -166,7 +163,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="our_story.html">Our Story</a></li>
       <li><a href="research.html">Research</a></li>
-      <li><a href="profile.html">PROFILE</a></li>
+      <li><a href="profile.html">Our Trials</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
@@ -271,15 +268,6 @@
     </div>
 
     <div class="team-member" style="grid-column: span 2;">
-      <a href="https://www.linkedin.com/in/suleyman-noordeen-342659205/" class="team-photo-wrap" target="_blank">
-        <img src="media/suleymannoordeen.jpeg" alt="Suleyman Noordeen">
-      </a>
-      <h3>Suleyman Noordeen</h3>
-      <h4>Medical Lead</h4>
-      <p>Student doctor with multiple years of experience contributing to clinical research. Repeatedly recognised for his ability to communicate complex science to a breadth of internal and external community members.</p>
-    </div>
-
-    <div class="team-member" style="grid-column: span 2;">
       <a href="https://www.linkedin.com/in/laura-l-galbraith/" class="team-photo-wrap" target="_blank">
         <img src="media/laura.jpeg" alt="Laura Galbraith">
       </a>
@@ -288,7 +276,16 @@
       <p>First class Oxford graduate (Human Sciences). Previous experience in biotech start-ups (iPSCs, and medical interventions in beauty &amp; wellness), as well as financial services (Investment Banking). Motivated by family history of Alzheimer's Disease.</p>
     </div>
 
-    <div class="team-member" style="grid-column: 2 / span 2;">
+    <div class="team-member" style="grid-column: span 2;">
+      <a href="https://www.linkedin.com/in/suleyman-noordeen-342659205/" class="team-photo-wrap" target="_blank">
+        <img src="media/suleymannoordeen.jpeg" alt="Suleyman Noordeen">
+      </a>
+      <h3>Suleyman Noordeen</h3>
+      <h4>Medical Lead</h4>
+      <p>Student doctor with multiple years of experience contributing to clinical research. Repeatedly recognised for his ability to communicate complex science to a breadth of internal and external community members.</p>
+    </div>
+
+    <div class="team-member" style="grid-column: 3 / span 2;">
       <a href="https://www.linkedin.com/in/jake-mcmillan-64a845209/" class="team-photo-wrap" target="_blank">
         <img src="media/jake.jpeg" alt="Jake McMillan">
       </a>
@@ -297,7 +294,15 @@
       <p>First class Oxford graduate (PPE). Previously founded a project management company supporting government contract operations. Financial and operational experience from financial sector roles.</p>
     </div>
 
-    <div class="team-member" style="grid-column: 4 / span 2;">
+  </section>
+
+  <div class="story-team-label" style="padding-top: 60px;">
+    <h2><em>Advisors</em></h2>
+  </div>
+
+  <section class="team-grid">
+
+    <div class="team-member" style="grid-column: 3 / span 2;">
       <a href="https://www.linkedin.com/in/simon-galbraith-7847613/" class="team-photo-wrap" target="_blank">
         <img src="media/SimonGalbraith.jpeg" alt="Dr Simon Galbraith">
       </a>
@@ -311,7 +316,6 @@
   <!-- ── FOOTER ── -->
   <!-- ── RECOGNISED BY ── -->
   <section class="recognised-by-section">
-    <span class="recognised-by-label">Recognised by:</span>
     <div class="recognised-by-logos">
       <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
       <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
@@ -324,7 +328,7 @@
     <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
       <a href="research.html">Research</a>
-      <a href="profile.html">PROFILE</a>
+      <a href="profile.html">Our Trials</a>
       <a href="purchase.html">Shop</a>
       <a href="contact.html">Contact</a>
       <a href="refund-policy.html">Refund Policy</a>

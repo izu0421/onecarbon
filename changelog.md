@@ -4,6 +4,14 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
+## [pending] — site-wide styling and content updates
+- `css/style.css`: left-aligned all nav/content to 60px gutter; removed `max-width: 1200px` centering from all major sections; zeroed all card/box border-radius (`--radius-sm/md/lg` → 0); fixed YouTube embed to use `aspect-ratio: 16/9`
+- All pages: nav "PROFILE" → "Our Trials"; removed "Recognised by:" label text from all recog bars
+- `index.html`: hero swapped from ocean video to `conical.png` image
+- `our_story.html`: team split into "Team" and "Advisors" sections; timeline photo slots added (`os1–os5.png`) with alternating left/right alignment; timeline card text updated
+- `profile.html`, `research.html`, `contact.html`: selected `<em>` headings overridden to black (`var(--text)`) while keeping blue on specific words (PROFILE, you)
+- `privacy.html`, `cookie.html`, `tos.html`: hardcoded box border-radius zeroed
+
 ## 3370b6a — changelog: backfill recent commits
 - `changelog.md`: added entries for commits 88b8c24 through 3b09c47
 
