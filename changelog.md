@@ -4,7 +4,10 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — site-wide styling and content updates
+## [pending] — updated story, small aesthetic changes
+- `our_story.html`: timeline restructured to full-width flex layout with photos on opposite side from text boxes; photos added for 2023 (yizhou_csar, yizhou-fw), 2024-2025 (simon-yz, logo-trinbrad, trinbradyz), 2025 (logo-launchpad, laura-jake-moustache, launchpad-team); framed border/shadow applied to non-transparent JPGs; hero title updated to "How we started, and where we are going"; placeholder 2022/2024 items removed; S-curve offsets added to items
+
+## 418fc5e — site-wide styling and content updates
 - `css/style.css`: left-aligned all nav/content to 60px gutter; removed `max-width: 1200px` centering from all major sections; zeroed all card/box border-radius (`--radius-sm/md/lg` → 0); fixed YouTube embed to use `aspect-ratio: 16/9`
 - All pages: nav "PROFILE" → "Our Trials"; removed "Recognised by:" label text from all recog bars
 - `index.html`: hero swapped from ocean video to `conical.png` image

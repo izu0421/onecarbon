@@ -61,10 +61,22 @@
       padding: 0 60px;
     }
     .timeline { padding: 8vh 0 20vh; position: relative; }
-    .tl-item { padding: 40vh 0; max-width: 520px; }
+    .tl-item {
+      display: flex; flex-direction: row;
+      align-items: flex-start; justify-content: space-between;
+      padding: 40vh 0; max-width: 100%;
+    }
     .tl-item:first-child { padding-top: 2vh; }
     .tl-item:last-child  { padding-bottom: 10vh; }
-    .tl-item.right { margin-left: auto; }
+    .tl-item.right { flex-direction: row-reverse; margin-left: 0; }
+    .tl-content { flex: 0 0 460px; max-width: 460px; }
+    .tl-photo { flex: 0 0 auto; align-self: center; margin-top: 0; margin-left: 0 !important; }
+    .tl-photos { display: flex; flex-direction: column; gap: 16px; align-self: center; }
+    .tl-photos .tl-photo { flex: none; width: 320px; }
+    .tl-photo--framed {
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px -10px rgba(10,15,26,0.18);
+    }
     .tl-tag {
       display: inline-block; font-size: 11px; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--text-faint);
@@ -97,6 +109,16 @@
       font-family: 'Outfit', sans-serif;
       font-size: 15px; line-height: 1.65; color: var(--text-muted); margin: 0;
     }
+
+    /* ── Timeline photos ── */
+    .tl-photo {
+      display: block;
+      width: 260px; height: auto;
+      margin-top: 10px;
+      opacity: 0.55;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .tl-item.active .tl-photo { opacity: 1; }
 
     /* ── Progress dots ── */
     .progress {
@@ -172,8 +194,8 @@
   <!-- ── STORY HERO ── -->
   <section class="story-hero">
     <div class="story-hero-inner">
-      <h1>A decade of work, <em>traced along a single signal.</em></h1>
-      <p>We started with a question no one could answer cleanly — and followed it, year by year, through labs, failures, and one very stubborn idea. Scroll to travel the length of it.</p>
+      <h1>How we started, and where we are <em>going.</em></h1>
+      <p>put something here</p>
     </div>
   </section>
 
@@ -188,57 +210,82 @@
     <section class="timeline" id="timeline">
 
       <article class="tl-item">
-        <span class="tl-tag">2014 — The seed</span>
-        <h2 class="tl-year">2014</h2>
-        <div class="tl-card">
-          <h3>A paper, a whiteboard, and a question that wouldn't leave.</h3>
-          <p>Two founders meet at a climate workshop. They sketch the first version of what would become our core model on the back of a conference badge. It fits on one page.</p>
+        <div class="tl-content">
+          <h2 class="tl-year">2019-2022</h2>
+          <div class="tl-card">
+            <h3>OneCarbon's Alzheimer's research begins</h3>
+            <p>Yizhou Yu, OneCarbon's founder, begins his investigation
+              into Alzheimer's Disease during his PhD at the University of
+              Cambridge. It is here we discover the novel connection between
+              Alzheimer's and one-carbon metabolism.
+            </p>
+          </div>
         </div>
+        <img class="tl-photo" src="media/UoC1.png" alt="" style="align-self: flex-end;">
       </article>
 
       <article class="tl-item right">
-        <span class="tl-tag">2016 — First signal</span>
-        <h2 class="tl-year">2016</h2>
-        <div class="tl-card">
-          <h3>We run the pilot. Nothing works. Then something does.</h3>
-          <p>Eighteen months of dead ends end in a three-line result that changes everything. We file the first patent and hire our fourth engineer.</p>
+        <div class="tl-content">
+          <h2 class="tl-year">2023</h2>
+          <div class="tl-card">
+            <h3>Research wins global awards.</h3>
+            <p>Yizhou uses machine learning to discover that a probiotic bacteria can
+              be used to support one-carbon metabolism and receieves global recognition.
+              <br><br> Winner of CSAR's student award, and 2nd out of 100 at global
+              Falling Walls Lab finale.
+            </p>
+          </div>
+        </div>
+        <div class="tl-photos">
+          <img class="tl-photo tl-photo--framed" src="media/yizhou_csar.jpg" alt="">
+          <img class="tl-photo tl-photo--framed" src="media/yizhou-fw.jpg" alt="">
         </div>
       </article>
 
       <article class="tl-item">
-        <span class="tl-tag">2019 — Branching</span>
-        <h2 class="tl-year">2019</h2>
-        <div class="tl-card">
-          <h3>From one experiment to a platform.</h3>
-          <p>The methodology generalises. We partner with three research institutions and publish the framework openly. Adoption is faster than we planned for.</p>
-        </div>
-      </article>
-
-      <article class="tl-item right">
-        <span class="tl-tag">2022 — Scale</span>
-        <h2 class="tl-year">2022</h2>
-        <div class="tl-card">
-          <h3>One hundred projects. Twenty-two countries.</h3>
-          <p>We cross a threshold that felt theoretical five years earlier. The team is now forty people working across four continents, still shipping against the same one-page idea.</p>
-        </div>
-      </article>
-
-      <article class="tl-item">
-        <span class="tl-tag">2024 — Depth</span>
+        <div class="tl-content">
         <h2 class="tl-year">2024</h2>
-        <div class="tl-card">
-          <h3>The signal gets sharper, the stakes get bigger.</h3>
-          <p>Our measurement layer goes open-source. A thousand researchers contribute inside twelve months. The network effect we modelled in 2016 finally lines up with reality.</p>
+          <div class="tl-card">
+          <h3>1C-01 evolved, manufactured, and tested (& more awards!)</h3>
+          <p>We evolve 1C-01 for over a year, resulting in a bacteria with a specific mechanism - releasing one-carbon metabolites.
+            We win the Trinity Bradfield prize and do first-in-human testing. OneCarbon is established
+            to turn this research into an accessible product for neuronal resilience.
+          </p>
+        </div>
+          <img class="tl-photo" src="media/logo-trinbrad.png" alt="" style="margin-top: 16px;">
+        </div>
+        <div class="tl-photos">
+          <img class="tl-photo tl-photo--framed" src="media/simon-yz.jpg" alt="">
+          <img class="tl-photo tl-photo--framed" src="media/trinbradyz.jpg" alt="">
         </div>
       </article>
 
       <article class="tl-item right">
-        <span class="tl-tag">2026 — Today</span>
-        <h2 class="tl-year">Today</h2>
-        <div class="tl-card">
-          <h3>The network keeps growing — and so does what it can do.</h3>
-          <p>Everything we've learned is compounding. The next decade is about reach: getting this into the hands of the people and places that need it first.</p>
+        <div class="tl-content">
+        <h2 class="tl-year">2025</h2>
+          <div class="tl-card">
+          <h3>Pilot testing and Alzheimer's Society Innovation Launchpad</h3>
+          <p>We do our first MVP launch with our local alpha group. OneCarbon is 
+            selected to join Alzheimer's Society's Innovation Launchpad programme.
+          </p>
         </div>
+        <img class="tl-photo" src="media/logo-launchpad.png" alt="" style="margin-top: 16px; width: 100%;">
+        </div>
+        <div class="tl-photos">
+          <img class="tl-photo tl-photo--framed" src="media/laura-jake-moustache.png" alt="" style="width: 340px;">
+          <img class="tl-photo tl-photo--framed" src="media/launchpad-team.jpeg" alt="" style="width: 340px;">
+        </div>
+      </article>
+
+      <article class="tl-item">
+        <div class="tl-content">
+        <h2 class="tl-year">Today</h2>
+          <div class="tl-card">
+          <h3>Large-scale biological validation.</h3>
+          <p>look</p>
+        </div>
+        </div>
+        <img class="tl-photo tl-photo--framed" src="media/timeline-today.jpg" alt="">
       </article>
 
     </section>

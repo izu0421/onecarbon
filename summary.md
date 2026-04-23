@@ -12,7 +12,7 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages.
 | index.html | Landing page — hero video, recognised-by bar, PROFILE sign-up form |
 | blog.html | Blog index — 4-per-row card grid |
 | blog-*.html | Four individual blog posts (all AI placeholder text — must be replaced pre-launch) |
-| our_story.html | Company story with scroll-driven Three.js neuron animation + team grid |
+| our_story.html | Company story with scroll-driven Three.js neuron animation, real-content timeline with photos, + team grid |
 | research.html | Publications table with hover summaries + footnotes |
 | profile.html | PROFILE Phase I clinical study detail page |
 | team.html | Legacy team page — content now lives in our_story.html |
@@ -101,7 +101,7 @@ Nav logo: `One<span>Carbon</span>` | Footer logo: same pattern.
 ## Pre-launch Content Warning
 The following is AI-generated placeholder and **must be replaced before launch:**
 - All four blog posts (`blog-*.html`) — titles, body, and summaries on `blog.html`
-- All six Our Story timeline events in `our_story.html` (2014 through Today)
+- Remaining placeholder timeline items in `our_story.html` (2022 scale, today sections still have placeholder text)
 
 ## Git / Deploy
 ```bash
