@@ -4,7 +4,12 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — minor fixes
+## [pending] — hero changed
+- `index.html`: replaced inline nav/root/body overrides with `css/style.css` — nav now sticky 72px matching all other pages
+- `index.html`: "What we do" heading made blue; h1 font inherits from style.css; "Learn more" button solid blue with white text
+- `index.html`: card stack positioned absolutely (`top: 80px; right: 60px`) to align with hero text top and nav right gutter
+
+## [prev] — minor fixes
 - `our_story.html`: hero title updated; "people" and "next." headings coloured blue; "today" section moved up
 - `blog.html`: blog grid hidden, replaced with "Coming soon." line
 
