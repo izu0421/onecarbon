@@ -4,7 +4,13 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — hero changed
+## [pending] — what we do update, timeline finished, minor aesthetic changes
+- `index.html`: nav now inherits from `css/style.css`; "What we do" heading blue; h1 font matches other pages; "Learn more" button solid blue/white; card stack aligned to hero text top and nav right gutter
+- `our_story.html`: "What comes next" section hidden; timeline item padding halved (40vh → 20vh)
+- All pages: nav link order updated — Our Story, Research, Our Trials, Blog, Contact
+- `purchase.html`: price hidden on microbiome testing kit
+
+## c1ab375 — hero changed
 - `index.html`: replaced inline nav/root/body overrides with `css/style.css` — nav now sticky 72px matching all other pages
 - `index.html`: "What we do" heading made blue; h1 font inherits from style.css; "Learn more" button solid blue with white text
 - `index.html`: card stack positioned absolutely (`top: 80px; right: 60px`) to align with hero text top and nav right gutter

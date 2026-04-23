@@ -64,10 +64,10 @@
     .tl-item {
       display: flex; flex-direction: row;
       align-items: flex-start; justify-content: space-between;
-      padding: 40vh 0; max-width: 100%;
+      padding: 20vh 0; max-width: 100%;
     }
     .tl-item:first-child { padding-top: 2vh; }
-    .tl-item:last-child  { padding-bottom: 10vh; }
+    .tl-item:last-child  { padding-bottom: 6vh; }
     .tl-item.right { flex-direction: row-reverse; margin-left: 0; }
     .tl-content { flex: 0 0 460px; max-width: 460px; }
     .tl-photo { flex: 0 0 auto; align-self: center; margin-top: 0; margin-left: 0 !important; }
@@ -169,7 +169,7 @@
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
-      .tl-item { max-width: 100%; padding: 28vh 0; }
+      .tl-item { max-width: 100%; padding: 14vh 0; }
       .tl-year  { font-size: 60px; }
       .progress { display: none; }
       .story-hero, .story-overlay, .story-outro, .story-team-label { padding-left: 24px; padding-right: 24px; }
@@ -182,10 +182,10 @@
   <nav class="site-nav">
     <a href="index.html" class="nav-logo">One<span>Carbon</span></a>
     <ul class="nav-links">
-      <li><a href="blog.html">Blog</a></li>
       <li><a href="our_story.html">Our Story</a></li>
       <li><a href="research.html">Research</a></li>
       <li><a href="profile.html">Our Trials</a></li>
+      <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
@@ -281,8 +281,10 @@
         <div class="tl-content">
         <h2 class="tl-year">Today</h2>
           <div class="tl-card">
-          <h3>Large-scale biological validation.</h3>
-          <p>look</p>
+          <h3>Large-scale biological validation & clinical trials.</h3>
+          <p>We are looking for early adopters to provide feedback on 1C-01 
+            and learn more about their microbiome. At the same time, we are beginning 
+          our clinical validation process.  </p>
         </div>
         </div>
         <img class="tl-photo tl-photo--framed" src="media/timeline-today.jpg" alt="">
@@ -292,11 +294,13 @@
   </main>
 
   <!-- ── OUTRO ── -->
+  <!-- hidden: "What comes next" section
   <section class="story-outro">
     <h2>What comes <span style="font-style: normal; color: #1a73e8;">next.</span></h2>
     <p>We're building the tools to extend healthy human lifespan. If that matters to you, we'd love to hear from you.</p>
     <a class="cta" href="contact.html">Get in touch →</a>
   </section>
+  -->
 
   <!-- ── TEAM ── -->
   <div class="story-team-label">
