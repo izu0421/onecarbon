@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Trials — OneCarbon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+
+  <style>
+    .profile-header-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+      max-width: 1200px;
+    }
+
+    .profile-header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .profile-header-text p {
+      max-width: none;
+    }
+
+    .neuron-stage {
+      position: relative;
+      width: 360px;
+      height: 540px;
+      flex-shrink: 0;
+      margin-top: 24px;
+    }
+
+    #neuron-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .profile-header-inner {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .neuron-stage {
+        width: 100%;
+        height: 320px;
+        margin-top: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">One<span>Carbon</span></a>
+    <ul class="nav-links">
+      <li><a href="our_story.html">Our Story</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="trials.html">Clinical Trials</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="purchase.html" class="nav-cta">Shop</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── PAGE HEADER ── -->
+  <header class="page-header profile-header">
+    <div class="profile-header-inner">
+
+      <!-- Left: text -->
+      <div class="profile-header-text">
+        <h1>Our Clinical <em style="font-style:normal;color:#1a73e8;">Trials</em></h1>
+        <p>This is where we list our active clinical trials. PROFILE, our first trial, is outlined below.</p>
+        <h2 style="margin-top:48px;">The <em>PROFILE</em> Study</h2>
+        <p style="font-size:13px;font-style:italic;color:var(--text-muted);margin-top:4px;margin-bottom:32px;">Probiotic Research: Open-label Functional Intervention and Longitudinal Evaluation in Healthy Adults</p>
+        <p>
+          PROFILE is OneCarbon's phase one clinical trial for 1C-01, our probiotic designed to support neuronal resilience.
+          In this trial, we are investigating probiotic survival in your gut
+          and metabolic responses in your blood.
+          <br><br>
+          By taking part, you'll receive 1C-01 along with personalised blood-test monitoring,
+          and your data will directly inform our ongoing clinical research.
+        </p>
+      </div>
+
+      <!-- Right: neuron animation -->
+      <div class="neuron-stage">
+        <canvas id="neuron-canvas" width="360" height="540"></canvas>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── WHAT IS PROFILE ── -->
+  <section class="profile-details-section">
+    <div class="profile-details-grid">
+
+      <div class="profile-detail-card">
+        <div class="profile-detail-icon"><i class="fas fa-flask"></i></div>
+        <h3>Priority access to 1C-01</h3>
+        <p>Receive our probiotic supplement as part of a monitored programme (<a href="https://clinicaltrials.gov/study/NCT07457242?lastUpdPost=2020-10-10_" target="_blank" style="color:#456BB7;text-decoration:underline;">NCT07457242</a>) overseen by our clinical team.</p>
+      </div>
+
+      <div class="profile-detail-card">
+        <div class="profile-detail-icon"><i class="fas fa-vial"></i></div>
+        <h3>Personalised blood testing</h3>
+        <p>Your participation includes baseline and follow-up blood and stool testing to measure metabolite levels and microbiome, giving you genuine insight into your own biology.</p>
+      </div>
+
+      <div class="profile-detail-card">
+        <div class="profile-detail-icon"><i class="fas fa-brain"></i></div>
+        <h3>Contribute to dementia research</h3>
+        <p>Your anonymised data helps us build a clearer picture of individual responses to our one-carbon boosting probiotics, supporting our <a href="research.html">broader research into preventing Alzheimer's</a>.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── WHO SHOULD APPLY ── -->
+  <section class="profile-eligibility-section">
+    <h2>Who can <em style="color:var(--text)">take part?</em></h2>
+    <p>We are looking for adults who are:</p>
+    <ul class="profile-eligibility-list">
+      <li><i class="fas fa-check-circle"></i> Aged 45 and over</li>
+      <li><i class="fas fa-check-circle"></i> Interested in proactive brain health</li>
+      <li><i class="fas fa-check-circle"></i> Happy to provide blood and stool samples</li>
+      <li><i class="fas fa-check-circle"></i> Not currently pregnant or on immunosuppressant therapy</li>
+    </ul>
+    <p>Not sure if you're eligible? Fill in the form below and we'll get back to you.</p>
+  </section>
+
+  <!-- ── SIGN-UP FORM ── -->
+  <section class="profile-signup-section" id="profile-signup">
+    <h2>Be a hero. <em style="color:var(--text)">Join </em><em>PROFILE</em></h2>
+    <p>Fill in the form below and a member of our team will be in touch soon.</p>
+
+    <form class="profile-form" action="https://formsubmit.co/jake@onecarbon.com" method="POST" target="_blank">
+      <input type="hidden" name="_subject" value="FORM RESPONSE">
+      <input type="text" name="_honey" style="display:none">
+      <div class="form-row">
+        <div>
+          <input class="form-control" type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div>
+          <input class="form-control" type="email" name="email" placeholder="Email Address" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <input class="form-control" type="text" name="location" placeholder="Location">
+        </div>
+        <div>
+          <input class="form-control" type="number" name="age" placeholder="Age" min="18" max="120">
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" name="questions" placeholder="Any questions for us?" rows="4"></textarea>
+      </div>
+      <button class="submit-btn" type="submit">Apply for PROFILE →</button>
+    </form>
+  </section>
+
+  <!-- ── RECOGNISED BY ── -->
+  <section class="recognised-by-section">
+    <div class="recognised-by-logos">
+      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+      <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+      <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">One<span>Carbon</span></div>
+    <nav class="footer-links">
+      <a href="research.html">Research</a>
+      <a href="trials.html">Clinical Trials</a>
+      <a href="team.html">Team</a>
+      <a href="purchase.html">Shop</a>
+      <a href="contact.html">Contact</a>
+      <a href="refund-policy.html">Refund Policy</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-company">
+        <p>One Carbon is a trading name of Healthspan Biotics Ltd</p>
+        <p>Registered in England and Wales | Company No. 15224752</p>
+        <p>Registered Office: Unit 5 Avenue Business Park, Brockley Road, Elsworth, Cambridgeshire, United Kingdom, CB23 4EY</p>
+      </div>
+      <nav class="footer-legal">
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="cookie.html">Cookie Policy</a>
+      </nav>
+      <p class="footer-copy">© 2025 OneCarbon. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <script type="module">
+  import * as THREE from 'three';
+
+  const state = {
+    count:        40000,
+    speed:        100,
+    size:         45,
+    scale:        110,
+    shape:        'glyph',
+    colorOuter:   '#456BB7',
+    colorMid:     '#2f4f8f',
+    colorInner:   '#a8ccf8',
+    colorNucleus: '#ff6600',
+  };
+
+  const canvas = document.getElementById('neuron-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 1000);
+  camera.position.set(0, 0, 14);
+  camera.lookAt(0, 0, 0);
+
+  const neuronGroup = new THREE.Group();
+  scene.add(neuronGroup);
+
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = seed;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  const SOMA_Y         =  2.8;
+  const AXON_START_Y   = SOMA_Y - 1.4;
+  const AXON_END_Y     = -14.0;
+  const TERM_BOTTOM_Y  = AXON_END_Y - 1.8;
+  const AXON_ALONG_START = 0.25;
+  const AXON_ALONG_END   = 0.92;
+
+  function generateNeuron(particleCount) {
+    const rand = mulberry32(11);
+    const positions = new Float32Array(particleCount * 3);
+    const colors    = new Float32Array(particleCount * 3);
+    const sizes     = new Float32Array(particleCount);
+    const seeds     = new Float32Array(particleCount);
+    const parts     = new Float32Array(particleCount);
+    const along     = new Float32Array(particleCount);
+
+    const nucleusCount  = Math.floor(particleCount * 0.03);
+    const somaCount     = Math.floor(particleCount * 0.06);
+    const dendriteCount = Math.floor(particleCount * 0.30);
+    const spineCount    = Math.floor(particleCount * 0.04);
+    const axonCount     = Math.floor(particleCount * 0.45);
+    const terminalCount = particleCount - nucleusCount - somaCount - dendriteCount - spineCount - axonCount;
+
+    let idx = 0;
+    const tmp = new THREE.Vector3();
+    const nucPos  = new THREE.Vector3(0, SOMA_Y, 0);
+    const nucTilt = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.3, -0.25, 0.15));
+
+    for (let i = 0; i < nucleusCount; i++) {
+      const u = rand(), v = rand();
+      const theta = u * Math.PI * 2, phi = Math.acos(2 * v - 1), r = Math.cbrt(rand()) * 0.4;
+      tmp.set(r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta)*0.65, r*Math.cos(phi)*0.75);
+      tmp.applyQuaternion(nucTilt).add(nucPos);
+      positions[idx*3]=tmp.x; positions[idx*3+1]=tmp.y; positions[idx*3+2]=tmp.z;
+      seeds[idx]=rand(); parts[idx]=2; along[idx]=0.10; sizes[idx]=0.35+rand()*0.25; idx++;
+    }
+
+    for (let i = 0; i < somaCount; i++) {
+      const u = rand(), v = rand();
+      const theta = u * Math.PI * 2, phi = Math.acos(2 * v - 1);
+      const r = 0.45 + Math.pow(rand(), 0.6) * 0.7;
+      tmp.set(r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta)*0.9, r*Math.cos(phi)*0.85);
+      tmp.add(nucPos);
+      positions[idx*3]=tmp.x; positions[idx*3+1]=tmp.y; positions[idx*3+2]=tmp.z;
+      seeds[idx]=rand(); parts[idx]=0; along[idx]=0.12; sizes[idx]=0.25+rand()*0.25; idx++;
+    }
+
+    const dendriteSegs = [], dendriteTipPoints = [];
+
+    function growBranch(origin, dir, length, thickness, depth, maxDepth) {
+      const steps = Math.max(8, Math.floor(length * 14));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        const curlAmt = 0.05 + (depth / maxDepth) * 0.18;
+        const curl = new THREE.Vector3((rand()-0.5)*curlAmt,(rand()-0.5)*curlAmt*0.6,(rand()-0.5)*curlAmt);
+        d.add(curl).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+        dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness*(1-(s/steps)*0.55)) });
+        p = next;
+      }
+      if (depth < maxDepth) {
+        const ratio = 0.45 + rand() * 0.1;
+        const t1 = thickness * Math.pow(ratio, 1/1.5) * 0.95;
+        const t2 = thickness * Math.pow(1 - ratio, 1/1.5) * 0.95;
+        const perp = Math.abs(d.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+        const axis = new THREE.Vector3().crossVectors(d, perp).normalize();
+        axis.applyQuaternion(new THREE.Quaternion().setFromAxisAngle(d, rand()*Math.PI*2));
+        const q1 = new THREE.Quaternion().setFromAxisAngle(axis,  (0.42+rand()*0.25)*(0.9+rand()*0.2));
+        const q2 = new THREE.Quaternion().setFromAxisAngle(axis, -(0.42+rand()*0.25)*(0.9+rand()*0.2));
+        growBranch(p.clone(), d.clone().applyQuaternion(q1).normalize(), length*(0.55+rand()*0.3), t1, depth+1, maxDepth);
+        growBranch(p.clone(), d.clone().applyQuaternion(q2).normalize(), length*(0.55+rand()*0.3), t2, depth+1, maxDepth);
+        if (rand() < 0.15) {
+          const q3 = new THREE.Quaternion().setFromAxisAngle(axis.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(d, Math.PI/2)), 0.3+rand()*0.3);
+          growBranch(p.clone(), d.clone().applyQuaternion(q3).normalize(), length*0.4, thickness*0.35, depth+1, maxDepth);
+        }
+      } else {
+        dendriteTipPoints.push({ p: p.clone(), dir: d.clone(), thickness: thickness * 0.6 });
+      }
+    }
+
+    function growTuft(origin, dir, length, thickness) {
+      const steps = Math.max(6, Math.floor(length * 20));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        d.add(new THREE.Vector3((rand()-0.5)*0.25,(rand()-0.5)*0.25,(rand()-0.5)*0.25)).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+        dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.004, thickness*(1-(s/steps)*0.8)) });
+        p = next;
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const angle = (i / 9) * Math.PI * 2 + rand() * 0.4;
+      const elev  = (rand() - 0.2) * 1.2;
+      const dir   = new THREE.Vector3(Math.cos(angle)*Math.cos(elev*0.6), Math.sin(Math.max(elev,-0.2))*0.9+0.15, Math.sin(angle)*Math.cos(elev*0.6)).normalize();
+      growBranch(nucPos.clone().addScaledVector(dir, 0.75), dir, 1.0+rand()*0.5, 0.22+rand()*0.05, 0, 5);
+    }
+
+    for (const tip of dendriteTipPoints) {
+      for (let j = 0; j < 3 + Math.floor(rand() * 4); j++) {
+        growTuft(tip.p, tip.dir.clone().multiplyScalar(0.4).add(new THREE.Vector3((rand()-0.5)*1.6,(rand()-0.5)*1.6,(rand()-0.5)*1.6)).normalize(), 0.18+rand()*0.35, tip.thickness*0.5);
+      }
+    }
+
+    distributeOnSegs(dendriteSegs, dendriteCount, 0, 0.08, false);
+
+    (function placeSpines() {
+      let total = 0; const weights = [];
+      for (const s of dendriteSegs) { const w = s.thickness > 0.02 ? s.thickness * s.p0.distanceTo(s.p1) : 0; weights.push(w); total += w; }
+      if (total < 1e-6) return;
+      let placed = 0;
+      while (placed < spineCount) {
+        let acc = 0, r = rand() * total, segIdx = 0;
+        for (let i = 0; i < weights.length; i++) { acc += weights[i]; if (acc >= r) { segIdx = i; break; } }
+        const s = dendriteSegs[segIdx], t = rand();
+        const base = s.p0.clone().lerp(s.p1, t), dir = s.p1.clone().sub(s.p0).normalize();
+        const perpUp = Math.abs(dir.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+        const u = new THREE.Vector3().crossVectors(dir, perpUp).normalize();
+        const v = new THREE.Vector3().crossVectors(dir, u).normalize();
+        const spineLen = s.thickness * (1.5 + rand() * 2.5), theta = rand() * Math.PI * 2;
+        const spine = base.clone().addScaledVector(u, Math.cos(theta)*spineLen).addScaledVector(v, Math.sin(theta)*spineLen);
+        if (idx >= particleCount) return;
+        positions[idx*3]=spine.x; positions[idx*3+1]=spine.y; positions[idx*3+2]=spine.z;
+        seeds[idx]=rand(); parts[idx]=0; along[idx]=0.09; sizes[idx]=0.14+rand()*0.12; idx++; placed++;
+      }
+    })();
+
+    const hillockSegs = [];
+    for (let i = 0; i < 14; i++) {
+      const t0 = i/14, t1 = (i+1)/14;
+      const y0 = (SOMA_Y-0.55) + (AXON_START_Y-(SOMA_Y-0.55))*t0;
+      const y1 = (SOMA_Y-0.55) + (AXON_START_Y-(SOMA_Y-0.55))*t1;
+      const r0 = 0.85 + (0.14-0.85)*Math.pow(t0, 0.7), r1 = 0.85 + (0.14-0.85)*Math.pow(t1, 0.7);
+      hillockSegs.push({ p0: new THREE.Vector3(0,y0,0), p1: new THREE.Vector3(0,y1,0), thickness: (r0+r1)*0.5, alongOverride: 0.14+t0*0.08 });
+    }
+
+    const axonCurvePoints = [];
+    for (let i = 0; i <= 220; i++) {
+      const t = i/220, y = AXON_START_Y + (AXON_END_Y-AXON_START_Y)*t, ramp = Math.min(1, t*5);
+      axonCurvePoints.push(new THREE.Vector3(Math.sin(t*Math.PI*3)*1.3*(0.3+t*0.7)*ramp, y, Math.sin(t*Math.PI*2.1+1.3)*0.6*ramp));
+    }
+
+    const hillockN = Math.floor(axonCount * 0.10);
+    distributeOnSegs(hillockSegs, hillockN, 0, null, false);
+
+    const axonSegs = [];
+    for (let i = 0; i < axonCurvePoints.length - 1; i++) {
+      const t = i / (axonCurvePoints.length - 1);
+      const seg = { p0: axonCurvePoints[i], p1: axonCurvePoints[i+1], thickness: 0.13 - t*0.03, along: t };
+      const phase = (t * 10) % 1;
+      seg.thickness *= (phase < 0.12 || phase > 0.88) ? 0.5 : 1.0 + Math.cos(((phase-0.5)/0.38)*Math.PI)*0.35;
+      seg.alongOverride = AXON_ALONG_START + t * (AXON_ALONG_END - AXON_ALONG_START);
+      axonSegs.push(seg);
+    }
+    distributeOnSegs(axonSegs, axonCount - hillockN, 0.5, null, true);
+
+    const termSegs = [], termOrigin = axonCurvePoints[axonCurvePoints.length - 1].clone();
+    function growTerm(origin, dir, length, thickness, depth, maxDepth, collect) {
+      const steps = Math.max(8, Math.floor(length * 14));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        d.add(new THREE.Vector3((rand()-0.5)*0.18,(rand()-0.5)*0.10,(rand()-0.5)*0.18)).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length/steps));
+        collect.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness*(1-(s/steps)*0.85)) });
+        p = next;
+        if (depth < maxDepth && s > 2 && s < steps-2 && rand() < 0.14) {
+          const perp = new THREE.Vector3(-d.y, d.x, d.z).normalize();
+          const bd = d.clone().add(perp.multiplyScalar((rand()-0.5)*1.5+(rand()<0.5?0.8:-0.8)));
+          bd.y -= rand()*0.3; bd.normalize();
+          growTerm(p.clone(), bd, length*(0.45+rand()*0.35), thickness*0.55, depth+1, maxDepth, collect);
+        }
+      }
+    }
+    for (let i = 0; i < 8; i++) {
+      const angle = (i/8)*Math.PI*2 + rand()*0.4;
+      growTerm(termOrigin.clone(), new THREE.Vector3(Math.cos(angle)*0.7, -0.55-rand()*0.4, Math.sin(angle)*0.7).normalize(), 1.2+rand()*0.9, 0.08, 0, 2, termSegs);
+    }
+    distributeOnSegs(termSegs, terminalCount, 1, 0.96, false);
+
+    function distributeOnSegs(segs, count, partValue, alongOverride, isAxon) {
+      let totalW = 0;
+      for (const s of segs) { s.len = s.p0.distanceTo(s.p1); s.weight = s.thickness * s.len; totalW += s.weight; }
+      let placed = 0;
+      for (const s of segs) {
+        const n = Math.max(1, Math.round((s.weight / totalW) * count));
+        for (let i = 0; i < n && placed < count; i++) {
+          const t = rand(), p = s.p0.clone().lerp(s.p1, t);
+          const dir = s.p1.clone().sub(s.p0).normalize();
+          const up = Math.abs(dir.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+          const u = new THREE.Vector3().crossVectors(dir, up).normalize();
+          const vv = new THREE.Vector3().crossVectors(dir, u).normalize();
+          const scatter = s.thickness * (1 + rand() * 0.6);
+          p.addScaledVector(u, (rand()+rand()+rand()-1.5)*0.7*scatter).addScaledVector(vv, (rand()+rand()+rand()-1.5)*0.7*scatter);
+          if (rand() < 0.035) { p.addScaledVector(u,(rand()-0.5)*scatter*4).addScaledVector(vv,(rand()-0.5)*scatter*4); }
+          positions[idx*3]=p.x; positions[idx*3+1]=p.y; positions[idx*3+2]=p.z;
+          seeds[idx]=rand(); parts[idx]=partValue;
+          along[idx] = (isAxon && s.alongOverride !== undefined) ? s.alongOverride : alongOverride + (rand()-0.5)*0.02;
+          sizes[idx] = isAxon ? 0.22+rand()*0.28 : 0.20+rand()*0.30;
+          idx++; placed++;
+        }
+      }
+    }
+
+    while (idx < particleCount) {
+      positions[idx*3]=0; positions[idx*3+1]=SOMA_Y; positions[idx*3+2]=0;
+      seeds[idx]=rand(); parts[idx]=0; along[idx]=0.1; sizes[idx]=0.25; idx++;
+    }
+
+    return { positions, colors, sizes, seeds, parts, along };
+  }
+
+  function hexToRgb(hex) { const v = parseInt(hex.slice(1),16); return [((v>>16)&255)/255,((v>>8)&255)/255,(v&255)/255]; }
+  function lerp3(a, b, t) { return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
+
+  function applyColors(data) {
+    const topC=hexToRgb(state.colorOuter), midC=hexToRgb(state.colorMid), botC=hexToRgb(state.colorInner), nucC=hexToRgb(state.colorNucleus);
+    const { colors, along, parts, seeds } = data;
+    for (let i = 0; i < along.length; i++) {
+      const a = along[i], part = parts[i];
+      let c;
+      if (part > 1.5) { c = lerp3(nucC, lerp3(nucC, topC, 0.25), seeds[i]*0.3); }
+      else {
+        c = a < 0.5 ? lerp3(topC, midC, a*2) : lerp3(midC, botC, (a-0.5)*2);
+        const j = (seeds[i]-0.5)*0.16;
+        c = [Math.max(0,Math.min(1,c[0]+j)), Math.max(0,Math.min(1,c[1]+j*0.5)), Math.max(0,Math.min(1,c[2]-j*0.5))];
+      }
+      colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
+    }
+  }
+
+  function makeGlyphAtlas() {
+    const size = 128, atlas = document.createElement('canvas');
+    atlas.width = size*2; atlas.height = size;
+    const ctx = atlas.getContext('2d');
+    ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font = `900 ${size*0.9}px "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('1', size*0.5, size*0.5); ctx.fillText('C', size*1.5, size*0.5);
+    const tex = new THREE.CanvasTexture(atlas);
+    tex.minFilter=THREE.LinearMipmapLinearFilter; tex.magFilter=THREE.LinearFilter;
+    tex.generateMipmaps=true; tex.anisotropy=4;
+    return tex;
+  }
+  const glyphTex = makeGlyphAtlas();
+
+  let points = null, geometry = null, material = null, data = null;
+  const SHAPE_MAP = { circle:0, square:1, diamond:2, ring:3, cross:4, glyph:5 };
+
+  const vertexShader = /* glsl */`
+    attribute float aSize; attribute float aSeed; attribute float aAlong; attribute float aPart;
+    uniform float uTime; uniform float uSizeScale; uniform float uPixelRatio;
+    varying vec3 vColor; varying float vAlpha; varying float vSeed;
+    void main() {
+      vColor = color; vSeed = aSeed;
+      vec3 displaced = position;
+      if (aPart > 0.25 && aPart < 0.75) {
+        float t = uTime * (0.5 + aSeed * 0.6);
+        displaced += vec3(sin(t + aSeed*6.28)*0.006, 0.0, cos(t*0.8 + aSeed*3.14)*0.006);
+      }
+      vec4 mv = modelViewMatrix * vec4(displaced, 1.0);
+      gl_Position = projectionMatrix * mv;
+      gl_PointSize = aSize * uSizeScale * uPixelRatio * (300.0 / -mv.z);
+      vAlpha = smoothstep(60.0, 6.0, -mv.z) * 0.85 + 0.15;
+    }
+  `;
+
+  const fragmentShader = /* glsl */`
+    precision highp float;
+    varying vec3 vColor; varying float vAlpha; varying float vSeed;
+    uniform int uShape; uniform sampler2D uGlyph;
+    void main() {
+      if (vAlpha < 0.01) discard;
+      vec2 uv = gl_PointCoord - 0.5; float d = length(uv); float a = 1.0;
+      if (uShape == 0) { if (d > 0.5) discard; }
+      else if (uShape == 1) { if (max(abs(uv.x), abs(uv.y)) > 0.45) discard; }
+      else if (uShape == 2) { if (abs(uv.x)+abs(uv.y) > 0.5) discard; }
+      else if (uShape == 3) { if (d > 0.5 || d < 0.28) discard; }
+      else if (uShape == 4) { if (!(abs(uv.y)<0.14&&abs(uv.x)<0.48) && !(abs(uv.x)<0.14&&abs(uv.y)<0.48)) discard; }
+      else if (uShape == 5) {
+        vec2 local = vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y);
+        vec4 s = texture2D(uGlyph, vec2(step(0.5,vSeed)*0.5 + local.x*0.5, local.y));
+        if (s.a < 0.4) discard; a = s.a;
+      }
+      gl_FragColor = vec4(vColor, vAlpha * a);
+    }
+  `;
+
+  function buildNeuron() {
+    if (points) { geometry.dispose(); material.dispose(); neuronGroup.remove(points); }
+    data = generateNeuron(state.count);
+    applyColors(data);
+    geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(data.positions, 3));
+    geometry.setAttribute('color',    new THREE.BufferAttribute(data.colors, 3));
+    geometry.setAttribute('aSize',    new THREE.BufferAttribute(data.sizes, 1));
+    geometry.setAttribute('aSeed',    new THREE.BufferAttribute(data.seeds, 1));
+    geometry.setAttribute('aAlong',   new THREE.BufferAttribute(data.along, 1));
+    geometry.setAttribute('aPart',    new THREE.BufferAttribute(data.parts, 1));
+    material = new THREE.ShaderMaterial({
+      vertexShader, fragmentShader,
+      vertexColors: true, transparent: true, depthWrite: false,
+      blending: THREE.NormalBlending,
+      uniforms: {
+        uTime:       { value: 0 },
+        uSizeScale:  { value: state.size / 100 },
+        uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+        uShape:      { value: SHAPE_MAP[state.shape] || 0 },
+        uGlyph:      { value: glyphTex },
+      }
+    });
+    points = new THREE.Points(geometry, material);
+    neuronGroup.add(points);
+    neuronGroup.scale.setScalar(state.scale / 100);
+  }
+
+  function resize() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    if (material) material.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+  }
+  window.addEventListener('resize', resize);
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const elapsed = clock.elapsedTime;
+    camera.position.set(0, 0, 14);
+    camera.lookAt(0, 0, 0);
+    neuronGroup.rotation.y = elapsed * (state.speed / 1000);
+    if (material) material.uniforms.uTime.value = elapsed;
+    renderer.render(scene, camera);
+  }
+
+  buildNeuron();
+  // Wait for layout before sizing — same pattern as working pages
+  requestAnimationFrame(() => { resize(); animate(); });
+  </script>
+
+</body>
+</html>

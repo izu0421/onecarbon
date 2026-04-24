@@ -4,7 +4,14 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — minor changes
+## [pending] — trials-v3 neuron animation + sitewide nav update
+
+- `trials-v3.html`: new clinical trials page with full-header Three.js neuron animation (slow rotation, fills header behind text, no hard edges)
+- `js/neuron-portable.js`: reusable neuron module for use across any page via importmap + external script tag
+- `trials-v2.html`: inline-module fallback version (kept in folder, not linked)
+- All pages: nav/footer "Clinical Trials" links updated from `trials.html` → `trials-v3.html`
+
+## [prev] — minor changes
 
 - `our_story.html`: photo captions added beneath 6 timeline photos; Cambridge logo removed; caption text colour black
 - All pages: "Our Trials" renamed to "Clinical Trials" in nav bar; `profile.html` renamed to `trials.html`
