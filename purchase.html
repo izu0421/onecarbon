@@ -33,7 +33,7 @@
     <ul class="nav-links">
       <li><a href="our_story.html">Our Story</a></li>
       <li><a href="research.html">Research</a></li>
-      <li><a href="profile.html">Our Trials</a></li>
+      <li><a href="profile.html">Clinical Trials</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
@@ -56,11 +56,16 @@
       <p style="font-size:13px;color:rgba(255,255,255,0.75);margin:4px 0 16px;line-height:1.5;">
         Be in the first 100 to sign up and join our early adopters group,<br>paying only <strong id="price-early">£99</strong>.
       </p>
-      <div class="btn-row">
-        <!-- PAYMENT LINK — update href when ready:
-        <a href="https://buy.stripe.com/dRmbIT42y1GD0kA9KD8N203" class="btn btn-accent" target="_blank">Buy now</a>
-        -->
-        <span class="btn btn-accent" style="opacity:0.55;cursor:default;">Coming soon</span>
+      <form action="https://formsubmit.co/jake@onecarbon.com" method="POST" target="_blank" style="margin-top:4px;">
+        <input type="hidden" name="_subject" value="Microbiome Test — Waiting List">
+        <input type="hidden" name="_captcha" value="false">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input type="email" name="email" placeholder="Your email" required
+            style="flex:1;min-width:200px;padding:11px 16px;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;">
+          <button type="submit" class="btn btn-accent">Join waiting list</button>
+        </div>
+      </form>
+      <div style="margin-top:12px;">
         <a href="research.html" class="btn-ghost">How it works ↗</a>
       </div>
     </div>
@@ -140,7 +145,7 @@
     <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
       <a href="research.html">Research</a>
-      <a href="profile.html">Our Trials</a>
+      <a href="profile.html">Clinical Trials</a>
       <a href="team.html">Team</a>
       <a href="purchase.html">Shop</a>
       <a href="contact.html">Contact</a>

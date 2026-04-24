@@ -4,7 +4,14 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — what we do update, timeline finished, minor aesthetic changes
+## [pending] — minor changes
+
+- `our_story.html`: photo captions added beneath 6 timeline photos; Cambridge logo removed; caption text colour black
+- All pages: "Our Trials" renamed to "Clinical Trials" in nav bar; `profile.html` renamed to `trials.html`
+- `trials.html`: h1 updated to "Our Clinical Trials" with "Trials" in blue; intro body text added above PROFILE content
+- `purchase.html`: microbiome test "Coming soon" replaced with inline email waiting-list form (submits to jake@onecarbon.com)
+
+## [prev] — what we do update, timeline finished, minor aesthetic changes
 - `index.html`: nav now inherits from `css/style.css`; "What we do" heading blue; h1 font matches other pages; "Learn more" button solid blue/white; card stack aligned to hero text top and nav right gutter
 - `our_story.html`: "What comes next" section hidden; timeline item padding halved (40vh → 20vh)
 - All pages: nav link order updated — Our Story, Research, Our Trials, Blog, Contact

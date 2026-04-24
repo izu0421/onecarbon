@@ -119,6 +119,16 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .tl-item.active .tl-photo { opacity: 1; }
+    .tl-figure { display: block; margin: 0; }
+    .tl-photos .tl-figure { flex: none; width: 320px; }
+    .tl-photos .tl-figure .tl-photo { width: 100%; }
+    .tl-figure figcaption {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px; color: var(--text);
+      text-align: center; margin-top: 6px; line-height: 1.4;
+      opacity: 0.55; transition: opacity 0.5s ease;
+    }
+    .tl-item.active .tl-figure figcaption { opacity: 1; }
 
     /* ── Progress dots ── */
     .progress {
@@ -184,7 +194,7 @@
     <ul class="nav-links">
       <li><a href="our_story.html">Our Story</a></li>
       <li><a href="research.html">Research</a></li>
-      <li><a href="profile.html">Our Trials</a></li>
+      <li><a href="profile.html">Clinical Trials</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
@@ -221,7 +231,7 @@
             </p>
           </div>
         </div>
-        <img class="tl-photo" src="media/UoC1.png" alt="" style="align-self: flex-end;">
+
       </article>
 
       <article class="tl-item right">
@@ -237,8 +247,14 @@
           </div>
         </div>
         <div class="tl-photos">
-          <img class="tl-photo tl-photo--framed" src="media/yizhou_csar.jpg" alt="">
-          <img class="tl-photo tl-photo--framed" src="media/yizhou-fw.jpg" alt="">
+          <figure class="tl-figure">
+            <img class="tl-photo tl-photo--framed" src="media/yizhou_csar.jpg" alt="">
+            <figcaption>Dr. Yizhou Yu at the Cambridge Society for the Application of Research awards</figcaption>
+          </figure>
+          <figure class="tl-figure">
+            <img class="tl-photo tl-photo--framed" src="media/yizhou-fw.jpg" alt="">
+            <figcaption>Yizhou at Falling Walls</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -255,8 +271,14 @@
           <img class="tl-photo" src="media/logo-trinbrad.png" alt="" style="margin-top: 16px;">
         </div>
         <div class="tl-photos">
-          <img class="tl-photo tl-photo--framed" src="media/simon-yz.jpg" alt="">
-          <img class="tl-photo tl-photo--framed" src="media/trinbradyz.jpg" alt="">
+          <figure class="tl-figure">
+            <img class="tl-photo tl-photo--framed" src="media/simon-yz.jpg" alt="">
+            <figcaption>1C-01 manufactured and tested by team</figcaption>
+          </figure>
+          <figure class="tl-figure">
+            <img class="tl-photo tl-photo--framed" src="media/trinbradyz.jpg" alt="">
+            <figcaption>Trinity Bradfield awards ceremony</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -272,8 +294,14 @@
         <img class="tl-photo" src="media/logo-launchpad.png" alt="" style="margin-top: 16px; width: 100%;">
         </div>
         <div class="tl-photos">
-          <img class="tl-photo tl-photo--framed" src="media/laura-jake-moustache.png" alt="" style="width: 340px;">
-          <img class="tl-photo tl-photo--framed" src="media/launchpad-team.jpeg" alt="" style="width: 340px;">
+          <figure class="tl-figure" style="width: 340px;">
+            <img class="tl-photo tl-photo--framed" src="media/laura-jake-moustache.png" alt="">
+            <figcaption>Laura &amp; (poorly-moustached) Jake with our first biomarker kit prototype</figcaption>
+          </figure>
+          <figure class="tl-figure" style="width: 340px;">
+            <img class="tl-photo tl-photo--framed" src="media/launchpad-team.jpeg" alt="">
+            <figcaption>OneCarbon at the Alzheimer's Society's Launchpad event</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -379,7 +407,7 @@
     <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
       <a href="research.html">Research</a>
-      <a href="profile.html">Our Trials</a>
+      <a href="profile.html">Clinical Trials</a>
       <a href="purchase.html">Shop</a>
       <a href="contact.html">Contact</a>
       <a href="refund-policy.html">Refund Policy</a>
