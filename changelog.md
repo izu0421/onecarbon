@@ -4,7 +4,11 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [pending] — trials-v3 neuron animation + sitewide nav update
+## 197b249 — fix Clinical Trials nav link on our_story and purchase pages
+
+- `our_story.html`, `purchase.html`: nav "Clinical Trials" link was still pointing to `profile.html`; updated to `trials-v3.html`
+
+## 1831ee0 — trials-v3 neuron animation + sitewide nav update
 
 - `trials-v3.html`: new clinical trials page with full-header Three.js neuron animation (slow rotation, fills header behind text, no hard edges)
 - `js/neuron-portable.js`: reusable neuron module for use across any page via importmap + external script tag

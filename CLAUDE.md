@@ -15,7 +15,7 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - blog.html — blog index, 4-per-row card grid; individual posts are blog-*.html files
 - our_story.html — company story + team grid (migrated from team.html)
 - research.html — publications table with hover summaries, footnotes
-- profile.html — PROFILE clinical study page
+- trials-v3.html — LIVE clinical trials page (full-header Three.js neuron animation); trials.html and trials-v2.html kept in folder but not linked
 - team.html — legacy page, team content now lives in our_story.html
 - purchase.html — product tiers with Stripe links
 - contact.html
@@ -38,7 +38,8 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 
 ## Conventions
 - Use Edit tool for all file changes (no sed/bash edits)
-- Push with: git add -A && git commit -m "message" && git push origin main
+- Push with: git add -A && git commit -m "message" && git push origin main && git push production main
+- Two remotes: origin = github.com/izu0421/twocarbon (dev), production = github.com/izu0421/onecarbon (live site)
 - Videos stay off git — they live on Cloudflare R2
 - Jake's title: Co-Founder
 - Product name: 1C-01 (not IC-001, not HSB001)
