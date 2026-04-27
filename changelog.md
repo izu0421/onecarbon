@@ -4,6 +4,19 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
+## [latest] — compatibility for phone improved, small font changes
+
+- `css/style.css`: sitewide mobile (≤600px) overrides — hamburger nav overlay, reduced nav-to-title padding (common 16px rule for `.page-header`, `.profile-header`, `.profile-cta-section`, `.contact-section`), recog bar single-line, footer-bottom single column
+- `css/style.css`: research page mobile — video stacks below h1 using flex `order`; publications table → card layout (authors as small text, summary + date hidden)
+- `css/style.css`: trials-v3 mobile — profile-details cards compact icon-left grid layout
+- `css/style.css`: purchase page mobile — pills-options 1-column
+- `css/style.css`: `.contact-section h1` font-size override removed; now inherits global `clamp(2.8rem, 5vw, 5.5rem)` on all screen sizes
+- `our_story.html`: timeline stacked vertically on mobile; neuron hidden; team grid 2-col main + centred advisor section (`team-grid--advisors`)
+- `research.html`: `page-header-body` wrapper for flex ordering; `<br class="mobile-br">` after disclaimer bold text
+- `trials-v3.html`: `white-space: nowrap` → `normal` on `.profile-header-text h1`
+- `purchase.html`: dark dropdown background on mobile so white nav links remain readable
+- `index.html`: hero-text top padding 44px → 16px on mobile
+
 ## 197b249 — fix Clinical Trials nav link on our_story and purchase pages
 
 - `our_story.html`, `purchase.html`: nav "Clinical Trials" link was still pointing to `profile.html`; updated to `trials-v3.html`

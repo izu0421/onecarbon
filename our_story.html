@@ -184,6 +184,46 @@
       .progress { display: none; }
       .story-hero, .story-overlay, .story-outro, .story-team-label { padding-left: 24px; padding-right: 24px; }
     }
+
+    @media (max-width: 600px) {
+      /* Disable sticky neuron — CPU-heavy and the -100vh overlay trick breaks on mobile */
+      .neuron-stage { display: none; }
+      .story-overlay { margin-top: 0; padding: 0 20px; }
+      .story-hero { padding: 40px 20px 24px; }
+
+      /* Stack timeline items vertically */
+      .tl-item,
+      .tl-item.right {
+        flex-direction: column;
+        padding: 36px 0;
+        gap: 20px;
+        border-top: 1px solid var(--border);
+      }
+      .tl-item:first-child { border-top: none; padding-top: 16px; }
+
+      /* Content fills full width */
+      .tl-content { flex: none; width: 100%; max-width: 100%; }
+
+      /* Year */
+      .tl-year { font-size: 44px; margin-bottom: 12px; }
+
+      /* Cards always visible — scroll fade-in is a nice-to-have on desktop */
+      .tl-card { opacity: 1 !important; transform: none !important; }
+
+      /* Photos full-width, stacked */
+      .tl-photos { width: 100%; }
+      .tl-photos .tl-figure { width: 100% !important; }
+      .tl-figure figcaption { opacity: 1; }
+      .tl-photo { width: 100% !important; opacity: 1 !important; }
+
+      /* Kill vh-based timeline padding that creates huge gaps on mobile */
+      .timeline { padding: 8px 0 8px; }
+      .tl-item:last-child { padding-bottom: 20px; }
+
+      /* Outro + team */
+      .story-outro { padding: 60px 20px 40px; }
+      .story-team-label { padding-left: 20px; padding-right: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -199,6 +239,7 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- ── STORY HERO ── -->
@@ -379,7 +420,7 @@
     <h2><em>Advisors</em></h2>
   </div>
 
-  <section class="team-grid">
+  <section class="team-grid team-grid--advisors">
 
     <div class="team-member" style="grid-column: 3 / span 2;">
       <a href="https://www.linkedin.com/in/simon-galbraith-7847613/" class="team-photo-wrap" target="_blank">

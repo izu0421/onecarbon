@@ -23,6 +23,15 @@
     .btn-ghost { color: #ffffff; border-color: rgba(255,255,255,0.4); }
     .pills-card .btn-ghost { color: #555555; border-color: #555555; }
     .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .nav-hamburger { color: #fff; }
+    .site-nav.open .nav-links { border-top-color: rgba(255,255,255,0.15); }
+    .nav-links li { border-bottom-color: rgba(255,255,255,0.1); }
+    .nav-links a { color: rgba(255,255,255,0.75); }
+    .nav-cta { color: #fff !important; }
+    @media (max-width: 600px) {
+      /* Dropdown inherits the page's dark background so white text stays readable */
+      .nav-links { background: #2f4f8f !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+    }
   </style>
 </head>
 <body>
@@ -38,6 +47,7 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- ── PRODUCT SECTION ── -->

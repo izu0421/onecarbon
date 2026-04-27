@@ -154,9 +154,68 @@
     }
 
     @media (max-width: 760px) {
-      .hero { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; overflow: hidden; }
       .hero-right { display: none; }
-      .hero-left { padding: 40px 28px; }
+
+      /* Mobile What We Do section */
+      .mobile-what-section {
+        display: block !important;
+        padding: 48px 28px 40px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .mobile-what-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      .mobile-what-section p {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 24px;
+      }
+      .mobile-what-section a {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* Confine neuron to right half so text is clean on the left */
+      .neuron-stage { left: 46%; }
+      .vignette {
+        background:
+          linear-gradient(to right,
+            rgba(247,245,240,0.96) 0%,
+            rgba(247,245,240,0.70) 35%,
+            rgba(247,245,240,0.18) 70%,
+            transparent 100%
+          ),
+          linear-gradient(to bottom,
+            rgba(247,245,240,0.92) 0%,
+            transparent 12%,
+            transparent 85%,
+            rgba(247,245,240,0.65) 100%
+          );
+      }
+
+      /* Text confined to left ~half — no more doubling up of hero-left + hero-text padding */
+      .hero-left { padding: 0; }
+      .hero-text {
+        padding: 16px 12px 36px 28px;
+        max-width: 52%;
+      }
+      .hero-text h1 { font-size: clamp(1.8rem, 7.5vw, 2.4rem); line-height: 1.1; }
+      .hero-text p  { font-size: 14px; max-width: none; margin-bottom: 20px; }
+      .hero-what-detail { display: none; }
+
+      /* Let hero shrink to content height so What We Do is visible on first load */
+      .hero { min-height: 0 !important; padding-bottom: 80px; }
+
+      /* Recog bar: shrink logos and tighten spacing so all 4 fit on one line */
+      .recog-bar { gap: 12px !important; padding: 14px 12px !important; flex-wrap: nowrap !important; }
+      .recog-bar .recognised-logo { height: 36px; }
     }
   </style>
 </head>
@@ -173,6 +232,7 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="purchase.html" class="nav-cta">Shop</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- ── HERO ── -->
@@ -202,11 +262,11 @@
         <div class="stat-card hero-what-bubble">
           <div class="hero-what-heading">What we <span style="color:#1a73e8;">do</span></div>
           <p class="hero-what-body">
-            We design ways to protect your neurons. <br><br>
+            We design ways to protect your neurons.<span class="hero-what-detail"> <br><br>
             The one-carbon metabolic pathway is important in normal cellular function. <br>
-            Disruptions in this pathway are associated with cell death, like Alzheimer's-related neurodegeneration. 
+            Disruptions in this pathway are associated with cell death, like Alzheimer's-related neurodegeneration.
             We discovered through computational biology that we can support this pathway
-            through the gut.
+            through the gut.</span>
           </p>
         </div>
         <a href="research.html" class="stat-card hero-research-bubble">
@@ -216,13 +276,22 @@
     </div>
 
     <!-- Recognised by — pinned to hero bottom -->
-    <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(247,245,240,0.88);backdrop-filter:blur(8px);border-top:1px solid rgba(10,15,26,0.08);display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 40px;flex-wrap:wrap;">
+    <div class="recog-bar" style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(247,245,240,0.88);backdrop-filter:blur(8px);border-top:1px solid rgba(10,15,26,0.08);display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 40px;flex-wrap:wrap;">
       <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
       <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
       <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
       <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
     </div>
 
+  </section>
+
+  <!-- ── MOBILE ONLY: What We Do ── -->
+  <section class="mobile-what-section" style="display:none;">
+    <h2>What we <span style="color:#1a73e8;">do</span></h2>
+    <br>
+    <h3>We design ways to protect your neurons.</h3>
+    <p>The one-carbon metabolic pathway is important in normal cellular function. Disruptions in this pathway are associated with cell death, like Alzheimer's-related neurodegeneration. We discovered through computational biology that we can support this pathway through the gut.</p>
+    <a href="research.html">Learn more about our research →</a>
   </section>
 
   <!-- ── PROFILE SIGN-UP ── -->
@@ -745,6 +814,10 @@
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     if (material) material.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+    // On mobile, flip the Z tilt so the neuron leans toward the text on the left
+    const mobile = window.innerWidth <= 760;
+    state.tilt = mobile ? -TWEAK_DEFAULTS.tilt : TWEAK_DEFAULTS.tilt;
+    neuronGroup.scale.setScalar(1.10);
   }
   window.addEventListener('resize', resize);
 
