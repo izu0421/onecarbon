@@ -4,7 +4,13 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — shop changes: nav rename, purchase page layout redesign
+## [latest] — spelling change
+
+- `purchase.html`: fixed "micrbiome" typo to "microbiome"
+
+---
+
+## [prev] — shop changes: nav rename, purchase page layout redesign
 
 - All pages: renamed "Shop" nav link to "Probiotics"
 - `purchase.html`: restructured top section into a two-row grid — featured card + 3 stacked white info cards on left, image spanning both rows on right
