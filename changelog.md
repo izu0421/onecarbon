@@ -4,7 +4,16 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — compatibility for phone improved, small font changes
+## [latest] — shop changes: nav rename, purchase page layout redesign
+
+- All pages: renamed "Shop" nav link to "Probiotics"
+- `purchase.html`: restructured top section into a two-row grid — featured card + 3 stacked white info cards on left, image spanning both rows on right
+- `purchase.html`: added "Become a product tester today" section title; removed "Become an early-adopter" eyebrow
+- `purchase.html`: info cards — price comparison, "Why do we charge?" explanation, signup form with title and subtext
+
+---
+
+## [prev] — compatibility for phone improved, small font changes
 
 - `css/style.css`: sitewide mobile (≤600px) overrides — hamburger nav overlay, reduced nav-to-title padding (common 16px rule for `.page-header`, `.profile-header`, `.profile-cta-section`, `.contact-section`), recog bar single-line, footer-bottom single column
 - `css/style.css`: research page mobile — video stacks below h1 using flex `order`; publications table → card layout (authors as small text, summary + date hidden)
