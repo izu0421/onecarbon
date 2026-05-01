@@ -4,7 +4,14 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — spelling change
+## [latest] — hide Clinical Trials nav + PROFILE section
+
+- All pages: removed "Clinical Trials" link from nav bar and footer (trials-v3.html still accessible via direct URL)
+- `index.html`: hid PROFILE sign-up section with `display:none`
+
+---
+
+## [prev] — spelling change
 
 - `purchase.html`: fixed "micrbiome" typo to "microbiome"
 
