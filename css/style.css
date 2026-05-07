@@ -941,12 +941,10 @@ p {
 }
 
 .product-image-wrap img {
-  border-radius: var(--radius-lg);
   width: 100%;
-  max-height: 380px;
+  max-height: 500px;
   object-fit: contain;
   object-position: center;
-  box-shadow: var(--shadow-lg);
 }
 
 .product-details h1 {

@@ -4,7 +4,16 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — add media images + purchase page image resize
+## [latest] — switch product and gut-brain thumbnails to SVG
+
+- `purchase.html`: product image changed from `pills-pack.png` to `pills-pack.svg`
+- `blog.html`: gut-brain card thumbnail changed from `gutbrain.png` to `gutbrain.svg`
+- `css/style.css`: `.product-image-wrap img` — removed border-radius and box-shadow; increased max-height to 500px
+- `media/`: added `gutbrain.svg`, `pills-pack.svg`
+
+---
+
+## [prev] — add media images + purchase page image resize
 
 - `media/`: committed new image assets: blog-meet-the-neuron.png, blog-neuron.svg, brain.webp, brainstrong.png, gutbrain.png, pills-pack.png, pipette.jpg, science.jpg
 - `css/style.css`: `.product-image-wrap img` — added `max-height: 380px; object-fit: contain` to shrink product image and remove blue gap between tester cards on purchase page
