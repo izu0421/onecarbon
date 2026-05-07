@@ -4,7 +4,17 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — hide Clinical Trials nav + PROFILE section
+## [latest] — science blog posts published
+
+- `blog.html`: replaced "Coming soon." with 6-card grid using existing `.blog-grid` / `.blog-card` CSS
+- New posts: `blog-meet-the-neuron.html`, `blog-what-is-alzheimers.html`, `blog-what-is-a-metabolite.html`, `blog-neuronal-resilience.html`, `blog-gut-brain-cognition.html`, `blog-one-carbon-pathway.html`
+- Each post: category label (Brain Health Basics / Our Research), subtitle deck, callout boxes, references section
+- Card thumbnails: gutbrain.png, blog-neuron.svg, science.jpg, brainstrong.png, mito1.png assigned to respective cards
+- `css/style.css`: `.blog-post-section` — no other changes to card layout
+
+---
+
+## [prev] — hide Clinical Trials nav + PROFILE section
 
 - All pages: removed "Clinical Trials" link from nav bar and footer (trials-v3.html still accessible via direct URL)
 - `index.html`: hid PROFILE sign-up section with `display:none`
