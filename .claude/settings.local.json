@@ -17,7 +17,12 @@
       "Bash(python3 -)",
       "Bash(xargs basename *)",
       "Bash(xargs sed *)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(git -C \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon\" pull)",
+      "Bash(git ls-remote *)",
+      "Bash(curl -s \"https://onecarbon.com/blog/index.html\")",
+      "Bash(curl -s \"https://onecarbon.com/\")",
+      "Bash(git rm *)"
     ]
   }
 }
