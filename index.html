@@ -217,6 +217,7 @@
       .recog-bar { gap: 12px !important; padding: 14px 12px !important; flex-wrap: nowrap !important; }
       .recog-bar .recognised-logo { height: 36px; }
     }
+  .mailing-input::placeholder { color: rgba(255,255,255,0.75); }
   </style>
 </head>
 <body>
@@ -323,6 +324,23 @@
           <button class="submit-btn" type="submit">Apply for PROFILE →</button>
         </form>
       </div>
+    </div>
+  </section>
+
+  <!-- ── MAILING LIST BANNER ── -->
+  <section style="background:#456BB7;padding:48px 60px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+      <div>
+        <h3 style="margin:0 0 4px;color:#fff;font-size:1.3rem;">Stay up to date</h3>
+        <p style="margin:0;color:rgba(255,255,255,0.8);font-size:14px;">Join our mailing list for research updates and news from OneCarbon.</p>
+      </div>
+      <form action="https://formsubmit.co/jake@onecarbon.com" method="POST" target="_blank" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <input type="hidden" name="_subject" value="Mailing List Sign-Up">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="email" name="email" placeholder="Your email address" required class="mailing-input"
+          style="padding:11px 16px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;min-width:240px;">
+        <button type="submit" style="padding:11px 24px;background:#fff;color:#456BB7;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:0;">Join mailing list</button>
+      </form>
     </div>
   </section>
 

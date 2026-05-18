@@ -4,7 +4,13 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
-## [latest] — minor changes
+## [latest] — mailing list added
+
+- `index.html`: added mailing list banner above footer — email input with white placeholder text, submits to jake@onecarbon.com with subject "Mailing List Sign-Up"
+
+---
+
+## [prev] — minor changes
 
 - `our_story.html`: updated Jake's bio copy
 
