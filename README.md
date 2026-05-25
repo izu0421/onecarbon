@@ -68,7 +68,7 @@ Active link is set dynamically in `js/main.js` by matching `window.location.path
 Logo text: `One<span>Carbon</span>&nbsp;Technologies`. Legal lines reference Healthspan Biotics Ltd, Company No. 15224752, Cambridge office. Footer links include Refund Policy; nav links do not.
 
 ### Forms (index.html and profile.html — identical fields)
-- Action: `https://formsubmit.co/jake@onecarbon.com`
+- Action: `https://formsubmit.co/yizhou@onecarbon.com`
 - Hidden subject: `FORM RESPONSE`
 - Bot honeypot: `<input type="text" name="_honey" style="display:none">`
 - Fields: Full Name (required), Email (required), Location, Age (number, 18–120), Any questions? (textarea)

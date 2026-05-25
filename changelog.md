@@ -15,7 +15,7 @@ Record specific code changes after each commit. Most recent first.
 
 ## [prev] — mailing list added
 
-- `index.html`: added mailing list banner above footer — email input with white placeholder text, submits to jake@onecarbon.com with subject "Mailing List Sign-Up"
+- `index.html`: added mailing list banner above footer — email input with white placeholder text, submits to yizhou@onecarbon.com with subject "Mailing List Sign-Up"
 
 ---
 
@@ -102,7 +102,7 @@ Record specific code changes after each commit. Most recent first.
 - `our_story.html`: photo captions added beneath 6 timeline photos; Cambridge logo removed; caption text colour black
 - All pages: "Our Trials" renamed to "Clinical Trials" in nav bar; `profile.html` renamed to `trials.html`
 - `trials.html`: h1 updated to "Our Clinical Trials" with "Trials" in blue; intro body text added above PROFILE content
-- `purchase.html`: microbiome test "Coming soon" replaced with inline email waiting-list form (submits to jake@onecarbon.com)
+- `purchase.html`: microbiome test "Coming soon" replaced with inline email waiting-list form (submits to yizhou@onecarbon.com)
 
 ## [prev] — what we do update, timeline finished, minor aesthetic changes
 - `index.html`: nav now inherits from `css/style.css`; "What we do" heading blue; h1 font matches other pages; "Learn more" button solid blue/white; card stack aligned to hero text top and nav right gutter

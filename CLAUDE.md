@@ -32,7 +32,7 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - £30 (30 pills): K03
 
 ## Forms
-- PROFILE sign-up form on index.html submits to jake@onecarbon.com via formsubmit.co
+- PROFILE sign-up form on index.html submits to yizhou@onecarbon.com via formsubmit.co
 - Subject line: "FORM RESPONSE"
 - Fields: Full Name, Email, Location, Age, Any questions?
 

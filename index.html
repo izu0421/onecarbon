@@ -285,6 +285,352 @@
 
   </section>
 
+  <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
+  <style>
+  #qz-page{background:#E8E6E0;display:flex;align-items:flex-start;justify-content:center;padding:4rem 1rem;}
+  #qz *{box-sizing:border-box;}
+  #qz{font-family:'Inter','Outfit',sans-serif;color:#1a1a1a;background:#F5F4F0;width:100%;max-width:480px;border-radius:20px;padding:2rem 1.75rem 2.5rem;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+  #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
+  @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
+  #qz .step-dot{width:26px;height:26px;border-radius:50%;background:#D8D6D0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#999;flex-shrink:0;transition:background .3s;}
+  #qz .step-dot.active,#qz .step-dot.done{background:#456BB7;color:#fff;}
+  #qz .step-line{flex:1;height:1.5px;background:#D8D6D0;max-width:50px;}#qz .step-line.done{background:#456BB7;}
+  #qz .logo{font-family:'DM Sans','Lora',serif;font-size:14px;letter-spacing:.04em;color:#456BB7;margin-bottom:2.5rem;display:block;}
+  #qz .eyebrow,#qz .sci-eyebrow{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#456BB7;margin-bottom:.6rem;}
+  #qz .q-title{font-family:'DM Sans','Lora',serif;font-size:24px;line-height:1.35;color:#1a1a1a;margin-bottom:.5rem;font-weight:500;}
+  #qz .q-sub{font-size:14px;color:#666;margin-bottom:1.75rem;line-height:1.65;}
+  #qz .hint{font-size:12px;color:#999;margin-bottom:1rem;}
+  #qz .tiles{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .tile{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid #D8D6D0;border-radius:12px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;font-size:14px;color:#1a1a1a;text-align:left;font-family:inherit;line-height:1.4;font-weight:400;width:100%;}
+  #qz .tile:hover{border-color:#456BB7;background:#EEF2FA;}
+  #qz .tile.sel{border-color:#456BB7;background:#E1E9F7;font-weight:500;}
+  #qz .t-mark{width:20px;height:20px;border-radius:50%;border:1.5px solid #D8D6D0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  #qz .tile.sel .t-mark{background:#456BB7;border-color:#456BB7;}
+  #qz .t-chk{display:none;}#qz .tile.sel .t-chk{display:block;}
+  #qz .tile-divider{height:1px;background:#E8E6E0;margin:4px 0;}
+  #qz .cont-btn{width:100%;padding:15px;background:#1a1a1a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:.5rem;}
+  #qz .cont-btn:disabled{opacity:.3;cursor:default;}
+  #qz .cont-btn:not(:disabled):hover{background:#456BB7;}
+  #qz .back{display:block;text-align:center;margin-top:1rem;font-size:13px;color:#999;cursor:pointer;border:none;background:none;font-family:inherit;padding:0;}
+  #qz .back:hover{color:#555;}
+  #qz .sci-bullets{display:flex;flex-direction:column;gap:10px;margin:1.25rem 0 1.5rem;}
+  #qz .sci-bullet{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #E8E6E0;font-size:14px;color:#444;line-height:1.6;}
+  #qz .sci-bullet-dot{width:8px;height:8px;border-radius:50%;background:#456BB7;flex-shrink:0;margin-top:6px;}
+  #qz .sci-bullet strong{color:#1a1a1a;font-weight:500;}
+  #qz .usp-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.25rem;}
+  #qz .usp-pill{font-size:12px;color:#456BB7;background:#E1E9F7;border:1px solid #B0C4E2;border-radius:99px;padding:5px 12px;font-weight:500;}
+  #qz .sci-disclaimer{font-size:11px;color:#aaa;line-height:1.65;margin-top:1.25rem;font-style:italic;}
+  #qz .safe-banner{background:#E1E9F7;border:1px solid #B0C4E2;border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:#1E3A6F;line-height:1.6;}
+  #qz .safe-banner strong{font-weight:500;}
+  #qz .offer-card{background:#456BB7;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
+  #qz .offer-pct{font-family:'DM Sans','Lora',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:.25rem;font-weight:600;}
+  #qz .offer-label{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:.35rem;}
+  #qz .offer-sub{font-size:12px;color:rgba(255,255,255,.55);}
+  #qz .inp-label{font-size:12px;color:#555;margin-bottom:.4rem;display:block;}
+  #qz .email-inp{width:100%;padding:13px 16px;border:1.5px solid #D8D6D0;border-radius:12px;font-family:inherit;font-size:15px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .15s;margin-bottom:.5rem;}
+  #qz .email-inp:focus{border-color:#456BB7;}
+  #qz .privacy{font-size:11px;color:#aaa;margin-bottom:1rem;}
+  #qz .gdpr-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:1.5rem;}
+  #qz .gdpr-row input[type=checkbox]{margin-top:2px;accent-color:#456BB7;flex-shrink:0;width:15px;height:15px;cursor:pointer;}
+  #qz .gdpr-label{font-size:11px;color:#888;line-height:1.65;}
+  #qz .gdpr-label a{color:#456BB7;text-decoration:underline;}
+  #qz .skip{display:block;text-align:center;font-size:12px;color:#aaa;cursor:pointer;border:none;background:none;font-family:inherit;margin-top:1rem;padding:0;}
+  #qz .skip:hover{color:#666;}
+  #qz .result-hero{background:#fff;border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;border:1px solid #D8D6D0;}
+  #qz .fit-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #B0C4E2;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:500;color:#456BB7;background:#E1E9F7;margin-bottom:1rem;}
+  #qz .fit-badge .dot{width:6px;height:6px;border-radius:50%;background:#456BB7;}
+  #qz .res-title{font-family:'DM Sans','Lora',serif;font-size:22px;line-height:1.3;color:#1a1a1a;margin-bottom:.75rem;font-weight:500;}
+  #qz .res-body{font-size:14px;line-height:1.8;color:#555;}
+  #qz .fit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .fit-item{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#444;line-height:1.55;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #E8E6E0;}
+  #qz .fit-icon{width:20px;height:20px;border-radius:50%;background:#E1E9F7;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  #qz .cta-primary{width:100%;padding:15px;background:#456BB7;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:10px;transition:background .15s;}
+  #qz .cta-primary:hover{background:#2f4f8f;}
+  #qz .cta-secondary{width:100%;padding:13px;background:#fff;color:#1a1a1a;border:1.5px solid #D8D6D0;border-radius:99px;font-family:inherit;font-size:14px;cursor:pointer;transition:border-color .15s;}
+  #qz .cta-secondary:hover{border-color:#456BB7;}
+  #qz .legal{font-size:11px;color:#aaa;text-align:center;margin-top:1.25rem;line-height:1.7;}
+  </style>
+
+  <div id="qz-page"><div id="qz">
+
+  <!-- Intro -->
+  <div class="screen active" id="qz-s-intro">
+    <span class="logo">OneCarbon</span>
+    <h1 style="font-family:'DM Sans',sans-serif;font-size:30px;line-height:1.25;color:#1a1a1a;font-weight:500;margin-bottom:2.5rem;">Take the free Brain Health Assessment</h1>
+    <button class="cont-btn" style="opacity:1;" onclick="qzGoTo('qz-s1')">Begin</button>
+    <p style="text-align:center;font-size:12px;color:#aaa;margin-top:.75rem;">For you or a loved one · Takes 2 minutes</p>
+  </div>
+
+  <!-- Q1 -->
+  <div class="screen" id="qz-s1">
+    <div class="steps" id="qz-sd1"></div>
+    <p class="eyebrow">Question 1 of 7</p>
+    <h2 class="q-title">Who are you looking to support?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="myself"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Myself</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="parent"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A Parent</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="partner"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A Partner</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="other"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Someone Else</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-s2')">Continue</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="screen" id="qz-s2">
+    <div class="steps" id="qz-sd2"></div>
+    <p class="eyebrow">Question 2 of 7</p>
+    <h2 class="q-title">What's your most important goal?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s2')" data-val="longterm"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Long-term brain health</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s2')" data-val="memory"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal memory function</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s2')" data-val="cognition"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Normal cognition</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s2')" data-val="someone"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Support for someone I love</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-s3')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="screen" id="qz-s3">
+    <div class="steps" id="qz-sd3"></div>
+    <p class="eyebrow">Question 3 of 7</p>
+    <h2 class="q-title" id="qz-s3-title">Has anything changed?</h2>
+    <p class="hint" id="qz-s3-hint">Tick any changes in:</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="memory"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in memory</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="cognition"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in cognition</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="senses"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in one or more senses</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="balance"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in balance or coordination</button>
+      <div class="tile-divider"></div>
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="family"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No changes, but a family history of dementia</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="precaution"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No changes yet, just taking precaution</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s3" disabled onclick="qzGoTo('qz-s4')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="screen" id="qz-s4">
+    <div class="steps" id="qz-sd4"></div>
+    <p class="eyebrow">Question 4 of 7</p>
+    <h2 class="q-title" id="qz-s4-title">How long have you noticed these changes?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s4')" data-val="0-6m"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>0–6 months</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s4')" data-val="1-2y"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1–2 years</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s4')" data-val="3-4y"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>3–4 years</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s4')" data-val="5y+"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>5+ years</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s4" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s3')">← Back</button>
+  </div>
+
+  <!-- Sci 1 -->
+  <div class="screen" id="qz-sci1">
+    <div class="steps" id="qz-sd5"></div>
+    <p class="sci-eyebrow">Did you know</p>
+    <h2 class="q-title">Your gut microbiome plays an important role in brain health</h2>
+    <div class="sci-bullets">
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain are connected by a two-way network called the <strong>gut-brain axis</strong>. What happens in your gut directly influences what happens in your brain.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce molecules called <strong>metabolites</strong> that travel to the brain and play an active role in neuronal health, energy, and protection against cellular damage.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>When the gut doesn't contain the right bacteria, the brain can be deprived of the metabolites it relies on — <strong>a gap that standard supplements don't address</strong>.</span></div>
+    </div>
+    <p class="sci-disclaimer">For educational purposes only. 1C-01 is a probiotic supplement and does not claim to treat or prevent any disease.</p>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
+    <button class="back" onclick="qzGoTo('qz-s4')">← Back</button>
+  </div>
+
+  <!-- Sci 2 -->
+  <div class="screen" id="qz-sci2">
+    <div class="steps" id="qz-sd6"></div>
+    <p class="sci-eyebrow">The OneCarbon story</p>
+    <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
+    <div class="sci-bullets">
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Dr Yizhou Yu's research at the <strong>University of Cambridge</strong> discovered the link between Alzheimer's disease and the one-carbon metabolic pathway — a key process in how neurons protect themselves.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Using advanced techniques, he identified a probiotic bacteria capable of producing the metabolites that support this pathway — winning multiple awards including <strong>2nd place at the global Falling Walls Lab finale</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>1C-01 is the result — developed over two years into a safe, <strong>food-grade, non-GMO probiotic</strong> that continuously produces one-carbon metabolites from inside the gut.</span></div>
+    </div>
+    <div class="usp-strip">
+      <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
+    </div>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s5')">Continue →</button>
+    <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
+  </div>
+
+  <!-- Q5 Medication -->
+  <div class="screen" id="qz-s5">
+    <div class="steps" id="qz-sd7"></div>
+    <p class="eyebrow">Question 5 of 7</p>
+    <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication?</h2>
+    <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
+    <p class="hint">Select all that apply.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="donepezil"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Donepezil (Aricept)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="memantine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Memantine (Namenda)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="rivastigmine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rivastigmine (Exelon)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="galantamine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Galantamine (Reminyl)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="levodopa"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Levodopa / carbidopa</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-med"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other medication</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Not currently taking medication</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
+  </div>
+
+  <!-- Email gate -->
+  <div class="screen" id="qz-s-email">
+    <div class="steps" id="qz-sd8"></div>
+    <h2 class="q-title">Would you like 10% off your first month?</h2>
+    <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to see your personalised results and claim your discount.</p>
+    <div class="offer-card">
+      <div class="offer-pct">10% off</div>
+      <div class="offer-label">your first month of 1C-01</div>
+      <div class="offer-sub">Discount applied automatically at checkout</div>
+    </div>
+    <label class="inp-label" for="qz-ef">Your email address</label>
+    <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
+    <p class="privacy">Used only to send your results and discount code.</p>
+    <div class="gdpr-row">
+      <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
+      <label class="gdpr-label" for="qz-gdpr">I agree to receive marketing communications and information materials from OneCarbon. You can opt out at any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+    </div>
+    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">See my results</button>
+    <button class="skip" onclick="qzShowResult()">Skip — just show my results</button>
+  </div>
+
+  <!-- Q6 Diagnosis -->
+  <div class="screen" id="qz-s6">
+    <div class="steps" id="qz-sd9"></div>
+    <p class="eyebrow">Question 6 of 7</p>
+    <h2 class="q-title" id="qz-s6-title">Have you received a formal diagnosis?</h2>
+    <p class="hint">Select all that apply.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="alzheimers"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Alzheimer's dementia</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="parkinsons"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Parkinson's</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="mci"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mild cognitive impairment (MCI)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="other"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other neurological condition</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No formal diagnosis</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s6" disabled onclick="qzGoTo('qz-s7')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
+  </div>
+
+  <!-- Q7 Age -->
+  <div class="screen" id="qz-s7">
+    <div class="steps" id="qz-sd10"></div>
+    <p class="eyebrow">Question 7 of 7</p>
+    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="under59"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Under 59</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="60-70"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>60–70</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="70-80"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>70–80</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="80+"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>80+</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">See my results</button>
+    <button class="back" onclick="qzGoTo('qz-s6')">← Back</button>
+  </div>
+
+  <!-- Result -->
+  <div class="screen" id="qz-s-result">
+    <div class="result-hero">
+      <div class="fit-badge"><span class="dot"></span><span id="qz-badge-txt">Strong candidate</span></div>
+      <h2 class="res-title">Your responses suggest you're a strong candidate for 1C-01.</h2>
+      <p class="res-body" id="qz-res-body"></p>
+    </div>
+    <div class="fit-list" id="qz-fit-list"></div>
+    <button class="cta-primary" onclick="window.open('purchase.html','_blank')">Claim your 10% off</button>
+    <button class="cta-secondary" onclick="window.open('research.html','_blank')">Learn about the science</button>
+    <p class="legal">1C-01 is a dietary supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
+  </div>
+
+  </div></div>
+
+  <script>
+  const qzA={};const qzTOTAL=7;
+  function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
+  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-s3':3,'qz-s4':4,'qz-sci1':4,'qz-sci2':4,'qz-s5':5,'qz-s-email':5,'qz-s6':6,'qz-s7':7};
+  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
+  function qzPersonalise(){
+    const who=(qzA['s1']||['myself'])[0],s=who==='myself';
+    const map={
+      'qz-s3-title':s?'Has anything changed?':'Has anything changed for them?',
+      'qz-s3-hint':s?'Tick any changes in:':'Tick any changes in:',
+      'qz-s4-title':s?'How long have you noticed these changes?':'How long have they noticed these changes?',
+      'qz-s5-title':s?'Are you currently taking any medication?':'Are they currently taking any medication?',
+      'qz-s6-title':s?'Have you received a formal diagnosis?':'Have they received a formal diagnosis?',
+      'qz-s7-title':s?'How old are you?':'How old are they?',
+    };
+    Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
+  }
+  function qzPick(btn,sid){btn.closest('.tiles').querySelectorAll('.tile').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
+  function qzMulti(btn,sid){btn.classList.toggle('sel');const sel=Array.from(btn.closest('.tiles').querySelectorAll('.tile.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
+  function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
+  function qzSubmitE(){
+    // POST email + all quiz answers so far to Formspree
+    const email=document.getElementById('qz-ef').value;
+    const payload={
+      _subject:'Brain Health Quiz — Email Capture',
+      email:email,
+      gdpr_consent:'yes',
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_goal:(qzA['s2']||[]).join(','),
+      q3_changes:(qzA['s3']||[]).join(','),
+      q4_duration:(qzA['s4']||[]).join(','),
+      q5_medication:(qzA['s5']||[]).join(','),
+    };
+    fetch('https://formspree.io/f/xykvdvoy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+    }).catch(()=>{}); // fire-and-forget; don't block UX
+    qzGoTo('qz-s6');
+  }
+  function qzShowResult(){
+    // Also POST final answers (diagnosis + age) once we have them
+    const email=document.getElementById('qz-ef').value||'(not provided)';
+    const finalPayload={
+      _subject:'Brain Health Quiz — Completed',
+      email:email,
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_goal:(qzA['s2']||[]).join(','),
+      q3_changes:(qzA['s3']||[]).join(','),
+      q4_duration:(qzA['s4']||[]).join(','),
+      q5_medication:(qzA['s5']||[]).join(','),
+      q6_diagnosis:(qzA['s6']||[]).join(','),
+      q7_age:(qzA['s7']||[]).join(','),
+    };
+    fetch('https://formspree.io/f/xykvdvoy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(finalPayload),
+    }).catch(()=>{});
+
+    const diag=qzA['s6']||[],concerns=qzA['s3']||[],goal=(qzA['s2']||['longterm'])[0],meds=qzA['s5']||[];
+    const isSymptom=concerns.some(c=>['memory','cognition','senses','balance'].includes(c));
+    const isDiag=diag.some(d=>['alzheimers','mci','parkinsons','other'].includes(d));
+    const onMeds=!meds.includes('none')&&meds.length>0;
+    const goalMap={longterm:'long-term brain health',memory:'normal memory function',cognition:'normal cognition',someone:'supporting someone you love'};
+    const b=document.getElementById('qz-res-body');
+    if(isDiag){b.textContent='The OneCarbon research programme was built around the exact conditions you\'ve described. 1C-01 supports the one-carbon pathway neurons rely on to protect themselves — in a way no standard supplement or medication addresses at the metabolic level.'+(onMeds?' It is designed to be taken safely alongside existing medication.':'');}
+    else if(isSymptom){b.textContent='The changes you\'ve noticed align closely with what the one-carbon pathway supports. 1C-01 works from the gut continuously — producing the metabolites that support the brain\'s own neuroprotective mechanism.'+(onMeds?' It is designed to complement, not conflict with, existing medication.':'');}
+    else{b.textContent='Acting before symptoms appear is the highest-leverage window for brain health. The one-carbon cycle is most responsive when neurons aren\'t yet under significant stress — which is exactly the position you\'re in. Your goal of '+goalMap[goal]+' is precisely what 1C-01 is built to support.';}
+    const items=[];
+    if(goal==='memory')items.push('Your goal — normal memory function — is directly linked to SAM availability, a key output of the one-carbon cycle.');
+    if(goal==='cognition')items.push('Your goal — normal cognition — maps to the Cambridge finding that one-carbon disruption is a primary driver of cognitive decline.');
+    if(goal==='longterm')items.push('For long-term brain health, starting early maximises the protective effect of the one-carbon cycle.');
+    if(goal==='someone')items.push('1C-01 is safe, simple to take daily, and requires no prescription — practical for ongoing support.');
+    if(concerns.includes('memory')||concerns.includes('cognition'))items.push('The changes noted are consistent with early one-carbon cycle disruption — the mechanism 1C-01 directly addresses.');
+    if(concerns.includes('family'))items.push('Family history of dementia significantly increases risk. Acting early is the most effective window available.');
+    if(isDiag)items.push('Alzheimer\'s / MCI / Parkinson\'s: the conditions the Cambridge research programme was built to address.');
+    if(onMeds)items.push('1C-01 is food-grade, non-GMO, and drug-free — designed to be taken safely alongside existing medication.');
+    if(meds.includes('none'))items.push('No current medication — 1C-01 is a well-evidenced, drug-free first step backed by peer-reviewed research.');
+    const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
+    items.slice(0,4).forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#456BB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
+    qzGoTo('qz-s-result');
+  }
+  qzDots('qz-sd1',1);
+  </script>
+
   <!-- ── MOBILE ONLY: What We Do ── -->
   <section class="mobile-what-section" style="display:none;">
     <h2>What we <span style="color:#1a73e8;">do</span></h2>
@@ -307,7 +653,7 @@
         <a href="draft/trials-v3.html" class="profile-cta-link">Learn more about PROFILE →</a>
       </div>
       <div>
-        <form class="profile-form" action="https://formsubmit.co/jake@onecarbon.com" method="POST" target="_blank">
+        <form class="profile-form" action="https://formspree.io/f/xqejdjwr" method="POST" target="_blank">
           <input type="hidden" name="_subject" value="FORM RESPONSE">
           <input type="text" name="_honey" style="display:none">
           <div class="form-row">
@@ -334,7 +680,7 @@
         <h3 style="margin:0 0 4px;color:#fff;font-size:1.3rem;">Stay up to date</h3>
         <p style="margin:0;color:rgba(255,255,255,0.8);font-size:14px;">Join our mailing list for research updates and news from OneCarbon.</p>
       </div>
-      <form action="https://formspree.io/f/mykvylyd" method="POST" target="_blank" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <form action="https://formspree.io/f/xykvdvoy" method="POST" target="_blank" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
         <input type="hidden" name="_subject" value="Mailing List Sign-Up">
         <input type="email" name="email" placeholder="Your email address" required class="mailing-input"
           style="padding:11px 16px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;min-width:240px;">

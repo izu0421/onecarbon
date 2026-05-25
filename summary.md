@@ -75,7 +75,7 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages.
 ## Key Integrations
 
 **Forms (index.html)**
-- PROFILE sign-up submits to `https://formsubmit.co/jake@onecarbon.com`
+- PROFILE sign-up submits to `https://formsubmit.co/yizhou@onecarbon.com`
 - Subject line: `"FORM RESPONSE"`
 - Fields: Full Name, Email, Location, Age, Any questions?
 - Bot protection: hidden `_honey` field
