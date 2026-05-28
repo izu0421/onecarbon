@@ -154,8 +154,9 @@
     }
 
     @media (max-width: 760px) {
-      .hero { grid-template-columns: 1fr; overflow: hidden; }
-      .hero-right { display: none; }
+      .hero { grid-template-columns: 1fr; overflow: hidden; min-height: auto; }
+      .hero-right { display: block; padding: 24px 20px 80px; background: rgba(232, 230, 224, 0.6); }
+      .hero-right #qz { margin: 0 auto; }
 
       /* Mobile What We Do section */
       .mobile-what-section {
@@ -258,38 +259,11 @@
 
     <!-- Right: What we do cards -->
     <div class="hero-right">
-      <div class="hero-bubble-stack">
-        <div class="stat-card hero-what-bubble">
-          <div class="hero-what-heading">What we <span style="color:#1a73e8;">do</span></div>
-          <p class="hero-what-body">
-            We design ways to protect your neurons.<span class="hero-what-detail"> <br><br>
-            The one-carbon metabolic pathway is important in normal cellular function. <br>
-            Disruptions in this pathway are associated with cell death, like Alzheimer's-related neurodegeneration.
-            We discovered through computational biology that we can support this pathway
-            through the gut.</span>
-          </p>
-        </div>
-        <a href="research.html" class="stat-card hero-research-bubble">
-          Learn more about our research here →
-        </a>
-      </div>
-    </div>
-
-    <!-- Recognised by — pinned to hero bottom -->
-    <div class="recog-bar" style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(247,245,240,0.88);backdrop-filter:blur(8px);border-top:1px solid rgba(10,15,26,0.08);display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 40px;flex-wrap:wrap;">
-      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
-      <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
-      <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
-      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
-    </div>
-
-  </section>
-
   <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
   <style>
-  #qz-page{background:#E8E6E0;display:flex;align-items:flex-start;justify-content:center;padding:4rem 1rem;}
+  #qz-page{display:flex;align-items:flex-start;justify-content:center;padding:0;}
   #qz *{box-sizing:border-box;}
-  #qz{font-family:'Inter','Outfit',sans-serif;color:#1a1a1a;background:#F5F4F0;width:100%;max-width:480px;border-radius:20px;padding:2rem 1.75rem 2.5rem;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:#F5F4F0;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:0 4px 24px rgba(0,0,0,.12);}
   #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
   @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
   #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
@@ -630,6 +604,22 @@
   }
   qzDots('qz-sd1',1);
   </script>
+
+      <a href="research.html" class="stat-card hero-research-bubble" style="margin-top:16px;display:block;">
+          Learn more about our research →
+        </a>
+    </div>
+
+    <!-- Recognised by — pinned to hero bottom -->
+    <div class="recog-bar" style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(247,245,240,0.88);backdrop-filter:blur(8px);border-top:1px solid rgba(10,15,26,0.08);display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 40px;flex-wrap:wrap;">
+      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+      <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+      <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+    </div>
+
+  </section>
+
 
   <!-- ── MOBILE ONLY: What We Do ── -->
   <section class="mobile-what-section" style="display:none;">
