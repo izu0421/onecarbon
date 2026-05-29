@@ -331,6 +331,18 @@
   #qz .tile-grid-item.sel{border-color:#456BB7;background:#E1E9F7;}
   #qz .tile-emoji{font-size:32px;line-height:1;}
   #qz .tile .tile-inline-emoji{font-size:18px;margin-right:2px;}
+  #qz .circle-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:1.5rem;}
+  #qz .circle-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:96px;height:96px;border-radius:50%;border:1.5px solid #D8D6D0;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-family:inherit;}
+  #qz .circle-btn:hover{border-color:#456BB7;background:#EEF2FA;}
+  #qz .circle-btn.sel{border-color:#456BB7;background:#E1E9F7;}
+  #qz .circle-em{font-size:26px;line-height:1;}
+  #qz .circle-em-sm{font-size:17px;line-height:1.4;text-align:center;}
+  #qz .circle-lbl{font-size:11px;font-weight:500;color:#666;text-align:center;line-height:1.2;}
+  #qz .circle-btn.sel .circle-lbl{color:#1a3f80;}
+  #qz .circle-muted{border-style:dashed;background:#fafaf8;}
+  #qz .circle-muted .circle-lbl{color:#999;}
+  #qz .circle-muted.sel{border-color:#456BB7;background:#E1E9F7;}
+  #qz .circle-divider-label{flex-basis:100%;text-align:center;font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin:4px 0;}
   </style>
 
   <div id="qz-page"><div id="qz">
@@ -380,15 +392,15 @@
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
     <p class="eyebrow">Question 3 of 7</p>
     <h2 class="q-title" id="qz-s3-title">Has anything changed?</h2>
-    <p class="hint" id="qz-s3-hint">Tick any changes in:</p>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="memory"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in memory</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="cognition"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in cognition</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="senses"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in one or more senses</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="balance"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A change in balance or coordination</button>
-      <div class="tile-divider"></div>
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="family"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No changes, but a family history of dementia</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="precaution"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No changes yet, just taking precaution</button>
+    <p class="hint" id="qz-s3-hint">Select all that apply</p>
+    <div class="circle-grid">
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="memory"><span class="circle-em">📷</span><span class="circle-lbl">Memory</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="cognition"><span class="circle-em">🧠</span><span class="circle-lbl">Cognition</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="senses"><span class="circle-em-sm">👁️ 👃 👂</span><span class="circle-lbl">Senses</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="balance"><span class="circle-em">🚶</span><span class="circle-lbl">Balance</span></button>
+      <div class="circle-divider-label">No changes yet</div>
+      <button type="button" class="circle-btn circle-muted" onclick="qzMulti(this,'s3')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
+      <button type="button" class="circle-btn circle-muted" onclick="qzMulti(this,'s3')" data-val="precaution"><span class="circle-em">🛡️</span><span class="circle-lbl">Precaution</span></button>
     </div>
     <button class="cont-btn" id="qz-next-s3" disabled onclick="qzNextFromS3()">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
@@ -400,11 +412,11 @@
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
     <p class="eyebrow">Question 4 of 7</p>
     <h2 class="q-title" id="qz-s4-title">How long have you noticed these changes?</h2>
-    <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s4')" data-val="0-6m"><span class="tile-emoji">🌱</span>0–6 months</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s4')" data-val="1-2y"><span class="tile-emoji">📅</span>1–2 years</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s4')" data-val="3-4y"><span class="tile-emoji">🗓️</span>3–4 years</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s4')" data-val="5y+"><span class="tile-emoji">⏳</span>5+ years</button>
+    <div class="circle-grid">
+      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="0-6m"><span class="circle-em">🌱</span><span class="circle-lbl">0–6 months</span></button>
+      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="1-2y"><span class="circle-em">🕰️</span><span class="circle-lbl">1–2 years</span></button>
+      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="3-4y"><span class="circle-em">🗓️</span><span class="circle-lbl">3–4 years</span></button>
+      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="5y+"><span class="circle-em">⏳</span><span class="circle-lbl">5+ years</span></button>
     </div>
     <button class="cont-btn" id="qz-next-s4" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s3')">← Back</button>
@@ -450,21 +462,10 @@
     <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
     <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
     <p class="hint">Select all that apply.</p>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="donepezil"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Donepezil (Aricept)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="memantine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Memantine (Namenda)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="rivastigmine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rivastigmine (Exelon)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="galantamine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Galantamine (Reminyl)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="levodopa"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Levodopa / carbidopa</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-med"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other medication</button>
-      <div class="tile-divider"></div>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="multivitamin"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Multivitamin</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="omega3"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Omega-3 / fish oil</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="bvit"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>B vitamins / folate</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="probiotic"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other probiotic</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-supp"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other supplement</button>
-      <div class="tile-divider"></div>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nothing currently</button>
+    <div class="circle-grid">
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="supplements"><span class="circle-em">🌿</span><span class="circle-lbl">General supplements</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="prescription"><span class="circle-em">💊</span><span class="circle-lbl">Prescription medication</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="none"><span class="circle-em">🌻</span><span class="circle-lbl">Nothing currently</span></button>
     </div>
     <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
