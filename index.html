@@ -250,10 +250,9 @@
       <div class="hero-text">
         <h1>Targeted<br>Probiotic<br><em>Solutions</em></h1>
         <p>
-          Evolving probiotic bacteria to target specific disease mechanisms.
-          We've developed <a href="purchase.html">1C-01</a> to enhance neuronal resilience.
+          Probiotics, evolved for brain health.
         </p>
-        <a href="purchase.html" class="btn-ghost">Our probiotics ↗</a>
+        <a href="research.html" class="btn-ghost">Learn about our research ↗</a>
       </div>
     </div>
 
@@ -391,7 +390,7 @@
       <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="family"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">👨‍👩‍👧</span>No changes, but a family history of dementia</button>
       <button type="button" class="tile" onclick="qzMulti(this,'s3')" data-val="precaution"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">🛡️</span>No changes yet, just taking precaution</button>
     </div>
-    <button class="cont-btn" id="qz-next-s3" disabled onclick="qzGoTo('qz-s4')">Continue</button>
+    <button class="cont-btn" id="qz-next-s3" disabled onclick="qzNextFromS3()">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
   </div>
 
@@ -423,7 +422,7 @@
     </div>
     <p class="sci-disclaimer">For educational purposes only. 1C-01 is a probiotic supplement and does not claim to treat or prevent any disease.</p>
     <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
-    <button class="back" onclick="qzGoTo('qz-s4')">← Back</button>
+    <button class="back" onclick="qzBackFromSci1()">← Back</button>
   </div>
 
   <!-- Sci 2 -->
@@ -433,7 +432,7 @@
     <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
     <div class="sci-bullets">
       <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu linked Alzheimer's to the <strong>one-carbon pathway</strong> — how neurons protect themselves.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He found a probiotic that produces the right metabolites — <strong>2nd at Falling Walls Lab</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He found a probiotic that produces the right metabolites.</span></div>
       <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result: a food-grade, non-GMO probiotic working from inside your gut.</span></div>
     </div>
     <div class="usp-strip">
@@ -448,17 +447,24 @@
     <div class="steps" id="qz-sd7"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
     <p class="eyebrow">Question 5 of 7</p>
-    <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication?</h2>
-    <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
+    <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
+    <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
     <p class="hint">Select all that apply.</p>
     <div class="tiles">
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="donepezil"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Donepezil (Aricept)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="memantine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Memantine (Namenda)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="rivastigmine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rivastigmine (Exelon)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="galantamine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Galantamine (Reminyl)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="levodopa"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Levodopa / carbidopa</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-med"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other medication</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Not currently taking medication</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="donepezil"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Donepezil (Aricept)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="memantine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Memantine (Namenda)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="rivastigmine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Rivastigmine (Exelon)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="galantamine"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Galantamine (Reminyl)</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="levodopa"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Levodopa / carbidopa</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-med"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💊</span>Other medication</button>
+      <div class="tile-divider"></div>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="multivitamin"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">🌿</span>Multivitamin</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="omega3"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">🐟</span>Omega-3 / fish oil</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="bvit"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">🅱️</span>B vitamins / folate</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="probiotic"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">🦠</span>Other probiotic</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="other-supp"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">💚</span>Other supplement</button>
+      <div class="tile-divider"></div>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tile-inline-emoji">❌</span>Nothing currently</button>
     </div>
     <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
@@ -545,7 +551,7 @@
       'qz-s3-title':s?'Has anything changed?':'Has anything changed for them?',
       'qz-s3-hint':s?'Tick any changes in:':'Tick any changes in:',
       'qz-s4-title':s?'How long have you noticed these changes?':'How long have they noticed these changes?',
-      'qz-s5-title':s?'Are you currently taking any medication?':'Are they currently taking any medication?',
+      'qz-s5-title':s?'Are you currently taking any medication or supplements?':'Are they currently taking any medication or supplements?',
       'qz-s6-title':s?'Have you received a formal diagnosis?':'Have they received a formal diagnosis?',
       'qz-s7-title':s?'How old are you?':'How old are they?',
     };
@@ -554,6 +560,10 @@
   function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid');wrap.querySelectorAll('.tile,.tile-grid-item').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
   function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
   function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
+  // Smart navigation: if user reported no actual changes in Q3 (only "family" or "precaution"), skip Q4 (duration of changes)
+  function qzHasActualChanges(){const sel=qzA['s3']||[];return sel.some(v=>['memory','cognition','senses','balance'].includes(v));}
+  function qzNextFromS3(){qzGoTo(qzHasActualChanges()?'qz-s4':'qz-sci1');}
+  function qzBackFromSci1(){qzGoTo(qzHasActualChanges()?'qz-s4':'qz-s3');}
   function qzSubmitE(){
     // POST email + all quiz answers so far to Formspree
     const email=document.getElementById('qz-ef').value;
@@ -620,9 +630,6 @@
   qzDots('qz-sd1',1);
   </script>
 
-      <a href="research.html" class="stat-card hero-research-bubble" style="margin:16px auto 0;display:block;max-width:480px;width:100%;box-sizing:border-box;text-align:center;border-radius:99px;">
-          Learn more about our research →
-        </a>
     </div>
 
     <!-- Recognised by — pinned to hero bottom -->
