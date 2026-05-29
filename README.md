@@ -40,7 +40,7 @@ Convert visitors into product buyers and PROFILE trial applicants. Secondary goa
 ├── profile.html        PROFILE trial detail page + eligibility + sign-up form (same fields as index)
 ├── team.html           Team grid — 6-col, 3+2 staggered layout, LinkedIn links
 ├── purchase.html       Product tiers + Stripe links + geo-currency switcher (JS inline)
-├── contact.html        General contact form → team@onecarbon.com
+├── contact.html        General contact form → yizhou@onecarbon.com
 ├── privacy.html        Privacy policy
 ├── tos.html            Terms of service
 ├── cookie.html         Cookie policy
@@ -72,7 +72,7 @@ Logo text: `One<span>Carbon</span>&nbsp;Technologies`. Legal lines reference Hea
 - Hidden subject: `FORM RESPONSE`
 - Bot honeypot: `<input type="text" name="_honey" style="display:none">`
 - Fields: Full Name (required), Email (required), Location, Age (number, 18–120), Any questions? (textarea)
-- Contact form (contact.html) sends to `team@onecarbon.com`, fields: Name, Email, Message
+- Contact form (contact.html) sends to `yizhou@onecarbon.com`, fields: Name, Email, Message
 
 ### Geo-currency switcher (purchase.html, inline `<script>`)
 Fetches `https://ipapi.co/json/` on load. Maps country code → GBP / USD / EUR / AUD / CAD. Updates six price elements by ID. Silently falls back to GBP on error. Stripe links are hardcoded GBP — currency display is cosmetic only.
