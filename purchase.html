@@ -3,34 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products — OneCarbon</title>
+  <title>Early Access — OneCarbon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: #2f4f8f; color: #ffffff; }
-    .site-nav { background: #2f4f8f; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .site-nav a, .nav-links a { color: #ffffff; }
-    .nav-logo span { color: rgba(255,255,255,0.6); }
-    .eyebrow { color: rgba(255,255,255,0.6); }
-    .pills-card .eyebrow { color: #456BB7; }
-    h1, h2, h3, p { color: #ffffff; }
-    .product-details p, .how-it-works-copy p { color: rgba(255,255,255,0.8); }
-    .how-it-works { background: rgba(0,0,0,0.15); }
-    .site-footer { background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.1); }
-    .site-footer, .footer-links a, .footer-copy { color: rgba(255,255,255,0.7); }
-    .btn-ghost { color: #ffffff; border-color: rgba(255,255,255,0.4); }
-    .pills-card .btn-ghost { color: #555555; border-color: #555555; }
-    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-    .nav-hamburger { color: #fff; }
-    .site-nav.open .nav-links { border-top-color: rgba(255,255,255,0.15); }
-    .nav-links li { border-bottom-color: rgba(255,255,255,0.1); }
-    .nav-links a { color: rgba(255,255,255,0.75); }
-    .nav-cta { color: #fff !important; }
+    .ea { max-width: 680px; margin: 0 auto; padding: 5rem 2rem; }
+    .ea-eyebrow { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 1rem; text-align: center; }
+    .ea-title { font-size: 2rem; font-weight: 500; line-height: 1.25; margin: 0 0 1rem; text-align: center; }
+    .ea-sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; max-width: 520px; margin: 0 auto 3rem; text-align: center; }
+    .ea-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    .ea-stat { background: var(--bg); padding: 1.5rem; text-align: center; }
+    .ea-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #456BB7; font-weight: 500; margin: 0 0 8px; }
+    .ea-stat-value { font-size: 2.5rem; font-weight: 500; line-height: 1; margin: 0 0 4px; }
+    .ea-stat-sub { font-size: 12px; color: var(--text-muted); margin: 0; }
+    .ea-card { background: var(--bg-secondary, #f7f5f0); border: 0.5px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+    .ea-card-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #456BB7; font-weight: 500; margin: 0 0 1.25rem; }
+    .ea-steps { display: flex; flex-direction: column; gap: 14px; }
+    .ea-step { display: flex; align-items: flex-start; gap: 14px; }
+    .ea-step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--bg); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--text-muted); flex-shrink: 0; margin-top: 2px; }
+    .ea-step-title { font-size: 15px; font-weight: 500; line-height: 1.5; margin: 0; }
+    .ea-step-sub { font-size: 13px; color: var(--text-muted); margin: 2px 0 0; }
+    .ea-cta-wrap { text-align: center; padding: 2rem; background: var(--bg-secondary, #f7f5f0); border: 0.5px solid var(--border); border-radius: 12px; margin-bottom: 1.5rem; }
+    .ea-cta-title { font-size: 16px; font-weight: 500; margin: 0 0 0.5rem; }
+    .ea-cta-sub { font-size: 13px; color: var(--text-muted); margin: 0 0 1.25rem; }
+    .ea-cta-btn { display: inline-block; padding: 14px 32px; background: #456BB7; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'Outfit', sans-serif; text-decoration: none; margin-bottom: 10px; }
+    .ea-cta-note { font-size: 13px; color: var(--text-muted); margin: 0 0 1rem; }
+    .ea-guide-link { font-size: 13px; color: #456BB7; text-decoration: none; border-bottom: 1px solid #456BB7; padding-bottom: 1px; }
+    .ea-disclaimer { font-size: 12px; color: var(--text-muted); line-height: 1.6; text-align: center; padding-top: 1.5rem; border-top: 0.5px solid var(--border); }
     @media (max-width: 600px) {
-      /* Dropdown inherits the page's dark background so white text stays readable */
-      .nav-links { background: #2f4f8f !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+      .ea { padding: 3rem 1.25rem; }
+      .ea-title { font-size: 1.5rem; }
+      .ea-stat-value { font-size: 2rem; }
     }
   </style>
 </head>
@@ -49,103 +54,78 @@
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- ── PRODUCT + TESTER CARDS ── -->
-  <div style="padding:60px 60px 0;">
-    <h2 style="margin:0;">Become a product tester today</h2>
-  </div>
-  <section style="display:grid;grid-template-columns:1fr 1fr;column-gap:80px;row-gap:12px;padding:80px 60px;align-items:start;">
+  <div class="ea">
 
-    <!-- left row 1: featured card -->
-    <div class="pills-card pills-card--featured" style="text-align:left;">
-      <h1 style="font-size:1.6rem;margin:0;color:var(--text);">Try 1C-01 for a month and<br>we'll give you a free  <em>microbiome report</em></h1>
-      <p style="color:var(--text-muted);font-size:14px;line-height:1.7;">
-        Try 1C-01 for a month and get a personalised microbiome report (worth £200–300) — yours for <strong style="color:#1a1a1a;">£49</strong>.
-      </p>
+    <p class="ea-eyebrow">Early access programme</p>
+    <h1 class="ea-title">Be among the first to try 1C-01 — and help shape the science.</h1>
+    <p class="ea-sub">We're a Cambridge-based team working on a probiotic designed to support brain resilience. Before we scale, we want real-world feedback from people who care about their brain health.</p>
+
+    <div class="ea-stats">
+      <div class="ea-stat">
+        <p class="ea-stat-label">Duration</p>
+        <p class="ea-stat-value">60</p>
+        <p class="ea-stat-sub">days</p>
+      </div>
+      <div class="ea-stat">
+        <p class="ea-stat-label">Commitment</p>
+        <p class="ea-stat-value">2</p>
+        <p class="ea-stat-sub">short surveys</p>
+      </div>
+      <div class="ea-stat">
+        <p class="ea-stat-label">Fee</p>
+        <p class="ea-stat-value">£20</p>
+        <p class="ea-stat-sub">reimbursed on completion</p>
+      </div>
     </div>
 
-    <!-- right: image spanning both rows so it doesn't inflate row 1 -->
-    <div class="product-image-wrap" style="grid-column:2;grid-row:1/3;">
-      <img src="media/handpill.png" alt="1C-01 probiotic capsules">
-    </div>
-
-    <!-- left row 2: tester cards -->
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="pills-card">
-        <h3 style="font-size:1.6rem;margin:0 0 4px;color:var(--text);">If you're interested, <span style="color:#456BB7;">sign up here</span></h3>
-        <p style="margin:0 0 14px;font-size:15px;color:#666;line-height:1.6;">Put your email in, and we'll be in touch to organise your test kit!</p>
-        <form action="https://formspree.io/f/xaqkdkvg" method="POST" target="_blank">
-          <input type="hidden" name="_subject" value="Microbiome Test — Waiting List">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-            <input type="email" name="email" placeholder="Your email" required
-              style="flex:1;min-width:160px;padding:11px 16px;border:1px solid rgba(0,0,0,0.15);background:#f5f5f5;color:#333;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;">
-            <button type="submit" class="btn btn-accent">Join waiting list</button>
+    <div class="ea-card">
+      <p class="ea-card-label">How it works</p>
+      <div class="ea-steps">
+        <div class="ea-step">
+          <div class="ea-step-num">1</div>
+          <div>
+            <p class="ea-step-title">Sign up and we'll send you a 2-month supply of 1C-01</p>
+            <p class="ea-step-sub">Shipped directly to your door</p>
           </div>
-        </form>
-        <div style="margin-top:12px;">
-          <a href="research.html" class="btn-ghost">How the probiotics work ↗</a>
+        </div>
+        <div class="ea-step">
+          <div class="ea-step-num">2</div>
+          <div>
+            <p class="ea-step-title">Take one capsule daily and fill in a short survey at the start</p>
+            <p class="ea-step-sub">Takes ~5 minutes</p>
+          </div>
+        </div>
+        <div class="ea-step">
+          <div class="ea-step-num">3</div>
+          <div>
+            <p class="ea-step-title">After 60 days, fill in your second survey</p>
+            <p class="ea-step-sub">Tell us how you feel — that's it</p>
+          </div>
+        </div>
+        <div class="ea-step">
+          <div class="ea-step-num">4</div>
+          <div>
+            <p class="ea-step-title">Get your £20 back as a discount on your next order</p>
+            <p class="ea-step-sub">Plus early access to our full launch</p>
+          </div>
         </div>
       </div>
     </div>
 
-  </section>
-
-  <!-- ── PILLS-ONLY PRODUCT ── -->
-  <section class="pills-section">
-<h2>1C-01 <em>Probiotics</em></h2>
-    <p style="color:#ffffff;">Just the capsules. Choose the quantity that suits you.</p>
-
-    <div class="pills-options">
-
-      <div class="pills-card">
-        <div class="pills-qty">30 <span>pills</span></div>
-        <div class="pills-desc">One-month supply</div>
-        <div class="pills-price" id="price-30">£60</div>
-        <div class="pills-per"><em id="per-30">£2.00 per pill</em></div>
-        <a href="https://buy.stripe.com/dRm3cn8iObhd3wMe0T8N201" class="btn btn-accent" target="_blank">Buy now</a>
+    <div class="ea-cta-wrap">
+      <p class="ea-cta-title">Ready to join?</p>
+      <p class="ea-cta-sub">Spaces are limited. Secure yours for £20 — fully reimbursed when you complete both surveys.</p>
+      <div style="margin-bottom:12px;">
+        <a href="#" class="ea-cta-btn">Get your kit — £20</a>
       </div>
-
-      <div class="pills-card">
-        <div class="pills-qty">120 <span>pills</span></div>
-        <div class="pills-desc">Four-month supply</div>
-        <div class="pills-price" id="price-120">£180</div>
-        <div class="pills-per"><em id="per-120">£1.50 per pill</em></div>
-        <a href="https://buy.stripe.com/9B6dR142yfxt0kA9KD8N202" class="btn btn-accent" target="_blank">Buy now</a>
-      </div>
-
-      <div class="pills-card pills-card--featured">
-        <div class="pills-badge">Best value</div>
-        <div class="pills-qty">360 <span>pills</span></div>
-        <div class="pills-desc">Year's supply</div>
-        <div class="pills-price" id="price-360">£360</div>
-        <div class="pills-per"><em id="per-360">£1.00 per pill</em></div>
-        <a href="https://buy.stripe.com/28EeV5gPk995c3if4X8N200" class="btn btn-accent" target="_blank">Buy now</a>
-      </div>
-
+      <p class="ea-cta-note">Secure checkout via Stripe</p>
+      <a href="#" class="ea-guide-link">Download the participant guide to see if you qualify →</a>
     </div>
-  </section>
 
-  <!-- ── HOW IT WORKS ── -->
-  <div class="how-it-works">
-    <div class="how-it-works-inner">
-      <h2>How 1C-01 <em>works</em></h2>
+    <p class="ea-disclaimer">This is an observational study, not a clinical trial. 1C-01 is a dietary supplement and has not been proven to be a treatment for any disease. It is not MHRA-approved against Alzheimer's or any other condition. Always consult your doctor if you have concerns.</p>
 
-      <div class="how-it-works-grid">
-        <div class="how-it-works-copy">
-          <p>
-            1C-01 is a food-grade, non-GMO probiotic that produces the metabolites your neurons rely on — supporting the one-carbon pathway from inside your gut.
-          </p>
-          <p>
-            <a href="research.html" style="color:#1a73e8;text-decoration:underline;text-underline-offset:3px;">Read the science →</a>
-          </p>
-        </div>
-        <div>
-          <img src="media/mito1.png" alt="1C-01 mechanism diagram">
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- ── FOOTER ── -->
   <!-- ── RECOGNISED BY ── -->
   <section class="recognised-by-section">
     <div class="recognised-by-logos">
@@ -184,40 +164,5 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script>
-    (function () {
-      var prices = {
-        GBP: { s: '£',  bundle: 479,  early: 99,  p30: 60,   p120: 180,  p360: 360,  pp30: '2.00', pp120: '1.50', pp360: '1.00' },
-        USD: { s: '$',  bundle: 605,  early: 125, p30: 76,   p120: 250,  p360: 630,  pp30: '2.53', pp120: '2.08', pp360: '1.75' },
-        EUR: { s: '€',  bundle: 555,  early: 115, p30: 70,   p120: 230,  p360: 580,  pp30: '2.33', pp120: '1.92', pp360: '1.61' },
-        AUD: { s: 'A$', bundle: 920,  early: 190, p30: 116,  p120: 380,  p360: 960,  pp30: '3.87', pp120: '3.17', pp360: '2.67' },
-        CAD: { s: 'C$', bundle: 825,  early: 170, p30: 104,  p120: 340,  p360: 860,  pp30: '3.47', pp120: '2.83', pp360: '2.39' },
-      };
-      var euCountries = ['DE','FR','IT','ES','NL','BE','PT','AT','IE','FI','GR','LU','SK','SI','EE','LV','LT','CY','MT'];
-      function applyPrices(r) {
-        document.getElementById('price-bundle').textContent = r.s + r.bundle;
-        document.getElementById('price-early').textContent  = r.s + r.early;
-        document.getElementById('price-30').textContent   = r.s + r.p30;
-        document.getElementById('price-120').textContent  = r.s + r.p120;
-        document.getElementById('price-360').textContent  = r.s + r.p360;
-        document.getElementById('per-30').textContent     = r.s + r.pp30 + ' per pill';
-        document.getElementById('per-120').textContent    = r.s + r.pp120 + ' per pill';
-        document.getElementById('per-360').textContent    = r.s + r.pp360 + ' per pill';
-      }
-      fetch('https://ipapi.co/json/')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          var cc = data.country_code;
-          var currency = 'GBP';
-          if (cc === 'US' || cc === 'CA' && false) currency = 'USD'; // CA gets CAD below
-          else if (cc === 'CA') currency = 'CAD';
-          else if (cc === 'AU') currency = 'AUD';
-          else if (euCountries.indexOf(cc) > -1) currency = 'EUR';
-          else if (cc !== 'GB') currency = 'USD'; // fallback for other countries
-          applyPrices(prices[currency]);
-        })
-        .catch(function() {}); // silently keep GBP on error
-    })();
-  </script>
 </body>
 </html>
