@@ -558,8 +558,8 @@
     };
     Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
   }
-  function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid');wrap.querySelectorAll('.tile,.tile-grid-item').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
-  function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
+  function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');wrap.querySelectorAll('.tile,.tile-grid-item,.circle-btn').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
+  function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel,.circle-btn.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
   function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
   // Smart navigation: if user reported no actual changes in Q3 (only "family" or "precaution"), skip Q4 (duration of changes)
   function qzHasActualChanges(){const sel=qzA['s3']||[];return sel.some(v=>['memory','cognition','senses','balance'].includes(v));}
