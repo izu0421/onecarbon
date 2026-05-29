@@ -117,7 +117,7 @@ p {
 .eyebrow {
   display: inline-block;
   font-family: 'Outfit', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -209,7 +209,7 @@ p {
   border-radius: var(--radius-pill);
   background: var(--accent);
   color: #fff !important;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: opacity 0.2s !important;
@@ -375,7 +375,7 @@ p {
   align-items: center;
   justify-content: center;
   color: var(--text-faint);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.06em;
   border: 2px dashed var(--border);
 }
@@ -559,7 +559,7 @@ p {
   align-items: center;
   justify-content: center;
   color: var(--text-faint);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.06em;
   border: 2px dashed var(--border);
 }
@@ -595,7 +595,7 @@ p {
 }
 
 .card-label {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -618,7 +618,7 @@ p {
 .card-b .stat-num { color: var(--text); }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -628,7 +628,7 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-muted);
   margin-bottom: 12px;
 }
@@ -651,7 +651,7 @@ p {
 }
 
 .mini-sub {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-faint);
 }
 
@@ -687,7 +687,7 @@ p {
 }
 
 .strip-label {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-faint);
 }
 
@@ -786,7 +786,7 @@ p {
 .pub-table thead th {
   text-align: left;
   padding: 12px 20px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -826,7 +826,7 @@ p {
   border-radius: var(--radius-pill);
   background: var(--bg);
   border: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-muted);
   transition: all 0.2s;
@@ -843,7 +843,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   cursor: default;
   white-space: nowrap;
@@ -851,7 +851,7 @@ p {
 
 .summary-trigger i {
   color: var(--accent);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .summary-popup {
@@ -863,7 +863,7 @@ p {
   width: 280px;
   background: var(--text);
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
   padding: 12px 16px;
   border-radius: 0;
@@ -906,7 +906,7 @@ p {
   border-top: 1px solid var(--border);
   list-style: decimal;
   padding-left: 18px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -1011,7 +1011,7 @@ p {
   transform: translateX(-50%);
   background: var(--accent);
   color: #fff;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1035,7 +1035,7 @@ p {
 }
 
 .pills-desc {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   margin-top: -6px;
 }
@@ -1047,7 +1047,7 @@ p {
 }
 
 .pills-per {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
@@ -1133,7 +1133,7 @@ p {
 
 .team-member h4 {
   font-family: 'Outfit', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--accent);
   letter-spacing: 0.04em;
@@ -1196,7 +1196,7 @@ p {
 }
 
 .blog-card-summary {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
@@ -1225,7 +1225,7 @@ p {
 }
 
 .blog-post-meta {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-faint);
   margin-bottom: 40px;
 }
@@ -1350,7 +1350,7 @@ textarea.form-control {
 }
 
 .footer-links a {
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(255,255,255,0.5);
   transition: color 0.2s;
 }
@@ -1372,13 +1372,13 @@ textarea.form-control {
   grid-column: 2;
   grid-row: 1 / 3;
   text-align: right;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   color: rgba(255,255,255,0.35);
   line-height: 1.8;
 }
 
-.footer-company p { margin: 0; font-size: 12px; font-style: normal; }
+.footer-company p { margin: 0; font-size: 14px; font-style: normal; }
 
 .footer-legal {
   grid-column: 1;
@@ -1389,7 +1389,7 @@ textarea.form-control {
 }
 
 .footer-legal a {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255,255,255,0.4);
   transition: color 0.2s;
 }
@@ -1399,7 +1399,7 @@ textarea.form-control {
 .footer-copy {
   grid-column: 1;
   grid-row: 2;
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255,255,255,0.25);
   margin: 0;
 }
@@ -1444,7 +1444,7 @@ textarea.form-control {
 }
 .recognised-by-label {
   font-family: 'Outfit', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -1828,7 +1828,7 @@ textarea.form-control {
 
   /* Footnotes: slightly smaller on mobile */
   .footnotes {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.5;
   }
 
@@ -1860,7 +1860,7 @@ textarea.form-control {
 
   /* Authors: small lighter text directly below title */
   .pub-table td:nth-child(2) {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-faint);
     padding: 0 0 10px;
   }
@@ -1888,7 +1888,7 @@ textarea.form-control {
     width: 36px; height: 36px; font-size: 16px;
   }
   .profile-detail-card h3 { grid-column: 2; grid-row: 1; font-size: 0.95rem; }
-  .profile-detail-card p  { grid-column: 2; grid-row: 2; font-size: 13px; }
+  .profile-detail-card p  { grid-column: 2; grid-row: 2; font-size: 15px; }
 
   /* Footnotes: reduce gap below */
   .footnotes { margin-bottom: 0; padding-bottom: 0; }
