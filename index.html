@@ -270,12 +270,14 @@
     <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
   </div>
   <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
-  <div style="background:#FFFFFF;">
+  <div style="background:#F7F5F0;">
   <div style="max-width:680px;margin:0 auto;padding:3.5rem 2rem 0;text-align:center;">
     <p style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#456BB7;font-weight:700;margin:0 0 0.75rem;">Brain health assessment</p>
     <h2 style="font-size:1.4rem;font-weight:500;margin:0 0 0.5rem;">Find out if 1C-01 is right for you</h2>
-    <p style="font-size:14px;color:var(--text-muted);margin:0 0 0;">For you or a loved one · Takes 2 minutes</p>
+    <p style="font-size:14px;color:var(--text-muted);margin:0 0 1.5rem;">For you or a loved one · Takes 2 minutes</p>
+    <button onclick="document.getElementById('qz-page').style.display='flex';this.closest('.qz-intro').style.display='none';" style="padding:12px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;">Begin</button>
   </div>
+  <div class="qz-intro"></div>
   <style>
   #qz-page{display:flex;align-items:flex-start;justify-content:center;padding:0;}
   #qz *{box-sizing:border-box;}
@@ -362,18 +364,10 @@
   #qz .circle-divider-label{flex-basis:100%;text-align:center;font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin:4px 0;}
   </style>
 
-  <div id="qz-page"><div id="qz">
-
-  <!-- Intro -->
-  <div class="screen active" id="qz-s-intro">
-    <span class="logo">OneCarbon</span>
-    <h1 style="font-family:'DM Sans',sans-serif;font-size:30px;line-height:1.25;color:#1a1a1a;font-weight:500;margin-bottom:2.5rem;">Take the free Brain Health Assessment</h1>
-    <button class="cont-btn" style="opacity:1;" onclick="qzGoTo('qz-s1')">Begin</button>
-    <p style="text-align:center;font-size:14px;color:#aaa;margin-top:.75rem;">For you or a loved one · Takes 2 minutes</p>
-  </div>
+  <div id="qz-page" style="display:none;"><div id="qz">
 
   <!-- Q1 -->
-  <div class="screen" id="qz-s1">
+  <div class="screen active" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
     <p class="eyebrow">Question 1 of 7</p>
