@@ -517,7 +517,11 @@ p {
 }
 
 .hero-text h1 {
-  margin-bottom: 28px;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
 }
 
 .hero-text p {
