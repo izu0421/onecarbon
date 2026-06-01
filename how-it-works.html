@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How it works — OneCarbon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hiw-hero { background: #F7F5F0; padding: 5rem 2rem 4rem; text-align: center; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .hiw-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #456BB7; font-weight: 700; margin: 0 0 0.75rem; }
+    .hiw-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 1rem; }
+    .hiw-sub { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 480px; margin: 0 auto; }
+
+    .steps-section { background: #fff; padding: 5rem 2rem; }
+    .steps-inner { max-width: 900px; margin: 0 auto; }
+    .section-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #456BB7; font-weight: 700; margin: 0 0 2rem; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 3rem; }
+    @media (max-width: 700px) { .steps-grid { grid-template-columns: 1fr 1fr; } }
+    .step { text-align: center; }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: #456BB7; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; margin: 0 auto 1rem; font-family: 'Outfit', sans-serif; }
+    .step-title { font-size: 15px; font-weight: 500; color: var(--text-dark); line-height: 1.4; }
+
+    .timeline-card { background: #F7F5F0; border-radius: 12px; padding: 2rem; }
+    .timeline-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #456BB7; font-weight: 700; margin: 0 0 1.5rem; }
+    .timeline-item { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1rem 0; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .timeline-dot { width: 10px; height: 10px; border-radius: 50%; background: #456BB7; flex-shrink: 0; margin-top: 5px; }
+    .timeline-dot.muted { background: #ccc; }
+    .timeline-time { font-size: 13px; font-weight: 500; color: #456BB7; min-width: 100px; }
+    .timeline-time.muted { color: #aaa; }
+    .timeline-desc { font-size: 14px; color: #555; line-height: 1.5; margin: 0 0 2px; }
+    .timeline-desc.muted { color: #aaa; }
+    .timeline-note { font-size: 12px; color: #aaa; line-height: 1.4; }
+
+    .mechanism-section { background: #F7F5F0; padding: 5rem 2rem; }
+    .mechanism-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 700px) { .mechanism-inner { grid-template-columns: 1fr; gap: 3rem; } }
+    .mech-title { font-size: 1.75rem; font-weight: 500; line-height: 1.25; margin: 0 0 1rem; }
+    .mech-body { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin: 0 0 1.5rem; }
+    .mech-link { font-size: 14px; font-weight: 500; color: #456BB7; text-decoration: none; border-bottom: 1px solid #456BB7; padding-bottom: 1px; }
+    .mech-step { display: flex; align-items: flex-start; gap: 14px; padding: 1rem 0; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .mech-step:first-child { border-top: 0.5px solid rgba(0,0,0,0.08); }
+    .mech-step-icon { width: 36px; height: 36px; border-radius: 8px; background: #fff; border: 0.5px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mech-step-title { font-size: 14px; font-weight: 500; color: var(--text-dark); margin: 0 0 2px; }
+    .mech-step-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; margin: 0; }
+
+    .cta-band { background: #2f4f8f; padding: 4rem 2rem; text-align: center; }
+    .cta-title { font-size: 1.5rem; font-weight: 500; color: #fff; margin: 0 0 0.5rem; }
+    .cta-sub { font-size: 15px; color: rgba(255,255,255,0.7); margin: 0 0 1.5rem; }
+    .cta-btn { display: inline-block; padding: 14px 32px; background: #fff; color: #2f4f8f; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">One<span>Carbon</span></a>
+    <ul class="nav-links">
+      <li><a href="our_story.html">Our Story</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="blog/">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="purchase.html" class="nav-cta">Get early access</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="hiw-hero">
+    <p class="hiw-eyebrow">1C-01</p>
+    <h1 class="hiw-title">How it works</h1>
+    <p class="hiw-sub">One capsule, every morning. Here's what happens next.</p>
+  </div>
+
+  <div class="steps-section">
+    <div class="steps-inner">
+      <p class="section-eyebrow">Your daily routine</p>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <p class="step-title">Take one capsule — it's all you need</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <p class="step-title">With a glass of water</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <p class="step-title">Morning is best — your one-carbon pathway is most active in the AM</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <p class="step-title">Every day, consistently</p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <p class="timeline-label">What to expect</p>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <p class="timeline-time">Days 1–7</p>
+            <p class="timeline-desc">The probiotic begins establishing in your gut</p>
+            <p class="timeline-note">Some people notice early changes — everyone is different</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <p class="timeline-time">Weeks 4–8</p>
+            <p class="timeline-desc">Most people begin to notice meaningful changes</p>
+            <p class="timeline-note">Cognitive clarity, memory, general wellbeing</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot muted"></div>
+          <div>
+            <p class="timeline-time muted">Up to 3 months</p>
+            <p class="timeline-desc muted">Full benefits can take time — don't give up early</p>
+            <p class="timeline-note">Like any probiotic, the gut microbiome takes time to shift</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mechanism-section">
+    <div class="mechanism-inner">
+      <div>
+        <h2 class="mech-title">Why a gut probiotic supports your brain</h2>
+        <p class="mech-body">1C-01 produces molecules in your gut that enter your bloodstream — where they support your brain's natural resilience.</p>
+        <a href="research.html" class="mech-link">Read the research →</a>
+      </div>
+      <div>
+        <div class="mech-step">
+          <div class="mech-step-icon"><i class="fa-solid fa-pills" style="font-size:16px;color:#456BB7;"></i></div>
+          <div>
+            <p class="mech-step-title">You take 1C-01</p>
+            <p class="mech-step-desc">The capsule reaches your gut where the bacteria establish</p>
+          </div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-step-icon"><i class="fa-solid fa-droplet" style="font-size:16px;color:#456BB7;"></i></div>
+          <div>
+            <p class="mech-step-title">1C-01 gets to work</p>
+            <p class="mech-step-desc">The evolved strain produces one-carbon molecules your neurons need</p>
+          </div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-step-icon"><i class="fa-solid fa-wave-square" style="font-size:16px;color:#456BB7;"></i></div>
+          <div>
+            <p class="mech-step-title">Molecules enter your bloodstream</p>
+            <p class="mech-step-desc">Supporting the pathways your brain relies on</p>
+          </div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-step-icon"><i class="fa-solid fa-brain" style="font-size:16px;color:#456BB7;"></i></div>
+          <div>
+            <p class="mech-step-title">Supporting your brain's natural resilience</p>
+            <p class="mech-step-desc">Over time, with consistency</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <p class="cta-title">Ready to try 1C-01?</p>
+    <p class="cta-sub">Join our early access programme — 60 days, two surveys, £20.</p>
+    <a href="purchase.html" class="cta-btn">Get your kit — £20</a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-logo">One<span>Carbon</span></div>
+    <nav class="footer-links">
+      <a href="research.html">Research</a>
+      <a href="team.html">Team</a>
+      <a href="purchase.html">Get early access</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal/refund-policy.html">Refund Policy</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-company">
+        <p>One Carbon is a trading name of Healthspan Biotics Ltd</p>
+        <p>Registered in England and Wales | Company No. 15224752</p>
+        <p>Registered Office: Unit 5 Avenue Business Park, Brockley Road, Elsworth, Cambridgeshire, United Kingdom, CB23 4EY</p>
+      </div>
+      <nav class="footer-legal">
+        <a href="legal/tos.html">Terms of Service</a>
+        <a href="legal/privacy.html">Privacy Policy</a>
+        <a href="legal/cookie.html">Cookie Policy</a>
+      </nav>
+      <p class="footer-copy">© 2025 OneCarbon. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
