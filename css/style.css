@@ -118,7 +118,7 @@ p {
 .eyebrow {
   display: inline-block;
   font-family: 'Outfit', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -600,7 +600,7 @@ p {
 }
 
 .card-label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -791,7 +791,7 @@ p {
 .pub-table thead th {
   text-align: left;
   padding: 12px 20px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1016,7 +1016,7 @@ p {
   transform: translateX(-50%);
   background: var(--accent);
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1833,7 +1833,7 @@ textarea.form-control {
 
   /* Footnotes: slightly smaller on mobile */
   .footnotes {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5;
   }
 
@@ -1865,7 +1865,7 @@ textarea.form-control {
 
   /* Authors: small lighter text directly below title */
   .pub-table td:nth-child(2) {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-faint);
     padding: 0 0 10px;
   }
