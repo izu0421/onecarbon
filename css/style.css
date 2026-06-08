@@ -107,7 +107,7 @@ h2 { font-size: clamp(2rem, 3.5vw, 3.5rem); }
 h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 h4 { font-size: 1.2rem; }
 
-h1 em, h2 em { font-style: normal; color: #1a73e8; }
+h1 em, h2 em { font-style: normal; color: #456BB7; }
 
 p {
   font-size: 1.0625rem; /* 17px */
@@ -1503,7 +1503,7 @@ textarea.form-control {
 }
 
 .profile-cta-text h2 em {
-  color: #1a73e8;
+  color: #456BB7;
   font-style: normal;
 }
 
