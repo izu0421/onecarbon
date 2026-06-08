@@ -1215,6 +1215,54 @@ p {
 }
 
 /* ════════════════════════════════
+   PRESS LIST
+════════════════════════════════ */
+.press-item {
+  display: grid;
+  grid-template-columns: 180px 1fr 80px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 0.5px solid rgba(0,0,0,0.12);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s;
+}
+.press-item:last-child { border-bottom: 0.5px solid rgba(0,0,0,0.12); }
+.press-item:hover { opacity: 0.6; }
+
+.press-pub {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+}
+.press-headline {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+}
+.press-date {
+  font-size: 13px;
+  color: var(--text-faint);
+  text-align: right;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@media (max-width: 700px) {
+  .press-item {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
+  .press-pub { grid-column: 1; grid-row: 1; }
+  .press-date { grid-column: 2; grid-row: 1; }
+  .press-headline { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ════════════════════════════════
    BLOG POST PAGE
 ════════════════════════════════ */
 .blog-post-section {
