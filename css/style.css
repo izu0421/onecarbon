@@ -1292,12 +1292,50 @@ p {
 .press-tile:hover { background: #fafaf8; }
 .press-tile:hover::before { width: 100%; }
 
+.press-tile-img {
+  width: 100%;
+  overflow: hidden;
+}
+.press-tile-img--photo {
+  height: 180px;
+}
+.press-tile-img--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.press-tile:hover .press-tile-img--photo img {
+  transform: scale(1.03);
+}
+.press-tile-img--logo {
+  height: 110px;
+  background: #F2F0EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 32px;
+}
+.press-tile-img--logo img {
+  max-height: 52px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(20%);
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+.press-tile:hover .press-tile-img--logo img {
+  opacity: 1;
+}
+
 .press-tile-inner {
-  padding: 28px 28px 24px;
+  padding: 20px 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  height: 100%;
+  gap: 10px;
   box-sizing: border-box;
 }
 
