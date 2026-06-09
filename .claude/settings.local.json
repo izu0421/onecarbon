@@ -25,7 +25,14 @@
       "Bash(git rm *)",
       "mcp__Claude_in_Chrome__computer",
       "mcp__Claude_in_Chrome__tabs_context_mcp",
-      "mcp__Claude_in_Chrome__navigate"
+      "mcp__Claude_in_Chrome__navigate",
+      "WebFetch(domain:www.trin.cam.ac.uk)",
+      "WebFetch(domain:www.forbes.com)",
+      "WebSearch",
+      "WebFetch(domain:www.alzheimers.org.uk)",
+      "WebFetch(domain:www.linkedin.com)",
+      "WebFetch(domain:www.milner.cam.ac.uk)",
+      "Bash(curl -L \"https://www.milner.cam.ac.uk/wp-content/uploads/2017/09/University-and-Milner-Logo-Transparent-scaled.png\" -o \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/media/logo-milner.png\")"
     ]
   }
 }
