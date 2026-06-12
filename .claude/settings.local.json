@@ -33,7 +33,9 @@
       "WebFetch(domain:www.linkedin.com)",
       "WebFetch(domain:www.milner.cam.ac.uk)",
       "Bash(curl -L \"https://www.milner.cam.ac.uk/wp-content/uploads/2017/09/University-and-Milner-Logo-Transparent-scaled.png\" -o \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/media/logo-milner.png\")",
-      "Bash(awk -F'\"' '{print $0}')"
+      "Bash(awk -F'\"' '{print $0}')",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget"
     ]
   }
 }
