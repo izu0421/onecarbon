@@ -24,7 +24,7 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
 - **Frontend:** Static HTML/CSS/JS. No framework, no build step.
 - **Backend:** None. All dynamic behaviour is third-party:
   - Forms → Formspree (see form IDs below)
-  - Payments → Stripe hosted checkout (buy.stripe.com links)
+  - Payments → Stripe hosted checkout (buy.stripe.com payment link)
   - Geo-currency → ipapi.co (free tier, fetch on purchase page load)
 - **Hosting:** GitHub Pages via `github.com/izu0421/onecarbon`, branch `main`, CNAME `onecarbon.com`
 - **CDN / media:** Cloudflare R2 — videos and self-hosted fonts
@@ -39,7 +39,7 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
 ├── research.html         YouTube embed + publications table
 ├── how-it-works.html     Step-by-step product explainer
 ├── our_story.html        Company timeline + team (Dr Yizhou Yu, Suleyman Noordeen)
-├── purchase.html         Early-access sign-up (£20 kit, Stripe)
+├── purchase.html         Early-access sign-up (£30 kit, Stripe)
 ├── contact.html          Contact form → yizhou@onecarbon.com
 ├── trials/index.html     PROFILE trial detail + eligibility + sign-up form
 ├── blog/                 Blog posts (index.html + individual posts)

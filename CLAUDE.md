@@ -17,7 +17,7 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - research.html — publications table with hover summaries, footnotes
 - trials-v3.html — LIVE clinical trials page (full-header Three.js neuron animation); trials.html and trials-v2.html kept in folder but not linked
 - team.html — legacy page, team content now lives in our_story.html
-- purchase.html — product tiers with Stripe links
+- purchase.html — £30 early-access kit sign-up (Stripe link pending)
 - contact.html
 
 ## Page formatting defaults
@@ -26,10 +26,8 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - Blog post pages use `<section class="blog-post-section">` (centered, max-width 720px, long-form reading width)
 
 ## Product / Stripe
-- £499 bundle (3-month): K00
-- £250 (360 pills): K01
-- £100 (120 pills): K02
-- £30 (30 pills): K03
+- Single offer: **1C-01 Early Access Kit — £30** (60-day early-access programme), on purchase.html
+- Stripe Payment Link still to be created; purchase.html CTA currently points to `#`
 
 ## Forms
 - PROFILE sign-up form on index.html submits to yizhou@onecarbon.com via formsubmit.co

@@ -16,7 +16,7 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages.
 | research.html | Publications table with hover summaries + footnotes |
 | profile.html | PROFILE Phase I clinical study detail page |
 | team.html | Legacy team page — content now lives in our_story.html |
-| purchase.html | Product tiers with live Stripe payment links |
+| purchase.html | £30 early-access kit sign-up (Stripe link pending) |
 | contact.html | Contact page |
 | privacy.html | Privacy policy |
 | tos.html | Terms of service |
@@ -81,11 +81,7 @@ Static HTML/CSS/JS. No build step, no framework. Deployed via GitHub Pages.
 - Bot protection: hidden `_honey` field
 
 **Payments (purchase.html)**
-- Live Stripe links (buy.stripe.com). Four tiers:
-  - £499 bundle 3-month (K00): `dRmbIT42y1GD0kA9KD8N203`
-  - £250 / 360 pills (K01): `dRm3cn8iObhd3wMe0T8N201`
-  - £100 / 120 pills (K02): `9B6dR142yfxt0kA9KD8N202`
-  - £30 / 30 pills (K03): `28EeV5gPk995c3if4X8N200`
+- Single £30 Early Access Kit. Stripe Payment Link not yet created — CTA currently points to `#`.
 
 ## Naming Conventions (critical — never deviate)
 - Product: **1C-01** (not IC-001, not HSB001)
