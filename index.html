@@ -369,7 +369,7 @@
   <div class="screen active" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 1 of 4</p>
+    <p class="eyebrow">Question 1 of 5</p>
     <h2 class="q-title">Who are you exploring 1C-01 for?</h2>
     <div class="tiles-grid">
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="myself"><span class="tile-emoji">🙋</span>Myself</button>
@@ -377,23 +377,40 @@
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="partner"><span class="tile-emoji">💑</span>A Partner</button>
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="other"><span class="tile-emoji">🤝</span>Someone Else</button>
     </div>
-    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-s2')">Continue</button>
+    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-sex')">Continue</button>
   </div>
 
-  <!-- Q2 -->
-  <div class="screen" id="qz-s2">
+  <!-- Q2 Biological sex -->
+  <div class="screen" id="qz-sex">
     <div class="steps" id="qz-sd2"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 2 of 4</p>
-    <h2 class="q-title">What brings you to 1C-01?</h2>
+    <p class="eyebrow">Question 2 of 5</p>
+    <h2 class="q-title">What's your biological sex?</h2>
     <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="science"><span class="tile-emoji">🔬</span>The Cambridge science</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="routine"><span class="tile-emoji">📅</span>A daily routine</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="curious"><span class="tile-emoji">✨</span>Trying something new</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="someone"><span class="tile-emoji">❤️</span>For someone I love</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="female"><span class="tile-emoji">👩</span>Female</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="male"><span class="tile-emoji">👨</span>Male</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="na"><span class="tile-emoji">🫥</span>Prefer not to say</button>
     </div>
-    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
+    <button class="cont-btn" id="qz-next-sex" disabled onclick="qzGoTo('qz-s2')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
+  </div>
+
+  <!-- Q3 What's prompting interest -->
+  <div class="screen" id="qz-s2">
+    <div class="steps" id="qz-sd3"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 3 of 5</p>
+    <h2 class="q-title">What's prompting your interest?</h2>
+    <p class="hint">Select all that apply.</p>
+    <div class="circle-grid">
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="memory"><span class="circle-em">💭</span><span class="circle-lbl">Memory</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="focus"><span class="circle-em">🎯</span><span class="circle-lbl">Focus &amp; concentration</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
+      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="circle-em">🌱</span><span class="circle-lbl">Just being proactive</span></button>
+    </div>
+    <p class="sci-disclaimer" style="margin-top:0.5rem;">We ask to understand who's interested — this isn't a health assessment or diagnosis.</p>
+    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
   </div>
 
   <!-- Sci 1 -->
