@@ -254,9 +254,9 @@
         <h1>Targeted<br>Probiotic<br><em>Solutions</em></h1>
         <p>Probiotics, built on Cambridge brain research. Designed for real life.</p>
         <div style="margin-top:24px;">
-          <p style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#456BB7;font-weight:700;margin:0 0 6px;">Brain health assessment</p>
-          <p style="font-size:1.1rem;font-weight:500;margin:0 0 12px;color:var(--text);">Find out if 1C-01 is right for you</p>
-          <p style="font-size:14px;color:var(--text-muted);margin:0 0 16px;">For you or a loved one · Takes 2 minutes</p>
+          <p style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#456BB7;font-weight:700;margin:0 0 6px;">Quick quiz</p>
+          <p style="font-size:1.1rem;font-weight:500;margin:0 0 12px;color:var(--text);">Get to know 1C-01 — and 10% off</p>
+          <p style="font-size:14px;color:var(--text-muted);margin:0 0 16px;">Takes 2 minutes</p>
           <button onclick="document.getElementById('qz-page').scrollIntoView({behavior:'smooth'});document.getElementById('qz-page').style.display='flex';" style="padding:12px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;">Begin →</button>
         </div>
       </div>
@@ -369,8 +369,8 @@
   <div class="screen active" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 1 of 7</p>
-    <h2 class="q-title">Who are you looking to support?</h2>
+    <p class="eyebrow">Question 1 of 4</p>
+    <h2 class="q-title">Who are you exploring 1C-01 for?</h2>
     <div class="tiles-grid">
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="myself"><span class="tile-emoji">🙋</span>Myself</button>
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="parent"><span class="tile-emoji">👵</span>A Parent</button>
@@ -384,67 +384,31 @@
   <div class="screen" id="qz-s2">
     <div class="steps" id="qz-sd2"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 2 of 7</p>
-    <h2 class="q-title">What's your most important goal?</h2>
+    <p class="eyebrow">Question 2 of 4</p>
+    <h2 class="q-title">What brings you to 1C-01?</h2>
     <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="longterm"><span class="tile-emoji">🧠</span>Long-term brain health</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="memory"><span class="tile-emoji">💭</span>Normal memory function</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="cognition"><span class="tile-emoji">💡</span>Normal cognition</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="someone"><span class="tile-emoji">❤️</span>Support someone I love</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="science"><span class="tile-emoji">🔬</span>The Cambridge science</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="routine"><span class="tile-emoji">📅</span>A daily routine</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="curious"><span class="tile-emoji">✨</span>Trying something new</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s2')" data-val="someone"><span class="tile-emoji">❤️</span>For someone I love</button>
     </div>
-    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-s3')">Continue</button>
+    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
-  </div>
-
-  <!-- Q3 -->
-  <div class="screen" id="qz-s3">
-    <div class="steps" id="qz-sd3"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 3 of 7</p>
-    <h2 class="q-title" id="qz-s3-title">Has anything changed?</h2>
-    <p class="hint" id="qz-s3-hint">Select all that apply</p>
-    <div class="circle-grid">
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="memory"><span class="circle-em">📷</span><span class="circle-lbl">Memory</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="cognition"><span class="circle-em">🧠</span><span class="circle-lbl">Cognition</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="senses"><span class="circle-em-sm">👁️ 👃 👂</span><span class="circle-lbl">Senses</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s3')" data-val="balance"><span class="circle-em">🚶</span><span class="circle-lbl">Balance</span></button>
-      <div class="circle-divider-label">No changes yet</div>
-      <button type="button" class="circle-btn circle-muted" onclick="qzMulti(this,'s3')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
-      <button type="button" class="circle-btn circle-muted" onclick="qzMulti(this,'s3')" data-val="precaution"><span class="circle-em">🛡️</span><span class="circle-lbl">Precaution</span></button>
-    </div>
-    <button class="cont-btn" id="qz-next-s3" disabled onclick="qzNextFromS3()">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
-  </div>
-
-  <!-- Q4 -->
-  <div class="screen" id="qz-s4">
-    <div class="steps" id="qz-sd4"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 4 of 7</p>
-    <h2 class="q-title" id="qz-s4-title">How long have you noticed these changes?</h2>
-    <div class="circle-grid">
-      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="0-6m"><span class="circle-em">🌱</span><span class="circle-lbl">0–6 months</span></button>
-      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="1-2y"><span class="circle-em">🕰️</span><span class="circle-lbl">1–2 years</span></button>
-      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="3-4y"><span class="circle-em">🗓️</span><span class="circle-lbl">3–4 years</span></button>
-      <button type="button" class="circle-btn" onclick="qzPick(this,'s4')" data-val="5y+"><span class="circle-em">⏳</span><span class="circle-lbl">5+ years</span></button>
-    </div>
-    <button class="cont-btn" id="qz-next-s4" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-s3')">← Back</button>
   </div>
 
   <!-- Sci 1 -->
   <div class="screen" id="qz-sci1">
     <div class="steps" id="qz-sd5"></div>
     <p class="sci-eyebrow">Did you know</p>
-    <h2 class="q-title">Your gut microbiome plays an important role in brain health</h2>
+    <h2 class="q-title">The gut and brain are closely connected</h2>
     <div class="sci-bullets">
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Your gut and brain talk constantly through the <strong>gut-brain axis</strong>.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria make <strong>metabolites</strong> the brain needs to stay healthy.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Standard supplements can't replace what the right bacteria produce.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain communicate through the <strong>gut-brain axis</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce <strong>metabolites</strong> that enter the bloodstream.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>1C-01 takes a probiotic approach to producing one-carbon metabolites.</span></div>
     </div>
-    <p class="sci-disclaimer">For educational purposes only. 1C-01 is a probiotic supplement and does not claim to treat or prevent any disease.</p>
+    <p class="sci-disclaimer">For educational purposes only. 1C-01 is a food supplement and does not claim to treat or prevent any disease.</p>
     <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
-    <button class="back" onclick="qzBackFromSci1()">← Back</button>
+    <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
   </div>
 
   <!-- Sci 2 -->
@@ -453,8 +417,8 @@
     <p class="sci-eyebrow">The OneCarbon story</p>
     <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
     <div class="sci-bullets">
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu linked Alzheimer's to the <strong>one-carbon pathway</strong> — how neurons protect themselves.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He found a probiotic that produces the right metabolites.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu studied the <strong>one-carbon pathway</strong> in the context of brain ageing.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He identified a probiotic that produces one-carbon metabolites.</span></div>
       <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result: a food-grade, non-GMO probiotic working from inside your gut.</span></div>
     </div>
     <div class="usp-strip">
@@ -468,7 +432,7 @@
   <div class="screen" id="qz-s5">
     <div class="steps" id="qz-sd7"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 5 of 7</p>
+    <p class="eyebrow">Question 3 of 4</p>
     <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
     <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
     <p class="hint">Select all that apply.</p>
@@ -485,7 +449,7 @@
   <div class="screen" id="qz-s-email">
     <div class="steps" id="qz-sd8"></div>
     <h2 class="q-title">Would you like 10% off your first month?</h2>
-    <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to see your personalised results and claim your discount.</p>
+    <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to claim your discount.</p>
     <div class="offer-card">
       <div class="offer-pct">10% off</div>
       <div class="offer-label">your first month of 1C-01</div>
@@ -498,33 +462,15 @@
       <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
       <label class="gdpr-label" for="qz-gdpr">I agree to receive marketing communications and information materials from OneCarbon. You can opt out at any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
     </div>
-    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">See my results</button>
-    <button class="skip" onclick="qzShowResult()">Skip — just show my results</button>
+    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
+    <button class="skip" onclick="qzShowResult()">Skip for now</button>
   </div>
 
-  <!-- Q6 Diagnosis -->
-  <div class="screen" id="qz-s6">
-    <div class="steps" id="qz-sd9"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 6 of 7</p>
-    <h2 class="q-title" id="qz-s6-title">Have you received a formal diagnosis?</h2>
-    <p class="hint">Select all that apply.</p>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="alzheimers"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Alzheimer's dementia</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="parkinsons"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Parkinson's</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="mci"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mild cognitive impairment (MCI)</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="other"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other neurological condition</button>
-      <button type="button" class="tile" onclick="qzMulti(this,'s6')" data-val="none"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No formal diagnosis</button>
-    </div>
-    <button class="cont-btn" id="qz-next-s6" disabled onclick="qzGoTo('qz-s7')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
-  </div>
-
-  <!-- Q7 Age -->
+  <!-- Q4 Age -->
   <div class="screen" id="qz-s7">
     <div class="steps" id="qz-sd10"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 7 of 7</p>
+    <p class="eyebrow">Question 4 of 4</p>
     <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
     <div class="tiles-grid">
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
@@ -533,37 +479,33 @@
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="80+"><span class="tile-emoji">🌟</span>80+</button>
     </div>
     <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">See my results</button>
-    <button class="back" onclick="qzGoTo('qz-s6')">← Back</button>
+    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
   </div>
 
   <!-- Result -->
   <div class="screen" id="qz-s-result">
     <div class="result-hero">
-      <div class="fit-badge"><span class="dot"></span><span id="qz-badge-txt">Strong candidate</span></div>
-      <h2 class="res-title">Your responses suggest you're a strong candidate for 1C-01.</h2>
+      <div class="fit-badge"><span class="dot"></span><span id="qz-badge-txt">10% off unlocked</span></div>
+      <h2 class="res-title">Thanks — here's your 10% off.</h2>
       <p class="res-body" id="qz-res-body"></p>
     </div>
     <div class="fit-list" id="qz-fit-list"></div>
     <button class="cta-primary" onclick="window.open('purchase.html','_blank')">Claim your 10% off</button>
     <button class="cta-secondary" onclick="window.open('research.html','_blank')">Learn about the science</button>
-    <p class="legal">1C-01 is a dietary supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
+    <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
   </div>
 
   </div></div>
 
   <script>
-  const qzA={};const qzTOTAL=7;
+  const qzA={};const qzTOTAL=4;
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
-  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-s3':3,'qz-s4':4,'qz-sci1':4,'qz-sci2':4,'qz-s5':5,'qz-s-email':5,'qz-s6':6,'qz-s7':7};
+  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':2,'qz-sci2':2,'qz-s5':3,'qz-s-email':3,'qz-s7':4};
   function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
     const map={
-      'qz-s3-title':s?'Has anything changed?':'Has anything changed for them?',
-      'qz-s3-hint':s?'Tick any changes in:':'Tick any changes in:',
-      'qz-s4-title':s?'How long have you noticed these changes?':'How long have they noticed these changes?',
       'qz-s5-title':s?'Are you currently taking any medication or supplements?':'Are they currently taking any medication or supplements?',
-      'qz-s6-title':s?'Have you received a formal diagnosis?':'Have they received a formal diagnosis?',
       'qz-s7-title':s?'How old are you?':'How old are they?',
     };
     Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
@@ -571,45 +513,34 @@
   function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');wrap.querySelectorAll('.tile,.tile-grid-item,.circle-btn').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
   function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel,.circle-btn.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
   function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
-  // Smart navigation: if user reported no actual changes in Q3 (only "family" or "precaution"), skip Q4 (duration of changes)
-  function qzHasActualChanges(){const sel=qzA['s3']||[];return sel.some(v=>['memory','cognition','senses','balance'].includes(v));}
-  function qzNextFromS3(){qzGoTo(qzHasActualChanges()?'qz-s4':'qz-sci1');}
-  function qzBackFromSci1(){qzGoTo(qzHasActualChanges()?'qz-s4':'qz-s3');}
   function qzSubmitE(){
-    // POST email + all quiz answers so far to Formspree
     const email=document.getElementById('qz-ef').value;
     const payload={
-      _subject:'Brain Health Quiz — Email Capture',
+      _subject:'1C-01 Quiz — Email Capture',
       _gotcha:'',
       email:email,
       gdpr_consent:'yes',
       q1_who:(qzA['s1']||[]).join(','),
-      q2_goal:(qzA['s2']||[]).join(','),
-      q3_changes:(qzA['s3']||[]).join(','),
-      q4_duration:(qzA['s4']||[]).join(','),
-      q5_medication:(qzA['s5']||[]).join(','),
+      q2_interest:(qzA['s2']||[]).join(','),
+      q3_medication:(qzA['s5']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(payload),
     }).catch(()=>{}); // fire-and-forget; don't block UX
-    qzGoTo('qz-s6');
+    qzGoTo('qz-s7');
   }
   function qzShowResult(){
-    // Also POST final answers (diagnosis + age) once we have them
     const email=document.getElementById('qz-ef').value||'(not provided)';
     const finalPayload={
-      _subject:'Brain Health Quiz — Completed',
+      _subject:'1C-01 Quiz — Completed',
       _gotcha:'',
       email:email,
       q1_who:(qzA['s1']||[]).join(','),
-      q2_goal:(qzA['s2']||[]).join(','),
-      q3_changes:(qzA['s3']||[]).join(','),
-      q4_duration:(qzA['s4']||[]).join(','),
-      q5_medication:(qzA['s5']||[]).join(','),
-      q6_diagnosis:(qzA['s6']||[]).join(','),
-      q7_age:(qzA['s7']||[]).join(','),
+      q2_interest:(qzA['s2']||[]).join(','),
+      q3_medication:(qzA['s5']||[]).join(','),
+      q4_age:(qzA['s7']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
@@ -617,25 +548,13 @@
       body:JSON.stringify(finalPayload),
     }).catch(()=>{});
 
-    const diag=qzA['s6']||[],concerns=qzA['s3']||[],goal=(qzA['s2']||['longterm'])[0],meds=qzA['s5']||[];
-    const isSymptom=concerns.some(c=>['memory','cognition','senses','balance'].includes(c));
-    const isDiag=diag.some(d=>['alzheimers','mci','parkinsons','other'].includes(d));
+    const interest=(qzA['s2']||['curious'])[0],meds=qzA['s5']||[];
     const onMeds=!meds.includes('none')&&meds.length>0;
-    const goalMap={longterm:'long-term brain health',memory:'normal memory function',cognition:'normal cognition',someone:'supporting someone you love'};
-    const b=document.getElementById('qz-res-body');
-    if(isDiag){b.textContent='The OneCarbon research programme was built around the exact conditions you\'ve described. 1C-01 supports the one-carbon pathway neurons rely on to protect themselves — in a way no standard supplement or medication addresses at the metabolic level.'+(onMeds?' It is designed to be taken safely alongside existing medication.':'');}
-    else if(isSymptom){b.textContent='The changes you\'ve noticed align closely with what the one-carbon pathway supports. 1C-01 works from the gut continuously — producing the metabolites that support the brain\'s own neuroprotective mechanism.'+(onMeds?' It is designed to complement, not conflict with, existing medication.':'');}
-    else{b.textContent='Acting before symptoms appear is the highest-leverage window for brain health. The one-carbon cycle is most responsive when neurons aren\'t yet under significant stress — which is exactly the position you\'re in. Your goal of '+goalMap[goal]+' is precisely what 1C-01 is built to support.';}
-    const items=[];
-    if(goal==='memory')items.push('Your goal — normal memory function — is directly linked to SAM availability, a key output of the one-carbon cycle.');
-    if(goal==='cognition')items.push('Your goal — normal cognition — maps to the Cambridge finding that one-carbon disruption is a primary driver of cognitive decline.');
-    if(goal==='longterm')items.push('For long-term brain health, starting early maximises the protective effect of the one-carbon cycle.');
-    if(goal==='someone')items.push('1C-01 is safe, simple to take daily, and requires no prescription — practical for ongoing support.');
-    if(concerns.includes('memory')||concerns.includes('cognition'))items.push('The changes noted are consistent with early one-carbon cycle disruption — the mechanism 1C-01 directly addresses.');
-    if(concerns.includes('family'))items.push('Family history of dementia significantly increases risk. Acting early is the most effective window available.');
-    if(isDiag)items.push('Alzheimer\'s / MCI / Parkinson\'s: the conditions the Cambridge research programme was built to address.');
-    if(onMeds)items.push('1C-01 is food-grade, non-GMO, and drug-free — designed to be taken safely alongside existing medication.');
-    if(meds.includes('none'))items.push('No current medication — 1C-01 is a well-evidenced, drug-free first step backed by peer-reviewed research.');
+    document.getElementById('qz-res-body').textContent='Thanks for taking the time. 1C-01 is a daily probiotic food supplement, developed from research at the University of Cambridge. Here\'s 10% off your first order.';
+    const items=['1C-01 is a once-daily probiotic — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.'];
+    if(interest==='science')items.push('You can read the published studies on our Research page.');
+    if(interest==='someone')items.push('Simple to take daily and available without a prescription.');
+    if(onMeds)items.push('It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.');
     const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
     items.slice(0,4).forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#456BB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
     qzGoTo('qz-s-result');
