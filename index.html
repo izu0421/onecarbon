@@ -449,7 +449,7 @@
   <div class="screen" id="qz-s5">
     <div class="steps" id="qz-sd7"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 3 of 4</p>
+    <p class="eyebrow">Question 4 of 5</p>
     <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
     <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
     <p class="hint">Select all that apply.</p>
@@ -487,7 +487,7 @@
   <div class="screen" id="qz-s7">
     <div class="steps" id="qz-sd10"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 4 of 4</p>
+    <p class="eyebrow">Question 5 of 5</p>
     <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
     <div class="tiles-grid">
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
@@ -515,9 +515,9 @@
   </div></div>
 
   <script>
-  const qzA={};const qzTOTAL=4;
+  const qzA={};const qzTOTAL=5;
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
-  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':2,'qz-sci2':2,'qz-s5':3,'qz-s-email':3,'qz-s7':4};
+  const qzSdMap={'qz-s1':1,'qz-sex':2,'qz-s2':3,'qz-sci1':3,'qz-sci2':3,'qz-s5':4,'qz-s-email':4,'qz-s7':5};
   function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
@@ -538,8 +538,9 @@
       email:email,
       gdpr_consent:'yes',
       q1_who:(qzA['s1']||[]).join(','),
-      q2_interest:(qzA['s2']||[]).join(','),
-      q3_medication:(qzA['s5']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q3_concerns:(qzA['s2']||[]).join(','),
+      q4_medication:(qzA['s5']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
@@ -555,9 +556,10 @@
       _gotcha:'',
       email:email,
       q1_who:(qzA['s1']||[]).join(','),
-      q2_interest:(qzA['s2']||[]).join(','),
-      q3_medication:(qzA['s5']||[]).join(','),
-      q4_age:(qzA['s7']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q3_concerns:(qzA['s2']||[]).join(','),
+      q4_medication:(qzA['s5']||[]).join(','),
+      q5_age:(qzA['s7']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
@@ -565,12 +567,10 @@
       body:JSON.stringify(finalPayload),
     }).catch(()=>{});
 
-    const interest=(qzA['s2']||['curious'])[0],meds=qzA['s5']||[];
+    const meds=qzA['s5']||[];
     const onMeds=!meds.includes('none')&&meds.length>0;
     document.getElementById('qz-res-body').textContent='Thanks for taking the time. 1C-01 is a daily probiotic food supplement, developed from research at the University of Cambridge. Here\'s 10% off your first order.';
-    const items=['1C-01 is a once-daily probiotic — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.'];
-    if(interest==='science')items.push('You can read the published studies on our Research page.');
-    if(interest==='someone')items.push('Simple to take daily and available without a prescription.');
+    const items=['1C-01 is a once-daily probiotic — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.'];
     if(onMeds)items.push('It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.');
     const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
     items.slice(0,4).forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#456BB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
