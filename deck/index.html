@@ -778,136 +778,130 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <h1 class="headline reveal reveal-d1"><em>Staged</em> derisking — each step validates the next.</h1>
 
 
-    <!-- Value creation chart — x=year, y=valuation (log scale), hover tooltips -->
+    <!-- Value creation chart — x=year (2019–2032), y=valuation log scale, hover tooltips -->
+    <!-- x(yr) = 62 + (yr-2019)/13*838  |  y(v) = 220 - (log10(v)-0.301)/2.544*192 -->
+    <!-- Dots at end of each phase: Discovery→2024(x=384,y=197) Optim→2025(x=449,y=164)
+         Pilot→2026(x=513,y=141) PROFILE→2027(x=578,y=111) RCT→2029(x=707,y=87) Exit→2032(x=900,y=46) -->
     <div class="reveal reveal-d3" style="margin-top:2vh;position:relative;" id="vc-wrap">
-      <div id="vc-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity 0.15s ease;max-width:220px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
+      <div id="vc-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.55;pointer-events:auto;opacity:0;transition:opacity 0.15s ease;max-width:230px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
       <svg id="vc-svg" viewBox="0 0 920 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;overflow:visible;">
         <defs>
           <linearGradient id="vcFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1E9A8D" stop-opacity="0.16"/>
+            <stop offset="0%" stop-color="#1E9A8D" stop-opacity="0.15"/>
             <stop offset="100%" stop-color="#1E9A8D" stop-opacity="0.01"/>
           </linearGradient>
           <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
 
-        <!-- Grid lines at £5M, £20M, £100M, £500M (log scale: bottom=220, top=28, height=192; log range log10(2)–log10(700)) -->
-        <!-- y(v) = 220 - (log10(v)-0.301)/2.544*192 -->
-        <!-- £5M  → y=197 -->
-        <line x1="62" y1="197" x2="900" y2="197" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,4"/>
-        <text x="56" y="200" font-size="9" fill="#bbb" font-family="serif" text-anchor="end">£5M</text>
-        <!-- £20M → y=144 -->
-        <line x1="62" y1="144" x2="900" y2="144" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,4"/>
-        <text x="56" y="147" font-size="9" fill="#bbb" font-family="serif" text-anchor="end">£20M</text>
-        <!-- £100M → y=88 -->
-        <line x1="62" y1="88" x2="900" y2="88" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,4"/>
-        <text x="56" y="91" font-size="9" fill="#bbb" font-family="serif" text-anchor="end">£100M</text>
-        <!-- £500M → y=34 -->
-        <line x1="62" y1="34" x2="900" y2="34" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,4"/>
-        <text x="56" y="37" font-size="9" fill="#bbb" font-family="serif" text-anchor="end">£500M</text>
+        <!-- Horizontal grid lines -->
+        <line x1="62" y1="197" x2="908" y2="197" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,5"/>
+        <text x="56" y="200" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="end">£5M</text>
+        <line x1="62" y1="164" x2="908" y2="164" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,5"/>
+        <text x="56" y="167" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="end">£20M</text>
+        <line x1="62" y1="111" x2="908" y2="111" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,5"/>
+        <text x="56" y="114" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="end">£100M</text>
+        <line x1="62" y1="46" x2="908" y2="46" stroke="#e8e8e8" stroke-width="0.8" stroke-dasharray="3,5"/>
+        <text x="56" y="49" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="end">£500M</text>
 
-        <!-- Baseline + axes -->
-        <line x1="62" y1="220" x2="900" y2="220" stroke="#ccc" stroke-width="1"/>
-        <line x1="62" y1="28" x2="62" y2="220" stroke="#ccc" stroke-width="1"/>
+        <!-- Axes -->
+        <line x1="62" y1="220" x2="908" y2="220" stroke="#d0d0d0" stroke-width="1"/>
+        <line x1="62" y1="28" x2="62" y2="220" stroke="#d0d0d0" stroke-width="1"/>
 
-        <!-- X-axis year ticks: 2019–2032 → x=62+(yr-2019)/13*838 -->
-        <!-- 2019→62, 2022→255, 2025→448, 2028→641, 2031→834, 2032→900 -->
-        <text x="62"  y="233" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle">2019</text>
-        <text x="255" y="233" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle">2022</text>
-        <text x="448" y="233" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle">2025</text>
-        <text x="641" y="233" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle">2028</text>
-        <text x="834" y="233" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle">2031</text>
+        <!-- X-axis year ticks -->
+        <text x="62"  y="233" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="middle">2019</text>
+        <text x="255" y="233" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="middle">2022</text>
+        <text x="449" y="233" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="middle">2025</text>
+        <text x="642" y="233" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="middle">2028</text>
+        <text x="835" y="233" font-size="9" fill="#c0c0c0" font-family="serif" text-anchor="middle">2031</text>
 
         <!-- Y-axis label -->
-        <text transform="rotate(-90,14,124)" x="14" y="124" font-size="9" fill="#bbb" font-family="serif" text-anchor="middle" letter-spacing="0.5">VALUATION</text>
+        <text transform="rotate(-90,12,124)" x="12" y="124" font-size="8.5" fill="#c0c0c0" font-family="serif" text-anchor="middle" letter-spacing="0.5">VALUATION</text>
 
-        <!-- Milestone x positions (mid-year of each stage):
-             Discovery mid 2021.5  → x=62+2.5/13*838=223
-             Optimization mid 2024.5 → x=62+5.5/13*838=407
-             Human pilot mid 2025.5  → x=62+6.5/13*838=471
-             Pre-post trial mid 2026.5 → x=62+7.5/13*838=545 (NOW)
-             RCT mid 2028           → x=62+9/13*838=641
-             Regulatory mid 2030.5  → x=62+11.5/13*838=803
-        -->
-
-        <!-- Fill area under curve -->
-        <path d="M 223,210 C 290,210 340,175 407,165 C 435,161 455,146 471,139 C 500,130 520,112 545,105 C 588,95 615,84 641,79 C 710,65 748,38 803,33 L 803,220 L 223,220 Z" fill="url(#vcFill)"/>
+        <!-- Filled area — curve starts at (62,220) = 2019 foundation, no gap -->
+        <path d="M 62,220 C 160,220 250,210 384,197 C 415,193 432,172 449,164 C 476,155 493,148 513,141 C 542,132 560,120 578,111 C 630,96 662,89 707,87 C 790,84 840,58 900,46 L 900,220 L 62,220 Z" fill="url(#vcFill)"/>
 
         <!-- Curve line -->
-        <path d="M 223,210 C 290,210 340,175 407,165 C 435,161 455,146 471,139 C 500,130 520,112 545,105 C 588,95 615,84 641,79 C 710,65 748,38 803,33" fill="none" stroke="#1E9A8D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 62,220 C 160,220 250,210 384,197 C 415,193 432,172 449,164 C 476,155 493,148 513,141 C 542,132 560,120 578,111 C 630,96 662,89 707,87 C 790,84 840,58 900,46" fill="none" stroke="#1E9A8D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-        <!-- NOW dashed line at x=545 -->
-        <line x1="545" y1="28" x2="545" y2="220" stroke="#1f355a" stroke-width="1" stroke-dasharray="4,3" opacity="0.35"/>
-        <text x="548" y="42" font-size="8.5" fill="#1f355a" font-family="serif" font-weight="700" opacity="0.6">NOW</text>
+        <!-- NOW dashed line — June 2026 ≈ x=545 -->
+        <line x1="545" y1="30" x2="545" y2="220" stroke="#1f355a" stroke-width="1" stroke-dasharray="4,3" opacity="0.3"/>
+        <text x="548" y="43" font-size="8.5" fill="#1f355a" font-family="serif" font-weight="700" opacity="0.55" letter-spacing="0.5">NOW</text>
 
-        <!-- Milestone dots — interactive, with data attributes for JS tooltip -->
-        <!-- 1. Discovery 2019–2024, £3–5M, y=210 -->
-        <g class="vc-dot" data-title="Discovery" data-years="2019–2024" data-val="£3–5M" data-status="done" data-detail="Cambridge AI/ML multiomics across N&gt;500,000 individuals. 5 peer-reviewed papers identified one-carbon metabolism as key to neuronal resilience." style="cursor:pointer;">
-          <circle cx="223" cy="210" r="7" fill="#1f355a" opacity="0.18"/>
-          <circle cx="223" cy="210" r="4.5" fill="#1f355a" opacity="0.55"/>
-          <text x="223" y="198" font-size="9" fill="#888" font-family="serif" text-anchor="middle">Discovery</text>
+        <!-- 1. Discovery: 2019–2024, dot at end 2024 (x=384, y=197), £3–5M -->
+        <g class="vc-dot" data-title="Discovery" data-years="2019–2024" data-val="£3–5M" data-status="done" data-detail="Cambridge AI/ML multiomics across N&gt;500,000 individuals. 5 peer-reviewed papers identified one-carbon metabolism as the key driver of neuronal resilience in Alzheimer's disease." style="cursor:default;">
+          <circle cx="384" cy="197" r="6" fill="#1f355a" opacity="0.15"/>
+          <circle cx="384" cy="197" r="4" fill="#1f355a" opacity="0.5"/>
+          <text x="384" y="186" font-size="8.5" fill="#999" font-family="serif" text-anchor="middle">Discovery</text>
         </g>
 
-        <!-- 2. Optimization 2024–2025, £8–15M, y=165 -->
-        <g class="vc-dot" data-title="Optimization" data-years="2024–2025" data-val="£8–15M" data-status="done" data-detail="Directed evolution of gut bacteria to maximise one-carbon molecule output. Lead probiotic strain (1C-01) selected and characterised." style="cursor:pointer;">
-          <circle cx="407" cy="165" r="7" fill="#1f355a" opacity="0.18"/>
-          <circle cx="407" cy="165" r="4.5" fill="#1f355a" opacity="0.65"/>
-          <text x="407" y="153" font-size="9" fill="#888" font-family="serif" text-anchor="middle">Optimization</text>
+        <!-- 2. Optimization: 2024–2025, dot at end 2025 (x=449, y=164), £8–15M -->
+        <g class="vc-dot" data-title="Optimization" data-years="2024–2025" data-val="£8–15M" data-status="done" data-detail="Directed evolution of gut bacteria to maximise one-carbon molecule output. Lead probiotic strain 1C-01 selected and characterised. Lab established at the Milner Institute, Cambridge." style="cursor:default;">
+          <circle cx="449" cy="164" r="6" fill="#1f355a" opacity="0.15"/>
+          <circle cx="449" cy="164" r="4" fill="#1f355a" opacity="0.6"/>
+          <text x="449" y="153" font-size="8.5" fill="#999" font-family="serif" text-anchor="middle">Optimization</text>
         </g>
 
-        <!-- 3. Human pilot 2025–2026, £15–30M, y=139 -->
-        <g class="vc-dot" data-title="Human pilot" data-years="2025–2026" data-val="£15–30M" data-status="done" data-detail="60-participant open-label pilot. Confirmed 1C-01 engraftment in stool microbiome and raised neuroprotective blood metabolites (p&lt;0.01)." style="cursor:pointer;">
-          <circle cx="471" cy="139" r="7" fill="#1f355a" opacity="0.22"/>
-          <circle cx="471" cy="139" r="5" fill="#1f355a" opacity="0.8"/>
-          <text x="471" y="127" font-size="9" fill="#666" font-family="serif" text-anchor="middle">Human pilot</text>
+        <!-- 3. Human pilot: 2025–2026, dot at end 2026 (x=513, y=141), £15–30M -->
+        <g class="vc-dot" data-title="Human pilot" data-years="2025–2026" data-val="£15–30M" data-status="done" data-detail="60-participant open-label pilot. 1C-01 engraftment confirmed in all participants' stool (p&lt;0.00001). Neuroprotective blood metabolites significantly elevated." style="cursor:default;">
+          <circle cx="513" cy="141" r="6" fill="#1f355a" opacity="0.2"/>
+          <circle cx="513" cy="141" r="4.5" fill="#1f355a" opacity="0.75"/>
+          <text x="513" y="130" font-size="8.5" fill="#777" font-family="serif" text-anchor="middle">Human pilot</text>
         </g>
 
-        <!-- 4. Pre-post trial NOW 2026–2027, £40–80M, y=105 — highlighted teal -->
-        <g class="vc-dot" data-title="Pre-post trial (PROFILE)" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="Pre-post open-label cohort · 180 participants · full blood + stool biomarker suite. Led by Prof Underwood." data-link="https://clinicaltrials.gov/study/NCT07457242" data-link-label="NCT07457242 ↗" style="cursor:pointer;">
-          <circle cx="545" cy="105" r="11" fill="#1E9A8D" opacity="0.15" filter="url(#glow)"/>
-          <circle cx="545" cy="105" r="6" fill="#1E9A8D"/>
-          <text x="545" y="91" font-size="9.5" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">Pre-post trial</text>
+        <!-- 4. PROFILE (NOW): 2026–2027, dot at mid 2026.5 (x=578, y=111), £40–80M — teal, clickable -->
+        <g class="vc-dot" id="vc-profile-dot" data-title="PROFILE trial" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="Pre-post open-label cohort · 180 participants · full blood + stool biomarker suite. Led by Prof Underwood. Click to see full trial design." data-link="https://clinicaltrials.gov/study/NCT07457242" data-link-label="NCT07457242 ↗" data-panel="profile-panel" style="cursor:pointer;" onclick="document.getElementById('profile-panel').classList.add('visible')">
+          <circle cx="578" cy="111" r="13" fill="#1E9A8D" opacity="0.1" filter="url(#glow)"/>
+          <circle cx="578" cy="111" r="6.5" fill="#1E9A8D"/>
+          <text x="578" y="97" font-size="9" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">PROFILE</text>
         </g>
 
-        <!-- 5. RCT 2027–2029, £80–150M, y=79 -->
-        <g class="vc-dot" data-title="RCT in Alzheimer's" data-years="2027–2029" data-val="£80–150M+" data-status="future" data-detail="Randomised controlled trial in early Alzheimer's patients. Primary endpoint: neuroprotective biomarkers. Pivotal dataset for regulatory submission." style="cursor:pointer;">
-          <circle cx="641" cy="79" r="7" fill="#1f355a" opacity="0.12"/>
-          <circle cx="641" cy="79" r="4.5" fill="#1f355a" opacity="0.3"/>
-          <text x="641" y="67" font-size="9" fill="#aaa" font-family="serif" text-anchor="middle">RCT</text>
+        <!-- 5. RCT: 2027–2029, dot at end 2029 (x=707, y=87), £80–150M -->
+        <g class="vc-dot" data-title="RCT in Alzheimer's" data-years="2027–2029" data-val="£80–150M+" data-status="future" data-detail="Randomised controlled trial in early Alzheimer's patients. Primary endpoint: neuroprotective biomarkers. Pivotal dataset for regulatory submission and partnership." style="cursor:default;">
+          <circle cx="707" cy="87" r="6" fill="#1f355a" opacity="0.1"/>
+          <circle cx="707" cy="87" r="4" fill="#1f355a" opacity="0.25"/>
+          <text x="707" y="76" font-size="8.5" fill="#bbb" font-family="serif" text-anchor="middle">RCT</text>
         </g>
 
-        <!-- 6. Regulatory 2029–2032, £200–600M+, y=33 — orange exit -->
-        <g class="vc-dot" data-title="Regulatory &amp; exit" data-years="2029–2032" data-val="£200–600M+" data-status="exit" data-detail="MHRA/FDA supplement-with-claim approval. Strategic acquisition or licensing. New indications beyond Alzheimer's disease." style="cursor:pointer;">
-          <circle cx="803" cy="33" r="10" fill="#e05c3a" opacity="0.15"/>
-          <circle cx="803" cy="33" r="6" fill="#e05c3a" opacity="0.85"/>
-          <text x="803" y="21" font-size="9.5" fill="#e05c3a" font-family="serif" text-anchor="middle" font-weight="700">Exit</text>
+        <!-- 6. Regulatory/Exit: 2029–2032, dot at end 2032 (x=900, y=46), £200–600M+ — orange -->
+        <g class="vc-dot" data-title="Regulatory &amp; exit" data-years="2029–2032" data-val="£200–600M+" data-status="exit" data-detail="MHRA/FDA supplement-with-claim approval. Strategic acquisition or licensing by pharma or nutraceutical partner. New indications beyond Alzheimer's disease." style="cursor:default;">
+          <circle cx="900" cy="46" r="10" fill="#e05c3a" opacity="0.12"/>
+          <circle cx="900" cy="46" r="6" fill="#e05c3a" opacity="0.85"/>
+          <text x="895" y="34" font-size="9" fill="#e05c3a" font-family="serif" text-anchor="end" font-weight="700">Exit £200–600M+</text>
         </g>
       </svg>
 
       <script>(function(){
         var tip = document.getElementById('vc-tip');
         var wrap = document.getElementById('vc-wrap');
+        var hideTimer;
+        function showTip(d, e) {
+          clearTimeout(hideTimer);
+          var statusColor = d.status==='now' ? '#1E9A8D' : d.status==='exit' ? '#e05c3a' : 'rgba(255,255,255,0.45)';
+          var panel = d.panel ? '<div onclick="document.getElementById(\''+d.panel+'\').classList.add(\'visible\')" style="display:inline-block;margin-top:9px;padding:5px 10px;background:rgba(30,154,141,0.25);border-radius:6px;font-size:11px;color:#7ecfc7;cursor:pointer;font-weight:600;">→ Full trial details</div>' : '';
+          var link = d.link ? '<a href="'+d.link+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-block;margin-top:6px;font-size:10.5px;color:rgba(255,255,255,0.5);text-decoration:none;">'+d.linkLabel+'</a>' : '';
+          tip.innerHTML = '<div style="font-weight:700;font-size:13px;margin-bottom:3px;">'+d.title+'</div>'
+            +'<div style="font-size:10px;opacity:0.6;margin-bottom:6px;">'+d.years+'</div>'
+            +'<div style="font-size:15px;font-weight:700;color:'+statusColor+';margin-bottom:6px;">'+d.val+'</div>'
+            +'<div style="font-size:11px;opacity:0.82;line-height:1.5;">'+d.detail+'</div>'
+            + panel + (panel && link ? '<br>' : '') + link;
+          moveTip(e);
+          tip.style.opacity='1';
+        }
+        function moveTip(e) {
+          var r = wrap.getBoundingClientRect();
+          var x = e.clientX - r.left + 14;
+          var y = e.clientY - r.top - 14;
+          if(x + 240 > r.width) x = e.clientX - r.left - 248;
+          tip.style.left = x+'px';
+          tip.style.top = y+'px';
+        }
+        function hideTip() { hideTimer = setTimeout(function(){ tip.style.opacity='0'; }, 120); }
+        tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+        tip.addEventListener('mouseleave', hideTip);
         document.querySelectorAll('#vc-svg .vc-dot').forEach(function(g){
-          g.addEventListener('mouseenter', function(e){
-            var d = g.dataset;
-            var statusColor = d.status==='now' ? '#1E9A8D' : d.status==='exit' ? '#e05c3a' : 'rgba(255,255,255,0.5)';
-            tip.innerHTML = '<div style="font-weight:700;font-size:13px;margin-bottom:4px;">'+d.title+'</div>'
-              +'<div style="font-size:10px;opacity:0.7;margin-bottom:6px;">'+d.years+'</div>'
-              +'<div style="font-size:14px;font-weight:700;color:'+statusColor+';margin-bottom:6px;">'+d.val+'</div>'
-              +'<div style="font-size:11px;opacity:0.85;line-height:1.5;">'+d.detail+'</div>'
-              +(d.link ? '<a href="'+d.link+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:11px;color:#7ecfc7;text-decoration:none;border-bottom:1px solid rgba(126,207,199,0.4);">'+d.linkLabel+'</a>' : '');
-            tip.style.opacity='1';
-          });
-          g.addEventListener('mousemove', function(e){
-            var r = wrap.getBoundingClientRect();
-            var x = e.clientX - r.left + 12;
-            var y = e.clientY - r.top - 10;
-            if(x + 230 > r.width) x = e.clientX - r.left - 240;
-            tip.style.left = x+'px';
-            tip.style.top = y+'px';
-          });
-          g.addEventListener('mouseleave', function(){
-            tip.style.opacity='0';
-          });
+          g.addEventListener('mouseenter', function(e){ showTip(g.dataset, e); });
+          g.addEventListener('mousemove', moveTip);
+          g.addEventListener('mouseleave', hideTip);
         });
       })();</script>
     </div>
