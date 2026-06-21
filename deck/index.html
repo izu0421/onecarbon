@@ -1022,9 +1022,6 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       <svg id="cp-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
         <!-- Quadrant shading — top-right is "ideal" -->
         <rect x="370" y="40" width="290" height="190" fill="#1E9A8D" opacity="0.04" rx="4"/>
-        <!-- Centre dashed dividers -->
-        <line x1="80" y1="230" x2="660" y2="230" stroke="#ddd" stroke-width="1" stroke-dasharray="5,7"/>
-        <line x1="370" y1="40" x2="370" y2="400" stroke="#ddd" stroke-width="1" stroke-dasharray="5,7"/>
         <!-- Axes -->
         <line x1="80" y1="400" x2="660" y2="400" stroke="#888" stroke-width="2.5"/>
         <line x1="80" y1="40" x2="80" y2="400" stroke="#888" stroke-width="2.5"/>
@@ -1037,11 +1034,11 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <!-- Quadrant hint -->
         <text x="652" y="62" font-size="13" fill="#1E9A8D" font-family="serif" text-anchor="end" opacity="0.7" font-style="italic">ideal zone</text>
 
-        <!-- Souvenaid: low efficacy, high safety → (180, 100) -->
+        <!-- Souvenaid: very low efficacy, high safety → (120, 100) -->
         <g class="cp-dot" data-name="Souvenaid" data-val="High safety · Low efficacy" data-desc="Nutritional medical food (Nutricia). Excellent safety record but limited evidence for disease modification in AD.">
-          <circle cx="180" cy="100" r="15" fill="#aaa" opacity="0.15"/>
-          <circle cx="180" cy="100" r="9" fill="#aaa" opacity="0.65"/>
-          <text x="180" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
+          <circle cx="120" cy="100" r="15" fill="#aaa" opacity="0.15"/>
+          <circle cx="120" cy="100" r="9" fill="#aaa" opacity="0.65"/>
+          <text x="120" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
         </g>
 
         <!-- Bloom Science: low-mid efficacy (preclinical), mid safety → (270, 175) -->
@@ -1051,11 +1048,11 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
           <text x="270" y="153" font-size="15" fill="#aaa" font-family="serif" text-anchor="middle">Bloom Science</text>
         </g>
 
-        <!-- Lecanemab: high efficacy, moderate safety → (530, 290) -->
+        <!-- Lecanemab: high efficacy, low safety → (590, 340) -->
         <g class="cp-dot" data-name="Lecanemab" data-val="High efficacy · Safety risks" data-desc="Anti-amyloid antibody (Eisai/Biogen). Slows cognitive decline but causes brain swelling (ARIA) and microbleeds. IV infusion only. £25,000/yr.">
-          <circle cx="530" cy="290" r="15" fill="#b05" opacity="0.12"/>
-          <circle cx="530" cy="290" r="9" fill="#b05" opacity="0.55"/>
-          <text x="530" y="268" font-size="15" fill="#b05" font-family="serif" text-anchor="middle" opacity="0.85">Lecanemab</text>
+          <circle cx="590" cy="340" r="15" fill="#b05" opacity="0.12"/>
+          <circle cx="590" cy="340" r="9" fill="#b05" opacity="0.55"/>
+          <text x="590" y="318" font-size="15" fill="#b05" font-family="serif" text-anchor="middle" opacity="0.85">Lecanemab</text>
         </g>
 
         <!-- 1C-01: high efficacy, high safety → (560, 80) — teal, prominent -->
