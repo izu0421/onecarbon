@@ -151,14 +151,16 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 .pf-text{font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5}
 .pf-text b{font-family:var(--serif);font-weight:600}
 /* Product image cards with hover reveal */
-.prod-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vw;flex:1;min-height:0;margin-top:2vh}
-.prod-card{position:relative;border-radius:var(--rl);overflow:hidden;cursor:default;box-shadow:0 8px 24px rgba(31,53,90,0.12)}
-.prod-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
-.prod-card:hover img{transform:scale(1.04)}
-.prod-card-label{position:absolute;bottom:0;left:0;right:0;padding:1.4vh 1.4vw;background:linear-gradient(to top,rgba(10,15,30,0.85) 0%,transparent 100%);display:flex;flex-direction:column;gap:0}
+.prod-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;flex:1;min-height:0;margin-top:1.2vh;max-height:52vh}
+.prod-card{position:relative;border-radius:var(--rl);overflow:hidden;cursor:default;box-shadow:0 6px 18px rgba(31,53,90,0.12)}
+.prod-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease,filter 0.4s ease}
+.prod-card:hover img{transform:scale(1.04);filter:brightness(0.45)}
+.prod-card::after{content:'';position:absolute;inset:0;background:rgba(5,10,22,0);transition:background 0.4s ease;pointer-events:none}
+.prod-card:hover::after{background:rgba(5,10,22,0.35)}
+.prod-card-label{position:absolute;bottom:0;left:0;right:0;padding:1.4vh 1.4vw;background:linear-gradient(to top,rgba(5,10,22,0.9) 0%,transparent 100%);display:flex;flex-direction:column;gap:0}
 .prod-card-pill{font-family:var(--serif);font-size:13px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:6px}
-.prod-card-title{font-family:var(--serif);font-size:clamp(22px,2.2vw,34px);font-weight:600;color:#fff;line-height:1.15}
-.prod-card-desc{font-family:var(--sans);font-size:clamp(15px,1.3vw,19px);color:rgba(255,255,255,0.9);line-height:1.55;margin-top:0.6vh;max-height:0;overflow:hidden;opacity:0;transition:max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease}
+.prod-card-title{font-family:var(--serif);font-size:clamp(20px,2vw,30px);font-weight:600;color:#fff;line-height:1.15}
+.prod-card-desc{font-family:var(--sans);font-size:clamp(14px,1.2vw,17px);color:rgba(255,255,255,0.95);line-height:1.55;margin-top:0.6vh;max-height:0;overflow:hidden;opacity:0;transition:max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease}
 .prod-card:hover .prod-card-desc{max-height:160px;opacity:1;margin-top:1vh}
 
 /* ============ Pilot validation ============ */
