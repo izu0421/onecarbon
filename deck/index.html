@@ -689,42 +689,42 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
   </section>
 
   <!-- 7: PILOT VALIDATION -->
-  <section class="slide" style="padding:0;background:#0e1520;overflow:hidden;">
-    <div class="frame-mark" style="color:rgba(255,255,255,0.45);z-index:10;"><span class="brand-name" style="color:#fff;">One<span class="lg">Carbon</span></span></div>
+  <section class="slide" style="padding:0;background:var(--bg);overflow:hidden;">
+    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
 
     <!-- Two-column layout: text left, figures right -->
-    <div style="display:grid;grid-template-columns:1fr 1.6fr;height:100%;gap:0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;height:100%;gap:0;">
 
       <!-- Left: headline + meta -->
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:6vh 4vw 6vh 5vw;border-right:1px solid rgba(255,255,255,0.08);">
-        <div class="eyebrow reveal" style="color:rgba(255,255,255,0.45);">Pilot validation</div>
-        <h1 class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(26px,2.8vw,44px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:#fff;margin:1.5vh 0 2.5vh;">Our Cambridge pilot confirmed <em style="color:#4ecdb4;">engraftment</em>, safety, and a blood signal.</h1>
-        <div style="display:flex;flex-direction:column;gap:1.4vh;" class="reveal reveal-d2">
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:6vh 4vw 6vh 5vw;border-right:1px solid var(--border);">
+        <div class="eyebrow reveal">Pilot validation</div>
+        <h1 class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(30px,3.2vw,50px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin:1.5vh 0 2.5vh;">Our Cambridge pilot confirmed <em style="color:#1E9A8D;">engraftment</em>, safety, and a blood signal.</h1>
+        <div style="display:flex;flex-direction:column;gap:1.6vh;" class="reveal reveal-d2">
           <div style="display:flex;align-items:center;gap:1vw;">
-            <div style="width:6px;height:6px;border-radius:50%;background:#4ecdb4;flex-shrink:0;"></div>
-            <span style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.7);">15 healthy volunteers</span>
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">15 healthy volunteers</span>
           </div>
           <div style="display:flex;align-items:center;gap:1vw;">
-            <div style="width:6px;height:6px;border-radius:50%;background:#4ecdb4;flex-shrink:0;"></div>
-            <span style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.7);">1-week supplementation</span>
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">1-week supplementation</span>
           </div>
           <div style="display:flex;align-items:center;gap:1vw;">
-            <div style="width:6px;height:6px;border-radius:50%;background:#4ecdb4;flex-shrink:0;"></div>
-            <span style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.7);">0% adverse events · food-grade safety</span>
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">0% adverse events · food-grade safety</span>
           </div>
         </div>
-        <div class="reveal reveal-d3" style="margin-top:3.5vh;padding:2vh 1.5vw;border-left:3px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.04);border-radius:0 8px 8px 0;">
-          <div style="font-family:var(--serif);font-size:15px;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.5;">"My spelling memory gaps and memory in general improved markedly."</div>
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.8vh;">— Pilot participant</div>
+        <div class="reveal reveal-d3" style="margin-top:3.5vh;padding:2vh 1.5vw;border-left:3px solid var(--accent);background:var(--accent-tint);border-radius:0 8px 8px 0;">
+          <div style="font-family:var(--serif);font-size:17px;font-style:italic;color:var(--text);line-height:1.5;">"My spelling memory gaps and memory in general improved markedly."</div>
+          <div style="font-family:var(--serif);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-faint);margin-top:0.8vh;">— Pilot participant</div>
         </div>
       </div>
 
-      <!-- Right: two figures stacked -->
-      <div style="display:grid;grid-template-rows:1fr 1fr;gap:1vh;max-width:42vw;">
+      <!-- Right: two figures stacked, fill full height -->
+      <div style="display:grid;grid-template-rows:1fr 1fr;height:100%;gap:0;">
 
         <!-- Figure 1: stool -->
-        <div class="reveal reveal-d2" style="position:relative;background:#fff;border-radius:var(--rs);cursor:default;overflow:hidden;">
-          <img src="assets/figure_stool.png" alt="Gut engraftment" style="width:100%;height:100%;object-fit:contain;padding:2vh 4vw;box-sizing:border-box;display:block;">
+        <div class="reveal reveal-d2" style="position:relative;background:#fff;border-bottom:1px solid var(--border);cursor:default;overflow:hidden;">
+          <img src="assets/figure_stool.png" alt="Gut engraftment" style="width:100%;height:100%;object-fit:contain;padding:3vh 5vw;box-sizing:border-box;display:block;">
           <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:var(--accent);display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
             <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;">1C-01 detected in stool of <em>all 15 participants</em></div>
             <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">Confirmed by metagenomic sequencing after 1 week. P &lt; 0.00001.</div>
@@ -732,8 +732,8 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         </div>
 
         <!-- Figure 2: blood -->
-        <div class="reveal reveal-d3" style="position:relative;background:#fafafa;border-radius:var(--rs);cursor:default;overflow:hidden;">
-          <img src="assets/figure_blood.png" alt="Blood neuroprotective metabolites" style="width:100%;height:100%;object-fit:contain;padding:2vh 4vw;box-sizing:border-box;display:block;">
+        <div class="reveal reveal-d3" style="position:relative;background:#f9faf8;cursor:default;overflow:hidden;">
+          <img src="assets/figure_blood.png" alt="Blood neuroprotective metabolites" style="width:100%;height:100%;object-fit:contain;padding:3vh 5vw;box-sizing:border-box;display:block;">
           <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:#1E9A8D;display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
             <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;"><em>Neuroprotective metabolites</em> significantly elevated in blood</div>
             <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">Two targeted 1C metabolites increased after supplementation (n=3, LC-MS). ***</div>
@@ -751,13 +751,13 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       });
     </script>
 
-    <div class="frame-num" style="color:rgba(255,255,255,0.3);">06 / 12</div>
+    <div class="frame-num">06 / 12</div>
   </section>
 
   <!-- 8: VALIDATION ROADMAP -->
   <section class="slide roadmap">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Validation roadmap</div>
+    <div class="eyebrow reveal">Validation & valuation</div>
     <h1 class="headline reveal reveal-d1"><em>Staged</em> derisking — each step validates the next.</h1>
 
 
