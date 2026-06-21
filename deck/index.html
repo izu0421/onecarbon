@@ -777,47 +777,6 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div class="eyebrow reveal">Validation roadmap</div>
     <h1 class="headline reveal reveal-d1"><em>Staged</em> derisking — each step validates the next.</h1>
 
-        <div class="rm-track">
-      <div class="rm-stages" id="rm-stages">
-        <div class="rm-stage done">
-          <div class="dot"></div>
-          <div class="yr">2019–2024</div>
-          <h4>Discovery</h4>
-          <div class="desc">Developement of novel AI/ML methods. Discovery of neuronal resilience mechanisms</div>
-        </div>
-        <div class="rm-stage done">
-          <div class="dot"></div>
-          <div class="yr">2024–2025</div>
-          <h4>Optimization</h4>
-          <div class="desc">Established our lab at the Milner. Directed evolution of 1C-secreting strains. Cell + animal validation.</div>
-        </div>
-        <div class="rm-stage done">
-          <div class="dot"></div>
-          <div class="yr">2025–2026</div>
-          <h4>Human pilot</h4>
-          <div class="desc">1C01 detected in stool. Significant increase in 1C metabolites.</div>
-        </div>
-        <div class="rm-stage now" id="profile-trigger" style="cursor:pointer;" onclick="document.getElementById('profile-panel').classList.add('visible')">
-          <div class="dot"></div>
-          <div class="yr">2026–2027</div>
-          <h4>Pre-post trial</h4>
-          <div class="desc">PROFILE · NCT07457242 · 180 participants · multiple readouts.</div>
-          <div style="margin-top:1vh;font-family:var(--serif);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.06em;">→ Click for details</div>
-        </div>
-        <div class="rm-stage">
-          <div class="dot"></div>
-          <div class="yr">2027–2029</div>
-          <h4>RCT in Alzheimer’s</h4>
-          <div class="desc">Randomised controlled trial + marketing of 1C01.</div>
-        </div>
-        <div class="rm-stage">
-          <div class="dot"></div>
-          <div class="yr">2029–2032</div>
-          <h4>Regulatory</h4>
-          <div class="desc">MHRA/FDA for supplement with claim. New indications.</div>
-        </div>
-      </div>
-    </div>
 
     <!-- Value creation chart — x=year, y=valuation (log scale), hover tooltips -->
     <div class="reveal reveal-d3" style="margin-top:2vh;position:relative;" id="vc-wrap">
@@ -903,7 +862,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         </g>
 
         <!-- 4. Pre-post trial NOW 2026–2027, £40–80M, y=105 — highlighted teal -->
-        <g class="vc-dot" data-title="Pre-post trial (PROFILE)" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="PROFILE trial · 180 participants · NCT07457242. Pre-post open-label cohort with full blood + stool biomarker suite. Led by Prof Underwood." style="cursor:pointer;">
+        <g class="vc-dot" data-title="Pre-post trial (PROFILE)" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="Pre-post open-label cohort · 180 participants · full blood + stool biomarker suite. Led by Prof Underwood." data-link="https://clinicaltrials.gov/study/NCT07457242" data-link-label="NCT07457242 ↗" style="cursor:pointer;">
           <circle cx="545" cy="105" r="11" fill="#1E9A8D" opacity="0.15" filter="url(#glow)"/>
           <circle cx="545" cy="105" r="6" fill="#1E9A8D"/>
           <text x="545" y="91" font-size="9.5" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">Pre-post trial</text>
@@ -934,7 +893,8 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
             tip.innerHTML = '<div style="font-weight:700;font-size:13px;margin-bottom:4px;">'+d.title+'</div>'
               +'<div style="font-size:10px;opacity:0.7;margin-bottom:6px;">'+d.years+'</div>'
               +'<div style="font-size:14px;font-weight:700;color:'+statusColor+';margin-bottom:6px;">'+d.val+'</div>'
-              +'<div style="font-size:11px;opacity:0.85;line-height:1.5;">'+d.detail+'</div>';
+              +'<div style="font-size:11px;opacity:0.85;line-height:1.5;">'+d.detail+'</div>'
+              +(d.link ? '<a href="'+d.link+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:11px;color:#7ecfc7;text-decoration:none;border-bottom:1px solid rgba(126,207,199,0.4);">'+d.linkLabel+'</a>' : '');
             tip.style.opacity='1';
           });
           g.addEventListener('mousemove', function(e){
