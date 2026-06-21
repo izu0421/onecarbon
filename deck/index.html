@@ -193,7 +193,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 /* year label */
 .rm-stage .yr{font-family:var(--serif);font-size:10px;letter-spacing:0.14em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:6px}
 .rm-stage.done .yr,.rm-stage.now .yr{color:var(--accent)}
-.rm-stage h4{font-family:var(--serif);font-size:14px;color:var(--text);font-weight:600;margin-bottom:0.6vh;letter-spacing:-0.005em;line-height:1.2}
+.rm-stage h4{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:600;margin-bottom:0.6vh;letter-spacing:-0.005em;line-height:1.2}
 .rm-stage.now h4{color:var(--accent)}
 .rm-stage .desc{font-family:var(--sans);font-size:11.5px;color:var(--text-muted);line-height:1.5}
 
@@ -797,11 +797,12 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
           <h4>Human pilot</h4>
           <div class="desc">1C01 detected in stool. Significant increase in 1C metabolites.</div>
         </div>
-        <div class="rm-stage now">
+        <div class="rm-stage now" id="profile-trigger" style="cursor:pointer;" onclick="document.getElementById('profile-panel').classList.add('visible')">
           <div class="dot"></div>
           <div class="yr">2026–2027</div>
           <h4>Pre-post trial</h4>
-          <div class="desc">PROFILE · <a href="https://clinicaltrials.gov/study/NCT07457242?lastUpdPost=2020-10-10" target="_blank" rel="noopener" style="color:inherit;">NCT07457242</a> · 180 participants · multiple readouts.</div>
+          <div class="desc">PROFILE · NCT07457242 · 180 participants · multiple readouts.</div>
+          <div style="margin-top:1vh;font-family:var(--serif);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.06em;">→ Click for details</div>
         </div>
         <div class="rm-stage">
           <div class="dot"></div>
@@ -818,96 +819,138 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       </div>
     </div>
 
+    <!-- Value creation chart — inline SVG aligned to milestones -->
+    <div class="reveal reveal-d3" style="margin-top:2.5vh;">
+      <svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;overflow:visible;">
+        <defs>
+          <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E9A8D" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#1E9A8D" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Y-axis label -->
+        <text x="0" y="10" font-size="9" fill="#aaa" font-family="serif" letter-spacing="1">ENTERPRISE VALUE ↑</text>
+
+        <!-- Baseline -->
+        <line x1="30" y1="155" x2="890" y2="155" stroke="#e8e8e8" stroke-width="1"/>
+
+        <!-- Filled area under curve -->
+        <path d="M 75,148 C 150,148 175,138 225,135 C 290,130 320,118 375,112 C 440,105 470,85 525,72 C 600,55 630,35 675,28 C 740,18 770,10 825,8 L 825,155 L 75,155 Z" fill="url(#curveGrad)"/>
+
+        <!-- Confidence band upper -->
+        <path d="M 75,148 C 150,148 175,138 225,135 C 290,130 320,118 375,112 C 440,105 470,85 525,72 C 600,55 630,35 675,28 C 740,18 770,10 825,8" fill="none" stroke="#1E9A8D" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- NOW vertical dashed line -->
+        <line x1="525" y1="20" x2="525" y2="155" stroke="#1f355a" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.4"/>
+        <text x="525" y="16" font-size="9" fill="#1f355a" font-family="serif" text-anchor="middle" font-weight="700" opacity="0.7">NOW</text>
+
+        <!-- Stage dots & value labels -->
+        <!-- Stage 1: Discovery £3–5M -->
+        <circle cx="75" cy="148" r="5" fill="#1f355a" opacity="0.5"/>
+        <text x="75" y="136" font-size="9.5" fill="#888" font-family="serif" text-anchor="middle">£3–5M</text>
+
+        <!-- Stage 2: Optimization £8–15M -->
+        <circle cx="225" cy="135" r="5" fill="#1f355a" opacity="0.6"/>
+        <text x="225" y="123" font-size="9.5" fill="#888" font-family="serif" text-anchor="middle">£8–15M</text>
+
+        <!-- Stage 3: Human pilot £15–30M -->
+        <circle cx="375" cy="112" r="5.5" fill="#1f355a" opacity="0.8"/>
+        <text x="375" y="100" font-size="9.5" fill="#555" font-family="serif" text-anchor="middle">£15–30M</text>
+
+        <!-- Stage 4: Pre-post trial (NOW) £40–80M — highlighted -->
+        <circle cx="525" cy="72" r="8" fill="#1E9A8D" opacity="0.2"/>
+        <circle cx="525" cy="72" r="5.5" fill="#1E9A8D"/>
+        <text x="525" y="58" font-size="10" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">£40–80M</text>
+
+        <!-- Stage 5: RCT £80–150M+ -->
+        <circle cx="675" cy="28" r="5" fill="#1f355a" opacity="0.35"/>
+        <text x="675" y="16" font-size="9.5" fill="#999" font-family="serif" text-anchor="middle">£80–150M+</text>
+
+        <!-- Stage 6: Regulatory £200–600M+ -->
+        <circle cx="825" cy="8" r="7" fill="#e05c3a" opacity="0.85"/>
+        <text x="845" y="12" font-size="10" fill="#e05c3a" font-family="serif" font-weight="700">£200–600M+</text>
+      </svg>
+    </div>
+
+    <!-- PROFILE detail panel (click to open) -->
+    <div id="profile-panel" class="supp-panel">
+      <button class="supp-panel-close" onclick="document.getElementById('profile-panel').classList.remove('visible')">← Return to Roadmap</button>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start;height:calc(100% - 60px);">
+
+        <!-- Left: title + meta + design facts -->
+        <div style="display:flex;flex-direction:column;gap:2.5vh;">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.6vh;">PROFILE Trial · <a href="https://clinicaltrials.gov/study/NCT07457242" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:700;">NCT07457242 ↗</a></div>
+            <h2 style="font-family:var(--serif);font-size:clamp(22px,2.4vw,36px);color:var(--text);font-weight:600;line-height:1.1;letter-spacing:-0.02em;margin:0.4em 0 0.2em;"><em>PROFILE</em> — 180 participants, full biomarker suite</h2>
+            <p style="font-family:var(--sans);font-size:13px;color:var(--text-faint);line-height:1.5;">Led by Prof Underwood · Remote · 180 healthy adults · Pre-post open-label cohort</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;">
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">Design</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">Pre-post · open-label · cohort</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">Collection</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">Home blood + stool — no clinic visits</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">Exclusions</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">Recent antibiotics · immunosuppressants</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">Regulatory</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">Supplement only — no experimental drugs</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 4-step flow -->
+        <div style="display:flex;flex-direction:column;gap:1.5vh;">
+          <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-faint);font-weight:600;margin-bottom:0.5vh;">Trial flow</div>
+
+          <div style="display:flex;flex-direction:column;gap:1.2vh;">
+            <!-- Step 1 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">1</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">Enrol &amp; baseline</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">Blood · stool · cognitive tasks (home visits)</div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">2</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">Supplement — 1C-01 daily capsule</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);"><b>Arm A</b> — 1 month &nbsp;·&nbsp; <b>Arm B</b> — 6 months</div>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">3</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">Post-supplement readouts</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">🧠 Cognitive &nbsp;·&nbsp; 🩸 Blood metabolites &nbsp;·&nbsp; 🦠 Stool metagenomics</div>
+              </div>
+            </div>
+            <!-- Step 4 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--bg-deep);border:1px dashed var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;opacity:0.6;">
+              <div style="width:36px;height:36px;border-radius:50%;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;">4</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">Follow-up</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">Long-term safety · tolerability</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="frame-num">06 / 14</div>
-  </section>
-
-<!-- 9: PROFILE TRIAL -->
-  <section class="slide surface" style="padding:5vh 5vw;">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Clinical strategy</div>
-    <div style="display:flex;align-items:baseline;gap:1.2vw;flex-wrap:wrap;margin-bottom:0.3em;">
-      <h1 class="headline reveal reveal-d1" style="font-size:clamp(28px,3vw,46px);margin:0;"><em>PROFILE</em> is live — 180 participants, full biomarker suite.</h1>
-    </div>
-    <p class="reveal reveal-d2" style="font-family:var(--sans);font-size:13px;color:var(--text-faint);margin-bottom:3vh;line-height:1.4;">Probiotic Research: Open-label Functional Intervention and Longitudinal Evaluation in Healthy Adults · <a href="https://clinicaltrials.gov/study/NCT07457242?lastUpdPost=2020-10-10" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none;border-bottom:1px solid var(--accent);">NCT07457242 ↗</a> · Remote, led by Prof Underwood · 180 healthy adults</p>
-
-    <!-- Horizontal flow schematic -->
-    <div class="reveal reveal-d3" style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;gap:0;margin-bottom:3vh;">
-
-      <!-- Step 1 -->
-      <div style="text-align:center;padding:0 1vw;">
-        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2vh;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;">1</div>
-        <div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Enrol &amp; baseline</div>
-        <div style="font-family:var(--sans);font-size:11.5px;color:var(--text-muted);line-height:1.5;">Healthy adults<br>Blood · stool · cognitive tasks (home visits)</div>
-      </div>
-
-      <!-- Arrow -->
-      <div style="padding-top:22px;color:var(--border);font-size:20px;line-height:1;">→</div>
-
-      <!-- Step 2 -->
-      <div style="text-align:center;padding:0 1vw;">
-        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2vh;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;">2</div>
-        <div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Supplement</div>
-        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
-          <div style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:8px;padding:7px 14px;font-family:var(--sans);font-size:11px;color:var(--text);width:100%;box-sizing:border-box;">
-            <b>Arm A</b> — 1 month
-          </div>
-          <div style="background:var(--accent-soft);border:1px solid rgba(31,53,90,0.25);border-radius:8px;padding:7px 14px;font-family:var(--sans);font-size:11px;color:var(--text);width:100%;box-sizing:border-box;">
-            <b>Arm B</b> — 6 months
-          </div>
-          <div style="font-family:var(--sans);font-size:10.5px;color:var(--text-faint);margin-top:2px;">1 capsule/day · 1C01</div>
-        </div>
-      </div>
-
-      <!-- Arrow -->
-      <div style="padding-top:22px;color:var(--border);font-size:20px;line-height:1;">→</div>
-
-      <!-- Step 3 -->
-      <div style="text-align:center;padding:0 1vw;">
-        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2vh;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;">3</div>
-        <div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;">Post-supplement readouts</div>
-        <div style="display:flex;flex-direction:column;gap:5px;align-items:center;">
-          <span style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:11px;color:var(--text-muted);">🧠 Cognitive tasks</span>
-          <span style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:11px;color:var(--text-muted);">🩸 Blood metabolites</span>
-          <span style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:11px;color:var(--text-muted);">🦠 Stool metagenomics</span>
-        </div>
-      </div>
-
-      <!-- Arrow -->
-      <div style="padding-top:22px;color:var(--border);font-size:20px;line-height:1;">→</div>
-
-      <!-- Step 4 -->
-      <div style="text-align:center;padding:0 1vw;opacity:0.55;">
-        <div style="width:44px;height:44px;border-radius:50%;background:transparent;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2vh;font-family:var(--serif);font-size:14px;font-weight:700;color:var(--accent);">4</div>
-        <div style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">Follow-up</div>
-        <div style="font-family:var(--sans);font-size:11.5px;color:var(--text-muted);line-height:1.5;">Long-term effects<br>Safety · tolerability</div>
-      </div>
-
-    </div>
-
-    <!-- Bottom info strip -->
-    <div class="reveal reveal-d4" style="display:grid;grid-template-columns:repeat(4,1fr) auto;gap:2vw;border-top:1px solid var(--border);padding-top:2.5vh;align-items:center;">
-      <div>
-        <div class="tag" style="margin-bottom:5px;">Design</div>
-        <div style="font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;">Pre-post · open-label · cohort</div>
-      </div>
-      <div>
-        <div class="tag" style="margin-bottom:5px;">No invasive procedures</div>
-        <div style="font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;">Home blood + stool collection</div>
-      </div>
-      <div>
-        <div class="tag" style="margin-bottom:5px;">Exclusions</div>
-        <div style="font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;">Recent antibiotics · immunosuppressants</div>
-      </div>
-      <div>
-        <div class="tag" style="margin-bottom:5px;">Regulatory</div>
-        <div style="font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;">Supplement only — no experimental drugs</div>
-      </div>
-      <div style="height:80px;width:80px;border-radius:50%;overflow:hidden;flex-shrink:0;">
-        <img src="assets/blood_draw.png" alt="Home blood collection" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-    </div>
-
-    <div class="frame-num">07 / 14</div>
   </section>
 
   <!-- 11: IP & MOAT -->
