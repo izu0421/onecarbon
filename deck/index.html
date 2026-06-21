@@ -150,6 +150,16 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 .pf-pill{font-family:var(--serif);font-size:11px;letter-spacing:0.14em;color:var(--accent);text-transform:uppercase;font-weight:600;background:var(--accent-soft);padding:5px 10px;border-radius:var(--rp);white-space:nowrap;align-self:flex-start;margin-top:2px}
 .pf-text{font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5}
 .pf-text b{font-family:var(--serif);font-weight:600}
+/* Product image cards with hover reveal */
+.prod-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vw;flex:1;min-height:0;margin-top:2vh}
+.prod-card{position:relative;border-radius:var(--rl);overflow:hidden;cursor:default;box-shadow:0 8px 24px rgba(31,53,90,0.12)}
+.prod-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.prod-card:hover img{transform:scale(1.04)}
+.prod-card-label{position:absolute;bottom:0;left:0;right:0;padding:1.4vh 1.4vw;background:linear-gradient(to top,rgba(10,15,30,0.85) 0%,transparent 100%);display:flex;flex-direction:column;gap:0}
+.prod-card-pill{font-family:var(--serif);font-size:13px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:6px}
+.prod-card-title{font-family:var(--serif);font-size:clamp(22px,2.2vw,34px);font-weight:600;color:#fff;line-height:1.15}
+.prod-card-desc{font-family:var(--sans);font-size:clamp(15px,1.3vw,19px);color:rgba(255,255,255,0.9);line-height:1.55;margin-top:0.6vh;max-height:0;overflow:hidden;opacity:0;transition:max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease}
+.prod-card:hover .prod-card-desc{max-height:160px;opacity:1;margin-top:1vh}
 
 /* ============ Pilot validation ============ */
 .pilot{padding:6vh 5vw}
@@ -442,7 +452,9 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.18em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:1.2vh;">Recognised by</div>
       <div style="display:flex;align-items:center;gap:2vw;justify-content:flex-end;">
         <img src="../media/logo-falling-walls.png" alt="Falling Walls" style="height:48px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="../media/logo-forbes.png" alt="Forbes 30 Under 30" style="height:38px;width:auto;opacity:0.6;filter:grayscale(1);">
+        <img src="../media/logo-forbes.png" alt="Forbes" style="height:38px;width:auto;opacity:0.6;filter:grayscale(1);">
+        <img src="assets/forbes30u30.avif" alt="Forbes 30 Under 30" style="height:48px;width:auto;opacity:0.6;filter:brightness(0);">
+        <img src="../media/innovate_uk_growth_logo.png" alt="Innovate UK Business Connect" style="height:38px;width:auto;opacity:0.6;filter:grayscale(1);">
         <img src="../media/logo-launchpad.png" alt="Alzheimer's Society Launchpad" style="height:48px;width:auto;opacity:0.6;filter:grayscale(1);">
         <img src="../media/logo-trinbrad.png" alt="Trinity Bradfield" style="height:44px;width:auto;opacity:0.6;filter:grayscale(1);">
         <img src="../media/logo-milner.png" alt="Milner Therapeutics" style="height:44px;width:auto;opacity:0.6;filter:grayscale(1);">
@@ -477,48 +489,42 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div class="frame-num" style="color:rgba(255,255,255,0.4);">02 / 14</div>
   </section>
 
-  <!-- 3: THREE-STEP FRAMEWORK -->
-  <section class="slide framework tint" id="innovation-main">
+  <!-- 3: DISCOVERY -->
+  <section class="slide tint" id="innovation-main" style="padding:4vh 5vw 3vh;">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Our innovation</div>
-    <h1 class="headline reveal reveal-d1">The mechanism is real — <em>AI-discovered</em>, lab-evolved, human-tested.</h1>
-    <p class="subhead reveal reveal-d2" style="margin-top:0.8em;font-size:14px;">Click each card to explore supplementary data →</p>
+    <div class="eyebrow reveal">Discovery</div>
+    <h1 class="headline reveal reveal-d1" style="font-size:clamp(26px,2.8vw,46px);margin-bottom:0.2em;"><em>Neuronal resilience</em> mechanisms in Alzheimer's disease</h1>
+    <p class="subhead reveal reveal-d2" style="font-size:13px;margin-bottom:2vh;visibility:hidden;height:0;margin:0;"></p>
 
-    <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:3vw;align-items:start;margin-top:2vh;">
-    <div class="fw-cols" style="margin-top:0;">
-      <div data-supp="discovery" class="supp-trigger">
-        <div class="fw-card reveal reveal-d2" style="cursor:pointer;transition:transform 0.2s ease,box-shadow 0.2s ease;">
-          <div class="fw-step">1 · Discovery</div>
-          <h3>The 1C pathway</h3>
-          <div class="fw-sub">AI multiomics → causal mechanism</div>
-          <p>ML across proteomic, transcriptomic and metabolomic datasets identified mitochondrial 1C metabolism as the critical neuronal resilience pathway. 5 peer-reviewed Cambridge papers. Genomic validation in human samples.</p>
-          <div style="margin-top:1em;font-family:var(--serif);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.08em;">→ Click to explore</div>
+    <div class="reveal reveal-d3" style="flex:1;display:grid;grid-template-columns:220px 1fr;gap:3vw;align-items:center;min-height:0;">
+
+      <!-- Left: 3-step read guide -->
+      <div style="display:flex;flex-direction:column;gap:2.4vh;">
+        <div style="padding-left:1.2vw;border-left:3px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px;">Method</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">As part of our research at the University of Cambridge, we conducted AI/ML multiomics analysis across cells, animal models and >500,000 individuals to investigate neuronal resilience in Alzheimer's disease.</div>
+        </div>
+        <div style="padding-left:1.2vw;border-left:3px solid #1E9A8D;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#1E9A8D;font-weight:700;margin-bottom:4px;">Discovery</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">We found that one-carbon metabolism is the key driver of neuronal resilience in Alzheimer's disease.</div>
+        </div>
+        <div style="padding-left:1.2vw;border-left:3px solid #7a5af8;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#7a5af8;font-weight:700;margin-bottom:4px;">Validation</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">We validated our discoveries in cell models, animal studies, and human data</div>
+        </div>
+        <div style="margin-top:0.5vh;font-family:var(--serif);font-size:10px;color:var(--text-faint);line-height:1.9;">
+          PMID: 39582067<br>
+          PMID: 34172715<br>
+          PMID: 38928008
         </div>
       </div>
-      <div data-supp="evolution" class="supp-trigger">
-        <div class="fw-card reveal reveal-d3" style="cursor:pointer;transition:transform 0.2s ease,box-shadow 0.2s ease;">
-          <div class="fw-step">2 · Evolution</div>
-          <h3>1C01 probiotic</h3>
-          <div class="fw-sub">Directed evolution → over-producer</div>
-          <p>Single bacterial strain evolved to over-produce 1C neuroprotective metabolites. Strains deposited at NCIMB. Trade-secret culturing. Food-grade, scalable production.</p>
-          <div style="margin-top:1em;font-family:var(--serif);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.08em;">→ Click to explore</div>
-        </div>
+
+      <!-- Right: figure -->
+      <div style="display:flex;align-items:center;justify-content:center;height:100%;">
+        <img src="assets/mechanism_1c.png" alt="1C pathway — neuronal resilience in Alzheimer's disease" style="max-width:100%;max-height:62vh;object-fit:contain;display:block;">
       </div>
-      <div data-supp="validation" class="supp-trigger">
-        <div class="fw-card reveal reveal-d4" style="cursor:pointer;transition:transform 0.2s ease,box-shadow 0.2s ease;">
-          <div class="fw-step">3 · Validation</div>
-          <h3>In animals + humans</h3>
-          <div class="fw-sub">Preclinical → pilot in human</div>
-          <p>Animal models show improved mitochondrial function and lifespan. Human pilot (N=15): 100% gut engraftment, elevated blood biomarkers. Cambridge-led RCT initiation 2027. PROFILE NCT07457242 enrolling.</p>
-          <div style="margin-top:1em;font-family:var(--serif);font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.08em;">→ Click to explore</div>
-        </div>
-      </div>
+
     </div>
-    <!-- Mechanism figure -->
-    <div class="reveal reveal-d3" style="border-radius:var(--rl);overflow:hidden;background:var(--surface);border:1px solid var(--border);padding:1.5vh 1vw;display:flex;align-items:center;justify-content:center;">
-      <img src="assets/mechanism_figure.png" alt="1C pathway mechanism" style="width:100%;height:auto;display:block;border-radius:var(--rm);">
-    </div>
-    </div><!-- end grid -->
 
     <!-- Supplementary hover panels -->
     <div id="panel-discovery" class="supp-panel">
@@ -607,36 +613,84 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div class="frame-num">03 / 14</div>
   </section>
 
-  <!-- 6: PRODUCT — 1C01 -->
-  <section class="slide product-slide surface">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">The product</div>
-    <h1 class="headline reveal reveal-d1"><em>1C01</em> — a daily capsule + biomarker tracking.</h1>
+  <!-- 4: EVOLUTION -->
+  <section class="slide" id="evolution" style="padding:0;background:#f8f7f4;overflow:hidden;">
+    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
 
-    <div class="product-hero">
-      <div class="product-img-wrap reveal reveal-d2">
-        <img src="assets/product_capsules.jpg" alt="1C01 capsules">
+    <!-- Figure: fills right ~65%, full height -->
+    <div class="reveal reveal-d2" style="position:absolute;right:0;top:0;bottom:0;width:66%;display:flex;align-items:center;justify-content:center;padding:4vh 3vw 4vh 0;box-sizing:border-box;">
+      <img src="assets/evolution_screen.png" alt="Directed evolution screening" style="width:100%;height:100%;object-fit:contain;display:block;">
+    </div>
+
+    <!-- Left panel -->
+    <div style="position:absolute;left:0;top:0;bottom:0;width:38%;display:flex;flex-direction:column;justify-content:center;padding:6vh 3vw 6vh 5vw;box-sizing:border-box;z-index:2;">
+      <div class="eyebrow reveal" style="margin-bottom:1.5vh;">Evolution</div>
+      <h1 class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(26px,2.6vw,42px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin:0 0 3.5vh;">Gut bacteria make 1C molecules —<br><em>we evolved the best producer</em></h1>
+
+      <div style="display:flex;flex-direction:column;gap:2vh;">
+        <div class="reveal reveal-d2" style="padding-left:1vw;border-left:3px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px;">Insight</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">Gut bacteria naturally secrete 1C metabolites — but not enough to protect neurons.</p>
+        </div>
+        <div class="reveal reveal-d3" style="padding-left:1vw;border-left:3px solid #1E9A8D;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#1E9A8D;font-weight:700;margin-bottom:4px;">Method</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">Directed evolution across hundreds of strains, screened for neuronal health output.</p>
+        </div>
+        <div class="reveal reveal-d4" style="padding-left:1vw;border-left:3px solid #7a5af8;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#7a5af8;font-weight:700;margin-bottom:4px;">Result</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">1C-01 — the top-performing strain, food-grade, deposited at NCIMB.</p>
+        </div>
       </div>
-      <div class="product-features">
-        <div class="pf-item reveal reveal-d4">
-          <span class="pf-pill">Format</span>
-          <div class="pf-text"><b>Food-grade, directed-evolution strain.</b> Naturally-found bacterium evolved to over-produce 1C neuroprotective metabolites.</div>
-        </div>
-        <div class="pf-item reveal reveal-d5">
-          <span class="pf-pill">Tracking</span>
-          <div class="pf-text"><b>Biomarker measurements: stool + blood + brain health.</b> Pre-post brain health assessment via questionnaires + test, 1C blood metabolites, and 1C01 in the stool.</div>
-        </div>
-        <div class="pf-item reveal reveal-d6">
-          <span class="pf-pill">Safety</span>
-          <div class="pf-text"><b>GRAS · FSA-registered.</b> Strain holds Generally Recognised As Safe status. OneCarbon registered with the UK Food Standards Agency.</div>
-        </div>
-        <div class="pf-item reveal reveal-d7">
-          <span class="pf-pill">Moat</span>
-          <div class="pf-text"><b>NCIMB-deposited.</b> Patent + trade secrets.</div>
-        </div>
+
+      <div class="reveal reveal-d5" style="margin-top:3vh;padding:1.2vh 1.2vw;background:var(--accent-tint);border-radius:8px;">
+        <div style="font-family:var(--serif);font-size:11px;color:var(--text-faint);line-height:1.8;">Each dot = one screened strain · Red line = neuronal health target · Rightmost dot = 1C-01</div>
       </div>
     </div>
+
     <div class="frame-num">04 / 14</div>
+  </section>
+
+  <!-- 6: PRODUCT — 1C01 -->
+  <section class="slide product-slide surface" style="display:flex;flex-direction:column;">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">The product</div>
+    <h1 class="headline reveal reveal-d1" style="margin-bottom:0;"><em>1C-01</em> — a daily probiotic + biomarker tracking.</h1>
+
+    <div class="prod-cards reveal reveal-d2">
+
+      <!-- Card 1: Supplement -->
+      <div class="prod-card">
+        <img src="assets/product_capsules.jpg" alt="1C-01 capsules">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">Supplement</div>
+          <div class="prod-card-title">Daily probiotic capsule</div>
+          <div class="prod-card-desc">Food-grade bacterial strain evolved to over-produce 1C neuroprotective metabolites. GRAS status · FSA-registered · NCIMB-deposited.</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Blood biomarkers -->
+      <div class="prod-card">
+        <img src="assets/blood_draw.png" alt="Blood biomarker tracking">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">Biomarkers</div>
+          <div class="prod-card-title">Blood + stool biomarkers</div>
+          <div class="prod-card-desc">Blood: 1C neuroprotective metabolites by LC-MS mass spectrometry. Stool: metagenomic sequencing to confirm 1C-01 gut engraftment.</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Digital tracking -->
+      <div class="prod-card">
+        <img src="assets/tracking_dashboard.png" alt="Digital tracking dashboard" style="object-position:top;">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">Tracking</div>
+          <div class="prod-card-title">Brain health dashboard</div>
+          <div class="prod-card-desc">Participants track cognitive assessments, stool microbiome and blood biomarkers throughout the programme via a digital dashboard.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="frame-num">05 / 14</div>
   </section>
 
   <!-- 7: PILOT VALIDATION -->
@@ -810,7 +864,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <div style="font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;">Supplement only — no experimental drugs</div>
       </div>
       <div style="height:80px;width:80px;border-radius:50%;overflow:hidden;flex-shrink:0;">
-        <img src="assets/blood_draw.jpg" alt="Home blood collection" style="width:100%;height:100%;object-fit:cover;">
+        <img src="assets/blood_draw.png" alt="Home blood collection" style="width:100%;height:100%;object-fit:cover;">
       </div>
     </div>
 

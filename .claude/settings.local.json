@@ -44,7 +44,9 @@
       "Bash(unzip -o deck.pptx \"ppt/media/*\" -d extracted/)",
       "Bash(python '/Users/yizhouyu/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/32e6dcec-bac4-4393-8812-060933c70848/fa78c775-c6f0-40d8-92aa-082acee62511/skills/pptx/scripts/office/soffice.py' --headless --convert-to pdf deck.pptx)",
       "Bash(ls -la /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/f0627c77-e15a-4d6a-bf4e-6ad200ff9719/scratchpad/alzsoc/*.pdf)",
-      "Bash(unzip -p /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/f0627c77-e15a-4d6a-bf4e-6ad200ff9719/scratchpad/alzsoc/investor.pptx ppt/slides/slide2.xml)"
+      "Bash(unzip -p /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/f0627c77-e15a-4d6a-bf4e-6ad200ff9719/scratchpad/alzsoc/investor.pptx ppt/slides/slide2.xml)",
+      "Read(//private/tmp/**)",
+      "Bash(unzip -o \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/presentations/pitchdeck/OneCarbon_InvestorDeck_v2.pptx\" \"ppt/slides/slide15.xml\" \"ppt/slides/_rels/slide15.xml.rels\" -d investordeck_v2)"
     ]
   }
 }
