@@ -720,35 +720,23 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       </div>
 
       <!-- Right: two figures stacked -->
-      <div style="display:grid;grid-template-rows:1fr 1fr;gap:0;">
+      <div style="display:grid;grid-template-rows:1fr 1fr;gap:1vh;max-width:42vw;">
 
         <!-- Figure 1: stool -->
-        <div class="reveal reveal-d2" style="position:relative;border-bottom:1px solid rgba(255,255,255,0.08);background:#fff;cursor:default;overflow:hidden;display:flex;flex-direction:column;">
-          <div style="padding:1vh 2vw;border-bottom:2px solid var(--accent);flex-shrink:0;display:flex;align-items:center;gap:0.8vw;background:#fff;">
-            <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div>
-            <span style="font-family:var(--serif);font-size:13px;font-weight:600;color:var(--accent);">Gut engraftment · Stool metagenomics</span>
-          </div>
-          <div style="flex:1;position:relative;min-height:0;">
-            <img src="assets/figure_stool.png" alt="Gut engraftment" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4vh 8vw;box-sizing:border-box;">
-            <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:var(--accent);display:flex;flex-direction:column;justify-content:center;padding:3vh 3vw;opacity:0;transition:opacity 0.35s ease;">
-              <div style="font-family:var(--serif);font-size:clamp(20px,2vw,28px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1.2vh;">1C-01 detected in stool of <em>all 15 participants</em></div>
-              <div style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.88);line-height:1.6;">Confirmed by metagenomic sequencing after 1 week. P &lt; 0.00001.</div>
-            </div>
+        <div class="reveal reveal-d2" style="position:relative;background:#fff;border-radius:var(--rs);cursor:default;overflow:hidden;">
+          <img src="assets/figure_stool.png" alt="Gut engraftment" style="width:100%;height:100%;object-fit:contain;padding:2vh 4vw;box-sizing:border-box;display:block;">
+          <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:var(--accent);display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
+            <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;">1C-01 detected in stool of <em>all 15 participants</em></div>
+            <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">Confirmed by metagenomic sequencing after 1 week. P &lt; 0.00001.</div>
           </div>
         </div>
 
         <!-- Figure 2: blood -->
-        <div class="reveal reveal-d3" style="position:relative;background:#fafafa;cursor:default;overflow:hidden;display:flex;flex-direction:column;">
-          <div style="padding:1vh 2vw;border-bottom:2px solid #1E9A8D;flex-shrink:0;display:flex;align-items:center;gap:0.8vw;background:#fafafa;">
-            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
-            <span style="font-family:var(--serif);font-size:13px;font-weight:600;color:#1E9A8D;">Neuroprotective metabolites · Blood LC-MS</span>
-          </div>
-          <div style="flex:1;position:relative;min-height:0;">
-            <img src="assets/figure_blood.png" alt="Blood neuroprotective metabolites" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4vh 8vw;box-sizing:border-box;">
-            <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:#1E9A8D;display:flex;flex-direction:column;justify-content:center;padding:3vh 3vw;opacity:0;transition:opacity 0.35s ease;">
-              <div style="font-family:var(--serif);font-size:clamp(20px,2vw,28px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1.2vh;"><em>Neuroprotective metabolites</em> significantly elevated in blood</div>
-              <div style="font-family:var(--sans);font-size:15px;color:rgba(255,255,255,0.88);line-height:1.6;">Two targeted 1C metabolites increased after supplementation (n=3, LC-MS). ***</div>
-            </div>
+        <div class="reveal reveal-d3" style="position:relative;background:#fafafa;border-radius:var(--rs);cursor:default;overflow:hidden;">
+          <img src="assets/figure_blood.png" alt="Blood neuroprotective metabolites" style="width:100%;height:100%;object-fit:contain;padding:2vh 4vw;box-sizing:border-box;display:block;">
+          <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:#1E9A8D;display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
+            <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;"><em>Neuroprotective metabolites</em> significantly elevated in blood</div>
+            <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">Two targeted 1C metabolites increased after supplementation (n=3, LC-MS). ***</div>
           </div>
         </div>
 
