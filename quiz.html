@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     .assessment-section {
       max-width: 720px;
@@ -193,6 +194,66 @@
       cursor: not-allowed;
     }
 
+    /* Social login + email block */
+    .social-login {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .btn-social {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #333;
+      transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-social:hover { border-color: var(--accent); background: #f8f9fc; }
+    .btn-social img { width: 18px; height: 18px; }
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .email-prefilled {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f0f4ff;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .email-prefilled button {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+    }
+
     /* Completion screen */
     .completion {
       text-align: center;
@@ -276,6 +337,26 @@
       <div class="step active" data-step="1">
         <div class="step-title">About you</div>
         <div class="step-subtitle">A few basics to help us understand your context.</div>
+
+        <div class="question-block">
+          <label>Email address <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <p class="helper-text">Sign in quickly or type your email — only if you'd like us to follow up or send you your results over time.</p>
+
+          <div id="emailPrefilled" class="email-prefilled" style="display:none;">
+            <i class="fa fa-check-circle"></i>
+            <span id="emailPrefilledText"></span>
+            <button type="button" onclick="clearSocialEmail()">✕ remove</button>
+          </div>
+          <div id="emailInputBlock">
+            <div class="social-login">
+              <button type="button" class="btn-social" onclick="signInWithGoogle()">
+                <img src="https://www.google.com/favicon.ico" alt="Google"> Continue with Google
+              </button>
+            </div>
+            <div class="or-divider">or</div>
+            <input class="form-control" type="email" id="emailField" name="email" placeholder="you@example.com">
+          </div>
+        </div>
 
         <div class="question-block">
           <label>What is your age range?</label>
@@ -478,12 +559,6 @@
           <textarea class="form-control" name="freetext" rows="4" placeholder="Optional — type here..."></textarea>
         </div>
 
-        <div class="question-block">
-          <label>Email address</label>
-          <p class="helper-text">Optional — only if you'd like us to follow up or send you your results over time.</p>
-          <input class="form-control" type="email" name="email" placeholder="you@example.com">
-        </div>
-
         <div class="step-nav">
           <button type="button" class="btn-back" onclick="prevStep()">Back</button>
           <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
@@ -645,6 +720,43 @@
       disabledEl.style.display = 'block';
       return;
     }
+
+    // ── Google Sign-In ──
+    // Replace YOUR_GOOGLE_CLIENT_ID with your OAuth 2.0 client ID from console.cloud.google.com
+    var GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+
+    window.signInWithGoogle = function() {
+      if (!window.google || GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') {
+        alert('Google Sign-In is not configured yet. Please enter your email below.');
+        return;
+      }
+      google.accounts.oauth2.initTokenClient({
+        client_id: GOOGLE_CLIENT_ID,
+        scope: 'email profile',
+        callback: function(resp) {
+          if (resp.access_token) {
+            fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: { Authorization: 'Bearer ' + resp.access_token }
+            }).then(function(r) { return r.json(); }).then(function(info) {
+              setEmailFromSocial(info.email);
+            });
+          }
+        }
+      }).requestAccessToken();
+    };
+
+    function setEmailFromSocial(email) {
+      document.getElementById('emailField').value = email;
+      document.getElementById('emailPrefilledText').textContent = email;
+      document.getElementById('emailPrefilled').style.display = 'flex';
+      document.getElementById('emailInputBlock').style.display = 'none';
+    }
+
+    window.clearSocialEmail = function() {
+      document.getElementById('emailField').value = '';
+      document.getElementById('emailPrefilled').style.display = 'none';
+      document.getElementById('emailInputBlock').style.display = 'block';
+    };
 
     var currentStep = 1;
     var totalSteps = 5;
