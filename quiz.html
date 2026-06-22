@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Health Quiz — OneCarbon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+  #qz-page{display:flex;align-items:flex-start;justify-content:center;padding:4rem 1rem 5rem;}
+  #qz *{box-sizing:border-box;}
+  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:transparent;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:none;}
+  #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
+  @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
+  #qz .step-dot{width:26px;height:26px;border-radius:50%;background:#D8D6D0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#999;flex-shrink:0;transition:background .3s;}
+  #qz .step-dot.active,#qz .step-dot.done{background:#1f355a;color:#fff;}
+  #qz .step-line{flex:1;height:1.5px;background:#D8D6D0;max-width:50px;}#qz .step-line.done{background:#1f355a;}
+  #qz .eyebrow,#qz .sci-eyebrow{font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#1f355a;margin-bottom:.6rem;}
+  #qz .q-title{font-family:'DM Sans',serif;font-size:24px;line-height:1.35;color:#1a1a1a;margin-bottom:.5rem;font-weight:500;}
+  #qz .q-sub{font-size:14px;color:#666;margin-bottom:1.75rem;line-height:1.65;}
+  #qz .hint{font-size:14px;color:#999;margin-bottom:1rem;}
+  #qz .tiles{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .tile{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid #D8D6D0;border-radius:12px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;font-size:14px;color:#1a1a1a;text-align:left;font-family:inherit;line-height:1.4;font-weight:400;width:100%;}
+  #qz .tile:hover{border-color:#1f355a;background:#eaecf2;}
+  #qz .tile.sel{border-color:#1f355a;background:#d0d9e8;font-weight:500;}
+  #qz .t-mark{width:20px;height:20px;border-radius:50%;border:1.5px solid #D8D6D0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  #qz .tile.sel .t-mark{background:#1f355a;border-color:#1f355a;}
+  #qz .t-chk{display:none;}#qz .tile.sel .t-chk{display:block;}
+  #qz .cont-btn{width:100%;padding:15px;background:#1f355a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:.5rem;}
+  #qz .cont-btn:disabled{opacity:.3;cursor:default;}
+  #qz .cont-btn:not(:disabled):hover{background:#162844;}
+  #qz .back{display:block;text-align:center;margin-top:1rem;font-size:15px;color:#999;cursor:pointer;border:none;background:none;font-family:inherit;padding:0;}
+  #qz .back:hover{color:#555;}
+  #qz .sci-bullets{display:flex;flex-direction:column;gap:10px;margin:1.25rem 0 1.5rem;}
+  #qz .sci-bullet{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #E8E6E0;font-size:14px;color:#444;line-height:1.6;}
+  #qz .sci-bullet-dot{width:8px;height:8px;border-radius:50%;background:#1f355a;flex-shrink:0;margin-top:6px;}
+  #qz .sci-bullet strong{color:#1a1a1a;font-weight:500;}
+  #qz .usp-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.25rem;}
+  #qz .usp-pill{font-size:14px;color:#1f355a;background:#d0d9e8;border:1px solid #a8bcda;border-radius:99px;padding:5px 12px;font-weight:500;}
+  #qz .sci-disclaimer{font-size:13px;color:#aaa;line-height:1.65;margin-top:1.25rem;font-style:italic;}
+  #qz .safe-banner{background:#eaecf2;border:1px solid #c0cce0;border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:14px;color:#1f355a;line-height:1.6;}
+  #qz .safe-banner strong{font-weight:600;}
+  #qz .offer-card{background:#1f355a;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
+  #qz .offer-pct{font-family:'DM Sans',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:.25rem;font-weight:600;}
+  #qz .offer-label{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:.35rem;}
+  #qz .offer-sub{font-size:14px;color:rgba(255,255,255,.55);}
+  #qz .inp-label{font-size:14px;color:#555;margin-bottom:.4rem;display:block;}
+  #qz .email-inp{width:100%;padding:13px 16px;border:1.5px solid #D8D6D0;border-radius:12px;font-family:inherit;font-size:15px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .15s;margin-bottom:.5rem;}
+  #qz .email-inp:focus{border-color:#1f355a;}
+  #qz .privacy{font-size:13px;color:#aaa;margin-bottom:1rem;}
+  #qz .gdpr-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:1.5rem;}
+  #qz .gdpr-row input[type=checkbox]{margin-top:2px;accent-color:#1f355a;flex-shrink:0;width:15px;height:15px;cursor:pointer;}
+  #qz .gdpr-label{font-size:13px;color:#888;line-height:1.65;}
+  #qz .gdpr-label a{color:#1f355a;text-decoration:underline;}
+  #qz .skip{display:block;text-align:center;font-size:14px;color:#aaa;cursor:pointer;border:none;background:none;font-family:inherit;margin-top:1rem;padding:0;}
+  #qz .skip:hover{color:#666;}
+  #qz .result-hero{background:#fff;border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;border:1px solid #D8D6D0;}
+  #qz .fit-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #a8bcda;border-radius:99px;padding:5px 14px;font-size:14px;font-weight:500;color:#1f355a;background:#d0d9e8;margin-bottom:1rem;}
+  #qz .fit-badge .dot{width:6px;height:6px;border-radius:50%;background:#1f355a;}
+  #qz .res-title{font-family:'DM Sans',serif;font-size:22px;line-height:1.3;color:#1a1a1a;margin-bottom:.75rem;font-weight:500;}
+  #qz .res-body{font-size:14px;line-height:1.8;color:#555;}
+  #qz .fit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .fit-item{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#444;line-height:1.55;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #E8E6E0;}
+  #qz .fit-icon{width:20px;height:20px;border-radius:50%;background:#eaecf2;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  #qz .cta-primary{width:100%;padding:15px;background:#1f355a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:10px;transition:background .15s;}
+  #qz .cta-primary:hover{background:#162844;}
+  #qz .cta-secondary{width:100%;padding:13px;background:#fff;color:#1a1a1a;border:1.5px solid #D8D6D0;border-radius:99px;font-family:inherit;font-size:14px;cursor:pointer;transition:border-color .15s;}
+  #qz .cta-secondary:hover{border-color:#1f355a;}
+  #qz .legal{font-size:13px;color:#aaa;text-align:center;margin-top:1.25rem;line-height:1.7;}
+  #qz .offer-eyebrow{display:inline-block;background:#1f355a;color:#fff;font-size:13px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:99px;margin-bottom:14px;text-transform:uppercase;}
+  #qz .offer-eyebrow strong{color:#d0d9e8;font-weight:800;}
+  #qz .tiles-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  #qz .tile-grid-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border:1.5px solid #D8D6D0;border-radius:14px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s,transform .15s;font-size:15px;color:#1a1a1a;text-align:center;font-family:inherit;line-height:1.3;font-weight:500;gap:8px;}
+  #qz .tile-grid-item:hover{border-color:#1f355a;background:#eaecf2;transform:translateY(-2px);}
+  #qz .tile-grid-item.sel{border-color:#1f355a;background:#d0d9e8;}
+  #qz .tile-emoji{font-size:32px;line-height:1;}
+  #qz .circle-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:1.5rem;}
+  #qz .circle-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:96px;height:96px;border-radius:50%;border:1.5px solid #D8D6D0;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-family:inherit;}
+  #qz .circle-btn:hover{border-color:#1f355a;background:#eaecf2;}
+  #qz .circle-btn.sel{border-color:#1f355a;background:#d0d9e8;}
+  #qz .circle-em{font-size:26px;line-height:1;}
+  #qz .circle-lbl{font-size:13px;font-weight:500;color:#666;text-align:center;line-height:1.2;}
+  #qz .circle-btn.sel .circle-lbl{color:#1f355a;}
+
+  .quiz-hero{background:#F7F5F0;border-bottom:1px solid rgba(0,0,0,0.07);padding:4rem 2rem 3rem;text-align:center;}
+  .quiz-hero h1{font-family:'DM Sans',serif;font-size:clamp(28px,4vw,48px);font-weight:600;color:#1a1a1a;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;}
+  .quiz-hero h1 em{color:#1f355a;font-style:normal;}
+  .quiz-hero p{font-size:16px;color:#666;max-width:520px;margin:0 auto;line-height:1.65;}
+  .quiz-hero .pill{display:inline-block;background:#d0d9e8;color:#1f355a;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:1.2rem;}
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:6px;"><img src="media/logo-mark.png" alt="OneCarbon" style="height:28px;width:auto;">One<span style="color:#456BB7;font-weight:700;">Carbon</span></a>
+    <ul class="nav-links">
+      <li><a href="our_story.html">Our Story</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="index.html#how-it-works">How it works</a></li>
+      <li><a href="blog/">Blog &amp; Press</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="purchase.html" class="nav-cta">Get early access</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <div class="quiz-hero">
+    <div class="pill">2 minutes</div>
+    <h1>Brain Health <em>Quiz</em></h1>
+    <p>Answer 5 quick questions to learn more about 1C-01 — and get 10% off your first month.</p>
+  </div>
+
+  <!-- ── QUIZ ── -->
+  <div style="background:#F7F5F0;min-height:60vh;">
+    <div id="qz-page"><div id="qz">
+
+    <!-- Q1 -->
+    <div class="screen active" id="qz-s1">
+      <div class="steps" id="qz-sd1"></div>
+      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+      <p class="eyebrow">Question 1 of 5</p>
+      <h2 class="q-title">Who are you exploring 1C-01 for?</h2>
+      <div class="tiles-grid">
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="myself"><span class="tile-emoji">🙋</span>Myself</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="parent"><span class="tile-emoji">👵</span>A Parent</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="partner"><span class="tile-emoji">💑</span>A Partner</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="other"><span class="tile-emoji">🤝</span>Someone Else</button>
+      </div>
+      <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    </div>
+
+    <!-- Q2 Biological sex -->
+    <div class="screen" id="qz-sex">
+      <div class="steps" id="qz-sd2"></div>
+      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+      <p class="eyebrow">Question 2 of 5</p>
+      <h2 class="q-title">What's your biological sex?</h2>
+      <div class="tiles-grid">
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="female"><span class="tile-emoji">👩</span>Female</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="male"><span class="tile-emoji">👨</span>Male</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="na"><span class="tile-emoji">🫥</span>Prefer not to say</button>
+      </div>
+      <button class="cont-btn" id="qz-next-sex" disabled onclick="qzGoTo('qz-s2')">Continue</button>
+      <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
+    </div>
+
+    <!-- Q3 What's prompting interest -->
+    <div class="screen" id="qz-s2">
+      <div class="steps" id="qz-sd3"></div>
+      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+      <p class="eyebrow">Question 3 of 5</p>
+      <h2 class="q-title">What's prompting your interest?</h2>
+      <p class="hint">Select all that apply.</p>
+      <div class="circle-grid">
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="memory"><span class="circle-em">💭</span><span class="circle-lbl">Memory</span></button>
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="focus"><span class="circle-em">🎯</span><span class="circle-lbl">Focus &amp; concentration</span></button>
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="circle-em">🌱</span><span class="circle-lbl">Just being proactive</span></button>
+      </div>
+      <p class="sci-disclaimer">We ask to understand who's interested — this isn't a health assessment or diagnosis.</p>
+      <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
+      <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
+    </div>
+
+    <!-- Sci 1 -->
+    <div class="screen" id="qz-sci1">
+      <div class="steps" id="qz-sd5"></div>
+      <p class="sci-eyebrow">Did you know</p>
+      <h2 class="q-title">The gut and brain are closely connected</h2>
+      <div class="sci-bullets">
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain communicate through the <strong>gut-brain axis</strong>.</span></div>
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce <strong>metabolites</strong> that enter the bloodstream.</span></div>
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>1C-01 takes a probiotic approach to producing one-carbon metabolites.</span></div>
+      </div>
+      <p class="sci-disclaimer">For educational purposes only. 1C-01 is a food supplement and does not claim to treat or prevent any disease.</p>
+      <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
+      <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
+    </div>
+
+    <!-- Sci 2 -->
+    <div class="screen" id="qz-sci2">
+      <div class="steps" id="qz-sd6"></div>
+      <p class="sci-eyebrow">The OneCarbon story</p>
+      <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
+      <div class="sci-bullets">
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu studied the <strong>one-carbon pathway</strong> in the context of brain ageing.</span></div>
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He identified a probiotic that produces one-carbon metabolites.</span></div>
+        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result: a food-grade, non-GMO probiotic working from inside your gut.</span></div>
+      </div>
+      <div class="usp-strip">
+        <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
+      </div>
+      <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s5')">Continue →</button>
+      <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
+    </div>
+
+    <!-- Q4 Medication -->
+    <div class="screen" id="qz-s5">
+      <div class="steps" id="qz-sd7"></div>
+      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+      <p class="eyebrow">Question 4 of 5</p>
+      <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
+      <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
+      <p class="hint">Select all that apply.</p>
+      <div class="circle-grid">
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="supplements"><span class="circle-em">🌿</span><span class="circle-lbl">General supplements</span></button>
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="prescription"><span class="circle-em">💊</span><span class="circle-lbl">Prescription medication</span></button>
+        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="none"><span class="circle-em">🌻</span><span class="circle-lbl">Nothing currently</span></button>
+      </div>
+      <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
+      <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
+    </div>
+
+    <!-- Email gate -->
+    <div class="screen" id="qz-s-email">
+      <div class="steps" id="qz-sd8"></div>
+      <h2 class="q-title">Would you like 10% off your first month?</h2>
+      <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to claim your discount.</p>
+      <div class="offer-card">
+        <div class="offer-pct">10% off</div>
+        <div class="offer-label">your first month of 1C-01</div>
+        <div class="offer-sub">Discount applied automatically at checkout</div>
+      </div>
+      <label class="inp-label" for="qz-ef">Your email address</label>
+      <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
+      <p class="privacy">Used only to send your results and discount code.</p>
+      <div class="gdpr-row">
+        <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
+        <label class="gdpr-label" for="qz-gdpr">I agree to receive marketing communications from OneCarbon. You can opt out at any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+      </div>
+      <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
+      <button class="skip" onclick="qzShowResult()">Skip for now</button>
+    </div>
+
+    <!-- Q5 Age -->
+    <div class="screen" id="qz-s7">
+      <div class="steps" id="qz-sd10"></div>
+      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+      <p class="eyebrow">Question 5 of 5</p>
+      <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
+      <div class="tiles-grid">
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="60-70"><span class="tile-emoji">👨</span>60–70</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="70-80"><span class="tile-emoji">👴</span>70–80</button>
+        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="80+"><span class="tile-emoji">🌟</span>80+</button>
+      </div>
+      <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">See my results</button>
+      <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
+    </div>
+
+    <!-- Result -->
+    <div class="screen" id="qz-s-result">
+      <div class="result-hero">
+        <div class="fit-badge"><span class="dot"></span><span id="qz-badge-txt">10% off unlocked</span></div>
+        <h2 class="res-title">Thanks — here's your 10% off.</h2>
+        <p class="res-body" id="qz-res-body"></p>
+      </div>
+      <div class="fit-list" id="qz-fit-list"></div>
+      <button class="cta-primary" onclick="window.open('purchase.html','_self')">Claim your 10% off</button>
+      <button class="cta-secondary" onclick="window.open('research.html','_self')">Learn about the science</button>
+      <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
+    </div>
+
+    </div></div>
+  </div>
+
+  <script>
+  const qzA={};const qzTOTAL=5;
+  function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
+  const qzSdMap={'qz-s1':1,'qz-sex':2,'qz-s2':3,'qz-sci1':3,'qz-sci2':3,'qz-s5':4,'qz-s-email':4,'qz-s7':5};
+  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
+  function qzPersonalise(){
+    const who=(qzA['s1']||['myself'])[0],s=who==='myself';
+    const map={
+      'qz-s5-title':s?'Are you currently taking any medication or supplements?':'Are they currently taking any medication or supplements?',
+      'qz-s7-title':s?'How old are you?':'How old are they?',
+    };
+    Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
+  }
+  function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');wrap.querySelectorAll('.tile,.tile-grid-item,.circle-btn').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
+  function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel,.circle-btn.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
+  function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
+  function qzSubmitE(){
+    const email=document.getElementById('qz-ef').value;
+    const payload={
+      _subject:'1C-01 Quiz — Email Capture',
+      _gotcha:'',
+      email:email,
+      gdpr_consent:'yes',
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q3_concerns:(qzA['s2']||[]).join(','),
+      q4_medication:(qzA['s5']||[]).join(','),
+    };
+    fetch('https://formspree.io/f/xykvdvoy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+    }).catch(()=>{});
+    qzGoTo('qz-s7');
+  }
+  function qzShowResult(){
+    const email=document.getElementById('qz-ef').value||'(not provided)';
+    const finalPayload={
+      _subject:'1C-01 Quiz — Completed',
+      _gotcha:'',
+      email:email,
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q3_concerns:(qzA['s2']||[]).join(','),
+      q4_medication:(qzA['s5']||[]).join(','),
+      q5_age:(qzA['s7']||[]).join(','),
+    };
+    fetch('https://formspree.io/f/xykvdvoy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(finalPayload),
+    }).catch(()=>{});
+
+    const meds=qzA['s5']||[];
+    const onMeds=!meds.includes('none')&&meds.length>0;
+    document.getElementById('qz-res-body').textContent='Thanks for taking the time. 1C-01 is a daily probiotic food supplement, developed from research at the University of Cambridge. Here\'s 10% off your first order.';
+    const items=['1C-01 is a once-daily probiotic — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.'];
+    if(onMeds)items.push('It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.');
+    const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
+    items.slice(0,4).forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#1f355a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
+    qzGoTo('qz-s-result');
+  }
+  qzDots('qz-sd1',1);
+  </script>
+
+  <!-- ── RECOGNISED BY ── -->
+  <section class="recognised-by-section">
+    <div class="recognised-by-logos">
+      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+      <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+      <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+      <img src="deck/assets/csar.svg" alt="CSAR" class="recognised-logo">
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">One<span>Carbon</span></div>
+    <nav class="footer-links">
+      <a href="research.html">Research</a>
+      <a href="purchase.html">Get early access</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal/refund-policy.html">Refund Policy</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-company">
+        <p>One Carbon is a trading name of Healthspan Biotics Ltd</p>
+        <p>Registered in England and Wales | Company No. 15224752</p>
+        <p>Registered Office: Unit 5 Avenue Business Park, Brockley Road, Elsworth, Cambridgeshire, United Kingdom, CB23 4EY</p>
+      </div>
+      <nav class="footer-legal">
+        <a href="legal/tos.html">Terms of Service</a>
+        <a href="legal/privacy.html">Privacy Policy</a>
+        <a href="legal/cookie.html">Cookie Policy</a>
+      </nav>
+      <p class="footer-copy">© 2026 OneCarbon. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+</body>
+</html>
