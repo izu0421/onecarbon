@@ -790,10 +790,14 @@
     window.nextStep = function() {
       if (currentStep < totalSteps) {
         currentStep++;
-        // Skip the 1C-01 effects step (6) if user hasn't started
+        // Skip the 1C-01 effects step (5) if user hasn't started
         if (currentStep === 5 && !hasStarted1C01()) {
           currentStep++;
         }
+      }
+      if (currentStep >= totalSteps) {
+        goToCognitive();
+      } else {
         showStep(currentStep);
       }
     };
