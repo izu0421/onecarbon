@@ -337,7 +337,7 @@
         </div>
       </div>
 
-      <!-- ═══════════ STEP 3: Sleep Duration & Sleepiness (scored) ═══════════ -->
+      <!-- ═══════════ STEP 3: Your Sleep (merged) ═══════════ -->
       <div class="step" data-step="3">
         <div class="step-title">Your sleep</div>
         <div class="step-subtitle">These questions help us understand your sleep patterns.</div>
@@ -352,6 +352,17 @@
           <div class="slider-labels">
             <span>0 hrs</span>
             <span>16 hrs</span>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>How would you rate the overall quality of your sleep?</label>
+          <div class="option-group" data-name="sleep_quality">
+            <label class="option"><input type="radio" name="sleep_quality" value="very_good"> Very good</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="good"> Good</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="average"> Average</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="poor"> Poor</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="very_poor"> Very poor</label>
           </div>
         </div>
 
@@ -377,25 +388,14 @@
           </div>
         </div>
 
-        <div class="step-nav">
-          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
-          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
-        </div>
-      </div>
-
-      <!-- ═══════════ STEP 4: Sleep Quality ═══════════ -->
-      <div class="step" data-step="4">
-        <div class="step-title">Sleep quality</div>
-        <div class="step-subtitle">Tell us more about how you experience sleep.</div>
-
         <div class="question-block">
-          <label>How would you rate the overall quality of your sleep?</label>
-          <div class="option-group" data-name="sleep_quality">
-            <label class="option"><input type="radio" name="sleep_quality" value="very_good"> Very good</label>
-            <label class="option"><input type="radio" name="sleep_quality" value="good"> Good</label>
-            <label class="option"><input type="radio" name="sleep_quality" value="average"> Average</label>
-            <label class="option"><input type="radio" name="sleep_quality" value="poor"> Poor</label>
-            <label class="option"><input type="radio" name="sleep_quality" value="very_poor"> Very poor</label>
+          <label>Do you wake too early in the morning and find it difficult to get back to sleep?</label>
+          <div class="option-group" data-name="early_waking">
+            <label class="option"><input type="radio" name="early_waking" value="never"> Never or rarely</label>
+            <label class="option"><input type="radio" name="early_waking" value="sometimes"> Sometimes</label>
+            <label class="option"><input type="radio" name="early_waking" value="usually"> Usually</label>
+            <label class="option"><input type="radio" name="early_waking" value="always"> Always</label>
+            <label class="option"><input type="radio" name="early_waking" value="pnta"> Prefer not to answer</label>
           </div>
         </div>
 
@@ -406,17 +406,6 @@
             <label class="option"><input type="radio" name="time_to_sleep" value="15_to_30"> 15 – 30 minutes</label>
             <label class="option"><input type="radio" name="time_to_sleep" value="30_to_60"> 30 – 60 minutes</label>
             <label class="option"><input type="radio" name="time_to_sleep" value="over_60"> More than 60 minutes</label>
-          </div>
-        </div>
-
-        <div class="question-block">
-          <label>Do you wake too early in the morning and find it difficult to get back to sleep?</label>
-          <div class="option-group" data-name="early_waking">
-            <label class="option"><input type="radio" name="early_waking" value="never"> Never or rarely</label>
-            <label class="option"><input type="radio" name="early_waking" value="sometimes"> Sometimes</label>
-            <label class="option"><input type="radio" name="early_waking" value="usually"> Usually</label>
-            <label class="option"><input type="radio" name="early_waking" value="always"> Always</label>
-            <label class="option"><input type="radio" name="early_waking" value="pnta"> Prefer not to answer</label>
           </div>
         </div>
 
@@ -437,9 +426,9 @@
         </div>
       </div>
 
-      <!-- ═══════════ STEP 5: What Affects Your Sleep ═══════════ -->
-      <div class="step" data-step="5">
-        <div class="step-title">What affects your sleep</div>
+      <!-- ═══════════ STEP 4: Sleep Habits & Other (merged) ═══════════ -->
+      <div class="step" data-step="4">
+        <div class="step-title">More about your sleep</div>
         <div class="step-subtitle">Select all that apply.</div>
 
         <div class="question-block">
@@ -471,14 +460,38 @@
           </div>
         </div>
 
+        <div class="question-block">
+          <label>Do you take anything to help you sleep?</label>
+          <div class="checkbox-grid" data-name="sleep_aids">
+            <label class="option"><input type="checkbox" name="sleep_aids" value="nothing"> Nothing</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="herbal"> Herbal remedies</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="melatonin"> Melatonin</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="prescription"> Prescription medication</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="magnesium"> Magnesium</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="cbd"> CBD or cannabis</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="other"> Something else</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Is there anything else you'd like to share about your sleep or wellbeing?</label>
+          <textarea class="form-control" name="freetext" rows="4" placeholder="Optional — type here..."></textarea>
+        </div>
+
+        <div class="question-block">
+          <label>Email address</label>
+          <p class="helper-text">Optional — only if you'd like us to follow up or send you your results over time.</p>
+          <input class="form-control" type="email" name="email" placeholder="you@example.com">
+        </div>
+
         <div class="step-nav">
           <button type="button" class="btn-back" onclick="prevStep()">Back</button>
           <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
         </div>
       </div>
 
-      <!-- ═══════════ STEP 6: Exercise & Wellbeing ═══════════ -->
-      <div class="step" data-step="6">
+      <!-- ═══════════ STEP 5: Activity & Wellbeing ═══════════ -->
+      <div class="step" data-step="5">
         <div class="step-title">Activity &amp; wellbeing</div>
         <div class="step-subtitle">How you feel day-to-day.</div>
 
@@ -524,41 +537,6 @@
             <label class="option"><input type="radio" name="mood_change" value="somewhat_worse"> Somewhat worse</label>
             <label class="option"><input type="radio" name="mood_change" value="not_applicable"> Not applicable / haven't started</label>
           </div>
-        </div>
-
-        <div class="step-nav">
-          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
-          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
-        </div>
-      </div>
-
-      <!-- ═══════════ STEP 7: Optional Details ═══════════ -->
-      <div class="step" data-step="7">
-        <div class="step-title">Anything else</div>
-        <div class="step-subtitle">Optional — share anything you'd like us to know.</div>
-
-        <div class="question-block">
-          <label>Do you take anything to help you sleep?</label>
-          <div class="checkbox-grid" data-name="sleep_aids">
-            <label class="option"><input type="checkbox" name="sleep_aids" value="nothing"> Nothing</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="herbal"> Herbal remedies</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="melatonin"> Melatonin</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="prescription"> Prescription medication</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="magnesium"> Magnesium</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="cbd"> CBD or cannabis</label>
-            <label class="option"><input type="checkbox" name="sleep_aids" value="other"> Something else</label>
-          </div>
-        </div>
-
-        <div class="question-block">
-          <label>Is there anything else you'd like to share about your sleep or wellbeing?</label>
-          <textarea class="form-control" name="freetext" rows="4" placeholder="Optional — type here..."></textarea>
-        </div>
-
-        <div class="question-block">
-          <label>Email address</label>
-          <p class="helper-text">Optional — only if you'd like us to follow up or send you your results over time.</p>
-          <input class="form-control" type="email" name="email" placeholder="you@example.com">
         </div>
 
         <div class="step-nav">
@@ -669,7 +647,7 @@
     }
 
     var currentStep = 1;
-    var totalSteps = 7;
+    var totalSteps = 5;
     var cogResults = {};            // filled by the cognitive battery
     var cognitiveStatus = 'not_offered';
 
@@ -701,7 +679,7 @@
       if (currentStep < totalSteps) {
         currentStep++;
         // Skip the 1C-01 effects step (6) if user hasn't started
-        if (currentStep === 6 && !hasStarted1C01()) {
+        if (currentStep === 5 && !hasStarted1C01()) {
           currentStep++;
         }
         showStep(currentStep);
@@ -712,7 +690,7 @@
       if (currentStep > 1) {
         currentStep--;
         // Skip step 6 going back too
-        if (currentStep === 6 && !hasStarted1C01()) {
+        if (currentStep === 5 && !hasStarted1C01()) {
           currentStep--;
         }
         showStep(currentStep);
