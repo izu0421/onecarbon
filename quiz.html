@@ -676,9 +676,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function hasStarted1C01() {
+      var el = document.querySelector('input[name="supplement_duration"]:checked');
+      return el && el.value !== 'not_yet';
+    }
+
     window.nextStep = function() {
       if (currentStep < totalSteps) {
         currentStep++;
+        // Skip the 1C-01 effects step (6) if user hasn't started
+        if (currentStep === 6 && !hasStarted1C01()) {
+          currentStep++;
+        }
         showStep(currentStep);
       }
     };
@@ -686,6 +695,10 @@
     window.prevStep = function() {
       if (currentStep > 1) {
         currentStep--;
+        // Skip step 6 going back too
+        if (currentStep === 6 && !hasStarted1C01()) {
+          currentStep--;
+        }
         showStep(currentStep);
       }
     };
