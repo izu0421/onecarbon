@@ -10,87 +10,228 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-  #qz-page{display:flex;align-items:flex-start;justify-content:center;padding:4rem 1rem 5rem;}
-  #qz *{box-sizing:border-box;}
-  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:transparent;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:none;}
-  #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
-  @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-  #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
-  #qz .step-dot{width:26px;height:26px;border-radius:50%;background:#D8D6D0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#999;flex-shrink:0;transition:background .3s;}
-  #qz .step-dot.active,#qz .step-dot.done{background:#1f355a;color:#fff;}
-  #qz .step-line{flex:1;height:1.5px;background:#D8D6D0;max-width:50px;}#qz .step-line.done{background:#1f355a;}
-  #qz .eyebrow,#qz .sci-eyebrow{font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#1f355a;margin-bottom:.6rem;}
-  #qz .q-title{font-family:'DM Sans',serif;font-size:24px;line-height:1.35;color:#1a1a1a;margin-bottom:.5rem;font-weight:500;}
-  #qz .q-sub{font-size:14px;color:#666;margin-bottom:1.75rem;line-height:1.65;}
-  #qz .hint{font-size:14px;color:#999;margin-bottom:1rem;}
-  #qz .tiles{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
-  #qz .tile{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid #D8D6D0;border-radius:12px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;font-size:14px;color:#1a1a1a;text-align:left;font-family:inherit;line-height:1.4;font-weight:400;width:100%;}
-  #qz .tile:hover{border-color:#1f355a;background:#eaecf2;}
-  #qz .tile.sel{border-color:#1f355a;background:#d0d9e8;font-weight:500;}
-  #qz .t-mark{width:20px;height:20px;border-radius:50%;border:1.5px solid #D8D6D0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-  #qz .tile.sel .t-mark{background:#1f355a;border-color:#1f355a;}
-  #qz .t-chk{display:none;}#qz .tile.sel .t-chk{display:block;}
-  #qz .cont-btn{width:100%;padding:15px;background:#1f355a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:.5rem;}
-  #qz .cont-btn:disabled{opacity:.3;cursor:default;}
-  #qz .cont-btn:not(:disabled):hover{background:#162844;}
-  #qz .back{display:block;text-align:center;margin-top:1rem;font-size:15px;color:#999;cursor:pointer;border:none;background:none;font-family:inherit;padding:0;}
-  #qz .back:hover{color:#555;}
-  #qz .sci-bullets{display:flex;flex-direction:column;gap:10px;margin:1.25rem 0 1.5rem;}
-  #qz .sci-bullet{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #E8E6E0;font-size:14px;color:#444;line-height:1.6;}
-  #qz .sci-bullet-dot{width:8px;height:8px;border-radius:50%;background:#1f355a;flex-shrink:0;margin-top:6px;}
-  #qz .sci-bullet strong{color:#1a1a1a;font-weight:500;}
-  #qz .usp-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.25rem;}
-  #qz .usp-pill{font-size:14px;color:#1f355a;background:#d0d9e8;border:1px solid #a8bcda;border-radius:99px;padding:5px 12px;font-weight:500;}
-  #qz .sci-disclaimer{font-size:13px;color:#aaa;line-height:1.65;margin-top:1.25rem;font-style:italic;}
-  #qz .safe-banner{background:#eaecf2;border:1px solid #c0cce0;border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:14px;color:#1f355a;line-height:1.6;}
-  #qz .safe-banner strong{font-weight:600;}
-  #qz .offer-card{background:#1f355a;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
-  #qz .offer-pct{font-family:'DM Sans',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:.25rem;font-weight:600;}
-  #qz .offer-label{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:.35rem;}
-  #qz .offer-sub{font-size:14px;color:rgba(255,255,255,.55);}
-  #qz .inp-label{font-size:14px;color:#555;margin-bottom:.4rem;display:block;}
-  #qz .email-inp{width:100%;padding:13px 16px;border:1.5px solid #D8D6D0;border-radius:12px;font-family:inherit;font-size:15px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .15s;margin-bottom:.5rem;}
-  #qz .email-inp:focus{border-color:#1f355a;}
-  #qz .privacy{font-size:13px;color:#aaa;margin-bottom:1rem;}
-  #qz .gdpr-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:1.5rem;}
-  #qz .gdpr-row input[type=checkbox]{margin-top:2px;accent-color:#1f355a;flex-shrink:0;width:15px;height:15px;cursor:pointer;}
-  #qz .gdpr-label{font-size:13px;color:#888;line-height:1.65;}
-  #qz .gdpr-label a{color:#1f355a;text-decoration:underline;}
-  #qz .skip{display:block;text-align:center;font-size:14px;color:#aaa;cursor:pointer;border:none;background:none;font-family:inherit;margin-top:1rem;padding:0;}
-  #qz .skip:hover{color:#666;}
-  #qz .result-hero{background:#fff;border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;border:1px solid #D8D6D0;}
-  #qz .fit-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #a8bcda;border-radius:99px;padding:5px 14px;font-size:14px;font-weight:500;color:#1f355a;background:#d0d9e8;margin-bottom:1rem;}
-  #qz .fit-badge .dot{width:6px;height:6px;border-radius:50%;background:#1f355a;}
-  #qz .res-title{font-family:'DM Sans',serif;font-size:22px;line-height:1.3;color:#1a1a1a;margin-bottom:.75rem;font-weight:500;}
-  #qz .res-body{font-size:14px;line-height:1.8;color:#555;}
-  #qz .fit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
-  #qz .fit-item{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#444;line-height:1.55;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #E8E6E0;}
-  #qz .fit-icon{width:20px;height:20px;border-radius:50%;background:#eaecf2;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-  #qz .cta-primary{width:100%;padding:15px;background:#1f355a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:10px;transition:background .15s;}
-  #qz .cta-primary:hover{background:#162844;}
-  #qz .cta-secondary{width:100%;padding:13px;background:#fff;color:#1a1a1a;border:1.5px solid #D8D6D0;border-radius:99px;font-family:inherit;font-size:14px;cursor:pointer;transition:border-color .15s;}
-  #qz .cta-secondary:hover{border-color:#1f355a;}
-  #qz .legal{font-size:13px;color:#aaa;text-align:center;margin-top:1.25rem;line-height:1.7;}
-  #qz .offer-eyebrow{display:inline-block;background:#1f355a;color:#fff;font-size:13px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:99px;margin-bottom:14px;text-transform:uppercase;}
-  #qz .offer-eyebrow strong{color:#d0d9e8;font-weight:800;}
-  #qz .tiles-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
-  #qz .tile-grid-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border:1.5px solid #D8D6D0;border-radius:14px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s,transform .15s;font-size:15px;color:#1a1a1a;text-align:center;font-family:inherit;line-height:1.3;font-weight:500;gap:8px;}
-  #qz .tile-grid-item:hover{border-color:#1f355a;background:#eaecf2;transform:translateY(-2px);}
-  #qz .tile-grid-item.sel{border-color:#1f355a;background:#d0d9e8;}
-  #qz .tile-emoji{font-size:32px;line-height:1;}
-  #qz .circle-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:1.5rem;}
-  #qz .circle-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:96px;height:96px;border-radius:50%;border:1.5px solid #D8D6D0;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-family:inherit;}
-  #qz .circle-btn:hover{border-color:#1f355a;background:#eaecf2;}
-  #qz .circle-btn.sel{border-color:#1f355a;background:#d0d9e8;}
-  #qz .circle-em{font-size:26px;line-height:1;}
-  #qz .circle-lbl{font-size:13px;font-weight:500;color:#666;text-align:center;line-height:1.2;}
-  #qz .circle-btn.sel .circle-lbl{color:#1f355a;}
+    .assessment-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+    .assessment-section h1 {
+      margin-bottom: 12px;
+    }
+    .assessment-section > p {
+      margin-bottom: 40px;
+    }
 
-  .quiz-hero{background:#F7F5F0;border-bottom:1px solid rgba(0,0,0,0.07);padding:4rem 2rem 3rem;text-align:center;}
-  .quiz-hero h1{font-family:'DM Sans',serif;font-size:clamp(28px,4vw,48px);font-weight:600;color:#1a1a1a;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;}
-  .quiz-hero h1 em{color:#1f355a;font-style:normal;}
-  .quiz-hero p{font-size:16px;color:#666;max-width:520px;margin:0 auto;line-height:1.65;}
-  .quiz-hero .pill{display:inline-block;background:#d0d9e8;color:#1f355a;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:1.2rem;}
+    /* Progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* Step containers */
+    .step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .step.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .step-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-faint);
+      margin-bottom: 24px;
+    }
+
+    /* Question blocks */
+    .question-block {
+      margin-bottom: 28px;
+    }
+    .question-block label {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .question-block .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-faint);
+      margin-top: -6px;
+      margin-bottom: 10px;
+    }
+
+    /* Radio/checkbox groups */
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-group .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .option-group .option:hover {
+      border-color: var(--accent);
+    }
+    .option-group .option.selected {
+      border-color: var(--accent);
+      background: rgba(69, 107, 183, 0.06);
+    }
+    .option-group .option input {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Slider */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .slider-container input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 6px;
+    }
+    .slider-value {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--accent);
+      min-width: 48px;
+      text-align: center;
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    /* Checkbox grid for multi-select */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    @media (max-width: 480px) {
+      .checkbox-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Navigation buttons */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      gap: 12px;
+    }
+    .btn-back {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 12px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: var(--radius-pill);
+      transition: border-color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--text-muted); }
+    .btn-next {
+      background: var(--accent);
+      border: none;
+      padding: 12px 32px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: #fff;
+      cursor: pointer;
+      border-radius: var(--radius-pill);
+      transition: background 0.2s;
+      margin-left: auto;
+    }
+    .btn-next:hover { background: var(--accent-dark); }
+    .btn-next:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Completion screen */
+    .completion {
+      text-align: center;
+      padding: 40px 0;
+    }
+    .completion .check-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(69, 107, 183, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+    .completion h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .completion p {
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+
+    /* Toggle banner (for site-wide enable/disable) */
+    .assessment-disabled {
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .assessment-disabled h2 {
+      margin-bottom: 12px;
+    }
+    .assessment-disabled p {
+      margin-bottom: 24px;
+    }
   </style>
 </head>
 <body>
@@ -109,240 +250,362 @@
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- ── HERO ── -->
-  <div class="quiz-hero">
-    <div class="pill">2 minutes</div>
-    <h1>Brain Health <em>Quiz</em></h1>
-    <p>Answer 5 quick questions to learn more about 1C-01 — and get 10% off your first month.</p>
+  <!-- ── DISABLED STATE (shown when toggle is off) ── -->
+  <div class="assessment-disabled" id="assessmentDisabled" style="display:none;">
+    <h2>Assessment Coming Soon</h2>
+    <p>Our sleep and wellbeing assessment is not currently available. Please check back soon, or <a href="contact.html" style="color:var(--accent);text-decoration:underline;">contact us</a> for more information.</p>
+    <a href="index.html" class="nav-cta" style="display:inline-block;padding:12px 32px;background:var(--accent);color:#fff;border-radius:100px;font-family:'Outfit',sans-serif;">Return home</a>
   </div>
 
-  <!-- ── QUIZ ── -->
-  <div style="background:#F7F5F0;min-height:60vh;">
-    <div id="qz-page"><div id="qz">
+  <!-- ── ASSESSMENT (shown when toggle is on) ── -->
+  <section class="assessment-section" id="assessmentMain">
+    <h1>Sleep &amp; <em>Wellbeing</em></h1>
+    <p>This short assessment helps us understand how you're sleeping and feeling. It takes about 3 minutes. Your responses are anonymous and help us improve our products.</p>
 
-    <!-- Q1 -->
-    <div class="screen active" id="qz-s1">
-      <div class="steps" id="qz-sd1"></div>
-      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-      <p class="eyebrow">Question 1 of 5</p>
-      <h2 class="q-title">Who are you exploring 1C-01 for?</h2>
-      <div class="tiles-grid">
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="myself"><span class="tile-emoji">🙋</span>Myself</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="parent"><span class="tile-emoji">👵</span>A Parent</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="partner"><span class="tile-emoji">💑</span>A Partner</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="other"><span class="tile-emoji">🤝</span>Someone Else</button>
-      </div>
-      <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressFill"></div>
     </div>
 
-    <!-- Q2 Biological sex -->
-    <div class="screen" id="qz-sex">
-      <div class="steps" id="qz-sd2"></div>
-      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-      <p class="eyebrow">Question 2 of 5</p>
-      <h2 class="q-title">What's your biological sex?</h2>
-      <div class="tiles-grid">
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="female"><span class="tile-emoji">👩</span>Female</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="male"><span class="tile-emoji">👨</span>Male</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="na"><span class="tile-emoji">🫥</span>Prefer not to say</button>
+    <form id="assessmentForm" novalidate>
+      <!-- Hidden fields for scoring -->
+      <input type="hidden" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="sleepiness_score" id="sleepinessScore">
+      <input type="hidden" name="submitted_at" id="submittedAt">
+
+      <!-- ═══════════ STEP 1: About You ═══════════ -->
+      <div class="step active" data-step="1">
+        <div class="step-title">About you</div>
+        <div class="step-subtitle">A few basics to help us understand your context.</div>
+
+        <div class="question-block">
+          <label>What is your age range?</label>
+          <div class="option-group" data-name="age_range">
+            <label class="option"><input type="radio" name="age_range" value="18-29"> 18 – 29</label>
+            <label class="option"><input type="radio" name="age_range" value="30-39"> 30 – 39</label>
+            <label class="option"><input type="radio" name="age_range" value="40-49"> 40 – 49</label>
+            <label class="option"><input type="radio" name="age_range" value="50-59"> 50 – 59</label>
+            <label class="option"><input type="radio" name="age_range" value="60-69"> 60 – 69</label>
+            <label class="option"><input type="radio" name="age_range" value="70+"> 70+</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>What sex were you assigned at birth?</label>
+          <div class="option-group" data-name="sex">
+            <label class="option"><input type="radio" name="sex" value="female"> Female</label>
+            <label class="option"><input type="radio" name="sex" value="male"> Male</label>
+            <label class="option"><input type="radio" name="sex" value="prefer_not_to_say"> Prefer not to say</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <span></span>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <button class="cont-btn" id="qz-next-sex" disabled onclick="qzGoTo('qz-s2')">Continue</button>
-      <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
-    </div>
 
-    <!-- Q3 What's prompting interest -->
-    <div class="screen" id="qz-s2">
-      <div class="steps" id="qz-sd3"></div>
-      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-      <p class="eyebrow">Question 3 of 5</p>
-      <h2 class="q-title">What's prompting your interest?</h2>
-      <p class="hint">Select all that apply.</p>
-      <div class="circle-grid">
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="memory"><span class="circle-em">💭</span><span class="circle-lbl">Memory</span></button>
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="focus"><span class="circle-em">🎯</span><span class="circle-lbl">Focus &amp; concentration</span></button>
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="circle-em">🌱</span><span class="circle-lbl">Just being proactive</span></button>
+      <!-- ═══════════ STEP 2: Supplement Use ═══════════ -->
+      <div class="step" data-step="2">
+        <div class="step-title">Your supplement use</div>
+        <div class="step-subtitle">Tell us about your experience with 1C-01.</div>
+
+        <div class="question-block">
+          <label>How long have you been taking 1C-01?</label>
+          <div class="option-group" data-name="supplement_duration">
+            <label class="option"><input type="radio" name="supplement_duration" value="not_yet"> I haven't started yet</label>
+            <label class="option"><input type="radio" name="supplement_duration" value="less_than_2_weeks"> Less than 2 weeks</label>
+            <label class="option"><input type="radio" name="supplement_duration" value="2_to_4_weeks"> 2 – 4 weeks</label>
+            <label class="option"><input type="radio" name="supplement_duration" value="1_to_3_months"> 1 – 3 months</label>
+            <label class="option"><input type="radio" name="supplement_duration" value="more_than_3_months"> More than 3 months</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>How consistently do you take it?</label>
+          <div class="option-group" data-name="supplement_consistency">
+            <label class="option"><input type="radio" name="supplement_consistency" value="daily"> Every day</label>
+            <label class="option"><input type="radio" name="supplement_consistency" value="most_days"> Most days (5–6 per week)</label>
+            <label class="option"><input type="radio" name="supplement_consistency" value="some_days"> Some days (2–4 per week)</label>
+            <label class="option"><input type="radio" name="supplement_consistency" value="rarely"> Rarely</label>
+            <label class="option"><input type="radio" name="supplement_consistency" value="not_applicable"> Not applicable</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <p class="sci-disclaimer">We ask to understand who's interested — this isn't a health assessment or diagnosis.</p>
-      <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
-      <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
-    </div>
 
-    <!-- Sci 1 -->
-    <div class="screen" id="qz-sci1">
-      <div class="steps" id="qz-sd5"></div>
-      <p class="sci-eyebrow">Did you know</p>
-      <h2 class="q-title">The gut and brain are closely connected</h2>
-      <div class="sci-bullets">
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain communicate through the <strong>gut-brain axis</strong>.</span></div>
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce <strong>metabolites</strong> that enter the bloodstream.</span></div>
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>1C-01 takes a probiotic approach to producing one-carbon metabolites.</span></div>
+      <!-- ═══════════ STEP 3: Sleep Duration & Sleepiness (scored) ═══════════ -->
+      <div class="step" data-step="3">
+        <div class="step-title">Your sleep</div>
+        <div class="step-subtitle">These questions help us understand your sleep patterns.</div>
+
+        <div class="question-block">
+          <label>About how many hours of sleep do you get in every 24 hours?</label>
+          <p class="helper-text">Please include naps.</p>
+          <div class="slider-container">
+            <input type="range" name="sleep_hours" id="sleepHours" min="0" max="16" step="0.5" value="7">
+            <span class="slider-value" id="sleepHoursValue">7 hrs</span>
+          </div>
+          <div class="slider-labels">
+            <span>0 hrs</span>
+            <span>16 hrs</span>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>How likely are you to doze off or fall asleep during the daytime when you don't mean to?</label>
+          <p class="helper-text">For example, when working, reading, or driving.</p>
+          <div class="option-group" data-name="daytime_sleepiness">
+            <label class="option"><input type="radio" name="daytime_sleepiness" value="0"> Never</label>
+            <label class="option"><input type="radio" name="daytime_sleepiness" value="1"> Sometimes</label>
+            <label class="option"><input type="radio" name="daytime_sleepiness" value="2"> Often</label>
+            <label class="option"><input type="radio" name="daytime_sleepiness" value="3"> Do not know</label>
+            <label class="option"><input type="radio" name="daytime_sleepiness" value="pnta"> Prefer not to answer</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Do you have trouble falling asleep at night, or do you wake up in the middle of the night?</label>
+          <div class="option-group" data-name="insomnia">
+            <label class="option"><input type="radio" name="insomnia" value="0"> Never</label>
+            <label class="option"><input type="radio" name="insomnia" value="1"> Sometimes</label>
+            <label class="option"><input type="radio" name="insomnia" value="2"> Usually</label>
+            <label class="option"><input type="radio" name="insomnia" value="pnta"> Prefer not to answer</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <p class="sci-disclaimer">For educational purposes only. 1C-01 is a food supplement and does not claim to treat or prevent any disease.</p>
-      <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
-      <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
-    </div>
 
-    <!-- Sci 2 -->
-    <div class="screen" id="qz-sci2">
-      <div class="steps" id="qz-sd6"></div>
-      <p class="sci-eyebrow">The OneCarbon story</p>
-      <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
-      <div class="sci-bullets">
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu studied the <strong>one-carbon pathway</strong> in the context of brain ageing.</span></div>
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He identified a probiotic that produces one-carbon metabolites.</span></div>
-        <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result: a food-grade, non-GMO probiotic working from inside your gut.</span></div>
+      <!-- ═══════════ STEP 4: Sleep Quality ═══════════ -->
+      <div class="step" data-step="4">
+        <div class="step-title">Sleep quality</div>
+        <div class="step-subtitle">Tell us more about how you experience sleep.</div>
+
+        <div class="question-block">
+          <label>How would you rate the overall quality of your sleep?</label>
+          <div class="option-group" data-name="sleep_quality">
+            <label class="option"><input type="radio" name="sleep_quality" value="very_good"> Very good</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="good"> Good</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="average"> Average</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="poor"> Poor</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="very_poor"> Very poor</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>How long does it typically take you to fall asleep?</label>
+          <div class="option-group" data-name="time_to_sleep">
+            <label class="option"><input type="radio" name="time_to_sleep" value="under_15"> Less than 15 minutes</label>
+            <label class="option"><input type="radio" name="time_to_sleep" value="15_to_30"> 15 – 30 minutes</label>
+            <label class="option"><input type="radio" name="time_to_sleep" value="30_to_60"> 30 – 60 minutes</label>
+            <label class="option"><input type="radio" name="time_to_sleep" value="over_60"> More than 60 minutes</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>If you wake during the night, roughly how long are you awake in total?</label>
+          <div class="option-group" data-name="night_waking_duration">
+            <label class="option"><input type="radio" name="night_waking_duration" value="dont_wake"> I don't usually wake</label>
+            <label class="option"><input type="radio" name="night_waking_duration" value="under_15"> Less than 15 minutes</label>
+            <label class="option"><input type="radio" name="night_waking_duration" value="15_to_30"> 15 – 30 minutes</label>
+            <label class="option"><input type="radio" name="night_waking_duration" value="30_to_60"> 30 – 60 minutes</label>
+            <label class="option"><input type="radio" name="night_waking_duration" value="over_60"> More than 60 minutes</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <div class="usp-strip">
-        <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
+
+      <!-- ═══════════ STEP 5: What Affects Your Sleep ═══════════ -->
+      <div class="step" data-step="5">
+        <div class="step-title">What affects your sleep</div>
+        <div class="step-subtitle">Select all that apply.</div>
+
+        <div class="question-block">
+          <label>What tends to wake you during the night?</label>
+          <div class="checkbox-grid" data-name="wake_causes">
+            <label class="option"><input type="checkbox" name="wake_causes" value="bathroom"> Needing the bathroom</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="noise"> Noise or light</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="temperature"> Too hot or too cold</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="pain"> Pain or discomfort</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="worry"> Worry or racing thoughts</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="partner"> Partner or children</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="no_reason"> No obvious reason</label>
+            <label class="option"><input type="checkbox" name="wake_causes" value="not_applicable"> I don't usually wake</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Which of these do you regularly do?</label>
+          <p class="helper-text">Habits that may support or hinder sleep.</p>
+          <div class="checkbox-grid" data-name="sleep_habits">
+            <label class="option"><input type="checkbox" name="sleep_habits" value="consistent_bedtime"> Consistent bedtime</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="avoid_screens"> Avoid screens before bed</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="dark_room"> Keep bedroom dark</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="cool_room"> Keep bedroom cool</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="no_caffeine_late"> No caffeine after midday</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="no_alcohol_late"> No alcohol close to bedtime</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="relaxation"> Relaxation or wind-down routine</label>
+            <label class="option"><input type="checkbox" name="sleep_habits" value="none"> None of these</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s5')">Continue →</button>
-      <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
-    </div>
 
-    <!-- Q4 Medication -->
-    <div class="screen" id="qz-s5">
-      <div class="steps" id="qz-sd7"></div>
-      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-      <p class="eyebrow">Question 4 of 5</p>
-      <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
-      <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
-      <p class="hint">Select all that apply.</p>
-      <div class="circle-grid">
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="supplements"><span class="circle-em">🌿</span><span class="circle-lbl">General supplements</span></button>
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="prescription"><span class="circle-em">💊</span><span class="circle-lbl">Prescription medication</span></button>
-        <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="none"><span class="circle-em">🌻</span><span class="circle-lbl">Nothing currently</span></button>
+      <!-- ═══════════ STEP 6: Exercise & Wellbeing ═══════════ -->
+      <div class="step" data-step="6">
+        <div class="step-title">Activity &amp; wellbeing</div>
+        <div class="step-subtitle">How you feel day-to-day.</div>
+
+        <div class="question-block">
+          <label>How often do you exercise or do physical activity that raises your heart rate for at least 30 minutes?</label>
+          <div class="option-group" data-name="exercise_frequency">
+            <label class="option"><input type="radio" name="exercise_frequency" value="daily"> Daily</label>
+            <label class="option"><input type="radio" name="exercise_frequency" value="several_per_week"> Several times a week</label>
+            <label class="option"><input type="radio" name="exercise_frequency" value="once_per_week"> About once a week</label>
+            <label class="option"><input type="radio" name="exercise_frequency" value="few_per_month"> A few times a month</label>
+            <label class="option"><input type="radio" name="exercise_frequency" value="rarely_never"> Rarely or never</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Since starting 1C-01, how would you rate your overall energy levels?</label>
+          <div class="option-group" data-name="energy_change">
+            <label class="option"><input type="radio" name="energy_change" value="much_better"> Much better than before</label>
+            <label class="option"><input type="radio" name="energy_change" value="somewhat_better"> Somewhat better</label>
+            <label class="option"><input type="radio" name="energy_change" value="about_same"> About the same</label>
+            <label class="option"><input type="radio" name="energy_change" value="somewhat_worse"> Somewhat worse</label>
+            <label class="option"><input type="radio" name="energy_change" value="not_applicable"> Not applicable / haven't started</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Since starting 1C-01, how would you rate your mental clarity and focus?</label>
+          <div class="option-group" data-name="clarity_change">
+            <label class="option"><input type="radio" name="clarity_change" value="much_better"> Much better than before</label>
+            <label class="option"><input type="radio" name="clarity_change" value="somewhat_better"> Somewhat better</label>
+            <label class="option"><input type="radio" name="clarity_change" value="about_same"> About the same</label>
+            <label class="option"><input type="radio" name="clarity_change" value="somewhat_worse"> Somewhat worse</label>
+            <label class="option"><input type="radio" name="clarity_change" value="not_applicable"> Not applicable / haven't started</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Since starting 1C-01, how would you rate your mood overall?</label>
+          <div class="option-group" data-name="mood_change">
+            <label class="option"><input type="radio" name="mood_change" value="much_better"> Much better than before</label>
+            <label class="option"><input type="radio" name="mood_change" value="somewhat_better"> Somewhat better</label>
+            <label class="option"><input type="radio" name="mood_change" value="about_same"> About the same</label>
+            <label class="option"><input type="radio" name="mood_change" value="somewhat_worse"> Somewhat worse</label>
+            <label class="option"><input type="radio" name="mood_change" value="not_applicable"> Not applicable / haven't started</label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="nextStep()">Continue</button>
+        </div>
       </div>
-      <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
-      <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
-    </div>
 
-    <!-- Email gate -->
-    <div class="screen" id="qz-s-email">
-      <div class="steps" id="qz-sd8"></div>
-      <h2 class="q-title">Would you like 10% off your first month?</h2>
-      <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to claim your discount.</p>
-      <div class="offer-card">
-        <div class="offer-pct">10% off</div>
-        <div class="offer-label">your first month of 1C-01</div>
-        <div class="offer-sub">Discount applied automatically at checkout</div>
+      <!-- ═══════════ STEP 7: Optional Details ═══════════ -->
+      <div class="step" data-step="7">
+        <div class="step-title">Anything else</div>
+        <div class="step-subtitle">Optional — share anything you'd like us to know.</div>
+
+        <div class="question-block">
+          <label>Do you take anything to help you sleep?</label>
+          <div class="checkbox-grid" data-name="sleep_aids">
+            <label class="option"><input type="checkbox" name="sleep_aids" value="nothing"> Nothing</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="herbal"> Herbal remedies</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="melatonin"> Melatonin</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="prescription"> Prescription medication</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="magnesium"> Magnesium</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="cbd"> CBD or cannabis</label>
+            <label class="option"><input type="checkbox" name="sleep_aids" value="other"> Something else</label>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <label>Is there anything else you'd like to share about your sleep or wellbeing?</label>
+          <textarea class="form-control" name="freetext" rows="4" placeholder="Optional — type here..."></textarea>
+        </div>
+
+        <div class="question-block">
+          <label>Email address</label>
+          <p class="helper-text">Optional — only if you'd like us to follow up or send you your results over time.</p>
+          <input class="form-control" type="email" name="email" placeholder="you@example.com">
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <button type="button" class="btn-next" onclick="goToCognitive()">Continue</button>
+        </div>
       </div>
-      <label class="inp-label" for="qz-ef">Your email address</label>
-      <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
-      <p class="privacy">Used only to send your results and discount code.</p>
-      <div class="gdpr-row">
-        <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
-        <label class="gdpr-label" for="qz-gdpr">I agree to receive marketing communications from OneCarbon. You can opt out at any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+
+      <!-- ═══════════ COGNITIVE INTRO (optional battery) ═══════════ -->
+      <div class="step" data-step="cog-intro">
+        <div class="step-title">Optional: cognitive tasks</div>
+        <div class="step-subtitle">A short set of brain games (about 8–10 minutes).</div>
+
+        <div class="question-block">
+          <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.7;">
+            These seven quick tasks measure things like memory, attention, and processing speed.
+            They're modelled on established research cognitive tests and help us understand how
+            1C-01 relates to cognition over time. They're completely optional — you can skip
+            straight to submitting your answers.
+          </p>
+          <p class="helper-text" style="margin-top:8px;">Best done on a larger screen, somewhere quiet and free from distractions.</p>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+          <div style="display:flex;gap:12px;margin-left:auto;">
+            <button type="button" class="btn-back" onclick="skipCognitive()">Skip &amp; submit</button>
+            <button type="button" class="btn-next" style="margin-left:0;" onclick="beginCognitive()">Begin tasks</button>
+          </div>
+        </div>
       </div>
-      <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
-      <button class="skip" onclick="qzShowResult()">Skip for now</button>
-    </div>
 
-    <!-- Q5 Age -->
-    <div class="screen" id="qz-s7">
-      <div class="steps" id="qz-sd10"></div>
-      <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-      <p class="eyebrow">Question 5 of 5</p>
-      <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
-      <div class="tiles-grid">
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="60-70"><span class="tile-emoji">👨</span>60–70</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="70-80"><span class="tile-emoji">👴</span>70–80</button>
-        <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="80+"><span class="tile-emoji">🌟</span>80+</button>
+      <!-- ═══════════ COGNITIVE BATTERY (rendered by cognitive-tests.js) ═══════════ -->
+      <div class="step" data-step="cog-run">
+        <div class="step-title">Cognitive tasks</div>
+        <div class="step-subtitle" id="cogSubtitle">Follow the instructions for each task.</div>
+        <div id="cogTestContainer"></div>
       </div>
-      <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">See my results</button>
-      <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
-    </div>
 
-    <!-- Result -->
-    <div class="screen" id="qz-s-result">
-      <div class="result-hero">
-        <div class="fit-badge"><span class="dot"></span><span id="qz-badge-txt">10% off unlocked</span></div>
-        <h2 class="res-title">Thanks — here's your 10% off.</h2>
-        <p class="res-body" id="qz-res-body"></p>
+      <!-- ═══════════ COMPLETION ═══════════ -->
+      <div class="step" data-step="done">
+        <div class="completion">
+          <div class="check-icon"><i class="fas fa-check"></i></div>
+          <h2>Thank you!</h2>
+          <p>Your responses have been recorded. They'll help us understand how 1C-01 is working for our community and improve our products.</p>
+          <a href="index.html" class="nav-cta" style="display:inline-block;padding:12px 32px;background:var(--accent);color:#fff;border-radius:100px;font-family:'Outfit',sans-serif;">Back to OneCarbon</a>
+        </div>
       </div>
-      <div class="fit-list" id="qz-fit-list"></div>
-      <button class="cta-primary" onclick="window.open('purchase.html','_self')">Claim your 10% off</button>
-      <button class="cta-secondary" onclick="window.open('research.html','_self')">Learn about the science</button>
-      <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
-    </div>
+    </form>
+  </section>
 
-    </div></div>
-  </div>
-
-  <script>
-  const qzA={};const qzTOTAL=5;
-  function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
-  const qzSdMap={'qz-s1':1,'qz-sex':2,'qz-s2':3,'qz-sci1':3,'qz-sci2':3,'qz-s5':4,'qz-s-email':4,'qz-s7':5};
-  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
-  function qzPersonalise(){
-    const who=(qzA['s1']||['myself'])[0],s=who==='myself';
-    const map={
-      'qz-s5-title':s?'Are you currently taking any medication or supplements?':'Are they currently taking any medication or supplements?',
-      'qz-s7-title':s?'How old are you?':'How old are they?',
-    };
-    Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
-  }
-  function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');wrap.querySelectorAll('.tile,.tile-grid-item,.circle-btn').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
-  function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel,.circle-btn.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
-  function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
-  function qzSubmitE(){
-    const email=document.getElementById('qz-ef').value;
-    const payload={
-      _subject:'1C-01 Quiz — Email Capture',
-      _gotcha:'',
-      email:email,
-      gdpr_consent:'yes',
-      q1_who:(qzA['s1']||[]).join(','),
-      q2_sex:(qzA['sex']||[]).join(','),
-      q3_concerns:(qzA['s2']||[]).join(','),
-      q4_medication:(qzA['s5']||[]).join(','),
-    };
-    fetch('https://formspree.io/f/xykvdvoy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(payload),
-    }).catch(()=>{});
-    qzGoTo('qz-s7');
-  }
-  function qzShowResult(){
-    const email=document.getElementById('qz-ef').value||'(not provided)';
-    const finalPayload={
-      _subject:'1C-01 Quiz — Completed',
-      _gotcha:'',
-      email:email,
-      q1_who:(qzA['s1']||[]).join(','),
-      q2_sex:(qzA['sex']||[]).join(','),
-      q3_concerns:(qzA['s2']||[]).join(','),
-      q4_medication:(qzA['s5']||[]).join(','),
-      q5_age:(qzA['s7']||[]).join(','),
-    };
-    fetch('https://formspree.io/f/xykvdvoy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(finalPayload),
-    }).catch(()=>{});
-
-    const meds=qzA['s5']||[];
-    const onMeds=!meds.includes('none')&&meds.length>0;
-    document.getElementById('qz-res-body').textContent='Thanks for taking the time. 1C-01 is a daily probiotic food supplement, developed from research at the University of Cambridge. Here\'s 10% off your first order.';
-    const items=['1C-01 is a once-daily probiotic — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.'];
-    if(onMeds)items.push('It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.');
-    const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
-    items.slice(0,4).forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#1f355a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
-    qzGoTo('qz-s-result');
-  }
-  qzDots('qz-sd1',1);
-  </script>
-
-  <!-- ── RECOGNISED BY ── -->
+  <!-- ── FOOTER ── -->
   <section class="recognised-by-section">
     <div class="recognised-by-logos">
       <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
       <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
       <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
       <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
-      <img src="deck/assets/csar.svg" alt="CSAR" class="recognised-logo">
     </div>
   </section>
 
@@ -368,10 +631,230 @@
         <a href="legal/privacy.html">Privacy Policy</a>
         <a href="legal/cookie.html">Cookie Policy</a>
       </nav>
-      <p class="footer-copy">© 2026 OneCarbon. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2026 OneCarbon. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cognitive-tests.js"></script>
+  <script>
+  (function() {
+    // ══════════════════════════════════════════════════════
+    // TOGGLE: set to false to disable the assessment
+    // ══════════════════════════════════════════════════════
+    var ASSESSMENT_ENABLED = true;
+    // ══════════════════════════════════════════════════════
+
+    // Formspree endpoint — replace with your actual form ID
+    var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeewwrzd';
+
+    var mainEl = document.getElementById('assessmentMain');
+    var disabledEl = document.getElementById('assessmentDisabled');
+
+    if (!ASSESSMENT_ENABLED) {
+      mainEl.style.display = 'none';
+      disabledEl.style.display = 'block';
+      return;
+    }
+
+    var currentStep = 1;
+    var totalSteps = 7;
+    var cogResults = {};            // filled by the cognitive battery
+    var cognitiveStatus = 'not_offered';
+
+    function updateProgress() {
+      var pct = ((currentStep - 1) / totalSteps) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    function showStep(n) {
+      var steps = document.querySelectorAll('.step');
+      steps.forEach(function(s) { s.classList.remove('active'); });
+      var target = document.querySelector('.step[data-step="' + n + '"]');
+      if (target) target.classList.add('active');
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.nextStep = function() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    };
+
+    window.prevStep = function() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    };
+
+    // ── Cognitive battery flow ──
+    window.goToCognitive = function() {
+      showStep('cog-intro');
+      document.getElementById('progressFill').style.width = '90%';
+    };
+
+    window.skipCognitive = function() {
+      cognitiveStatus = 'skipped';
+      submitAssessment();
+    };
+
+    window.beginCognitive = function() {
+      cognitiveStatus = 'started';
+      showStep('cog-run');
+      var container = document.getElementById('cogTestContainer');
+      var subtitle = document.getElementById('cogSubtitle');
+      CognitiveTests.start(container, {
+        onProgress: function(doneCount, total) {
+          if (subtitle) subtitle.textContent = 'Task ' + (doneCount + 1) + ' of ' + total;
+          var pct = 90 + (doneCount / total) * 10;
+          document.getElementById('progressFill').style.width = pct + '%';
+        },
+        onComplete: function(results) {
+          cogResults = results || {};
+          cognitiveStatus = 'completed';
+          submitAssessment();
+        }
+      });
+    };
+
+    // Highlight selected options
+    document.querySelectorAll('.option-group .option, .checkbox-grid .option').forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        var input = opt.querySelector('input');
+        if (input.type === 'radio') {
+          opt.closest('.option-group').querySelectorAll('.option').forEach(function(o) {
+            o.classList.remove('selected');
+          });
+          opt.classList.add('selected');
+        } else {
+          setTimeout(function() {
+            opt.classList.toggle('selected', input.checked);
+          }, 0);
+        }
+      });
+    });
+
+    // Slider live value
+    var slider = document.getElementById('sleepHours');
+    var sliderVal = document.getElementById('sleepHoursValue');
+    if (slider) {
+      slider.addEventListener('input', function() {
+        var v = parseFloat(slider.value);
+        sliderVal.textContent = v + (v === 1 ? ' hr' : ' hrs');
+      });
+    }
+
+    // ── Sleepiness score calculation ──
+    // Score = sleep_duration (hours) + daytime_sleepiness (0–3) + absence_of_insomnia (0–2)
+    // Daytime sleepiness: never=0, sometimes=1, often=2, don't know=3, prefer not to answer=excluded
+    // Insomnia (inverted for "absence"): never=2 (no insomnia), sometimes=1, usually=0, prefer not to answer=excluded
+    function calculateScore() {
+      var sleepHrs = parseFloat(document.getElementById('sleepHours').value) || 0;
+
+      var daytimeEl = document.querySelector('input[name="daytime_sleepiness"]:checked');
+      var daytimeVal = daytimeEl ? daytimeEl.value : null;
+      var daytimeScore = null;
+      if (daytimeVal !== null && daytimeVal !== 'pnta') {
+        daytimeScore = parseInt(daytimeVal, 10);
+      }
+
+      var insomniaEl = document.querySelector('input[name="insomnia"]:checked');
+      var insomniaVal = insomniaEl ? insomniaEl.value : null;
+      var absenceScore = null;
+      if (insomniaVal !== null && insomniaVal !== 'pnta') {
+        // Invert: 0 (usually has insomnia) → 0, 1 (sometimes) → 1, 2 (never) → 2
+        absenceScore = 2 - parseInt(insomniaVal, 10);
+      }
+
+      if (daytimeScore === null || absenceScore === null) {
+        return null; // Can't compute if user preferred not to answer
+      }
+
+      return Math.round((sleepHrs + daytimeScore + absenceScore) * 100) / 100;
+    }
+
+    // ── Collect all form data ──
+    function collectFormData() {
+      var data = {};
+      var form = document.getElementById('assessmentForm');
+
+      // Radio buttons
+      form.querySelectorAll('input[type="radio"]:checked').forEach(function(r) {
+        data[r.name] = r.value;
+      });
+
+      // Checkboxes (grouped)
+      var checkboxGroups = {};
+      form.querySelectorAll('input[type="checkbox"]:checked').forEach(function(c) {
+        if (!checkboxGroups[c.name]) checkboxGroups[c.name] = [];
+        checkboxGroups[c.name].push(c.value);
+      });
+      Object.keys(checkboxGroups).forEach(function(k) {
+        data[k] = checkboxGroups[k].join(', ');
+      });
+
+      // Slider
+      data.sleep_hours = document.getElementById('sleepHours').value;
+
+      // Text fields
+      var freetext = form.querySelector('textarea[name="freetext"]');
+      if (freetext && freetext.value.trim()) data.freetext = freetext.value.trim();
+
+      var email = form.querySelector('input[name="email"]');
+      if (email && email.value.trim()) data.email = email.value.trim();
+
+      // Hidden score
+      var score = calculateScore();
+      data.sleepiness_score = score !== null ? score : 'incomplete';
+
+      // Cognitive battery results (hidden — for our use only)
+      data.cognitive_status = cognitiveStatus;
+      Object.keys(cogResults).forEach(function(k) {
+        data[k] = cogResults[k];
+      });
+
+      data.submitted_at = new Date().toISOString();
+
+      return data;
+    }
+
+    // ── Submit ──
+    window.submitAssessment = function() {
+      var data = collectFormData();
+      // Disable any visible action buttons on the active step and show progress
+      var activeStep = document.querySelector('.step.active');
+      var buttons = activeStep ? activeStep.querySelectorAll('button') : [];
+      var primary = activeStep ? activeStep.querySelector('.btn-next') : null;
+      var primaryLabel = primary ? primary.textContent : '';
+      buttons.forEach(function(b) { b.disabled = true; });
+      if (primary) primary.textContent = 'Submitting...';
+
+      fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(resp) {
+        if (resp.ok) {
+          showStep('done');
+          document.getElementById('progressFill').style.width = '100%';
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(function() {
+        buttons.forEach(function(b) { b.disabled = false; });
+        if (primary) primary.textContent = primaryLabel;
+        alert('Something went wrong. Please try again, or email us at yizhou@onecarbon.com.');
+      });
+    };
+
+    // Init
+    updateProgress();
+  })();
+  </script>
 </body>
 </html>
