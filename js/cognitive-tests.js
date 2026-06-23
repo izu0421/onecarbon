@@ -485,11 +485,12 @@
     opts = opts || {};
     var results = {};
     var i = 0;
-    var total = BATTERY.length;
+    var battery = shuffle(BATTERY.slice());
+    var total = battery.length;
 
     function showInstructions() {
       if (i >= total) { if (opts.onComplete) opts.onComplete(results); return; }
-      var task = BATTERY[i];
+      var task = battery[i];
       if (opts.onProgress) opts.onProgress(i, total);
       clear(container);
       var wrap = el('<div class="cog-wrap"></div>');
