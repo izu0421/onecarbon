@@ -318,7 +318,7 @@
           <p style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#456BB7;font-weight:700;margin:0 0 6px;">Quick quiz</p>
           <p style="font-size:1.1rem;font-weight:500;margin:0 0 12px;color:var(--text);">Get to know 1C-01 — and 10% off</p>
           <p style="font-size:14px;color:var(--text-muted);margin:0 0 16px;">Takes 2 minutes</p>
-          <button onclick="document.getElementById('qz-page').scrollIntoView({behavior:'smooth'});document.getElementById('qz-page').style.display='flex';" style="padding:12px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;">Begin →</button>
+          <button onclick="var q=document.getElementById('qz-page');q.style.display='flex';setTimeout(function(){q.scrollIntoView({behavior:'smooth'});},50);" style="padding:12px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;">Begin →</button>
         </div>
       </div>
     </div>
