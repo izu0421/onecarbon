@@ -281,6 +281,7 @@
 
     /* Hide neuron on mobile — too heavy */
     .neuron-stage { display: none; }
+    .hide-mobile { display: none !important; }
   }
   </style>
 </head>
@@ -650,7 +651,7 @@
   <section style="max-width:1000px;margin:0 auto;padding:5rem 2rem;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:stretch;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-self:stretch;">
-        <div style="border-radius:12px;overflow:hidden;min-height:400px;">
+        <div class="hide-mobile" style="border-radius:12px;overflow:hidden;min-height:400px;">
           <img src="media/petri-dish-1.png" alt="Bacterial cultures in our Cambridge lab" style="width:100%;height:100%;object-fit:cover;object-position:center center;">
         </div>
         <div style="border-radius:12px;overflow:hidden;min-height:400px;">
