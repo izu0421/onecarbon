@@ -221,6 +221,67 @@
       .recog-bar .recognised-logo { height: 36px; }
     }
   .mailing-input::placeholder { color: rgba(255,255,255,0.75); }
+
+  @media (max-width: 760px) {
+    /* Hero text: full width, not 52% */
+    .hero-text {
+      padding: 28px 24px 40px !important;
+      max-width: 100% !important;
+    }
+    .hero-text h1 { font-size: clamp(2rem, 8vw, 2.6rem) !important; }
+    .hero-what-detail { display: none; }
+
+    /* Science section: stack to single column */
+    .hero { min-height: 0 !important; padding-bottom: 0; }
+
+    /* All inline 2-col grids → single column */
+    section > div[style*="grid-template-columns:1fr 1fr"],
+    section > div > div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+
+    /* 4-col how-it-works steps → 2 col */
+    div[style*="grid-template-columns:repeat(4,1fr)"],
+    div[style*="grid-template-columns: repeat(4, 1fr)"] {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0 !important;
+    }
+
+    /* Science images: shorter on mobile */
+    div[style*="min-height:400px"] {
+      min-height: 200px !important;
+    }
+
+    /* Timeline image: don't show on mobile */
+    div[style*="water-and-pill"] { display: none !important; }
+
+    /* Section padding */
+    section[style*="padding:5rem 2rem"] {
+      padding: 3rem 1.25rem !important;
+    }
+
+    /* Mailing list banner */
+    section[style*="background:#456BB7"] {
+      padding: 36px 24px !important;
+    }
+    section[style*="background:#456BB7"] form {
+      width: 100%;
+      flex-direction: column !important;
+    }
+    section[style*="background:#456BB7"] input[type="email"] {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+    section[style*="background:#456BB7"] button {
+      width: 100% !important;
+    }
+
+    /* Hide neuron on mobile — too heavy */
+    .neuron-stage { display: none; }
+  }
   </style>
 </head>
 <body>
