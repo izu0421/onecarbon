@@ -118,6 +118,7 @@
   function testReactionTime(stage, done) {
     var TRIALS = 10;
     var trial = 0, times = [], awaiting = false, shownAt = 0, isMatch = false, timeout;
+    var trials = [];
     var prompt = el('<div class="cog-prompt">Press <strong>MATCH</strong> only when the two cards are identical.</div>');
     var cards = el('<div class="cog-cards"><div class="cog-card" id="cogc1"></div><div class="cog-card" id="cogc2"></div></div>');
     var fb = el('<div class="cog-feedback"></div>');
@@ -130,7 +131,7 @@
     function nextTrial() {
       if (trial >= TRIALS) {
         var mean = times.length ? Math.round(times.reduce(function (a, b) { return a + b; }, 0) / times.length) : null;
-        return done(mean);
+        return done(mean, { trials: trials });
       }
       trial++;
       c1.textContent = ''; c2.textContent = '';
@@ -148,7 +149,12 @@
       timeout = setTimeout(function () {
         if (!awaiting) return;
         awaiting = false;
-        if (isMatch) fb.textContent = 'Missed!';
+        if (isMatch) {
+          fb.textContent = 'Missed!';
+          trials.push({ trial: trial, is_match: true, responded: false, rt_ms: null });
+        } else {
+          trials.push({ trial: trial, is_match: false, responded: false, rt_ms: null });
+        }
         nextTrial();
       }, 1600);
     }
@@ -159,8 +165,10 @@
       if (isMatch) {
         var rt = now() - shownAt;
         times.push(rt);
+        trials.push({ trial: trial, is_match: true, responded: true, rt_ms: Math.round(rt) });
         fb.textContent = Math.round(rt) + ' ms';
       } else {
+        trials.push({ trial: trial, is_match: false, responded: true, rt_ms: null });
         fb.textContent = 'Not a match — wait for identical cards.';
       }
       nextTrial();
@@ -177,6 +185,7 @@
   // ============================================================
   function testNumericMemory(stage, done) {
     var len = 2, maxCorrect = 0, current = '';
+    var attempts = [];
     function showNumber() {
       current = '';
       for (var i = 0; i < len; i++) current += Math.floor(Math.random() * 10);
@@ -197,7 +206,9 @@
       input.focus();
       function check() {
         var val = (input.value || '').replace(/\D/g, '');
-        if (val === current) {
+        var correct = val === current;
+        attempts.push({ digits: len, correct: correct });
+        if (correct) {
           maxCorrect = len;
           len++;
           if (len > 12) return finish();
@@ -209,7 +220,7 @@
       submit.addEventListener('click', check);
       input.addEventListener('keydown', function (e) { if (e.key === 'Enter') check(); });
     }
-    function finish() { done(maxCorrect); }
+    function finish() { done(maxCorrect, { attempts: attempts }); }
     countdown(stage, showNumber);
   }
 
@@ -220,7 +231,8 @@
   function testSymbolDigit(stage, done) {
     var DURATION = 60000;
     var key = shuffle(symbolSet).map(function (s, i) { return { sym: s, dig: i + 1 }; });
-    var correct = 0, endAt = 0, ticking, target;
+    var correct = 0, endAt = 0, ticking, target, targetShownAt = 0;
+    var answers = [];
 
     var keyHtml = '<div class="cog-key">' + key.map(function (k) {
       return '<div class="cog-key-cell"><div class="cog-key-sym">' + k.sym + '</div><div class="cog-key-dig">' + k.dig + '</div></div>';
@@ -249,17 +261,21 @@
         var left = Math.max(0, endAt - now());
         var t = stage.querySelector('#cogSdTime');
         if (t) t.textContent = Math.ceil(left / 1000) + 's';
-        if (left <= 0) { clearInterval(ticking); done(correct); }
+        if (left <= 0) { clearInterval(ticking); done(correct, { answers: answers }); }
       }, 200);
     }
     function newTarget() {
       target = key[Math.floor(Math.random() * key.length)];
+      targetShownAt = now();
       var t = stage.querySelector('.cog-target-sym');
       if (t) t.textContent = target.sym;
     }
     function answer(dig) {
       if (now() >= endAt) return;
-      if (dig === target.dig) correct++;
+      var rt = Math.round(now() - targetShownAt);
+      var isCorrect = dig === target.dig;
+      if (isCorrect) correct++;
+      answers.push({ symbol: target.sym, correct_digit: target.dig, chosen: dig, correct: isCorrect, rt_ms: rt });
       var sc = stage.querySelector('#cogSdScore');
       if (sc) sc.textContent = correct + ' correct';
       newTarget();
@@ -278,6 +294,7 @@
   function testPairedAssociate(stage, done) {
     var pairs = shuffle(wordPairs).slice(0, 6);
     var correct = 0, idx = 0, order;
+    var responses = [];
 
     function study() {
       clear(stage);
@@ -294,9 +311,8 @@
       var auto = setTimeout(startTest, 15000);
       ready.addEventListener('click', function () { clearTimeout(auto); startTest(); });
     }
-    function startTest() { order = shuffle(pairs); idx = 0; askOne(); }
     function askOne() {
-      if (idx >= order.length) return done(correct);
+      if (idx >= order.length) return finish();
       var pair = order[idx];
       // build 4 choices: the correct partner + 3 distractors from other pairs
       var others = pairs.filter(function (p) { return p[1] !== pair[1]; }).map(function (p) { return p[1]; });
@@ -306,16 +322,21 @@
       stage.appendChild(el('<div class="cog-prompt">Which word was paired with</div>'));
       stage.appendChild(el('<div class="cog-bignum" style="font-size:1.8rem">' + pair[0] + '</div>'));
       var box = el('<div class="cog-choices"></div>');
+      var shownAt = now();
       choices.forEach(function (c) {
         var b = el('<div class="cog-choice">' + c + '</div>');
         b.addEventListener('click', function () {
-          if (c === pair[1]) correct++;
+          var isCorrect = c === pair[1];
+          if (isCorrect) correct++;
+          responses.push({ cue: pair[0], correct_answer: pair[1], chosen: c, correct: isCorrect, rt_ms: Math.round(now() - shownAt) });
           idx++; askOne();
         });
         box.appendChild(b);
       });
       stage.appendChild(box);
     }
+    function finish() { done(correct, { responses: responses }); }
+    function startTest() { order = shuffle(pairs); idx = 0; askOne(); }
     study();
   }
 
@@ -368,8 +389,9 @@
   function testMatrices(stage, done) {
     var puzzles = matrixPuzzles; // fixed order, fixed difficulty progression
     var idx = 0, correct = 0;
+    var responses = [];
     function render() {
-      if (idx >= puzzles.length) return done(correct);
+      if (idx >= puzzles.length) return done(correct, { responses: responses });
       var p = puzzles[idx];
       clear(stage);
       stage.appendChild(el('<div class="cog-progress">Puzzle ' + (idx + 1) + ' of ' + puzzles.length + '</div>'));
@@ -381,12 +403,15 @@
       });
       stage.appendChild(grid);
       var opts = el('<div class="cog-options"></div>');
+      var shownAt = now();
       var order = shuffle(p.options.map(function (o, i) { return { html: o, correct: i === p.answer }; }));
       order.forEach(function (o) {
         var c = el('<div class="cog-option"></div>');
         c.innerHTML = o.html;
         c.addEventListener('click', function () {
-          if (o.correct) correct++;
+          var isCorrect = o.correct;
+          if (isCorrect) correct++;
+          responses.push({ puzzle: idx + 1, correct: isCorrect, rt_ms: Math.round(now() - shownAt) });
           idx++; render();
         });
         opts.appendChild(c);
@@ -423,7 +448,8 @@
     stage.appendChild(fb);
     var pos = nonOverlappingPositions(labels.length, W, H, 28, 64);
     var nodes = [];
-    var next = 0, startedAt = 0;
+    var next = 0, startedAt = 0, errors = 0;
+    var taps = [];
     labels.forEach(function (lab, i) {
       var n = el('<div class="cog-node">' + lab + '</div>');
       var px = (pos[i].x / W) * 100, py = (pos[i].y / H) * 100;
@@ -434,14 +460,18 @@
     function hit(i, node) {
       if (i === next) {
         if (next === 0) startedAt = now();
+        var elapsed = Math.round(now() - startedAt);
+        taps.push({ label: labels[i], elapsed_ms: elapsed, correct: true });
         node.classList.add('cog-done');
         next++;
         if (next >= labels.length) {
           var dur = Math.round(now() - startedAt);
           fb.textContent = (dur / 1000).toFixed(1) + ' s';
-          setTimeout(function () { done(dur); }, 500);
+          setTimeout(function () { done(dur, { taps: taps, errors: errors, total_ms: dur }); }, 500);
         }
       } else {
+        errors++;
+        taps.push({ label: labels[i], elapsed_ms: Math.round(now() - startedAt), correct: false, expected: labels[next] });
         node.classList.add('cog-bad');
         fb.textContent = 'Wrong one — looking for ' + labels[next];
         setTimeout(function () { node.classList.remove('cog-bad'); }, 320);
@@ -451,14 +481,13 @@
   function testTrailA(stage, done) {
     var labels = [];
     for (var i = 1; i <= 12; i++) labels.push(String(i));
-    countdown(stage, function () { runTrail(stage, labels, done); });
+    countdown(stage, function () { runTrail(stage, labels, function(val, raw) { done(val, raw); }); });
   }
   function testTrailB(stage, done) {
-    // alternate 1-A-2-B-3-C... up to 6 numbers / 6 letters = 12 nodes
     var letters = ['A', 'B', 'C', 'D', 'E', 'F'];
     var labels = [];
     for (var i = 0; i < 6; i++) { labels.push(String(i + 1)); labels.push(letters[i]); }
-    countdown(stage, function () { runTrail(stage, labels, done); });
+    countdown(stage, function () { runTrail(stage, labels, function(val, raw) { done(val, raw); }); });
   }
 
   // ============================================================
@@ -487,6 +516,7 @@
     var i = 0;
     var battery = shuffle(BATTERY.slice());
     var total = battery.length;
+    var taskStartedAt;
 
     function showInstructions() {
       if (i >= total) { if (opts.onComplete) opts.onComplete(results); return; }
@@ -501,18 +531,23 @@
       actions.appendChild(begin);
       wrap.appendChild(actions);
       container.appendChild(wrap);
-      begin.addEventListener('click', function() { runTask(); });
+      begin.addEventListener('click', function() { taskStartedAt = new Date().toISOString(); runTask(); });
     }
     function runTask() {
       var task = battery[i];
+      var startMs = now();
       clear(container);
       var wrap = el('<div class="cog-wrap"></div>');
       wrap.appendChild(el('<div class="cog-progress">' + task.name + '</div>'));
       var stage = el('<div class="cog-stage"></div>');
       wrap.appendChild(stage);
       container.appendChild(wrap);
-      task.run(stage, function (value) {
+      task.run(stage, function (value, raw) {
+        var endMs = now();
         results[task.field] = (value === null || value === undefined) ? '' : value;
+        results[task.field + '_start'] = taskStartedAt;
+        results[task.field + '_duration_ms'] = Math.round(endMs - startMs);
+        if (raw) results[task.field + '_raw'] = JSON.stringify(raw);
         i++;
         showInstructions();
       });
