@@ -48,7 +48,10 @@
       "Read(//private/tmp/**)",
       "Bash(unzip -o \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/presentations/pitchdeck/OneCarbon_InvestorDeck_v2.pptx\" \"ppt/slides/slide15.xml\" \"ppt/slides/_rels/slide15.xml.rels\" -d investordeck_v2)",
       "Bash(xargs ls -lt)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp \"/tmp/twocarbon_clone/js/cognitive-tests.js\" \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/js/cognitive-tests.js\")",
+      "WebFetch(domain:idp.nature.com)",
+      "WebFetch(domain:www.biorxiv.org)"
     ]
   }
 }
