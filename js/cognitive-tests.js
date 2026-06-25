@@ -497,21 +497,11 @@
       wrap.appendChild(el('<div class="cog-progress">Task ' + (i + 1) + ' of ' + total + '</div>'));
       wrap.appendChild(el('<div class="cog-instructions">' + task.instr + '</div>'));
       var actions = el('<div class="cog-actions"></div>');
-      var secs = 3;
-      var begin = el('<button class="cog-btn" type="button">Starting in ' + secs + '…</button>');
+      var begin = el('<button class="cog-btn" type="button">Start</button>');
       actions.appendChild(begin);
       wrap.appendChild(actions);
       container.appendChild(wrap);
-      var timer = setInterval(function() {
-        secs--;
-        if (secs > 0) {
-          begin.textContent = 'Starting in ' + secs + '…';
-        } else {
-          clearInterval(timer);
-          runTask();
-        }
-      }, 1000);
-      begin.addEventListener('click', function() { clearInterval(timer); runTask(); });
+      begin.addEventListener('click', function() { runTask(); });
     }
     function runTask() {
       var task = battery[i];
