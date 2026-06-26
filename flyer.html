@@ -394,46 +394,91 @@
     .team-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
     .team-card {
-      display: flex;
-      gap: 1.2rem;
-      align-items: flex-start;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.2rem 1.4rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
     .team-card img {
-      width: 72px;
-      height: 72px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
       border: 2px solid var(--accent-soft);
     }
+    /* Portrait layout for 3-column grid */
+    .team-card--portrait {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .team-card--portrait img {
+      width: 100%;
+      height: 140px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: top;
+      border: none;
+      margin-bottom: 0.7rem;
+    }
     .team-name {
       font-family: var(--serif);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--text);
       letter-spacing: -0.01em;
     }
     .team-role {
       font-family: var(--sans);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent-mid);
       font-weight: 600;
-      margin: 3px 0 0.5rem;
+      margin: 3px 0 0.45rem;
     }
     .team-bio {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       line-height: 1.6;
       color: var(--text-muted);
       font-weight: 300;
+    }
+    /* Advisor strip */
+    .advisor-strip {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      background: var(--accent-tint);
+      border: 1px solid var(--accent-soft);
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+    }
+    .advisor-label {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      font-weight: 700;
+      white-space: nowrap;
+      padding-top: 2px;
+      min-width: 64px;
+    }
+    .advisor-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      flex: 1;
+    }
+    .advisor-card {
+      border-left: 2px solid var(--accent-soft);
+      padding-left: 0.8rem;
     }
 
     @media print {
@@ -591,26 +636,50 @@
   <!-- ── Team ── -->
   <section class="team" style="margin-bottom:2.8rem;">
     <div class="section-label">The team</div>
-    <div class="team-grid">
+    <div class="team-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.2rem;">
 
-      <div class="team-card">
-        <img src="media/YizhouYu.jpg" alt="Dr Yizhou Yu">
-        <div class="team-body">
-          <div class="team-name">Dr Yizhou Yu</div>
-          <div class="team-role">Co-Founder</div>
-          <div class="team-bio">Award-winning neuroscientist and computational biologist at the University of Cambridge, with over 15 peer-reviewed publications on neurodegeneration and ageing. Forbes 30 Under 30. Falling Walls Science Start-up finalist.</div>
-        </div>
+      <div class="team-card team-card--portrait">
+        <img src="deck/assets/team_yizhou_presenting.jpg" alt="Dr Yizhou Yu">
+        <div class="team-name">Dr Yizhou Yu</div>
+        <div class="team-role">CEO &amp; Co-Founder</div>
+        <div class="team-bio">Award-winning computational biologist. Inventor of the IP. Expertise in brain ageing and AI-driven drug discovery. Cambridge PhD.</div>
       </div>
 
-      <div class="team-card">
-        <img src="media/suleymannoordeen.jpeg" alt="Suleyman Noordeen">
-        <div class="team-body">
-          <div class="team-name">Suleyman Noordeen</div>
-          <div class="team-role">Medical Lead</div>
-          <div class="team-bio">Student doctor with multiple years of experience in clinical research. Recognised for communicating complex science to clinical and community audiences.</div>
-        </div>
+      <div class="team-card team-card--portrait">
+        <img src="deck/assets/team_civia.jpeg" alt="Dr Civia Chen">
+        <div class="team-name">Dr Civia Chen</div>
+        <div class="team-role">CSO</div>
+        <div class="team-bio">Publications in Cell, Nature Aging, PNAS. Drives probiotic bioscience research and preclinical validation. Cambridge PhD.</div>
       </div>
 
+      <div class="team-card team-card--portrait">
+        <img src="deck/assets/team_suleyman.jpeg" alt="Dr Suleyman Noordeen">
+        <div class="team-name">Dr Suleyman Noordeen</div>
+        <div class="team-role">Medical Associate</div>
+        <div class="team-bio">Clinical trial operations, R&amp;D and regulatory support. Student doctor and neuroscience researcher. Cambridge MBBS.</div>
+      </div>
+
+    </div>
+
+    <div class="advisor-strip">
+      <div class="advisor-label">Advisory team</div>
+      <div class="advisor-cards">
+        <div class="advisor-card">
+          <div class="team-name" style="font-size:0.88rem;">Dr Michelle Tempest</div>
+          <div class="team-role">Board member</div>
+          <div class="team-bio">Medical consultant; clinical and healthcare-strategy perspective to the board.</div>
+        </div>
+        <div class="advisor-card">
+          <div class="team-name" style="font-size:0.88rem;">Prof. Ben Underwood</div>
+          <div class="team-role">Medical advisor · PI</div>
+          <div class="team-bio">R&amp;D Director, Cambridgeshire &amp; Peterborough NHS FT. Chief Investigator for our clinical research programmes.</div>
+        </div>
+        <div class="advisor-card">
+          <div class="team-name" style="font-size:0.88rem;">Dr L. Miguel Martins</div>
+          <div class="team-role">Science advisor</div>
+          <div class="team-bio">20+ years as PI in mitochondrial biology and neurodegeneration.</div>
+        </div>
+      </div>
     </div>
   </section>
 
