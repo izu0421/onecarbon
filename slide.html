@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>OneCarbon — Overview Slide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1f355a;
+      --blue: #2f4f8f;
+      --soft: #d0d9e8;
+      --tint: #eaecf2;
+      --bg: #F7F5F0;
+      --text: #1A1A18;
+      --muted: #555;
+      --faint: #888;
+      --border: rgba(0,0,0,0.09);
+      --serif: 'DM Sans', sans-serif;
+      --sans: 'Outfit', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #2a2a28;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Slide shell: A4 landscape proportions ── */
+    .slide {
+      width: min(1280px, 96vw);
+      aspect-ratio: 297 / 210;
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 1fr;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+    }
+
+    /* ══════════════════════════════════════
+       LEFT PANEL — dark brand + team
+    ══════════════════════════════════════ */
+    .left {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.4rem;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .brand-name span { color: var(--soft); }
+    .brand-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      font-weight: 500;
+    }
+
+    .left-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 700;
+      font-family: var(--serif);
+    }
+
+    .team-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .tm {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .tm img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .tm-info {}
+    .tm-name {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .tm-role {
+      font-size: 0.6rem;
+      color: var(--soft);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .divider { height: 1px; background: rgba(255,255,255,0.1); }
+
+    .advisor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .av {
+      font-size: 0.6rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.55);
+    }
+    .av strong {
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      font-family: var(--serif);
+      font-size: 0.62rem;
+    }
+
+    .web-link {
+      font-family: var(--serif);
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: var(--soft);
+      letter-spacing: 0.06em;
+      margin-top: auto;
+    }
+
+    /* ══════════════════════════════════════
+       RIGHT PANEL — content grid
+    ══════════════════════════════════════ */
+    .right {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.6rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .headline {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    .headline em { font-style: normal; color: var(--blue); }
+    .raise-badge {
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .raise-badge span {
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      display: block;
+      margin-top: 1px;
+      font-style: italic;
+    }
+
+    /* ── Main grid: 4 columns ── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .cell {
+      padding: 1rem 1.2rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .cell:last-child { border-right: none; }
+
+    .cell-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 700;
+      font-family: var(--serif);
+    }
+    .cell-title {
+      font-family: var(--serif);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .cell ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      flex: 1;
+    }
+    .cell li {
+      font-size: 0.7rem;
+      line-height: 1.45;
+      color: var(--muted);
+      padding-left: 0.9rem;
+      position: relative;
+      font-weight: 300;
+    }
+    .cell li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--soft);
+      font-weight: 400;
+    }
+    .cell li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Science cell accent */
+    .cell--science { background: var(--tint); }
+    .cell--science .cell-label { color: var(--navy); }
+
+    /* Raise cell */
+    .cell--raise { background: var(--navy); }
+    .cell--raise .cell-label { color: var(--soft); opacity: 0.7; }
+    .cell--raise .cell-title { color: #fff; }
+    .cell--raise ul li { color: rgba(255,255,255,0.75); }
+    .cell--raise ul li::before { color: rgba(255,255,255,0.3); }
+    .cell--raise ul li strong { color: #fff; }
+    .raise-amount {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--soft);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin: 0.2rem 0;
+    }
+
+    /* ── Bottom: papers strip ── */
+    .papers-strip {
+      border-top: 1px solid var(--border);
+      padding: 0.6rem 1.6rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .papers-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 700;
+      font-family: var(--serif);
+      white-space: nowrap;
+      padding-top: 1px;
+      min-width: 60px;
+    }
+    .papers {
+      display: flex;
+      gap: 1rem;
+      flex: 1;
+      flex-wrap: nowrap;
+    }
+    .paper {
+      flex: 1;
+      font-size: 0.6rem;
+      line-height: 1.4;
+      color: var(--faint);
+      border-left: 1.5px solid var(--soft);
+      padding-left: 0.5rem;
+      min-width: 0;
+    }
+    .paper strong {
+      color: var(--text);
+      font-family: var(--serif);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 1px;
+    }
+    .paper .purl {
+      display: block;
+      color: var(--blue);
+      margin-top: 2px;
+      font-size: 0.55rem;
+      word-break: break-all;
+    }
+
+    @media print {
+      html, body { background: white; }
+      .slide { width: 100%; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- ══ LEFT ══ -->
+  <div class="left">
+    <div class="brand">
+      <div class="brand-name">One<span>Carbon</span></div>
+      <div class="brand-tag">Cambridge · Science-led probiotics</div>
+    </div>
+
+    <div class="left-label">Core team</div>
+    <div class="team-list">
+      <div class="tm">
+        <img src="deck/assets/team_yizhou_presenting.jpg" alt="Dr Yizhou Yu">
+        <div class="tm-info">
+          <div class="tm-name">Dr Yizhou Yu</div>
+          <div class="tm-role">CEO &amp; Co-Founder · Cambridge PhD</div>
+        </div>
+      </div>
+      <div class="tm">
+        <img src="deck/assets/team_civia.jpeg" alt="Dr Civia Chen">
+        <div class="tm-info">
+          <div class="tm-name">Dr Civia Chen</div>
+          <div class="tm-role">CSO · Cambridge PhD · Cell, Nature Aging</div>
+        </div>
+      </div>
+      <div class="tm">
+        <img src="deck/assets/team_suleyman.jpeg" alt="Dr Suleyman Noordeen">
+        <div class="tm-info">
+          <div class="tm-name">Dr Suleyman Noordeen</div>
+          <div class="tm-role">Medical Associate · Cambridge MBBS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="left-label">Advisors</div>
+    <div class="advisor-list">
+      <div class="av"><strong>Dr Michelle Tempest</strong><br>Board member · medical &amp; strategy</div>
+      <div class="av"><strong>Prof. Ben Underwood</strong><br>PI · R&amp;D Director, Cambs NHS FT</div>
+      <div class="av"><strong>Dr L. Miguel Martins</strong><br>Science advisor · mito biology, 20+ yrs</div>
+    </div>
+
+    <div class="web-link">onecarbon.com</div>
+  </div>
+
+  <!-- ══ RIGHT ══ -->
+  <div class="right">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="headline">Preventing <em>Alzheimer's</em><br>through the gut microbiome</div>
+      <div style="text-align:right;">
+        <div class="raise-badge">Raising<span>£800K</span></div>
+      </div>
+    </div>
+
+    <!-- 4-column content grid -->
+    <div class="main-grid">
+
+      <!-- 1. Science -->
+      <div class="cell cell--science">
+        <div class="cell-label">Innovation</div>
+        <div class="cell-title">One-carbon metabolism — consistently impaired in Alzheimer's</div>
+        <ul>
+          <li>Cambridge research: why some neurons <strong>survive</strong> AD while others don't</li>
+          <li>One-carbon pathway governs <strong>energy, DNA repair &amp; methylation</strong></li>
+          <li>Disrupted in AD brains; restoring it is <strong>neuroprotective</strong> in models</li>
+          <li>5 peer-reviewed papers · <strong>patent in preparation</strong></li>
+        </ul>
+      </div>
+
+      <!-- 2. Product -->
+      <div class="cell">
+        <div class="cell-label">Product</div>
+        <div class="cell-title">1C-01 — probiotic support for one-carbon metabolism</div>
+        <ul>
+          <li><strong>Food-grade</strong> probiotic supplement</li>
+          <li>Supports one-carbon metabolism via the gut</li>
+          <li>Mechanism details <strong>unpublished</strong> (IP in prep)</li>
+          <li>Not a drug · no prescription required</li>
+          <li>60-day course · biomarker-tracked</li>
+        </ul>
+      </div>
+
+      <!-- 3. Business model -->
+      <div class="cell">
+        <div class="cell-label">Business model</div>
+        <div class="cell-title">D2C entry → B2B2C as the long-term channel</div>
+        <ul>
+          <li><strong>2026+ D2C</strong> — direct to at-risk individuals (APOE ε4, family history)</li>
+          <li>~£1,000/yr · supplement + biomarker kit</li>
+          <li><strong>2028+ Care homes</strong> — B2B group contracts, outcome-linked</li>
+          <li><strong>2029+ Pharmacy &amp; retail</strong> — post-efficacy data</li>
+          <li>Clinical data is the moat that unlocks each channel</li>
+        </ul>
+      </div>
+
+      <!-- 4. Raise -->
+      <div class="cell cell--raise">
+        <div class="cell-label">The raise</div>
+        <div class="raise-amount">£800K</div>
+        <div class="cell-title">To fund the PROFILE Phase I trial</div>
+        <ul>
+          <li><strong>180 participants</strong> · healthy adults 50–65</li>
+          <li>Safety &amp; biomarker endpoints</li>
+          <li>Cognitive battery + microbiome sampling</li>
+          <li>Baseline &amp; 60-day follow-up</li>
+          <li>Unlocks RCT in MCI patients (2027+)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Papers strip -->
+    <div class="papers-strip">
+      <div class="papers-label">5 papers</div>
+      <div class="papers">
+        <div class="paper">
+          <strong>Yu et al. 2024</strong>
+          Mitochondrial one-carbon metabolism is neuroprotective in AD models
+          <span class="purl">nature.com/articles/s41419-024-07179-3</span>
+        </div>
+        <div class="paper">
+          <strong>Yu &amp; Martins 2024</strong>
+          5 metabolic processes converge on one-carbon pathway in AD
+        </div>
+        <div class="paper">
+          <strong>Yu et al. 2025</strong>
+          Nucleotide metabolism alleviates AD pathology
+          <span class="purl">nature.com/articles/s41419-025-08066-1</span>
+        </div>
+        <div class="paper">
+          <strong>Yu et al. 2021</strong>
+          NAD⁺ depletion drives neuronal energy failure in AD
+          <span class="purl">nature.com/articles/s41419-021-03926-y</span>
+        </div>
+        <div class="paper">
+          <strong>Yu et al. 2025</strong>
+          Amyloid-β modulates sleep via NAD⁺-linked metabolism
+          <span class="purl">biorxiv.org/content/10.1101/2025.02.26.640405v1</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
