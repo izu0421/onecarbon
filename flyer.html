@@ -390,6 +390,52 @@
       letter-spacing: 0.04em;
     }
 
+    /* ── Team ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .team-card {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+    }
+    .team-card img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--accent-soft);
+    }
+    .team-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .team-role {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      font-weight: 600;
+      margin: 3px 0 0.5rem;
+    }
+    .team-bio {
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
     @media print {
       html, body { background: #fff; padding: 0; }
       .page { box-shadow: none; max-width: 100%; padding: 2.5cm 2.5cm; }
@@ -536,6 +582,32 @@
             </a>
           </div>
           <div class="pub-desc">Sleep disruption in Alzheimer's is mechanistically linked to NAD⁺-dependent metabolism — the same pathway 1C-01 targets. <em>bioRxiv</em> 2025.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Team ── -->
+  <section class="team" style="margin-bottom:2.8rem;">
+    <div class="section-label">The team</div>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <img src="media/YizhouYu.jpg" alt="Dr Yizhou Yu">
+        <div class="team-body">
+          <div class="team-name">Dr Yizhou Yu</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-bio">Award-winning neuroscientist and computational biologist at the University of Cambridge, with over 15 peer-reviewed publications on neurodegeneration and ageing. Forbes 30 Under 30. Falling Walls Science Start-up finalist.</div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <img src="media/suleymannoordeen.jpeg" alt="Suleyman Noordeen">
+        <div class="team-body">
+          <div class="team-name">Suleyman Noordeen</div>
+          <div class="team-role">Medical Lead</div>
+          <div class="team-bio">Student doctor with multiple years of experience in clinical research. Recognised for communicating complex science to clinical and community audiences.</div>
         </div>
       </div>
 
