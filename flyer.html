@@ -353,6 +353,56 @@
       font-weight: 400;
     }
 
+    /* ── Bullet lists ── */
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.8rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .bullet-list li {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.88);
+      font-weight: 300;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .bullet-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.75rem;
+    }
+    .bullet-list--dark li { color: var(--text-muted); }
+    .bullet-list--dark li::before { color: var(--accent-soft); }
+    .team-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0.3rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .team-bullets li {
+      font-size: 0.79rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      font-weight: 300;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .team-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-mid);
+      font-weight: 700;
+    }
+
     /* ── Recognition strip ── */
     .recognition {
       border-top: 1.5px solid var(--border);
@@ -512,45 +562,43 @@
   <!-- ── Hero ── -->
   <section class="hero">
     <h1>A new approach to<br><em>Alzheimer's prevention</em></h1>
-    <p>
-      OneCarbon is developing a probiotic supplement that supports the cellular pathway consistently impaired in Alzheimer's brains — built on peer-reviewed science from the University of Cambridge.
-    </p>
+    <p>Probiotic supplement targeting the cellular pathway consistently impaired in Alzheimer's brains — built on Cambridge science.</p>
   </section>
 
   <!-- ── The problem ── -->
   <div class="problem">
     <div class="section-label">The problem</div>
-    <h2>One in three people aged 85+ lives with Alzheimer's. There is still no scalable prevention strategy.</h2>
-    <p>
-      Disease-modifying drugs like lecanemab and donanemab slow cognitive decline in a narrow early-stage population, requiring IV infusions and MRI monitoring. Vitamins and supplements lack the targeting or bioavailability to reach the affected pathways. A fundamental gap remains: a safe, accessible intervention that addresses the upstream biology of the disease.
-    </p>
+    <h2>1 in 3 people aged 85+ lives with Alzheimer's. No scalable prevention strategy exists.</h2>
+    <ul class="bullet-list">
+      <li>Anti-amyloid drugs (lecanemab, donanemab) require IV infusions &amp; MRI monitoring — accessible to very few</li>
+      <li>Vitamins &amp; supplements lack the targeting to reach affected pathways</li>
+      <li>Gap: a safe, scalable intervention addressing the upstream biology</li>
+    </ul>
   </div>
 
   <!-- ── Science + Product ── -->
   <div class="two-col">
     <div class="science-block">
       <div class="section-label">The science</div>
-      <h2>One-carbon metabolism — a pathway consistently impaired in Alzheimer's</h2>
-      <p>
-        Dr Yizhou Yu's research at the University of Cambridge showed that certain neurons survive Alzheimer's while others do not. The answer points to the one-carbon metabolic pathway — a cellular process involved in energy production, DNA repair, and neurotransmitter synthesis. This pathway is consistently disrupted in Alzheimer's brains, and restoring its activity is neuroprotective in animal models.
-      </p>
-      <p>
-        Five peer-reviewed papers underpin our approach, all from Cambridge. They establish both the mechanistic case and the translational rationale for supporting this pathway.
-      </p>
+      <h2>One-carbon metabolism — consistently impaired in Alzheimer's</h2>
+      <ul class="bullet-list bullet-list--dark" style="margin-top:0.6rem;">
+        <li>Cambridge research identified why some neurons survive AD while others don't</li>
+        <li>The one-carbon pathway governs energy production, DNA repair &amp; neurotransmitter synthesis</li>
+        <li>Pathway consistently disrupted in AD brains</li>
+        <li>Restoring its activity is neuroprotective in animal models</li>
+        <li>5 peer-reviewed Cambridge papers underpin our approach</li>
+      </ul>
     </div>
 
     <div class="product-block">
       <div class="section-label">The product</div>
-      <h2>1C-01 — a probiotic approach to one-carbon support</h2>
+      <h2>1C-01 — probiotic support for one-carbon metabolism</h2>
       <img class="product-img" src="deck/assets/product_capsules.jpg" alt="1C-01 probiotic capsules">
-      <p>
-        1C-01 is a food-grade probiotic supplement designed to support one-carbon metabolism. The details of the mechanism are subject to ongoing IP development. It is not a drug and makes no disease claims.
-      </p>
       <div class="pills">
-        <span class="pill">Food-grade</span>
-        <span class="pill">Probiotic</span>
+        <span class="pill">Food-grade probiotic</span>
         <span class="pill">Cambridge science</span>
         <span class="pill">IP in preparation</span>
+        <span class="pill">Not a drug</span>
       </div>
     </div>
   </div>
@@ -559,10 +607,13 @@
   <div class="trial-banner">
     <div>
       <div class="section-label">Clinical validation</div>
-      <h2>PROFILE — Phase I pre-post trial, currently enrolling</h2>
-      <p>
-        The PROFILE trial is a pre-post study assessing safety and biomarker effects of 1C-01 in healthy adults aged 50–65. Participants complete a cognitive battery and provide biomarker samples at baseline and after a 60-day course. We are raising £800K to complete the trial and support the next stage of development.
-      </p>
+      <h2>PROFILE — Phase I pre-post trial</h2>
+      <ul class="bullet-list" style="margin-top:0.5rem;">
+        <li>Healthy adults aged 50–65</li>
+        <li>Safety &amp; biomarker endpoints</li>
+        <li>Cognitive battery + biomarker samples at baseline &amp; 60 days</li>
+        <li>Currently enrolling</li>
+      </ul>
     </div>
     <div class="trial-raise">
       <div class="amount">£800K</div>
@@ -574,9 +625,7 @@
   <section class="publications">
     <div class="section-label">Published research</div>
     <h2>The science behind 1C-01</h2>
-    <p class="pub-intro">
-      Five peer-reviewed papers from Cambridge underpin what we are building. Each describes one aspect of the pathway we are targeting. The details of how 1C-01 works remain unpublished due to patents in preparation.
-    </p>
+    <p class="pub-intro">Five Cambridge papers. Details of how 1C-01 works are unpublished pending patents.</p>
     <div class="pub-list">
 
       <div class="pub-item">
@@ -635,21 +684,33 @@
         <img src="deck/assets/team_yizhou_presenting.jpg" alt="Dr Yizhou Yu">
         <div class="team-name">Dr Yizhou Yu</div>
         <div class="team-role">CEO &amp; Co-Founder</div>
-        <div class="team-bio">Award-winning computational biologist. Inventor of the IP. Expertise in brain ageing and AI-driven drug discovery. Cambridge PhD.</div>
+        <ul class="team-bullets">
+          <li>Computational biologist, Cambridge PhD</li>
+          <li>Inventor of the IP</li>
+          <li>Forbes 30 Under 30, Falling Walls finalist</li>
+        </ul>
       </div>
 
       <div class="team-card team-card--portrait">
         <img src="deck/assets/team_civia.jpeg" alt="Dr Civia Chen">
         <div class="team-name">Dr Civia Chen</div>
         <div class="team-role">CSO</div>
-        <div class="team-bio">Publications in Cell, Nature Aging, PNAS. Drives probiotic bioscience research and preclinical validation. Cambridge PhD.</div>
+        <ul class="team-bullets">
+          <li>Cambridge PhD</li>
+          <li>Publications in Cell, Nature Aging, PNAS</li>
+          <li>Preclinical &amp; probiotic bioscience lead</li>
+        </ul>
       </div>
 
       <div class="team-card team-card--portrait">
         <img src="deck/assets/team_suleyman.jpeg" alt="Dr Suleyman Noordeen">
         <div class="team-name">Dr Suleyman Noordeen</div>
         <div class="team-role">Medical Associate</div>
-        <div class="team-bio">Clinical trial operations, R&amp;D and regulatory support. Student doctor and neuroscience researcher. Cambridge MBBS.</div>
+        <ul class="team-bullets">
+          <li>Cambridge MBBS, student doctor</li>
+          <li>Clinical trial operations &amp; regulatory</li>
+          <li>Neuroscience researcher</li>
+        </ul>
       </div>
 
     </div>
@@ -660,17 +721,17 @@
         <div class="advisor-card">
           <div class="team-name" style="font-size:0.88rem;">Dr Michelle Tempest</div>
           <div class="team-role">Board member</div>
-          <div class="team-bio">Medical consultant; clinical and healthcare-strategy perspective to the board.</div>
+          <div class="team-bio">Medical consultant · clinical &amp; healthcare strategy</div>
         </div>
         <div class="advisor-card">
           <div class="team-name" style="font-size:0.88rem;">Prof. Ben Underwood</div>
           <div class="team-role">Medical advisor · PI</div>
-          <div class="team-bio">R&amp;D Director, Cambridgeshire &amp; Peterborough NHS FT. Chief Investigator for our clinical research programmes.</div>
+          <div class="team-bio">R&amp;D Director, Cambs &amp; Peterborough NHS FT · Chief Investigator</div>
         </div>
         <div class="advisor-card">
           <div class="team-name" style="font-size:0.88rem;">Dr L. Miguel Martins</div>
           <div class="team-role">Science advisor</div>
-          <div class="team-bio">20+ years as PI in mitochondrial biology and neurodegeneration.</div>
+          <div class="team-bio">20+ years PI · mitochondrial biology &amp; neurodegeneration</div>
         </div>
       </div>
     </div>
