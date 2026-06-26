@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>OneCarbon — Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #1f355a;
+      --accent-mid: #2f4f8f;
+      --accent-soft: #d0d9e8;
+      --accent-tint: #eaecf2;
+      --bg: #F7F5F0;
+      --surface: #ffffff;
+      --text: #1A1A18;
+      --text-muted: #555;
+      --text-faint: #888;
+      --border: rgba(0,0,0,0.09);
+      --gold: #C9A961;
+      --serif: 'DM Sans', sans-serif;
+      --sans: 'Outfit', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: #e8e5de; }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      background: #e8e5de;
+      padding: 3rem 1.5rem;
+    }
+
+    /* ── Page shell ── */
+    .page {
+      background: var(--bg);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 4.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 2.8rem;
+    }
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .brand-name span { color: var(--accent-mid); }
+    .brand-tagline {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    .header-right {
+      text-align: right;
+    }
+    .header-right a {
+      font-family: var(--serif);
+      font-size: 0.85rem;
+      color: var(--accent-mid);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .header-right .raise {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    /* ── Hero headline ── */
+    .hero { margin-bottom: 2.8rem; }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent-mid);
+    }
+    .hero p {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 600px;
+      font-weight: 300;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      font-weight: 600;
+      margin-bottom: 1.1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 1.5px;
+      background: currentColor;
+      vertical-align: middle;
+      margin-right: 10px;
+      opacity: 0.7;
+      border-radius: 2px;
+    }
+
+    /* ── The problem ── */
+    .problem {
+      background: var(--accent);
+      color: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      margin-bottom: 2.8rem;
+    }
+    .problem .section-label { color: rgba(255,255,255,0.6); }
+    .problem .section-label::before { background: rgba(255,255,255,0.6); }
+    .problem h2 {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #fff;
+      margin-bottom: 0.9rem;
+    }
+    .problem p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.85);
+      font-weight: 300;
+      max-width: 700px;
+    }
+
+    /* ── Two-column layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.8rem;
+      align-items: start;
+    }
+
+    /* ── Science section ── */
+    .science-block { }
+    .science-block h2 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .science-block p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    /* ── Product block ── */
+    .product-block { }
+    .product-block h2 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .product-block p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── Feature pills ── */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 0.8rem;
+    }
+    .pill {
+      font-family: var(--serif);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--accent-mid);
+      background: var(--accent-tint);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── Trial banner ── */
+    .trial-banner {
+      background: var(--accent-tint);
+      border: 1px solid var(--accent-soft);
+      border-left: 4px solid var(--accent-mid);
+      border-radius: 10px;
+      padding: 1.6rem 2rem;
+      margin-bottom: 2.8rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+    .trial-banner h2 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .trial-banner p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .trial-raise {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .trial-raise .amount {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .trial-raise .label {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── Publications ── */
+    .publications { margin-bottom: 2.8rem; }
+    .publications h2 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .publications .pub-intro {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+      max-width: 680px;
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .pub-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .pub-year {
+      font-family: var(--serif);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      font-weight: 600;
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .pub-body {}
+    .pub-title {
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      line-height: 1.35;
+    }
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .pub-title a:hover { text-decoration: underline; color: var(--accent-mid); }
+    .pub-desc {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── Recognition strip ── */
+    .recognition {
+      border-top: 1.5px solid var(--border);
+      padding-top: 2rem;
+      margin-bottom: 2.4rem;
+    }
+    .recognition .section-label { margin-bottom: 1.2rem; }
+    .rec-logos {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .rec-logos img {
+      height: 26px;
+      filter: grayscale(1) opacity(0.55);
+      object-fit: contain;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1.5px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-left {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      line-height: 1.6;
+    }
+    .footer-right a {
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent-mid);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    @media print {
+      html, body { background: #fff; padding: 0; }
+      .page { box-shadow: none; max-width: 100%; padding: 2.5cm 2.5cm; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div>
+      <div class="brand-name">One<span>Carbon</span></div>
+      <div class="brand-tagline">Science-led probiotics · Cambridge</div>
+    </div>
+    <div class="header-right">
+      <a href="https://onecarbon.com">onecarbon.com</a><br>
+      <span class="raise">Raising £800K</span>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <h1>A new approach to<br><em>Alzheimer's prevention</em></h1>
+    <p>
+      OneCarbon is developing a probiotic supplement that supports the cellular pathway consistently impaired in Alzheimer's brains — built on peer-reviewed science from the University of Cambridge.
+    </p>
+  </section>
+
+  <!-- ── The problem ── -->
+  <div class="problem">
+    <div class="section-label">The problem</div>
+    <h2>One in three people aged 85+ lives with Alzheimer's. There is still no scalable prevention strategy.</h2>
+    <p>
+      Disease-modifying drugs like lecanemab and donanemab slow cognitive decline in a narrow early-stage population, requiring IV infusions and MRI monitoring. Vitamins and supplements lack the targeting or bioavailability to reach the affected pathways. A fundamental gap remains: a safe, accessible intervention that addresses the upstream biology of the disease.
+    </p>
+  </div>
+
+  <!-- ── Science + Product ── -->
+  <div class="two-col">
+    <div class="science-block">
+      <div class="section-label">The science</div>
+      <h2>One-carbon metabolism — a pathway consistently impaired in Alzheimer's</h2>
+      <p>
+        Dr Yizhou Yu's research at the University of Cambridge showed that certain neurons survive Alzheimer's while others do not. The answer points to the one-carbon metabolic pathway — a cellular process involved in energy production, DNA repair, and neurotransmitter synthesis. This pathway is consistently disrupted in Alzheimer's brains, and restoring its activity is neuroprotective in animal models.
+      </p>
+      <p>
+        Five peer-reviewed papers underpin our approach, all from Cambridge. They establish both the mechanistic case and the translational rationale for supporting this pathway.
+      </p>
+    </div>
+
+    <div class="product-block">
+      <div class="section-label">The product</div>
+      <h2>1C-01 — a probiotic approach to one-carbon support</h2>
+      <img class="product-img" src="deck/assets/product_capsules.jpg" alt="1C-01 probiotic capsules">
+      <p>
+        1C-01 is a food-grade probiotic supplement designed to support one-carbon metabolism. The details of the mechanism are subject to ongoing IP development. It is not a drug and makes no disease claims.
+      </p>
+      <div class="pills">
+        <span class="pill">Food-grade</span>
+        <span class="pill">Probiotic</span>
+        <span class="pill">Cambridge science</span>
+        <span class="pill">IP in preparation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Trial ── -->
+  <div class="trial-banner">
+    <div>
+      <div class="section-label">Clinical validation</div>
+      <h2>PROFILE — Phase I pre-post trial, currently enrolling</h2>
+      <p>
+        The PROFILE trial is a pre-post study assessing safety and biomarker effects of 1C-01 in healthy adults aged 50–65. Participants complete a cognitive battery and provide biomarker samples at baseline and after a 60-day course. We are raising £800K to complete the trial and support the next stage of development.
+      </p>
+    </div>
+    <div class="trial-raise">
+      <div class="amount">£800K</div>
+      <div class="label">Current raise</div>
+    </div>
+  </div>
+
+  <!-- ── Publications ── -->
+  <section class="publications">
+    <div class="section-label">Published research</div>
+    <h2>The science behind 1C-01</h2>
+    <p class="pub-intro">
+      Five peer-reviewed papers from Cambridge underpin what we are building. Each describes one aspect of the pathway we are targeting. The details of how 1C-01 works remain unpublished due to patents in preparation.
+    </p>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-body">
+          <div class="pub-title">
+            <a href="https://www.nature.com/articles/s41419-024-07179-3" target="_blank">
+              Yu et al. — Enhancing mitochondrial one-carbon metabolism is neuroprotective in Alzheimer's disease models
+            </a>
+          </div>
+          <div class="pub-desc">Boosting the one-carbon pathway improved mitochondrial function in AD models — the core mechanistic rationale behind 1C-01. <em>Cell Death &amp; Disease</em>, Nature.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-body">
+          <div class="pub-title">
+            Yu &amp; Martins — Mitochondrial one-carbon metabolism and Alzheimer's disease
+          </div>
+          <div class="pub-desc">Five key metabolic processes disrupted in Alzheimer's — including redox balance and NAD⁺ availability — all converge on the one-carbon pathway. SAM, the brain's primary methyl donor produced by this pathway, is severely depleted in AD brains.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-body">
+          <div class="pub-title">
+            <a href="https://www.nature.com/articles/s41419-025-08066-1" target="_blank">
+              Yu et al. — Increased nucleotide metabolism alleviates Alzheimer's disease pathology
+            </a>
+          </div>
+          <div class="pub-desc">Phosphorylated nucleotides are depleted in AD models; restoring them through dietary supplementation reduced oxidative DNA damage and improved mitochondrial function. <em>Cell Death &amp; Disease</em>, Nature.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <div class="pub-body">
+          <div class="pub-title">
+            <a href="https://www.nature.com/articles/s41419-021-03926-y" target="_blank">
+              Yu et al. — Parp mutations protect from mitochondrial toxicity in Alzheimer's disease
+            </a>
+          </div>
+          <div class="pub-desc">Metabolomic analysis of AD models identified depleted NAD⁺ as a key driver of neuronal energy failure — and showed that restoring NAD⁺ availability is neuroprotective. <em>Cell Death &amp; Disease</em>, Nature.</div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-body">
+          <div class="pub-title">
+            <a href="https://www.biorxiv.org/content/10.1101/2025.02.26.640405v1" target="_blank">
+              Yu et al. — Amyloid-β moderates sleep duration through NAD⁺-linked redox metabolism
+            </a>
+          </div>
+          <div class="pub-desc">Sleep disruption in Alzheimer's is mechanistically linked to NAD⁺-dependent metabolism — the same pathway 1C-01 targets. <em>bioRxiv</em> 2025.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Recognition ── -->
+  <div class="recognition">
+    <div class="section-label">Recognised by</div>
+    <div class="rec-logos">
+      <img src="media/logo-forbes.png" alt="Forbes">
+      <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation">
+      <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK">
+      <img src="media/logo-trinbrad.png" alt="Trinity Bradfield">
+      <img src="media/logo-launchpad.png" alt="Launchpad">
+      <img src="deck/assets/csar.svg" alt="CSAR">
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-left">
+      One Carbon is a trading name of Healthspan Biotics Ltd<br>
+      Registered in England &amp; Wales · Company No. 15224752<br>
+      1C-01 is a food supplement. Not approved to diagnose, treat, cure, or prevent any disease.
+    </div>
+    <div class="footer-right">
+      <a href="https://onecarbon.com">onecarbon.com</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
