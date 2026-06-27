@@ -216,9 +216,6 @@
       /* Let hero shrink to content height so What We Do is visible on first load */
       .hero { min-height: 0 !important; padding-bottom: 80px; }
 
-      /* Recog bar: shrink logos and tighten spacing so all 4 fit on one line */
-      .recog-bar { gap: 12px !important; padding: 14px 12px !important; flex-wrap: nowrap !important; }
-      .recog-bar .recognised-logo { height: 36px; }
     }
   .mailing-input::placeholder { color: rgba(255,255,255,0.75); }
 
@@ -331,15 +328,28 @@
   </section>
 
   <!-- Recognised by -->
-  <div style="background:#FFFFFF;border-top:1px solid rgba(10,15,26,0.08);border-bottom:1px solid rgba(10,15,26,0.08);display:flex;align-items:center;justify-content:center;gap:40px;padding:14px 40px;flex-wrap:wrap;">
-    <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
-    <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
-    <img src="deck/assets/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo" style="filter:brightness(0);opacity:0.6;">
-    <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK Business Connect" class="recognised-logo">
-    <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
-    <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
-    <img src="deck/assets/csar.svg" alt="CSAR" class="recognised-logo">
-  </div>
+  <section class="recognised-by-section">
+    <div class="recognised-by-logos">
+      <div class="logo-set">
+        <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+        <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+        <img src="media/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo">
+        <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK" class="recognised-logo">
+        <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+        <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+        <img src="media/csar.svg" alt="CSAR" class="recognised-logo">
+      </div>
+      <div class="logo-set" aria-hidden="true">
+        <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+        <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+        <img src="media/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo">
+        <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK" class="recognised-logo">
+        <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+        <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+        <img src="media/csar.svg" alt="CSAR" class="recognised-logo">
+      </div>
+    </div>
+  </section>
   <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
   <div style="background:#F7F5F0;">
   <style>
