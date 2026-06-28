@@ -44,10 +44,10 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-0.01em}
 .slide.tint{background:var(--accent-tint)}
 
 /* Frame */
-.frame-mark{position:absolute;top:3vh;right:3vw;display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:14px;font-weight:500;color:var(--text)}
-.frame-mark .lg{font-weight:700;color:var(--accent)}
-.dark .frame-mark, .accent .frame-mark{color:var(--surface)}
-.dark .frame-mark .lg, .accent .frame-mark .lg{color:var(--accent-soft)}
+.frame-mark{position:absolute;top:3vh;right:3vw;display:flex;align-items:center;gap:8px;}
+.frame-mark img{height:28px;width:auto;display:block;}
+.dark .frame-mark img, .accent .frame-mark img{filter:brightness(0) invert(1);}
+.budget .frame-mark img{filter:brightness(0) invert(1);}
 .frame-num{position:absolute;bottom:3vh;right:3vw;font-family:var(--serif);font-size:13px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;font-weight:500}
 .dark .frame-num, .accent .frame-num{color:rgba(255,255,255,0.5)}
 .frame-foot{position:absolute;bottom:3vh;left:3vw;font-family:var(--sans);font-size:13px;letter-spacing:0.06em;color:var(--text-faint)}
@@ -469,7 +469,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,15,26,0.65) 0%, rgba(31,53,90,0.45) 100%);"></div>
 
     <div style="position:relative;z-index:1;padding:6vh 6vw;height:100%;display:flex;flex-direction:column;justify-content:center;">
-      <div class="frame-mark" style="position:absolute;top:3vh;right:3vw;"><span class="brand-name" style="color:#fff;">One<span style="color:var(--accent-soft);">Carbon</span></span></div>
+      <div class="frame-mark" style="position:absolute;top:3vh;right:3vw;"><img src="assets/onecarbon_logo.png" alt="OneCarbon" style="filter:brightness(0) invert(1);"></div>
 
       <div class="eyebrow reveal" style="color:var(--accent-soft);">Problem & Vision</div>
 
@@ -489,7 +489,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 3: DISCOVERY -->
   <section class="slide tint" id="innovation-main" style="padding:4vh 5vw 3vh;">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Discovery</div>
     <h1 class="headline reveal reveal-d1" style="font-size:clamp(26px,2.8vw,46px);margin-bottom:0.2em;"><em>Neuronal resilience</em> mechanisms in Alzheimer's disease</h1>
     <p class="subhead reveal reveal-d2" style="font-size:13px;margin-bottom:2vh;visibility:hidden;height:0;margin:0;"></p>
@@ -613,7 +613,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 4: EVOLUTION -->
   <section class="slide" id="evolution" style="padding:0;background:#f8f7f4;overflow:hidden;">
-    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark" style="z-index:10;"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
 
     <!-- Figure: fills right ~65%, full height -->
     <div class="reveal reveal-d2" style="position:absolute;right:0;top:0;bottom:0;width:66%;display:flex;align-items:center;justify-content:center;padding:4vh 3vw 4vh 0;box-sizing:border-box;">
@@ -650,7 +650,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 6: PRODUCT — 1C01 -->
   <section class="slide product-slide surface" style="display:flex;flex-direction:column;">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">product</div>
     <h1 class="headline reveal reveal-d1" style="margin-bottom:0;"><em>1C-01</em> — a daily probiotic + biomarker tracking.</h1>
 
@@ -693,7 +693,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 7: PILOT VALIDATION -->
   <section class="slide" style="padding:0;background:var(--bg);overflow:hidden;">
-    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark" style="z-index:10;"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
 
     <!-- Two-column layout: text left, figures right -->
     <div style="display:grid;grid-template-columns:1fr 1fr;height:100%;gap:0;">
@@ -759,7 +759,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 7: IP & MOAT -->
   <section class="slide moat">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Defensibility</div>
     <h1 class="headline reveal reveal-d1">A <em>3X</em> moat — patent, trade secret, and brand.</h1>
 
@@ -797,9 +797,9 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 8: COMPETITIVE LANDSCAPE -->
   <section class="slide compete">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Competitive positioning</div>
-    <h1 class="headline reveal reveal-d1">No competitor combines our <em>mechanism, safety profile, and clinical backing</em>.</h1>
+    <h1 class="headline reveal reveal-d1">1C-01 occupies a unique position — <em>mechanism, safety, and clinical backing</em> in one.</h1>
 
     <div id="cp-wrap" class="reveal reveal-d2">
       <div id="cp-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity 0.15s ease;max-width:270px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
@@ -818,11 +818,12 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <!-- Quadrant hint -->
         <!-- <text x="652" y="62" font-size="13" fill="#1E9A8D" font-family="serif" text-anchor="end" opacity="0.7" font-style="italic">ideal zone</text> -->
 
-        <!-- Souvenaid: very low efficacy, high safety → (120, 100) -->
-        <g class="cp-dot" data-name="Souvenaid" data-val="High safety · Low efficacy" data-desc="Nutritional medical food (Nutricia). Excellent safety record but limited evidence for disease modification in AD.">
+        <!-- Souvenaid or other vitamins: very low efficacy, high safety → (120, 100) -->
+        <g class="cp-dot" data-name="Souvenaid or other vitamins" data-val="High safety · Low efficacy" data-desc="Nutritional medical food (Nutricia) and comparable vitamins. Excellent safety record but limited evidence for disease modification in AD.">
           <circle cx="120" cy="100" r="15" fill="#aaa" opacity="0.15"/>
           <circle cx="120" cy="100" r="9" fill="#aaa" opacity="0.65"/>
-          <text x="120" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
+          <text x="120" y="66" font-size="13" fill="#999" font-family="serif" text-anchor="middle">Souvenaid or</text>
+          <text x="120" y="81" font-size="13" fill="#999" font-family="serif" text-anchor="middle">other vitamins</text>
         </g>
 
         <!-- Bloom Science: low-mid efficacy (preclinical), mid safety → (270, 175) -->
@@ -876,7 +877,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 9: REVENUE STRATEGY -->
   <section class="slide surface" style="padding:5vh 5vw;display:flex;flex-direction:column;">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Revenue strategy</div>
     <h1 class="headline reveal reveal-d1"><em>D2C entry</em> — then B2B2C as the defensible long-term channel.</h1>
     <p class="subhead reveal reveal-d2">Novel safe probiotic sold direct to at-risk individuals first · efficacy data + competitive moat unlock institutional channels · hover to explore.</p>
@@ -942,7 +943,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <div id="panel-pharma" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
           <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#4a6a9a;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Retail · <em style="font-style:normal;">2029+</em></div>
           <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Pharmacy &amp; specialist retail</div>
-          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Pharmacist-recommended premium supplement — complementary to existing medication. Positioned alongside Souvenaid in specialist brain-health channels.</p>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Pharmacist-recommended premium supplement — complementary to existing medication. Positioned alongside Souvenaid or other vitamins in specialist brain-health channels.</p>
           <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">Pharmacy · specialist retail · HCP recommendation</div>
         </div>
       </div>
@@ -1050,7 +1051,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 10: VALIDATION ROADMAP -->
   <section class="slide roadmap">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Validation & valuation</div>
     <h1 class="headline reveal reveal-d1"><em>Staged</em> derisking — each step validates the next.</h1>
 
@@ -1259,7 +1260,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
   <!-- 11: TEAM -->
   <section class="slide team-slide">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow reveal">Team</div>
     <h1 class="headline reveal reveal-d1"><em>Science, execution</em> and clinic.</h1>
 
@@ -1369,7 +1370,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 <!-- BUDGET SLIDE — hidden, not in deck. Kept for reference / future use. -->
 <div style="display:none;" aria-hidden="true">
   <section class="slide budget">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="frame-mark"><img src="assets/onecarbon_logo.png" alt="OneCarbon"></div>
     <div class="eyebrow">Use of funds</div>
     <h1 class="headline">Raising £800K to support our <em>pre-post trial</em>.</h1>
     <div id="sankey_chart"></div>
