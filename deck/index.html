@@ -475,7 +475,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
 
       <div class="reveal reveal-d1" style="margin:2.5vh 0 5vh;">
         <div style="font-family:var(--serif);font-size:clamp(32px,3.8vw,62px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:#fff;max-width:900px;">
-          <em style="font-style:normal;color:var(--accent-soft);">1 in 3</em> people will get dementia
+          <em style="font-style:normal;color:var(--accent-soft);">1 in 3</em> people will get <em style="font-style:normal;color:#1E9A8D;">dementia</em>
         </div>
       </div>
 
@@ -757,12 +757,300 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div class="frame-num">06 / 12</div>
   </section>
 
-  <!-- 8: VALIDATION ROADMAP -->
+  <!-- 7: IP & MOAT -->
+  <section class="slide moat">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">Defensibility</div>
+    <h1 class="headline reveal reveal-d1">A <em>3X</em> moat — patent, trade secret, and brand.</h1>
+
+    <div class="moat-grid">
+      <div class="moat-card reveal reveal-d2">
+        <div class="moat-num">i.</div>
+        <h3>Patent estate</h3>
+        <ul>
+          <li>Application in preparation covering evolved strains, their distinguishing genetic characteristics, and use for treatment of neurodegenerative diseases.</li>
+          <li>NCIMB-deposited strains satisfy the biological-material disclosure requirement.</li>
+        </ul>
+      </div>
+      <div class="moat-card reveal reveal-d3">
+        <div class="moat-num">ii.</div>
+        <h3>Trade-secret know-how</h3>
+        <ul>
+          <li>AI + lab platform, directed-evolution screen, and culturing method held as trade secrets.</li>
+          <li>Privileged data from initial consumers.</li>
+        </ul>
+      </div>
+      <div class="moat-card reveal reveal-d4">
+        <div class="moat-num">iii.</div>
+        <h3>Brand &amp; published science</h3>
+        <ul>
+          <li>5 peer-reviewed papers establish scientific priority.</li>
+          <li>Milner Therapeutics (Cambridge) host.</li>
+          <li>Falling Walls · Forbes 30 Under 30 · Cambridge-led RCT · <a href="https://www.alzheimers.org.uk/news/2026-03-16/new-innovators-partner-alzheimers-society-transform-dementia" target="_blank" rel="noopener" style="color:inherit;text-underline-offset:2px;">Alzheimer’s Society Launchpad ↗</a>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="frame-num">07 / 12</div>
+  </section>
+
+  <!-- 8: COMPETITIVE LANDSCAPE -->
+  <section class="slide compete">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">Competitive positioning</div>
+    <h1 class="headline reveal reveal-d1">No competitor combines our <em>mechanism, safety profile, and clinical backing</em>.</h1>
+
+    <div id="cp-wrap" class="reveal reveal-d2">
+      <div id="cp-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity 0.15s ease;max-width:270px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
+      <svg id="cp-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+        <!-- Quadrant shading — top-right is "ideal" -->
+        <rect x="370" y="40" width="290" height="190" fill="#1E9A8D" opacity="0.04" rx="4"/>
+        <!-- Axes -->
+        <line x1="80" y1="400" x2="660" y2="400" stroke="#888" stroke-width="2.5"/>
+        <line x1="80" y1="40" x2="80" y2="400" stroke="#888" stroke-width="2.5"/>
+        <!-- Axis arrow tips -->
+        <polygon points="660,396 668,400 660,404" fill="#888"/>
+        <polygon points="76,40 80,32 84,40" fill="#888"/>
+        <!-- Axis labels -->
+        <text x="370" y="418" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">EFFICACY</text>
+        <text transform="rotate(-90,22,220)" x="22" y="220" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">SAFETY</text>
+        <!-- Quadrant hint -->
+        <!-- <text x="652" y="62" font-size="13" fill="#1E9A8D" font-family="serif" text-anchor="end" opacity="0.7" font-style="italic">ideal zone</text> -->
+
+        <!-- Souvenaid: very low efficacy, high safety → (120, 100) -->
+        <g class="cp-dot" data-name="Souvenaid" data-val="High safety · Low efficacy" data-desc="Nutritional medical food (Nutricia). Excellent safety record but limited evidence for disease modification in AD.">
+          <circle cx="120" cy="100" r="15" fill="#aaa" opacity="0.15"/>
+          <circle cx="120" cy="100" r="9" fill="#aaa" opacity="0.65"/>
+          <text x="120" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
+        </g>
+
+        <!-- Bloom Science: low-mid efficacy (preclinical), mid safety → (270, 175) -->
+        <g class="cp-dot" data-name="Bloom Science" data-val="Uncertain · Preclinical" data-desc="US gut-microbiome CNS platform. BL-002 for Alzheimer's is preclinical — no human safety or efficacy data yet.">
+          <circle cx="270" cy="175" r="15" fill="#888" opacity="0.12"/>
+          <circle cx="270" cy="175" r="9" fill="#888" opacity="0.5"/>
+          <text x="270" y="153" font-size="15" fill="#aaa" font-family="serif" text-anchor="middle">Bloom Science</text>
+        </g>
+
+        <!-- Lecanemab: high efficacy, low safety → (590, 340) -->
+        <g class="cp-dot" data-name="Lecanemab" data-val="High efficacy · Safety risks" data-desc="Anti-amyloid antibody (Eisai/Biogen). Slows cognitive decline but causes brain swelling (ARIA) and microbleeds. IV infusion only. £25,000/yr.">
+          <circle cx="590" cy="340" r="15" fill="#b05" opacity="0.12"/>
+          <circle cx="590" cy="340" r="9" fill="#b05" opacity="0.55"/>
+          <text x="590" y="318" font-size="15" fill="#b05" font-family="serif" text-anchor="middle" opacity="0.85">Lecanemab</text>
+        </g>
+
+        <!-- 1C-01: high efficacy, high safety → (560, 80) — teal, prominent -->
+        <g class="cp-dot" data-name="1C-01 (OneCarbon)" data-val="High efficacy · High safety" data-desc="0% adverse events in 60-person human pilot. Food-grade probiotic, daily capsule. Validated mechanism — 5 peer-reviewed papers. PROFILE RCT underway.">
+          <circle cx="560" cy="80" r="26" fill="#1E9A8D" opacity="0.14"/>
+          <circle cx="560" cy="80" r="15" fill="#1E9A8D" opacity="0.9"/>
+          <text x="560" y="55" font-size="17" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">1C-01</text>
+        </g>
+      </svg>
+
+      <script>(function(){
+        var tip=document.getElementById('cp-tip');
+        var wrap=document.getElementById('cp-wrap');
+        function showTip(d,e){
+          tip.innerHTML='<div style="font-weight:700;font-size:17px;margin-bottom:4px;">'+d.name+'</div>'
+            +'<div style="font-size:13px;color:#1E9A8D;font-weight:600;margin-bottom:9px;">'+d.val+'</div>'
+            +'<div style="font-size:14px;opacity:0.88;line-height:1.55;">'+d.desc+'</div>';
+          moveTip(e); tip.style.opacity='1';
+        }
+        function moveTip(e){
+          var r=wrap.getBoundingClientRect();
+          var x=e.clientX-r.left+14, y=e.clientY-r.top-14;
+          if(x+240>r.width) x=e.clientX-r.left-248;
+          tip.style.left=x+'px'; tip.style.top=y+'px';
+        }
+        function hideTip(){tip.style.opacity='0';}
+        document.querySelectorAll('#cp-svg .cp-dot').forEach(function(g){
+          g.style.cursor='default';
+          g.addEventListener('mouseenter',function(e){showTip(g.dataset,e);});
+          g.addEventListener('mousemove',moveTip);
+          g.addEventListener('mouseleave',hideTip);
+        });
+      })();</script>
+    </div>
+    <div class="frame-num">08 / 12</div>
+  </section>
+
+  <!-- 9: REVENUE STRATEGY -->
+  <section class="slide surface" style="padding:5vh 5vw;display:flex;flex-direction:column;">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">Revenue strategy</div>
+    <h1 class="headline reveal reveal-d1"><em>D2C entry</em> — then B2B2C as the defensible long-term channel.</h1>
+    <p class="subhead reveal reveal-d2">Novel safe probiotic sold direct to at-risk individuals first · efficacy data + competitive moat unlock institutional channels · hover to explore.</p>
+
+    <div class="reveal reveal-d3" style="display:flex;gap:5vw;align-items:center;justify-content:center;flex:1;overflow:hidden;">
+
+      <!-- Wheel — perfectly round, three equal 120° segments -->
+      <div id="rev-wheel" style="flex-shrink:0;width:clamp(280px,34vw,440px);height:clamp(280px,34vw,440px);">
+        <svg id="rev-svg" viewBox="0 0 200 200" style="width:100%;height:100%;display:block;">
+          <!-- Segment 1: Direct (top-right, -90° to 30°) — ENTRY WEDGE in teal -->
+          <path id="seg-direct" d="M100,100 L100,8 A92,92 0 0,1 179.67,146 Z"
+            fill="#1E9A8D" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Segment 2: Care homes (bottom, 30° to 150°) -->
+          <path id="seg-care" d="M100,100 L179.67,146 A92,92 0 0,1 20.33,146 Z"
+            fill="#162844" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Segment 3: Pharmacy (top-left, 150° to 270°) -->
+          <path id="seg-pharma" d="M100,100 L20.33,146 A92,92 0 0,1 100,8 Z"
+            fill="#4a6a9a" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Centre disc -->
+          <circle cx="100" cy="100" r="36" fill="white" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.08))"/>
+          <text x="100" y="94" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1E9A8D" font-weight="700" letter-spacing="1">D2C</text>
+          <text x="100" y="103" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="#bbb">→</text>
+          <text x="100" y="113" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1f355a" font-weight="700" letter-spacing="1">B2B2C</text>
+          <!-- Labels at centroid of each arc (r=60) -->
+          <!-- Direct: mid=-30° → (151.96, 70) -->
+          <text x="151.96" y="57" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">D2C</text>
+          <text x="151.96" y="68" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.9)">Entry wedge</text>
+          <text x="151.96" y="78" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.75)">2026+</text>
+          <!-- Care homes: mid=90° → (100, 160) -->
+          <text x="100" y="152" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">Care</text>
+          <text x="100" y="162" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)">homes</text>
+          <text x="100" y="172" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2028+</text>
+          <!-- Pharmacy: mid=210° → (48.04, 70) -->
+          <text x="48.04" y="62" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">Pharmacy</text>
+          <text x="48.04" y="72" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)">&amp; retail</text>
+          <text x="48.04" y="82" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2029+</text>
+        </svg>
+      </div>
+
+      <!-- Detail panel -->
+      <div style="flex:1;min-width:0;position:relative;min-height:260px;">
+        <div id="rev-default" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;">
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-faint);line-height:1.7;">Hover a segment to explore each channel.</p>
+        </div>
+
+        <div id="panel-direct" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:12px;letter-spacing:0.16em;color:#1E9A8D;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Entry wedge · <em style="font-style:normal;">2026+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Direct-to-consumer</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Novel safe probiotic sold direct to at-risk individuals — APOE ε4 carriers, family history of dementia. Food-grade, no prescription needed. Recruited via PROFILE trial alumni and word of mouth.</p>
+          <div style="font-family:var(--sans);font-size:13px;color:var(--text-faint);">Online · £1,000/yr · supplement + biomarker kit · builds the efficacy evidence base that unlocks B2B2C</div>
+        </div>
+
+        <div id="panel-care" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#162844;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Institutional · <em style="font-style:normal;">2028+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Care homes</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Dementia prevention protocols for residential care. 500k+ UK care home residents. B2B contracts with group operators — outcome-linked pricing model.</p>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">B2B contracts · group subscription · outcome-linked</div>
+        </div>
+
+        <div id="panel-pharma" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#4a6a9a;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Retail · <em style="font-style:normal;">2029+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Pharmacy &amp; specialist retail</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Pharmacist-recommended premium supplement — complementary to existing medication. Positioned alongside Souvenaid in specialist brain-health channels.</p>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">Pharmacy · specialist retail · HCP recommendation</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Buyer personas -->
+    <div class="reveal reveal-d4" style="margin-top:2.5vh;padding-top:2vh;border-top:1px solid var(--border);">
+      <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:1.5vh;">Buyer personas · hover to explore</div>
+      <!-- personas font sizes bumped below -->
+      <div style="display:flex;gap:1.5vw;">
+
+        <!-- Persona 1 -->
+        <div id="persona-1" style="flex:1;position:relative;cursor:pointer;">
+          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--accent);background:var(--accent-tint);transition:background 0.2s;">
+            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:30px;">👩</div>
+            <div>
+              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--accent);">Primary</div>
+              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">Sarah, 55 · family history of AD</div>
+            </div>
+          </div>
+          <div id="persona-detail-1" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(31,53,90,0.18);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
+            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--accent);margin-bottom:0.6vh;">Primary buyer</div>
+            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"I watched my mother decline. I want to do something now."</div>
+            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:0.8vh;">55-year-old woman. Mother had Alzheimer's. She's noticed some word-finding gaps and forgetfulness — nothing alarming, but enough to worry. She researches, takes action. APOE ε4 positive or untested but anxious. Wants a credible, science-backed intervention she can start <em>now</em>, before any diagnosis.</p>
+            <div style="display:flex;gap:1vw;flex-wrap:wrap;">
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Family history</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Early symptoms</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Proactive</span>
+            </div>
+            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">How we reach her</div>
+            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;">
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">PROFILE trial alumni</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">Dementia research communities</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">Social media — reshared by Alzheimer’s Society</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persona 2 -->
+        <div id="persona-2" style="flex:1;position:relative;cursor:pointer;">
+          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--border);background:var(--bg-deep);transition:background 0.2s;">
+            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:30px;">🧑‍🤝‍🧑</div>
+            <div>
+              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text-muted);">Secondary</div>
+              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">Friend or family member · gifting</div>
+            </div>
+          </div>
+          <div id="persona-detail-2" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(0,0,0,0.1);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
+            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:0.6vh;">Secondary buyer</div>
+            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"She won't buy it for herself. I will."</div>
+            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:1.2vh;">Adult child or close friend of someone with a family history of dementia. Bought as a gift — or proactively suggests it. High motivation, high willingness to pay. Drives word-of-mouth. Often more engaged with the science than the primary user.</p>
+            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">How we reach them</div>
+            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;margin-bottom:1vh;">
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Word of mouth from primary users</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Search &amp; social — gifting intent</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Dementia awareness content</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Social media eg podcasts — reshared by Alzheimer’s Society</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="frame-num">09 / 12</div>
+  </section>
+
+  <script>
+  (function() {
+    var map = { 'seg-direct': 'direct', 'seg-care': 'care', 'seg-pharma': 'pharma' };
+    var segs = Object.keys(map);
+    function showPanel(key) {
+      document.getElementById('rev-default').style.opacity = key ? '0' : '1';
+      ['direct','care','pharma'].forEach(function(id) {
+        var p = document.getElementById('panel-' + id);
+        p.style.opacity = (id === key) ? '1' : '0';
+        p.style.pointerEvents = (id === key) ? 'auto' : 'none';
+      });
+      segs.forEach(function(sid) {
+        document.getElementById(sid).style.opacity = (!key || map[sid] === key) ? '1' : '0.35';
+      });
+    }
+    segs.forEach(function(sid) {
+      var el = document.getElementById(sid);
+      el.addEventListener('mouseenter', function() { showPanel(map[sid]); });
+      el.addEventListener('mouseleave', function() { showPanel(null); });
+    });
+
+    // Persona hover
+    [1, 2].forEach(function(n) {
+      var card = document.getElementById('persona-' + n);
+      var detail = document.getElementById('persona-detail-' + n);
+      card.addEventListener('mouseenter', function() {
+        detail.style.opacity = '1';
+        detail.style.pointerEvents = 'auto';
+      });
+      card.addEventListener('mouseleave', function() {
+        detail.style.opacity = '0';
+        detail.style.pointerEvents = 'none';
+      });
+    });
+  })();
+  </script>
+
+  <!-- 10: VALIDATION ROADMAP -->
   <section class="slide roadmap">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
     <div class="eyebrow reveal">Validation & valuation</div>
     <h1 class="headline reveal reveal-d1"><em>Staged</em> derisking — each step validates the next.</h1>
-
 
     <!-- Value creation chart: viewBox 800x500 (1.6:1) fills space on both desktop & mobile -->
     <!-- x(yr)=75+(yr-2019)/13*715  y(v)=470-(log10(v)-0.301)/2.544*440 -->
@@ -964,299 +1252,10 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       </div>
     </div>
 
-    <div class="frame-num">07 / 12</div>
-  </section>
-
-  <!-- 11: IP & MOAT -->
-  <section class="slide moat">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Defensibility</div>
-    <h1 class="headline reveal reveal-d1">A <em>3X</em> moat — patent, trade secret, and brand.</h1>
-
-    <div class="moat-grid">
-      <div class="moat-card reveal reveal-d2">
-        <div class="moat-num">i.</div>
-        <h3>Patent estate</h3>
-        <ul>
-          <li>Application in preparation covering evolved strains, their distinguishing genetic characteristics, and use for treatment of neurodegenerative diseases.</li>
-          <li>NCIMB-deposited strains satisfy the biological-material disclosure requirement.</li>
-        </ul>
-      </div>
-      <div class="moat-card reveal reveal-d3">
-        <div class="moat-num">ii.</div>
-        <h3>Trade-secret know-how</h3>
-        <ul>
-          <li>AI + lab platform, directed-evolution screen, and culturing method held as trade secrets.</li>
-          <li>Privileged data from initial consumers.</li>
-        </ul>
-      </div>
-      <div class="moat-card reveal reveal-d4">
-        <div class="moat-num">iii.</div>
-        <h3>Brand &amp; published science</h3>
-        <ul>
-          <li>5 peer-reviewed papers establish scientific priority.</li>
-          <li>Milner Therapeutics (Cambridge) host.</li>
-          <li>Falling Walls · Forbes 30 Under 30 · Cambridge-led RCT · <a href="https://www.alzheimers.org.uk/news/2026-03-16/new-innovators-partner-alzheimers-society-transform-dementia" target="_blank" rel="noopener" style="color:inherit;text-underline-offset:2px;">Alzheimer’s Society Launchpad ↗</a>.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="frame-num">08 / 12</div>
-  </section>
-
-  <!-- 09: COMPETITIVE LANDSCAPE -->
-  <section class="slide compete">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Competitive positioning</div>
-    <h1 class="headline reveal reveal-d1">No competitor combines our <em>mechanism, safety profile, and clinical backing</em>.</h1>
-
-    <div id="cp-wrap" class="reveal reveal-d2">
-      <div id="cp-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity 0.15s ease;max-width:270px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
-      <svg id="cp-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
-        <!-- Quadrant shading — top-right is "ideal" -->
-        <rect x="370" y="40" width="290" height="190" fill="#1E9A8D" opacity="0.04" rx="4"/>
-        <!-- Axes -->
-        <line x1="80" y1="400" x2="660" y2="400" stroke="#888" stroke-width="2.5"/>
-        <line x1="80" y1="40" x2="80" y2="400" stroke="#888" stroke-width="2.5"/>
-        <!-- Axis arrow tips -->
-        <polygon points="660,396 668,400 660,404" fill="#888"/>
-        <polygon points="76,40 80,32 84,40" fill="#888"/>
-        <!-- Axis labels -->
-        <text x="370" y="418" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">EFFICACY</text>
-        <text transform="rotate(-90,22,220)" x="22" y="220" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">SAFETY</text>
-        <!-- Quadrant hint -->
-        <!-- <text x="652" y="62" font-size="13" fill="#1E9A8D" font-family="serif" text-anchor="end" opacity="0.7" font-style="italic">ideal zone</text> -->
-
-        <!-- Souvenaid: very low efficacy, high safety → (120, 100) -->
-        <g class="cp-dot" data-name="Souvenaid" data-val="High safety · Low efficacy" data-desc="Nutritional medical food (Nutricia). Excellent safety record but limited evidence for disease modification in AD.">
-          <circle cx="120" cy="100" r="15" fill="#aaa" opacity="0.15"/>
-          <circle cx="120" cy="100" r="9" fill="#aaa" opacity="0.65"/>
-          <text x="120" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
-        </g>
-
-        <!-- Bloom Science: low-mid efficacy (preclinical), mid safety → (270, 175) -->
-        <g class="cp-dot" data-name="Bloom Science" data-val="Uncertain · Preclinical" data-desc="US gut-microbiome CNS platform. BL-002 for Alzheimer's is preclinical — no human safety or efficacy data yet.">
-          <circle cx="270" cy="175" r="15" fill="#888" opacity="0.12"/>
-          <circle cx="270" cy="175" r="9" fill="#888" opacity="0.5"/>
-          <text x="270" y="153" font-size="15" fill="#aaa" font-family="serif" text-anchor="middle">Bloom Science</text>
-        </g>
-
-        <!-- Lecanemab: high efficacy, low safety → (590, 340) -->
-        <g class="cp-dot" data-name="Lecanemab" data-val="High efficacy · Safety risks" data-desc="Anti-amyloid antibody (Eisai/Biogen). Slows cognitive decline but causes brain swelling (ARIA) and microbleeds. IV infusion only. £25,000/yr.">
-          <circle cx="590" cy="340" r="15" fill="#b05" opacity="0.12"/>
-          <circle cx="590" cy="340" r="9" fill="#b05" opacity="0.55"/>
-          <text x="590" y="318" font-size="15" fill="#b05" font-family="serif" text-anchor="middle" opacity="0.85">Lecanemab</text>
-        </g>
-
-        <!-- 1C-01: high efficacy, high safety → (560, 80) — teal, prominent -->
-        <g class="cp-dot" data-name="1C-01 (OneCarbon)" data-val="High efficacy · High safety" data-desc="0% adverse events in 60-person human pilot. Food-grade probiotic, daily capsule. Validated mechanism — 5 peer-reviewed papers. PROFILE RCT underway.">
-          <circle cx="560" cy="80" r="26" fill="#1E9A8D" opacity="0.14"/>
-          <circle cx="560" cy="80" r="15" fill="#1E9A8D" opacity="0.9"/>
-          <text x="560" y="55" font-size="17" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">1C-01</text>
-        </g>
-      </svg>
-
-      <script>(function(){
-        var tip=document.getElementById('cp-tip');
-        var wrap=document.getElementById('cp-wrap');
-        function showTip(d,e){
-          tip.innerHTML='<div style="font-weight:700;font-size:17px;margin-bottom:4px;">'+d.name+'</div>'
-            +'<div style="font-size:13px;color:#1E9A8D;font-weight:600;margin-bottom:9px;">'+d.val+'</div>'
-            +'<div style="font-size:14px;opacity:0.88;line-height:1.55;">'+d.desc+'</div>';
-          moveTip(e); tip.style.opacity='1';
-        }
-        function moveTip(e){
-          var r=wrap.getBoundingClientRect();
-          var x=e.clientX-r.left+14, y=e.clientY-r.top-14;
-          if(x+240>r.width) x=e.clientX-r.left-248;
-          tip.style.left=x+'px'; tip.style.top=y+'px';
-        }
-        function hideTip(){tip.style.opacity='0';}
-        document.querySelectorAll('#cp-svg .cp-dot').forEach(function(g){
-          g.style.cursor='default';
-          g.addEventListener('mouseenter',function(e){showTip(g.dataset,e);});
-          g.addEventListener('mousemove',moveTip);
-          g.addEventListener('mouseleave',hideTip);
-        });
-      })();</script>
-    </div>
-    <div class="frame-num">09 / 12</div>
-  </section>
-
-  <!-- 10: REVENUE STRATEGY -->
-  <section class="slide surface" style="padding:5vh 5vw;display:flex;flex-direction:column;">
-    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
-    <div class="eyebrow reveal">Revenue strategy</div>
-    <h1 class="headline reveal reveal-d1"><em>D2C entry</em> — then B2B2C as the defensible long-term channel.</h1>
-    <p class="subhead reveal reveal-d2">Novel safe probiotic sold direct to at-risk individuals first · efficacy data + competitive moat unlock institutional channels · hover to explore.</p>
-
-    <div class="reveal reveal-d3" style="display:flex;gap:5vw;align-items:center;justify-content:center;flex:1;overflow:hidden;">
-
-      <!-- Wheel — perfectly round, three equal 120° segments -->
-      <div id="rev-wheel" style="flex-shrink:0;width:clamp(280px,34vw,440px);height:clamp(280px,34vw,440px);">
-        <svg id="rev-svg" viewBox="0 0 200 200" style="width:100%;height:100%;display:block;">
-          <!-- Segment 1: Direct (top-right, -90° to 30°) — ENTRY WEDGE in teal -->
-          <path id="seg-direct" d="M100,100 L100,8 A92,92 0 0,1 179.67,146 Z"
-            fill="#1E9A8D" stroke="white" stroke-width="2.5"
-            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
-          <!-- Segment 2: Care homes (bottom, 30° to 150°) -->
-          <path id="seg-care" d="M100,100 L179.67,146 A92,92 0 0,1 20.33,146 Z"
-            fill="#162844" stroke="white" stroke-width="2.5"
-            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
-          <!-- Segment 3: Pharmacy (top-left, 150° to 270°) -->
-          <path id="seg-pharma" d="M100,100 L20.33,146 A92,92 0 0,1 100,8 Z"
-            fill="#4a6a9a" stroke="white" stroke-width="2.5"
-            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
-          <!-- Centre disc -->
-          <circle cx="100" cy="100" r="36" fill="white" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.08))"/>
-          <text x="100" y="94" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1E9A8D" font-weight="700" letter-spacing="1">D2C</text>
-          <text x="100" y="103" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="#bbb">→</text>
-          <text x="100" y="113" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1f355a" font-weight="700" letter-spacing="1">B2B2C</text>
-          <!-- Labels at centroid of each arc (r=60) -->
-          <!-- Direct: mid=-30° → (151.96, 70) -->
-          <text x="151.96" y="57" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">D2C</text>
-          <text x="151.96" y="68" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.9)">Entry wedge</text>
-          <text x="151.96" y="78" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.75)">2026+</text>
-          <!-- Care homes: mid=90° → (100, 160) -->
-          <text x="100" y="152" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">Care</text>
-          <text x="100" y="162" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)">homes</text>
-          <text x="100" y="172" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2028+</text>
-          <!-- Pharmacy: mid=210° → (48.04, 70) -->
-          <text x="48.04" y="62" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">Pharmacy</text>
-          <text x="48.04" y="72" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)">&amp; retail</text>
-          <text x="48.04" y="82" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2029+</text>
-        </svg>
-      </div>
-
-      <!-- Detail panel -->
-      <div style="flex:1;min-width:0;position:relative;min-height:260px;">
-        <div id="rev-default" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;">
-          <p style="font-family:var(--sans);font-size:14px;color:var(--text-faint);line-height:1.7;">Hover a segment to explore each channel.</p>
-        </div>
-
-        <div id="panel-direct" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
-          <div style="font-family:var(--serif);font-size:12px;letter-spacing:0.16em;color:#1E9A8D;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Entry wedge · <em style="font-style:normal;">2026+</em></div>
-          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Direct-to-consumer</div>
-          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Novel safe probiotic sold direct to at-risk individuals — APOE ε4 carriers, family history of dementia. Food-grade, no prescription needed. Recruited via PROFILE trial alumni and word of mouth.</p>
-          <div style="font-family:var(--sans);font-size:13px;color:var(--text-faint);">Online · £1,000/yr · supplement + biomarker kit · builds the efficacy evidence base that unlocks B2B2C</div>
-        </div>
-
-        <div id="panel-care" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#162844;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Institutional · <em style="font-style:normal;">2028+</em></div>
-          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Care homes</div>
-          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Dementia prevention protocols for residential care. 500k+ UK care home residents. B2B contracts with group operators — outcome-linked pricing model.</p>
-          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">B2B contracts · group subscription · outcome-linked</div>
-        </div>
-
-        <div id="panel-pharma" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#4a6a9a;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">Retail · <em style="font-style:normal;">2029+</em></div>
-          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">Pharmacy &amp; specialist retail</div>
-          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">Pharmacist-recommended premium supplement — complementary to existing medication. Positioned alongside Souvenaid in specialist brain-health channels.</p>
-          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">Pharmacy · specialist retail · HCP recommendation</div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Buyer personas -->
-    <div class="reveal reveal-d4" style="margin-top:2.5vh;padding-top:2vh;border-top:1px solid var(--border);">
-      <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:1.5vh;">Buyer personas · hover to explore</div>
-      <!-- personas font sizes bumped below -->
-      <div style="display:flex;gap:1.5vw;">
-
-        <!-- Persona 1 -->
-        <div id="persona-1" style="flex:1;position:relative;cursor:pointer;">
-          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--accent);background:var(--accent-tint);transition:background 0.2s;">
-            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:30px;">👩</div>
-            <div>
-              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--accent);">Primary</div>
-              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">Sarah, 55 · family history of AD</div>
-            </div>
-          </div>
-          <div id="persona-detail-1" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(31,53,90,0.18);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
-            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--accent);margin-bottom:0.6vh;">Primary buyer</div>
-            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"I watched my mother decline. I want to do something now."</div>
-            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:0.8vh;">55-year-old woman. Mother had Alzheimer's. She's noticed some word-finding gaps and forgetfulness — nothing alarming, but enough to worry. She researches, takes action. APOE ε4 positive or untested but anxious. Wants a credible, science-backed intervention she can start <em>now</em>, before any diagnosis.</p>
-            <div style="display:flex;gap:1vw;flex-wrap:wrap;">
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Family history</span>
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Early symptoms</span>
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">Proactive</span>
-            </div>
-            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">How we reach her</div>
-            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;">
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">PROFILE trial alumni</span>
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">Dementia research communities</span>
-              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">Social media — reshared by Alzheimer’s Society</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Persona 2 -->
-        <div id="persona-2" style="flex:1;position:relative;cursor:pointer;">
-          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--border);background:var(--bg-deep);transition:background 0.2s;">
-            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:30px;">🧑‍🤝‍🧑</div>
-            <div>
-              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text-muted);">Secondary</div>
-              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">Friend or family member · gifting</div>
-            </div>
-          </div>
-          <div id="persona-detail-2" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(0,0,0,0.1);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
-            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:0.6vh;">Secondary buyer</div>
-            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"She won't buy it for herself. I will."</div>
-            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:1.2vh;">Adult child or close friend of someone with a family history of dementia. Bought as a gift — or proactively suggests it. High motivation, high willingness to pay. Drives word-of-mouth. Often more engaged with the science than the primary user.</p>
-            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">How we reach them</div>
-            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;margin-bottom:1vh;">
-              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Word of mouth from primary users</span>
-              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Search &amp; social — gifting intent</span>
-              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Dementia awareness content</span>
-              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">Social media eg podcasts — reshared by Alzheimer’s Society</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <div class="frame-num">10 / 12</div>
   </section>
 
-  <script>
-  (function() {
-    var map = { 'seg-direct': 'direct', 'seg-care': 'care', 'seg-pharma': 'pharma' };
-    var segs = Object.keys(map);
-    function showPanel(key) {
-      document.getElementById('rev-default').style.opacity = key ? '0' : '1';
-      ['direct','care','pharma'].forEach(function(id) {
-        var p = document.getElementById('panel-' + id);
-        p.style.opacity = (id === key) ? '1' : '0';
-        p.style.pointerEvents = (id === key) ? 'auto' : 'none';
-      });
-      segs.forEach(function(sid) {
-        document.getElementById(sid).style.opacity = (!key || map[sid] === key) ? '1' : '0.35';
-      });
-    }
-    segs.forEach(function(sid) {
-      var el = document.getElementById(sid);
-      el.addEventListener('mouseenter', function() { showPanel(map[sid]); });
-      el.addEventListener('mouseleave', function() { showPanel(null); });
-    });
-
-    // Persona hover
-    [1, 2].forEach(function(n) {
-      var card = document.getElementById('persona-' + n);
-      var detail = document.getElementById('persona-detail-' + n);
-      card.addEventListener('mouseenter', function() {
-        detail.style.opacity = '1';
-        detail.style.pointerEvents = 'auto';
-      });
-      card.addEventListener('mouseleave', function() {
-        detail.style.opacity = '0';
-        detail.style.pointerEvents = 'none';
-      });
-    });
-  })();
-  </script>
-
-  <!-- 12: TEAM -->
+  <!-- 11: TEAM -->
   <section class="slide team-slide">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
     <div class="eyebrow reveal">Team</div>
