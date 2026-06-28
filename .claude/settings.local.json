@@ -51,7 +51,9 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(cp \"/tmp/twocarbon_clone/js/cognitive-tests.js\" \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/js/cognitive-tests.js\")",
       "WebFetch(domain:idp.nature.com)",
-      "WebFetch(domain:www.biorxiv.org)"
+      "WebFetch(domain:www.biorxiv.org)",
+      "Bash(ls \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/media/logo/\")",
+      "Bash(gh api *)"
     ]
   }
 }
