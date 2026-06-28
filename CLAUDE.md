@@ -6,8 +6,8 @@ Fonts: DM Sans Medium 500 (headings) + Outfit (body) via Google Fonts.
 Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 
 ## Colours
-- --accent: #456BB7
-- --accent-dark: #2f4f8f
+- --accent: #1f355a
+- --accent-dark: #162844
 - Original fonts (before DM Sans/Outfit): Fraunces / Figtree
 
 ## Pages

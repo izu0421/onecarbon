@@ -23,8 +23,8 @@
    ============================================================ */
 
 :root {
-  --accent:       #456BB7;
-  --accent-dark:  #2f4f8f;
+  --accent:       #1f355a;
+  --accent-dark:  #162844;
   --bg:           #F7F5F0;
   --bg-alt:       #EFEDE8;
   --surface:      #ffffff;
@@ -107,7 +107,7 @@ h2 { font-size: clamp(2rem, 3.5vw, 3.5rem); }
 h3 { font-size: clamp(1.4rem, 2vw, 2rem); }
 h4 { font-size: 1.2rem; }
 
-h1 em, h2 em { font-style: normal; color: #456BB7; }
+h1 em, h2 em { font-style: normal; color: #1f355a; }
 
 p {
   font-size: 1.0625rem; /* 17px */
@@ -180,10 +180,40 @@ p {
   letter-spacing: -0.02em;
   color: var(--text);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-logo span {
   color: var(--accent);
+}
+
+/* ── OneCarbon animated wave mark ── */
+.oc-mark {
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+}
+.oc-mark path {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: oc-wave 1.8s ease-in-out infinite;
+}
+.oc-mark path:nth-child(1)  { animation-delay:  0.000s; }
+.oc-mark path:nth-child(2)  { animation-delay: -0.164s; }
+.oc-mark path:nth-child(3)  { animation-delay: -0.327s; }
+.oc-mark path:nth-child(4)  { animation-delay: -0.491s; }
+.oc-mark path:nth-child(5)  { animation-delay: -0.655s; }
+.oc-mark path:nth-child(6)  { animation-delay: -0.818s; }
+.oc-mark path:nth-child(7)  { animation-delay: -0.982s; }
+.oc-mark path:nth-child(8)  { animation-delay: -1.145s; }
+.oc-mark path:nth-child(9)  { animation-delay: -1.309s; }
+.oc-mark path:nth-child(10) { animation-delay: -1.473s; }
+.oc-mark path:nth-child(11) { animation-delay: -1.636s; }
+@keyframes oc-wave {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(1.14); }
 }
 
 .nav-links {
@@ -1503,8 +1533,11 @@ textarea.form-control {
   font-weight: 600;
   font-style: normal;
   color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-
+.footer-logo .oc-mark { height: 22px; filter: brightness(0) invert(1); }
 .footer-logo span { color: var(--accent); }
 
 .footer-links {
