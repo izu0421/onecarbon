@@ -9,10 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Firebase v12 compat -->
-  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore-compat.js"></script>
+  <!-- Firebase compat SDK (v10 — stable compat bundles) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <style>
     /* ── Design tokens ── */
@@ -827,7 +827,7 @@
     // ── Google sign-in (redirect — more reliable than popup on production) ──
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     auth.getRedirectResult().then(result => {
-      if (result && result.user) showScreen('loading');
+      // onAuthStateChanged handles the user after redirect — nothing extra needed
     }).catch(e => showAuthError(friendlyError(e)));
 
     document.getElementById('btn-google-signin').addEventListener('click', () => {
