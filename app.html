@@ -345,141 +345,186 @@
        DASHBOARD SCREEN
     ───────────────────────────────────────────────── */
     #screen-dashboard {
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto;
       width: 100%;
     }
-    .dash-header {
-      margin-bottom: 32px;
-    }
+    .dash-header { margin-bottom: 24px; }
     .dash-greeting {
       font-family: 'DM Sans', sans-serif;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 500;
-      color: var(--accent);
+      color: var(--text);
       margin-bottom: 4px;
     }
-    .dash-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
+    .dash-subtitle { font-size: 14px; color: var(--text-muted); }
+
+    /* Stats row */
+    .dash-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    /* Countdown */
+    /* Score card */
+    .score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .score-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 20px;
+      align-self: flex-start;
+    }
+    .score-ring-wrap {
+      position: relative;
+      width: 130px;
+      height: 130px;
+    }
+    .score-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring-bg   { fill: none; stroke: var(--bg-alt); stroke-width: 9; }
+    .ring-fill {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-dasharray: 314;
+      stroke-dashoffset: 314;
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .score-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .score-big {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 42px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .score-of { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+    .score-delta {
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      min-height: 18px;
+    }
+    .score-delta.up   { color: #2a7d46; }
+    .score-delta.down { color: #c0392b; }
+    .score-delta.same { color: var(--text-muted); }
+
+    /* Countdown card */
     .dash-countdown {
       background: var(--accent);
       color: #fff;
       border-radius: var(--radius);
-      padding: 28px 32px;
+      padding: 28px 24px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: space-between;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 20px;
+      gap: 8px;
     }
     .countdown-label {
-      font-size: 13px;
-      letter-spacing: 0.06em;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 4px;
+      opacity: 0.65;
+      font-weight: 500;
     }
+    .countdown-row { display: flex; align-items: baseline; gap: 8px; }
     .countdown-number {
       font-family: 'DM Sans', sans-serif;
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 300;
       line-height: 1;
     }
-    .countdown-unit {
-      font-size: 18px;
-      opacity: 0.7;
-      margin-left: 6px;
-      font-weight: 400;
-    }
+    .countdown-unit { font-size: 18px; opacity: 0.65; }
     .btn-take-test {
-      padding: 13px 28px;
+      padding: 12px 20px;
       border-radius: 100px;
       border: none;
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.15s;
       white-space: nowrap;
+      text-align: center;
+      align-self: flex-start;
     }
-    .btn-take-test.ready {
-      background: #fff;
-      color: var(--accent);
-    }
-    .btn-take-test.ready:hover { background: var(--bg-alt); }
+    .btn-take-test.ready { background: #fff; color: var(--accent); }
+    .btn-take-test.ready:hover { background: #eef1f8; }
     .btn-take-test.not-ready {
-      background: rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.8);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: default;
     }
-    .btn-take-test.not-ready:hover { background: rgba(255,255,255,0.3); }
 
-    /* Chart panel */
+    /* Panels */
     .dash-panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
-      margin-bottom: 20px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
     }
     .panel-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
       margin-bottom: 20px;
     }
-    #score-canvas {
-      width: 100%;
-      height: 200px;
-      display: block;
-    }
+    #score-canvas { width: 100%; height: 180px; display: block; }
     .chart-no-data {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 200px;
-      font-size: 14px;
-      color: var(--text-faint);
-      font-style: italic;
+      display: flex; align-items: center; justify-content: center;
+      height: 160px; font-size: 14px; color: var(--text-faint); font-style: italic;
     }
 
-    /* Domain bars */
-    .domain-bars { display: flex; flex-direction: column; gap: 12px; }
-    .domain-row { display: flex; align-items: center; gap: 12px; }
-    .domain-name {
-      font-size: 13px;
-      color: var(--text-muted);
-      width: 130px;
-      flex-shrink: 0;
+    /* Domain grid */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 32px;
     }
+    .domain-item {}
+    .domain-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 7px;
+    }
+    .domain-name { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .domain-score { font-size: 13px; font-weight: 600; color: var(--text); }
     .domain-track {
-      flex: 1;
-      height: 6px;
+      height: 5px;
       background: var(--bg-alt);
       border-radius: 100px;
       overflow: hidden;
     }
     .domain-fill {
       height: 100%;
-      background: var(--accent);
       border-radius: 100px;
-      transition: width 0.6s ease;
+      transition: width 0.7s ease;
     }
-    .domain-score {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      width: 36px;
-      text-align: right;
-      flex-shrink: 0;
+
+    @media (max-width: 520px) {
+      .dash-stats { grid-template-columns: 1fr; }
+      .domain-grid { grid-template-columns: 1fr; }
     }
 
     /* ─────────────────────────────────────────────────
@@ -731,19 +776,36 @@
 
       <div class="dash-header">
         <div class="dash-greeting" id="dash-greeting">Welcome back</div>
-        <div class="dash-subtitle" id="dash-subtitle" data-i18n="dash.subtitle">Here's your cognitive health overview</div>
+        <div class="dash-subtitle" id="dash-subtitle">Here's your cognitive health overview</div>
       </div>
 
-      <!-- Countdown + CTA -->
-      <div class="dash-countdown" id="dash-countdown">
-        <div>
+      <!-- Stats row: score ring + countdown -->
+      <div class="dash-stats">
+        <!-- Score card -->
+        <div class="score-card">
+          <div class="score-eyebrow" data-i18n="dash.score_label">Cognitive score</div>
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <circle class="ring-bg"   cx="60" cy="60" r="50"/>
+              <circle class="ring-fill" cx="60" cy="60" r="50" id="ring-fill"/>
+            </svg>
+            <div class="score-overlay">
+              <div class="score-big" id="score-big">—</div>
+              <div class="score-of">/ 100</div>
+            </div>
+          </div>
+          <div class="score-delta" id="score-delta"></div>
+        </div>
+
+        <!-- Countdown card -->
+        <div class="dash-countdown" id="dash-countdown">
           <div class="countdown-label" data-i18n="dash.next_test">Next test in</div>
-          <div>
+          <div class="countdown-row">
             <span class="countdown-number" id="countdown-days">—</span>
             <span class="countdown-unit" data-i18n="dash.days">days</span>
           </div>
+          <button class="btn-take-test not-ready" id="btn-test-from-dash" data-i18n="dash.take_test">Take the test now →</button>
         </div>
-        <button class="btn-take-test not-ready" id="btn-test-from-dash" data-i18n="dash.take_test">Take the test now →</button>
       </div>
 
       <!-- Score history chart -->
@@ -758,7 +820,7 @@
       <!-- Domain breakdown -->
       <div class="dash-panel" id="domain-panel" style="display:none;">
         <div class="panel-title" data-i18n="dash.domain_title">Last session — domain breakdown</div>
-        <div class="domain-bars" id="domain-bars"></div>
+        <div class="domain-grid" id="domain-bars"></div>
       </div>
 
     </div>
@@ -935,6 +997,7 @@
         'onboard.med_none': 'None of the above',
         'onboard.consent_label': 'Data consent',
         'onboard.continue': 'Continue to your first test →',
+        'dash.score_label': 'Cognitive score',
         'dash.subtitle': "Here's your cognitive health overview",
         'dash.next_test': 'Next test in',
         'dash.days': 'days',
@@ -1036,6 +1099,7 @@
         'onboard.med_none': '以上均无',
         'onboard.consent_label': '数据同意',
         'onboard.continue': '继续进行首次测试 →',
+        'dash.score_label': '认知得分',
         'dash.subtitle': '这是您的认知健康概况',
         'dash.next_test': '下次测试',
         'dash.days': '天后',
@@ -1492,17 +1556,57 @@
 
       // Greeting
       const firstName = (user.displayName || user.email || 'there').split(/[\s@]/)[0];
-      document.getElementById('dash-greeting').textContent = `Welcome back, ${firstName}`;
-      document.getElementById('dash-subtitle').textContent =
-        sessions.length === 1
-          ? "You've completed your first session. Keep going!"
-          : `You've completed ${sessions.length} session${sessions.length !== 1 ? 's' : ''}.`;
+      document.getElementById('dash-greeting').textContent =
+        currentLang === 'zh' ? `欢迎回来，${firstName}` : `Welcome back, ${firstName}`;
+      const subEl = document.getElementById('dash-subtitle');
+      if (sessions.length === 0) {
+        subEl.textContent = currentLang === 'zh' ? '完成您的第一次测试开始追踪。' : 'Complete your first test to start tracking.';
+      } else if (sessions.length === 1) {
+        subEl.textContent = currentLang === 'zh' ? '已完成第一次测试，继续保持！' : 'First session done — keep it up!';
+      } else {
+        subEl.textContent = currentLang === 'zh'
+          ? `已完成 ${sessions.length} 次测试。`
+          : `${sessions.length} sessions completed.`;
+      }
+
+      // Score ring
+      const current = sessions.length > 0 ? compositeScore(sessions[sessions.length - 1].results || {}) : null;
+      const prev    = sessions.length > 1 ? compositeScore(sessions[sessions.length - 2].results || {}) : null;
+      const scoreEl = document.getElementById('score-big');
+      const ringEl  = document.getElementById('ring-fill');
+      const deltaEl = document.getElementById('score-delta');
+      if (current !== null) {
+        const rounded = Math.round(current);
+        scoreEl.textContent = rounded;
+        // circumference = 2π×50 ≈ 314.16
+        ringEl.style.strokeDashoffset = (314 * (1 - rounded / 100)).toFixed(1);
+        if (prev !== null) {
+          const diff = Math.round(current - prev);
+          if (diff > 0) {
+            deltaEl.textContent = `▲ ${diff} from last`;
+            deltaEl.className = 'score-delta up';
+          } else if (diff < 0) {
+            deltaEl.textContent = `▼ ${Math.abs(diff)} from last`;
+            deltaEl.className = 'score-delta down';
+          } else {
+            deltaEl.textContent = '= same as last';
+            deltaEl.className = 'score-delta same';
+          }
+        } else {
+          deltaEl.textContent = currentLang === 'zh' ? '首次测试' : 'First session';
+          deltaEl.className = 'score-delta same';
+        }
+      } else {
+        scoreEl.textContent = '—';
+        ringEl.style.strokeDashoffset = '314';
+        deltaEl.textContent = '';
+      }
 
       // Countdown
       const days = Math.max(0, Math.ceil(14 - daysSinceLastSession(sessions)));
-      document.getElementById('countdown-days').textContent = days;
+      document.getElementById('countdown-days').textContent = sessions.length === 0 ? '0' : days;
       const btn = document.getElementById('btn-test-from-dash');
-      if (days === 0) {
+      if (days === 0 || sessions.length === 0) {
         btn.className = 'btn-take-test ready';
       } else {
         btn.className = 'btn-take-test not-ready';
@@ -1516,8 +1620,7 @@
 
       // Domain bars for last session
       if (sessions.length > 0) {
-        const last = sessions[sessions.length - 1];
-        drawDomainBars(last.results || {});
+        drawDomainBars(sessions[sessions.length - 1].results || {});
       }
     }
 
@@ -1616,26 +1719,33 @@
         ctx.fillText(v, pad.left - 6, y + 3.5);
       });
 
+      // Helper: draw a smooth bezier path through points
+      function bezierPath(pts) {
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) {
+          const cpx = (pts[i-1].x + pts[i].x) / 2;
+          ctx.bezierCurveTo(cpx, pts[i-1].y, cpx, pts[i].y, pts[i].x, pts[i].y);
+        }
+      }
+      const pts = scores.map((v, i) => ({ x: xAt(i), y: yAt(v) }));
+
       // Fill area
       ctx.beginPath();
-      ctx.moveTo(xAt(0), yAt(scores[0]));
-      scores.forEach((v, i) => {
-        if (i > 0) ctx.lineTo(xAt(i), yAt(v));
-      });
+      bezierPath(pts);
       ctx.lineTo(xAt(sessions.length - 1), pad.top + plotH);
       ctx.lineTo(xAt(0), pad.top + plotH);
       ctx.closePath();
-      ctx.fillStyle = `rgba(${accentRgb}, 0.07)`;
+      const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + plotH);
+      grad.addColorStop(0, `rgba(${accentRgb}, 0.14)`);
+      grad.addColorStop(1, `rgba(${accentRgb}, 0.01)`);
+      ctx.fillStyle = grad;
       ctx.fill();
 
       // Line
       ctx.beginPath();
-      ctx.moveTo(xAt(0), yAt(scores[0]));
-      scores.forEach((v, i) => {
-        if (i > 0) ctx.lineTo(xAt(i), yAt(v));
-      });
+      bezierPath(pts);
       ctx.strokeStyle = `rgba(${accentRgb}, 1)`;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.lineJoin = 'round';
       ctx.stroke();
 
@@ -1665,6 +1775,13 @@
     // ════════════════════════════════════════
     // DOMAIN BARS
     // ════════════════════════════════════════
+    function scoreColor(s) {
+      if (s === null) return 'var(--bg-alt)';
+      if (s >= 70) return '#2a7d46';
+      if (s >= 45) return '#d4881a';
+      return '#c0392b';
+    }
+
     function drawDomainBars(results) {
       const panel = document.getElementById('domain-panel');
       const container = document.getElementById('domain-bars');
@@ -1678,15 +1795,19 @@
       panel.style.display = 'block';
       container.innerHTML = '';
       scores.forEach(({ label, score }) => {
-        const row = document.createElement('div');
-        row.className = 'domain-row';
         const val = score ?? 0;
-        row.innerHTML = `
-          <div class="domain-name">${label}</div>
-          <div class="domain-track"><div class="domain-fill" style="width:${val}%"></div></div>
-          <div class="domain-score">${score !== null ? score : '—'}</div>
-        `;
-        container.appendChild(row);
+        const color = scoreColor(score);
+        const item = document.createElement('div');
+        item.className = 'domain-item';
+        item.innerHTML = `
+          <div class="domain-item-header">
+            <span class="domain-name">${label}</span>
+            <span class="domain-score" style="color:${color}">${score !== null ? score : '—'}</span>
+          </div>
+          <div class="domain-track">
+            <div class="domain-fill" style="width:${val}%;background:${color}"></div>
+          </div>`;
+        container.appendChild(item);
       });
     }
 
