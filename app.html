@@ -839,8 +839,11 @@
     // ── Google sign-in (redirect — more reliable than popup on production) ──
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     auth.getRedirectResult().then(result => {
-      // onAuthStateChanged handles the user after redirect — nothing extra needed
-    }).catch(e => showAuthError(friendlyError(e)));
+      console.log('🔁 getRedirectResult:', result ? result.user?.email : 'no result');
+    }).catch(e => {
+      console.error('❌ getRedirectResult error:', e.code, e.message);
+      showAuthError(friendlyError(e));
+    });
 
     document.getElementById('btn-google-signin').addEventListener('click', () => {
       console.log('🔵 Google sign-in clicked');
