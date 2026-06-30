@@ -791,17 +791,22 @@
     // AUTH FLOW
     // ════════════════════════════════════════
     auth.onAuthStateChanged(async user => {
+      console.log('🔄 onAuthStateChanged:', user ? user.email : 'null');
       if (!user) {
         showScreen('auth');
         return;
       }
       currentUser = user;
+      console.log('📋 Loading profile for', user.uid);
       const profile = await loadProfile(user.uid);
+      console.log('📋 Profile:', profile);
       if (!profile) {
         showScreen('onboarding');
         return;
       }
+      console.log('📊 Loading sessions...');
       allSessions = await loadSessions(user.uid);
+      console.log('📊 Sessions:', allSessions.length);
       if (allSessions.length === 0 || daysSinceLastSession(allSessions) > 14) {
         showBattery(allSessions.length + 1);
       } else {
