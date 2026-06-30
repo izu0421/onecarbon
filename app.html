@@ -640,6 +640,16 @@
         <div class="auth-error" id="onboard-error"></div>
 
         <div class="form-group section-gap">
+          <label>Full name</label>
+          <input type="text" id="onboard-name" placeholder="Your name">
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Email</label>
+          <input type="email" id="onboard-email" readonly style="opacity:0.6;cursor:default;">
+        </div>
+
+        <div class="form-group section-gap">
           <label>Age</label>
           <input type="number" id="onboard-age" min="18" max="100" placeholder="e.g. 34">
         </div>
@@ -801,6 +811,8 @@
       const profile = await loadProfile(user.uid);
       console.log('📋 Profile:', profile);
       if (!profile) {
+        document.getElementById('onboard-name').value = user.displayName || '';
+        document.getElementById('onboard-email').value = user.email || '';
         showScreen('onboarding');
         return;
       }
@@ -960,6 +972,8 @@
 
       try {
         await db.collection('users').doc(currentUser.uid).collection('profile').doc('data').set({
+          name: document.getElementById('onboard-name').value.trim(),
+          email: currentUser.email,
           age,
           sex: selectedSex,
           ethnicity: selectedEthnicity,
