@@ -968,7 +968,8 @@
         });
         showBattery(1);
       } catch (e) {
-        errorEl.textContent = 'Failed to save. Please try again.';
+        console.error('❌ Firestore save error:', e.code, e.message);
+        errorEl.textContent = 'Failed to save: ' + (e.code || e.message);
         errorEl.classList.add('visible');
       }
     });
