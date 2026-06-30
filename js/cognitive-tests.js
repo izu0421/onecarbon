@@ -495,19 +495,19 @@
   // ============================================================
   var BATTERY = [
     { field: 'cog_rt', name: 'Reaction time', run: testReactionTime,
-      instr: '<h3>1. Reaction time</h3><p>Two cards will appear side by side. Press the <strong>MATCH</strong> button as quickly as you can <strong>only when the two cards are identical</strong>.</p><p class="cog-eg">Tip: don\'t press when they differ — wait for a true match.</p>' },
+      instr: '<p>Two cards will appear side by side. Press the <strong>MATCH</strong> button as quickly as you can <strong>only when the two cards are identical</strong>.</p><p class="cog-eg">Tip: don\'t press when they differ — wait for a true match.</p>' },
     { field: 'cog_numeric', name: 'Numeric memory', run: testNumericMemory,
-      instr: '<h3>2. Numeric memory</h3><p>A number will flash on screen. When it disappears, type it back exactly. Each correct answer makes the next number one digit longer.</p><p class="cog-eg">It continues until you make a mistake.</p>' },
+      instr: '<p>A number will flash on screen. When it disappears, type it back exactly. Each correct answer makes the next number one digit longer.</p><p class="cog-eg">It continues until you make a mistake.</p>' },
     { field: 'cog_symbol', name: 'Symbol-digit matching', run: testSymbolDigit,
-      instr: '<h3>3. Symbol-digit matching</h3><p>You\'ll see a key pairing six symbols with the digits 1–6. For each symbol shown, tap the matching digit as fast as you can.</p><p class="cog-eg">You have 60 seconds — get as many correct as possible.</p>' },
+      instr: '<p>You\'ll see a key pairing six symbols with the digits 1–6. For each symbol shown, tap the matching digit as fast as you can.</p><p class="cog-eg">You have 60 seconds — get as many correct as possible.</p>' },
     { field: 'cog_pal', name: 'Word-pair memory', run: testPairedAssociate,
-      instr: '<h3>4. Word-pair memory</h3><p>You\'ll be shown several pairs of words to memorise. Then, for each first word, choose the word it was paired with.</p><p class="cog-eg">You have 15 seconds to study the pairs.</p>' },
+      instr: '<p>You\'ll be shown several pairs of words to memorise. Then, for each first word, choose the word it was paired with.</p><p class="cog-eg">You have 15 seconds to study the pairs.</p>' },
     { field: 'cog_matrix', name: 'Pattern puzzles', run: testMatrices,
-      instr: '<h3>5. Pattern puzzles</h3><p>Each puzzle shows a 3×3 grid with one piece missing. Work out the pattern and choose the piece that completes it.</p><p class="cog-eg">There are five puzzles of increasing difficulty.</p>' },
+      instr: '<p>Each puzzle shows a 3×3 grid with one piece missing. Work out the pattern and choose the piece that completes it.</p><p class="cog-eg">There are five puzzles of increasing difficulty.</p>' },
     { field: 'cog_tmta', name: 'Trail making (numbers)', run: testTrailA,
-      instr: '<h3>6. Trail making — part 1</h3><p>Numbered circles are scattered on the board. Tap them in order: 1, 2, 3 … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' },
+      instr: '<p>Numbered circles are scattered on the board. Tap them in order: 1, 2, 3 … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' },
     { field: 'cog_tmtb', name: 'Trail making (alternating)', run: testTrailB,
-      instr: '<h3>7. Trail making — part 2</h3><p>Now tap circles alternating numbers and letters in order: 1, A, 2, B, 3, C … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' }
+      instr: '<p>Now tap circles alternating numbers and letters in order: 1, A, 2, B, 3, C … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' }
   ];
 
   function start(container, opts) {
