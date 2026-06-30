@@ -824,14 +824,14 @@
       return (Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
     }
 
-    // ── Google sign-in ──
-    document.getElementById('btn-google-signin').addEventListener('click', async () => {
-      try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        await auth.signInWithPopup(provider);
-      } catch (e) {
-        showAuthError(friendlyError(e));
-      }
+    // ── Google sign-in (redirect — more reliable than popup on production) ──
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    auth.getRedirectResult().then(result => {
+      if (result && result.user) showScreen('loading');
+    }).catch(e => showAuthError(friendlyError(e)));
+
+    document.getElementById('btn-google-signin').addEventListener('click', () => {
+      auth.signInWithRedirect(googleProvider);
     });
 
     // ── Email auth ──
