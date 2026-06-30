@@ -676,6 +676,29 @@
         </div>
 
         <div class="form-group section-gap">
+          <label>Highest level of education</label>
+          <div class="tile-group list" id="education-tiles">
+            <button class="tile-btn" data-value="secondary">Secondary school (GCSE / O-level)</button>
+            <button class="tile-btn" data-value="a_level">A-levels or equivalent</button>
+            <button class="tile-btn" data-value="undergraduate">Undergraduate degree</button>
+            <button class="tile-btn" data-value="postgraduate">Postgraduate degree (Masters / PhD)</button>
+            <button class="tile-btn" data-value="other">Other / prefer not to say</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Do you have any of the following? <span style="font-weight:400;color:var(--text-muted);">(select all that apply)</span></label>
+          <div class="tile-group" id="medical-tiles" style="flex-wrap:wrap;">
+            <button class="tile-btn multi" data-value="diabetes">Diabetes</button>
+            <button class="tile-btn multi" data-value="hypertension">High blood pressure</button>
+            <button class="tile-btn multi" data-value="depression">Depression or anxiety</button>
+            <button class="tile-btn multi" data-value="sleep_disorder">Sleep disorder (e.g. insomnia, sleep apnoea)</button>
+            <button class="tile-btn multi" data-value="heart_disease">Heart disease</button>
+            <button class="tile-btn multi" data-value="none">None of the above</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
           <label>Data consent</label>
           <div class="consent-row">
             <input type="checkbox" id="onboard-consent">
@@ -792,6 +815,28 @@
             <button class="tile-btn multi" data-value="worry">Worry</button>
             <button class="tile-btn multi" data-value="partner">Partner / children</button>
             <button class="tile-btn multi" data-value="none">I didn't wake</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>How are you feeling today?</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">Overall mood right now.</p>
+          <div class="tile-group" id="sleep-mood-tiles">
+            <button class="tile-btn" data-value="very_good">Very good</button>
+            <button class="tile-btn" data-value="good">Good</button>
+            <button class="tile-btn" data-value="neutral">Neutral</button>
+            <button class="tile-btn" data-value="low">Low</button>
+            <button class="tile-btn" data-value="very_low">Very low</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Stress level today</label>
+          <div class="tile-group" id="sleep-stress-tiles">
+            <button class="tile-btn" data-value="none">None</button>
+            <button class="tile-btn" data-value="mild">Mild</button>
+            <button class="tile-btn" data-value="moderate">Moderate</button>
+            <button class="tile-btn" data-value="high">High</button>
           </div>
         </div>
 
@@ -1022,6 +1067,18 @@
     setupTileGroup('sex-tiles', v => { selectedSex = v; });
     setupTileGroup('ethnicity-tiles', v => { selectedEthnicity = v; });
 
+    let selectedEducation = null;
+    setupTileGroup('education-tiles', v => { selectedEducation = v; });
+
+    // Multi-select: medical history
+    let selectedMedical = [];
+    document.getElementById('medical-tiles').querySelectorAll('.tile-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+        selectedMedical = Array.from(document.getElementById('medical-tiles').querySelectorAll('.tile-btn.selected')).map(b => b.dataset.value);
+      });
+    });
+
     document.getElementById('btn-onboard-continue').addEventListener('click', async () => {
       const age = parseInt(document.getElementById('onboard-age').value, 10);
       const consent = document.getElementById('onboard-consent').checked;
@@ -1057,6 +1114,8 @@
           age,
           sex: selectedSex,
           ethnicity: selectedEthnicity,
+          education: selectedEducation,
+          medical_history: selectedMedical,
           consent: true,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         });
@@ -1075,7 +1134,7 @@
     const sleepData = {};
 
     // Single-select tile groups
-    ['sleep-quality-tiles','sleep-daytime-tiles','sleep-trouble-tiles','sleep-onset-tiles'].forEach(id => {
+    ['sleep-quality-tiles','sleep-daytime-tiles','sleep-trouble-tiles','sleep-onset-tiles','sleep-mood-tiles','sleep-stress-tiles'].forEach(id => {
       const group = document.getElementById(id);
       group.querySelectorAll('.tile-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1149,7 +1208,10 @@
               trouble: sleepData['sleep-trouble-tiles'] || null,
               onset: sleepData['sleep-onset-tiles'] || null,
               wake_causes: sleepData['sleep-wake-tiles'] || [],
+              mood: sleepData['sleep-mood-tiles'] || null,
+              stress: sleepData['sleep-stress-tiles'] || null,
             },
+            device: navigator.userAgent,
           });
       } catch (e) {
         console.error('Failed to save session:', e);
