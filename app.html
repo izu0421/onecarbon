@@ -836,21 +836,18 @@
       return (Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
     }
 
-    // ── Google sign-in (redirect — more reliable than popup on production) ──
+    // ── Google sign-in (popup) ──
     const googleProvider = new firebase.auth.GoogleAuthProvider();
-    auth.getRedirectResult().then(result => {
-      console.log('🔁 getRedirectResult:', result ? result.user?.email : 'no result');
-    }).catch(e => {
-      console.error('❌ getRedirectResult error:', e.code, e.message);
-      showAuthError(friendlyError(e));
-    });
 
-    document.getElementById('btn-google-signin').addEventListener('click', () => {
+    document.getElementById('btn-google-signin').addEventListener('click', async () => {
       console.log('🔵 Google sign-in clicked');
-      auth.signInWithRedirect(googleProvider).catch(e => {
-        console.error('❌ Redirect error:', e);
+      try {
+        const result = await auth.signInWithPopup(googleProvider);
+        console.log('✅ Popup sign-in success:', result.user.email);
+      } catch(e) {
+        console.error('❌ Popup error:', e.code, e.message);
         showAuthError(friendlyError(e));
-      });
+      }
     });
 
     // ── Email auth ──
