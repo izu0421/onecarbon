@@ -881,6 +881,12 @@
         return;
       }
       currentUser = user;
+      // Always keep email + name up to date in Firestore
+      db.collection('users').doc(user.uid).set({
+        email: user.email,
+        name: user.displayName || '',
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
       console.log('📋 Loading profile for', user.uid);
       const profile = await loadProfile(user.uid);
       console.log('📋 Profile:', profile);
