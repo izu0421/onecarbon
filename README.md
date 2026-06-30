@@ -134,6 +134,70 @@ Submits to Formspree `xykvdvoy` twice: once on email capture (Q1–Q5), once on 
 
 ---
 
+## Cognitive Battery (`js/cognitive-tests.js` + `app.html`)
+
+Browser re-implementations of UK Biobank cognitive tasks. Tasks are shuffled on each session. Invoked via `CognitiveTests.start(containerEl, { onProgress, onComplete })`.
+
+### Summary scores (stored as `results.<field>`)
+
+| Field | Task | What is measured | Unit | Direction |
+|-------|------|-----------------|------|-----------|
+| `cog_rt` | Reaction time ("Snap") | Mean RT across **correct match trials only** (true positives). 10 trials total; misses and false alarms are recorded but excluded from the mean. | ms | lower = better |
+| `cog_numeric` | Numeric memory | Longest digit sequence recalled correctly. Starts at 2 digits; each correct recall adds 1 digit; stops on first error. | digits | higher = better |
+| `cog_symbol` | Symbol-digit substitution | Count of correct symbol→digit mappings within a **60-second** window. Key has 6 symbol–digit pairings. | count | higher = better |
+| `cog_pal` | Paired associate learning | Count of correct recalls out of **6 word pairs**. 15 s study phase; forced-choice recall (3 options per pair). | count (0–6) | higher = better |
+| `cog_matrix` | Pattern puzzles | Count of correct answers across **5 matrix puzzles** of increasing difficulty. | count (0–5) | higher = better |
+| `cog_tmta` | Trail making A (numeric) | Time to tap circles 1→2→3…→N in order. | ms | lower = better |
+| `cog_tmtb` | Trail making B (alternating) | Time to tap circles alternating numbers and letters (1→A→2→B…). | ms | lower = better |
+
+### Raw trial data (stored as `results.<field>_raw`, JSON string)
+
+| Field | Contents |
+|-------|----------|
+| `cog_rt_raw` | Array of `{ trial, is_match, responded, rt_ms }` — one entry per stimulus including misses and false alarms |
+| `cog_numeric_raw` | Array of `{ digits, correct }` — one entry per attempt |
+| `cog_symbol_raw` | Array of `{ symbol, correct_digit, chosen, correct, rt_ms }` — one entry per response |
+| `cog_pal_raw` | Array of `{ cue, correct_answer, chosen, correct, rt_ms }` — one entry per pair |
+| `cog_matrix_raw` | Array of `{ puzzle, correct, rt_ms }` — one entry per puzzle |
+| `cog_tmta_raw` | `{ taps: [{ label, elapsed_ms, correct, expected? }], errors, total_ms }` |
+| `cog_tmtb_raw` | Same structure as trail A |
+
+### Timing metadata (stored per field)
+
+Each task also stores:
+- `<field>_start` — ISO timestamp when the user clicked **Start**
+- `<field>_duration_ms` — total wall-clock time from Start click to task completion
+
+### Composite score (computed in `app.html` dashboard)
+
+Each raw metric is normalised to 0–100 and averaged:
+
+```
+cog_rt      → clamp(100 − (rt_ms − 200) / 8,      0, 100)   # 200 ms = 100, ~1000 ms = 0
+cog_numeric → clamp(max_digits × 10,               0, 100)   # 10 digits = 100
+cog_symbol  → clamp(correct × 5,                   0, 100)   # 20 correct = 100
+cog_pal     → clamp(correct × 12.5,                0, 100)   # 8 correct = 100 (6-pair task → ~75 max)
+cog_matrix  → clamp(correct × 20,                  0, 100)   # 5 correct = 100
+cog_tmta    → clamp(100 − (ms − 10000) / 1500,     0, 100)   # 10 s = 100, ~25 s = 0
+cog_tmtb    → clamp(100 − (ms − 20000) / 2500,     0, 100)   # 20 s = 100, ~45 s = 0
+
+composite = mean of the 7 normalised scores
+```
+
+### Firestore data model (`app.html`)
+
+```
+users/{uid}                          # top-level doc: { email, name, lastSeen }
+users/{uid}/profile/data             # { name, email, age, sex, ethnicity, consent, createdAt }
+users/{uid}/sessions/{timestamp}     # {
+                                     #   completedAt,
+                                     #   results: { cog_rt, cog_numeric, … + _start, _duration_ms, _raw per field },
+                                     #   sleep: { hours, quality, daytime_sleepiness, trouble, onset, wake_causes[] }
+                                     # }
+```
+
+---
+
 ## Deploy
 ```bash
 git add -A && git commit -m "message" && git push origin main
