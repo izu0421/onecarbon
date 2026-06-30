@@ -726,6 +726,79 @@
 
     </div>
 
+    <!-- ══ SCREEN 3b: SLEEP QUESTIONNAIRE ══ -->
+    <div id="screen-sleep" class="screen">
+      <div class="onboard-card" style="max-width:560px;">
+        <h1 class="onboard-title">Before you begin</h1>
+        <p class="onboard-sub">A few quick questions about your sleep last night. Takes under 2 minutes.</p>
+
+        <div class="auth-error" id="sleep-error"></div>
+
+        <div class="form-group section-gap">
+          <label>Hours of sleep last night</label>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <input type="range" id="sleep-hours" min="0" max="16" step="0.5" value="7" style="flex:1;accent-color:var(--accent);" oninput="document.getElementById('sleep-hours-val').textContent=this.value+' hrs'">
+            <span id="sleep-hours-val" style="font-weight:500;min-width:48px;">7 hrs</span>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Overall sleep quality</label>
+          <div class="tile-group list" id="sleep-quality-tiles">
+            <button class="tile-btn" data-value="very_good">Very good</button>
+            <button class="tile-btn" data-value="good">Good</button>
+            <button class="tile-btn" data-value="average">Average</button>
+            <button class="tile-btn" data-value="poor">Poor</button>
+            <button class="tile-btn" data-value="very_poor">Very poor</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Daytime sleepiness</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">How likely are you to doze off unintentionally during the day?</p>
+          <div class="tile-group" id="sleep-daytime-tiles">
+            <button class="tile-btn" data-value="never">Never</button>
+            <button class="tile-btn" data-value="sometimes">Sometimes</button>
+            <button class="tile-btn" data-value="often">Often</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Trouble falling asleep or staying asleep?</label>
+          <div class="tile-group" id="sleep-trouble-tiles">
+            <button class="tile-btn" data-value="no">No</button>
+            <button class="tile-btn" data-value="occasionally">Occasionally</button>
+            <button class="tile-btn" data-value="yes">Yes, often</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Time to fall asleep</label>
+          <div class="tile-group" id="sleep-onset-tiles">
+            <button class="tile-btn" data-value="under_15">&lt;15 min</button>
+            <button class="tile-btn" data-value="15_to_30">15–30 min</button>
+            <button class="tile-btn" data-value="30_to_60">30–60 min</button>
+            <button class="tile-btn" data-value="over_60">&gt;60 min</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>What woke you during the night? <span style="font-weight:400;color:var(--text-muted);">(select all that apply)</span></label>
+          <div class="tile-group" id="sleep-wake-tiles" style="flex-wrap:wrap;">
+            <button class="tile-btn multi" data-value="bathroom">Bathroom</button>
+            <button class="tile-btn multi" data-value="noise">Noise / light</button>
+            <button class="tile-btn multi" data-value="temperature">Temperature</button>
+            <button class="tile-btn multi" data-value="pain">Pain</button>
+            <button class="tile-btn multi" data-value="worry">Worry</button>
+            <button class="tile-btn multi" data-value="partner">Partner / children</button>
+            <button class="tile-btn multi" data-value="none">I didn't wake</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-sleep-continue" style="margin-top:28px;">Start cognitive tests →</button>
+      </div>
+    </div>
+
     <!-- ══ SCREEN 4: BATTERY ══ -->
     <div id="screen-battery" class="screen">
       <div class="battery-header">
@@ -780,6 +853,7 @@
     const screens = {
       auth: document.getElementById('screen-auth'),
       onboarding: document.getElementById('screen-onboarding'),
+      sleep: document.getElementById('screen-sleep'),
       dashboard: document.getElementById('screen-dashboard'),
       battery: document.getElementById('screen-battery'),
     };
@@ -989,9 +1063,48 @@
     });
 
     // ════════════════════════════════════════
-    // BATTERY
+    // SLEEP QUESTIONNAIRE
     // ════════════════════════════════════════
+    let pendingSessionNumber = 1;
+    const sleepData = {};
+
+    // Single-select tile groups
+    ['sleep-quality-tiles','sleep-daytime-tiles','sleep-trouble-tiles','sleep-onset-tiles'].forEach(id => {
+      const group = document.getElementById(id);
+      group.querySelectorAll('.tile-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.tile-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          sleepData[id] = btn.dataset.value;
+        });
+      });
+    });
+
+    // Multi-select tile group
+    document.getElementById('sleep-wake-tiles').querySelectorAll('.tile-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+        const vals = Array.from(document.getElementById('sleep-wake-tiles').querySelectorAll('.tile-btn.selected')).map(b => b.dataset.value);
+        sleepData['sleep-wake-tiles'] = vals;
+      });
+    });
+
+    document.getElementById('btn-sleep-continue').addEventListener('click', () => {
+      sleepData.sleep_hours = parseFloat(document.getElementById('sleep-hours').value);
+      startBattery(pendingSessionNumber);
+    });
+
     function showBattery(sessionNumber) {
+      pendingSessionNumber = sessionNumber;
+      // Reset sleep selections
+      document.querySelectorAll('#screen-sleep .tile-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('sleep-hours').value = 7;
+      document.getElementById('sleep-hours-val').textContent = '7 hrs';
+      Object.keys(sleepData).forEach(k => delete sleepData[k]);
+      showScreen('sleep');
+    }
+
+    function startBattery(sessionNumber) {
       document.getElementById('battery-session-label').textContent = `Session ${sessionNumber}`;
       document.getElementById('battery-progress-fill').style.width = '0%';
       document.getElementById('battery-progress-label').textContent = '0 of 7';
@@ -1023,6 +1136,14 @@
           .collection('sessions').doc(sessionId).set({
             completedAt: firebase.firestore.FieldValue.serverTimestamp(),
             results,
+            sleep: {
+              hours: sleepData.sleep_hours || null,
+              quality: sleepData['sleep-quality-tiles'] || null,
+              daytime_sleepiness: sleepData['sleep-daytime-tiles'] || null,
+              trouble: sleepData['sleep-trouble-tiles'] || null,
+              onset: sleepData['sleep-onset-tiles'] || null,
+              wake_causes: sleepData['sleep-wake-tiles'] || [],
+            },
           });
       } catch (e) {
         console.error('Failed to save session:', e);
