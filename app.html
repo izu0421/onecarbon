@@ -755,9 +755,16 @@
     };
     // ══════════════════════════════════════════════════════════
 
-    firebase.initializeApp(firebaseConfig);
+    try {
+      firebase.initializeApp(firebaseConfig);
+      console.log('✅ Firebase initialised');
+    } catch(e) {
+      console.error('❌ Firebase init failed:', e);
+      document.body.innerHTML = '<div style="padding:40px;font-family:sans-serif;color:red;"><strong>Firebase failed to load:</strong><br>' + e.message + '</div>';
+    }
     const auth = firebase.auth();
     const db = firebase.firestore();
+    console.log('✅ Auth + Firestore ready');
 
     // ── DOM refs ──
     const screens = {
@@ -831,7 +838,11 @@
     }).catch(e => showAuthError(friendlyError(e)));
 
     document.getElementById('btn-google-signin').addEventListener('click', () => {
-      auth.signInWithRedirect(googleProvider);
+      console.log('🔵 Google sign-in clicked');
+      auth.signInWithRedirect(googleProvider).catch(e => {
+        console.error('❌ Redirect error:', e);
+        showAuthError(friendlyError(e));
+      });
     });
 
     // ── Email auth ──
