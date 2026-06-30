@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Tracker — OneCarbon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Firebase v12 compat -->
+  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --accent: #1f355a;
+      --accent-dark: #162844;
+      --accent-light: rgba(31,53,90,0.08);
+      --bg: #F7F5F0;
+      --bg-alt: #EFEDE8;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.1);
+      --text: #1a1a18;
+      --text-muted: #666;
+      --text-faint: #aaa;
+      --success: #2d7d46;
+      --error: #c0392b;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    /* ── Nav overrides ── */
+    .site-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 72px;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-signout {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 4px 0;
+      display: none;
+    }
+    .nav-signout:hover { color: var(--text); }
+
+    /* ── App wrapper ── */
+    .app-main {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 48px 20px 80px;
+    }
+
+    /* ── Screen visibility ── */
+    .screen { display: none; width: 100%; }
+    .screen.active { display: block; }
+
+    /* ─────────────────────────────────────────────────
+       AUTH SCREEN
+    ───────────────────────────────────────────────── */
+    #screen-auth {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .auth-card h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+    .auth-card .auth-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    /* Google button */
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-google:hover { background: var(--accent-dark); }
+    .btn-google svg { flex-shrink: 0; }
+
+    /* Divider */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--text-faint);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Form fields */
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="number"],
+    .form-group select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31,53,90,0.1);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 13px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      margin-top: 6px;
+    }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:active { transform: scale(0.99); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 13px 20px;
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 6px;
+    }
+    .btn-secondary:hover { background: var(--accent-light); }
+
+    .auth-toggle {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .auth-toggle a {
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .auth-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--error);
+      margin-bottom: 14px;
+      display: none;
+    }
+    .auth-error.visible { display: block; }
+
+    /* ─────────────────────────────────────────────────
+       ONBOARDING SCREEN
+    ───────────────────────────────────────────────── */
+    #screen-onboarding {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .onboard-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .onboard-card h1 {
+      font-size: 24px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .onboard-card .onboard-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* Tile buttons */
+    .tile-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .tile-btn {
+      padding: 9px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      background: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .tile-btn:hover { border-color: var(--accent); }
+    .tile-btn.selected {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Ethnicity tiles — list style */
+    .tile-group.list {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tile-group.list .tile-btn {
+      border-radius: var(--radius-sm);
+      text-align: left;
+    }
+
+    /* Consent checkbox */
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .consent-row input[type="checkbox"] {
+      margin-top: 2px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .consent-row a { color: var(--accent); }
+
+    /* ─────────────────────────────────────────────────
+       DASHBOARD SCREEN
+    ───────────────────────────────────────────────── */
+    #screen-dashboard {
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .dash-header {
+      margin-bottom: 32px;
+    }
+    .dash-greeting {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .dash-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Countdown */
+    .dash-countdown {
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .countdown-label {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+    .countdown-number {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 56px;
+      font-weight: 300;
+      line-height: 1;
+    }
+    .countdown-unit {
+      font-size: 18px;
+      opacity: 0.7;
+      margin-left: 6px;
+      font-weight: 400;
+    }
+    .btn-take-test {
+      padding: 13px 28px;
+      border-radius: 100px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .btn-take-test.ready {
+      background: #fff;
+      color: var(--accent);
+    }
+    .btn-take-test.ready:hover { background: var(--bg-alt); }
+    .btn-take-test.not-ready {
+      background: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-take-test.not-ready:hover { background: rgba(255,255,255,0.3); }
+
+    /* Chart panel */
+    .dash-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .panel-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    #score-canvas {
+      width: 100%;
+      height: 200px;
+      display: block;
+    }
+    .chart-no-data {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      font-size: 14px;
+      color: var(--text-faint);
+      font-style: italic;
+    }
+
+    /* Domain bars */
+    .domain-bars { display: flex; flex-direction: column; gap: 12px; }
+    .domain-row { display: flex; align-items: center; gap: 12px; }
+    .domain-name {
+      font-size: 13px;
+      color: var(--text-muted);
+      width: 130px;
+      flex-shrink: 0;
+    }
+    .domain-track {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-alt);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .domain-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 100px;
+      transition: width 0.6s ease;
+    }
+    .domain-score {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────────────
+       BATTERY SCREEN
+    ───────────────────────────────────────────────── */
+    #screen-battery {
+      max-width: 640px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .battery-header {
+      margin-bottom: 32px;
+    }
+    .battery-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .battery-header h1 {
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .battery-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Progress */
+    .battery-progress {
+      margin-bottom: 28px;
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--bg-alt);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 100px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+    .progress-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    #cog-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      min-height: 300px;
+    }
+
+    /* ── Loading spinner ── */
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      gap: 16px;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-wrap p { font-size: 14px; color: var(--text-muted); }
+
+    /* ── Section spacing ── */
+    .section-gap { margin-bottom: 20px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .site-nav { padding: 0 20px; }
+      .app-main { padding: 28px 16px 60px; }
+      .auth-card, .onboard-card { padding: 28px 20px; }
+      .dash-countdown { padding: 20px 20px; }
+      .countdown-number { font-size: 40px; }
+      .domain-name { width: 100px; }
+      .dash-panel { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="media/logo-full.png" alt="OneCarbon" style="height:44px;width:auto;">
+    </a>
+    <div class="nav-right">
+      <button class="nav-signout" id="btn-signout">Sign out</button>
+    </div>
+  </nav>
+
+  <!-- ── MAIN APP ── -->
+  <main class="app-main">
+
+    <!-- ══ SCREEN 1: AUTH ══ -->
+    <div id="screen-auth" class="screen active">
+      <div class="auth-card">
+        <h1>Track your cognition</h1>
+        <p class="auth-sub">Sign in to access your longitudinal cognitive assessment dashboard.</p>
+
+        <div class="auth-error" id="auth-error"></div>
+
+        <!-- Google -->
+        <button class="btn-google" id="btn-google-signin">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+            <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="auth-divider">or</div>
+
+        <!-- Email/password form -->
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <!-- Confirm password (hidden by default) -->
+        <div class="form-group" id="confirm-group" style="display:none;">
+          <label>Confirm password</label>
+          <input type="password" id="auth-confirm" placeholder="••••••••" autocomplete="new-password">
+        </div>
+
+        <button class="btn-primary" id="btn-email-auth">Sign in</button>
+
+        <div class="auth-toggle">
+          <span id="auth-toggle-text">Don't have an account?</span>
+          <a id="auth-mode-toggle"> Create one</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SCREEN 2: ONBOARDING ══ -->
+    <div id="screen-onboarding" class="screen">
+      <div class="onboard-card">
+        <h1>Tell us about yourself — just once</h1>
+        <p class="onboard-sub">This information helps us contextualise your results. You won't be asked again.</p>
+
+        <div class="auth-error" id="onboard-error"></div>
+
+        <div class="form-group section-gap">
+          <label>Age</label>
+          <input type="number" id="onboard-age" min="18" max="100" placeholder="e.g. 34">
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Biological sex</label>
+          <div class="tile-group" id="sex-tiles">
+            <button class="tile-btn" data-value="female">Female</button>
+            <button class="tile-btn" data-value="male">Male</button>
+            <button class="tile-btn" data-value="prefer-not-to-say">Prefer not to say</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Ethnicity</label>
+          <div class="tile-group list" id="ethnicity-tiles">
+            <button class="tile-btn" data-value="white">White</button>
+            <button class="tile-btn" data-value="asian-or-asian-british">Asian or Asian British</button>
+            <button class="tile-btn" data-value="black-african-caribbean-or-black-british">Black, African, Caribbean or Black British</button>
+            <button class="tile-btn" data-value="mixed-or-multiple-ethnic-groups">Mixed or multiple ethnic groups</button>
+            <button class="tile-btn" data-value="other-ethnic-group">Other ethnic group</button>
+            <button class="tile-btn" data-value="prefer-not-to-say">Prefer not to say</button>
+          </div>
+        </div>
+
+        <div class="form-group section-gap">
+          <label>Data consent</label>
+          <div class="consent-row">
+            <input type="checkbox" id="onboard-consent">
+            <label for="onboard-consent" style="font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400;">
+              I consent to my anonymised data being used for research purposes, in accordance with our <a href="privacy.html">Privacy Policy</a>.
+            </label>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-onboard-continue" style="margin-top:28px;">Continue to your first test →</button>
+      </div>
+    </div>
+
+    <!-- ══ SCREEN 3: DASHBOARD ══ -->
+    <div id="screen-dashboard" class="screen">
+
+      <div class="dash-header">
+        <div class="dash-greeting" id="dash-greeting">Welcome back</div>
+        <div class="dash-subtitle" id="dash-subtitle">Here's your cognitive health overview</div>
+      </div>
+
+      <!-- Countdown + CTA -->
+      <div class="dash-countdown" id="dash-countdown">
+        <div>
+          <div class="countdown-label">Next test in</div>
+          <div>
+            <span class="countdown-number" id="countdown-days">—</span>
+            <span class="countdown-unit">days</span>
+          </div>
+        </div>
+        <button class="btn-take-test not-ready" id="btn-test-from-dash">Take the test now →</button>
+      </div>
+
+      <!-- Score history chart -->
+      <div class="dash-panel">
+        <div class="panel-title">Composite score over time</div>
+        <canvas id="score-canvas"></canvas>
+        <div class="chart-no-data" id="chart-no-data" style="display:none;">
+          Complete at least 2 sessions to see your progress chart
+        </div>
+      </div>
+
+      <!-- Domain breakdown -->
+      <div class="dash-panel" id="domain-panel" style="display:none;">
+        <div class="panel-title">Last session — domain breakdown</div>
+        <div class="domain-bars" id="domain-bars"></div>
+      </div>
+
+    </div>
+
+    <!-- ══ SCREEN 4: BATTERY ══ -->
+    <div id="screen-battery" class="screen">
+      <div class="battery-header">
+        <div class="battery-eyebrow" id="battery-session-label">Session 1</div>
+        <h1>Cognitive assessment</h1>
+        <p>Takes about 10 minutes. Find a quiet place and minimise distractions.</p>
+      </div>
+
+      <div class="battery-progress">
+        <div class="progress-row">
+          <div class="progress-track"><div class="progress-fill" id="battery-progress-fill"></div></div>
+          <div class="progress-label" id="battery-progress-label">0 of 7</div>
+        </div>
+      </div>
+
+      <div id="cog-container"></div>
+    </div>
+
+  </main>
+
+  <!-- Cognitive tests script -->
+  <script src="js/cognitive-tests.js"></script>
+
+  <script>
+    // ══════════════════════════════════════════════════════════
+    // FIREBASE CONFIG — replace with your project's config
+    // ══════════════════════════════════════════════════════════
+    /* REPLACE with your Firebase config from console.firebase.google.com */
+    const firebaseConfig = {
+      apiKey: "AIzaSyAScLolCIgz4im2fR4QgYkGyZMuR14O7MI",
+      authDomain: "onecarbon-app.firebaseapp.com",
+      projectId: "onecarbon-app",
+      storageBucket: "onecarbon-app.firebasestorage.app",
+      messagingSenderId: "27710515098",
+      appId: "1:27710515098:web:838eeda8b3978ea9cd3c23",
+      measurementId: "G-MT11J77CNR"
+    };
+    // ══════════════════════════════════════════════════════════
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // ── DOM refs ──
+    const screens = {
+      auth: document.getElementById('screen-auth'),
+      onboarding: document.getElementById('screen-onboarding'),
+      dashboard: document.getElementById('screen-dashboard'),
+      battery: document.getElementById('screen-battery'),
+    };
+
+    function showScreen(name) {
+      Object.entries(screens).forEach(([key, el]) => {
+        el.classList.toggle('active', key === name);
+      });
+      // show sign-out button only when logged in
+      document.getElementById('btn-signout').style.display =
+        (name !== 'auth') ? 'inline-block' : 'none';
+    }
+
+    // ── Current user state ──
+    let currentUser = null;
+    let allSessions = [];
+
+    // ════════════════════════════════════════
+    // AUTH FLOW
+    // ════════════════════════════════════════
+    auth.onAuthStateChanged(async user => {
+      if (!user) {
+        showScreen('auth');
+        return;
+      }
+      currentUser = user;
+      const profile = await loadProfile(user.uid);
+      if (!profile) {
+        showScreen('onboarding');
+        return;
+      }
+      allSessions = await loadSessions(user.uid);
+      if (allSessions.length === 0 || daysSinceLastSession(allSessions) > 14) {
+        showBattery(allSessions.length + 1);
+      } else {
+        showDashboard(user, allSessions);
+      }
+    });
+
+    async function loadProfile(uid) {
+      try {
+        const doc = await db.collection('users').doc(uid).collection('profile').doc('data').get();
+        return doc.exists ? doc.data() : null;
+      } catch (e) { return null; }
+    }
+
+    async function loadSessions(uid) {
+      try {
+        const snap = await db.collection('users').doc(uid).collection('sessions')
+          .orderBy('completedAt', 'asc').get();
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (e) { return []; }
+    }
+
+    function daysSinceLastSession(sessions) {
+      if (!sessions.length) return Infinity;
+      const last = sessions[sessions.length - 1];
+      const lastDate = last.completedAt?.toDate ? last.completedAt.toDate() : new Date(last.completedAt);
+      return (Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
+    }
+
+    // ── Google sign-in ──
+    document.getElementById('btn-google-signin').addEventListener('click', async () => {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithPopup(provider);
+      } catch (e) {
+        showAuthError(friendlyError(e));
+      }
+    });
+
+    // ── Email auth ──
+    let isSignUp = false;
+    document.getElementById('auth-mode-toggle').addEventListener('click', () => {
+      isSignUp = !isSignUp;
+      document.getElementById('confirm-group').style.display = isSignUp ? 'block' : 'none';
+      document.getElementById('btn-email-auth').textContent = isSignUp ? 'Create account' : 'Sign in';
+      document.getElementById('auth-toggle-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+      document.getElementById('auth-mode-toggle').textContent = isSignUp ? ' Sign in' : ' Create one';
+      clearAuthError();
+    });
+
+    document.getElementById('btn-email-auth').addEventListener('click', async () => {
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+      const confirm = document.getElementById('auth-confirm').value;
+      clearAuthError();
+
+      if (!email || !password) { showAuthError('Please enter your email and password.'); return; }
+
+      if (isSignUp) {
+        if (password !== confirm) { showAuthError('Passwords do not match.'); return; }
+        if (password.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
+        try {
+          await auth.createUserWithEmailAndPassword(email, password);
+        } catch (e) { showAuthError(friendlyError(e)); }
+      } else {
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+        } catch (e) { showAuthError(friendlyError(e)); }
+      }
+    });
+
+    document.getElementById('btn-signout').addEventListener('click', () => {
+      auth.signOut();
+    });
+
+    function showAuthError(msg) {
+      const el = document.getElementById('auth-error');
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+    function clearAuthError() {
+      const el = document.getElementById('auth-error');
+      el.textContent = '';
+      el.classList.remove('visible');
+    }
+    function friendlyError(e) {
+      const map = {
+        'auth/user-not-found': 'No account found with that email.',
+        'auth/wrong-password': 'Incorrect password.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/email-already-in-use': 'An account with this email already exists.',
+        'auth/weak-password': 'Password is too weak.',
+        'auth/popup-closed-by-user': 'Sign-in popup was closed.',
+        'auth/network-request-failed': 'Network error. Please check your connection.',
+      };
+      return map[e.code] || e.message || 'Something went wrong. Please try again.';
+    }
+
+    // ════════════════════════════════════════
+    // ONBOARDING
+    // ════════════════════════════════════════
+    let selectedSex = null;
+    let selectedEthnicity = null;
+
+    // Tile button logic
+    function setupTileGroup(groupId, onSelect) {
+      const group = document.getElementById(groupId);
+      group.querySelectorAll('.tile-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.tile-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          onSelect(btn.dataset.value);
+        });
+      });
+    }
+
+    setupTileGroup('sex-tiles', v => { selectedSex = v; });
+    setupTileGroup('ethnicity-tiles', v => { selectedEthnicity = v; });
+
+    document.getElementById('btn-onboard-continue').addEventListener('click', async () => {
+      const age = parseInt(document.getElementById('onboard-age').value, 10);
+      const consent = document.getElementById('onboard-consent').checked;
+      const errorEl = document.getElementById('onboard-error');
+
+      errorEl.classList.remove('visible');
+
+      if (!age || age < 18 || age > 100) {
+        errorEl.textContent = 'Please enter a valid age (18–100).';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (!selectedSex) {
+        errorEl.textContent = 'Please select your biological sex.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (!selectedEthnicity) {
+        errorEl.textContent = 'Please select your ethnicity.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (!consent) {
+        errorEl.textContent = 'Please tick the consent checkbox to continue.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      try {
+        await db.collection('users').doc(currentUser.uid).collection('profile').doc('data').set({
+          age,
+          sex: selectedSex,
+          ethnicity: selectedEthnicity,
+          consent: true,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        showBattery(1);
+      } catch (e) {
+        errorEl.textContent = 'Failed to save. Please try again.';
+        errorEl.classList.add('visible');
+      }
+    });
+
+    // ════════════════════════════════════════
+    // BATTERY
+    // ════════════════════════════════════════
+    function showBattery(sessionNumber) {
+      document.getElementById('battery-session-label').textContent = `Session ${sessionNumber}`;
+      document.getElementById('battery-progress-fill').style.width = '0%';
+      document.getElementById('battery-progress-label').textContent = '0 of 7';
+      showScreen('battery');
+
+      // Only start if CognitiveTests is available
+      if (typeof CognitiveTests === 'undefined') {
+        document.getElementById('cog-container').innerHTML =
+          '<div style="padding:40px;text-align:center;color:var(--text-muted);font-size:14px;">Cognitive test module not loaded. Ensure js/cognitive-tests.js is present.</div>';
+        return;
+      }
+
+      CognitiveTests.start(document.getElementById('cog-container'), {
+        onProgress: (done, total) => {
+          const pct = Math.round((done / total) * 100);
+          document.getElementById('battery-progress-fill').style.width = pct + '%';
+          document.getElementById('battery-progress-label').textContent = `${done} of ${total}`;
+        },
+        onComplete: async (results) => {
+          await saveSession(results);
+        }
+      });
+    }
+
+    async function saveSession(results) {
+      const sessionId = Date.now().toString();
+      try {
+        await db.collection('users').doc(currentUser.uid)
+          .collection('sessions').doc(sessionId).set({
+            completedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            results,
+          });
+      } catch (e) {
+        console.error('Failed to save session:', e);
+      }
+      // Reload sessions and go to dashboard
+      allSessions = await loadSessions(currentUser.uid);
+      showDashboard(currentUser, allSessions);
+    }
+
+    // ════════════════════════════════════════
+    // DASHBOARD
+    // ════════════════════════════════════════
+    function showDashboard(user, sessions) {
+      showScreen('dashboard');
+
+      // Greeting
+      const firstName = (user.displayName || user.email || 'there').split(/[\s@]/)[0];
+      document.getElementById('dash-greeting').textContent = `Welcome back, ${firstName}`;
+      document.getElementById('dash-subtitle').textContent =
+        sessions.length === 1
+          ? 'You've completed your first session. Keep going!'
+          : `You've completed ${sessions.length} session${sessions.length !== 1 ? 's' : ''}.`;
+
+      // Countdown
+      const days = Math.max(0, Math.ceil(14 - daysSinceLastSession(sessions)));
+      document.getElementById('countdown-days').textContent = days;
+      const btn = document.getElementById('btn-test-from-dash');
+      if (days === 0) {
+        btn.className = 'btn-take-test ready';
+      } else {
+        btn.className = 'btn-take-test not-ready';
+      }
+      btn.addEventListener('click', () => {
+        showBattery(sessions.length + 1);
+      }, { once: true });
+
+      // Chart
+      drawChart(sessions);
+
+      // Domain bars for last session
+      if (sessions.length > 0) {
+        const last = sessions[sessions.length - 1];
+        drawDomainBars(last.results || {});
+      }
+    }
+
+    // ════════════════════════════════════════
+    // SCORING
+    // ════════════════════════════════════════
+    function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+
+    const DOMAINS = [
+      { key: 'cog_rt',     label: 'Reaction time',    score: v => clamp(100 - (v - 200) / 8, 0, 100) },
+      { key: 'cog_numeric',label: 'Numeric memory',   score: v => clamp(v * 10, 0, 100) },
+      { key: 'cog_symbol', label: 'Symbol matching',  score: v => clamp(v * 5, 0, 100) },
+      { key: 'cog_pal',    label: 'Word pairs',       score: v => clamp(v * 12.5, 0, 100) },
+      { key: 'cog_matrix', label: 'Pattern puzzles',  score: v => clamp(v * 20, 0, 100) },
+      { key: 'cog_tmta',   label: 'Trail making A',   score: v => clamp(100 - (v - 10000) / 1500, 0, 100) },
+      { key: 'cog_tmtb',   label: 'Trail making B',   score: v => clamp(100 - (v - 20000) / 2500, 0, 100) },
+    ];
+
+    function compositeScore(results) {
+      if (!results) return 0;
+      const scores = DOMAINS.map(d => {
+        const v = results[d.key];
+        return (v != null) ? d.score(v) : null;
+      }).filter(s => s !== null);
+      if (!scores.length) return 0;
+      return scores.reduce((a, b) => a + b, 0) / scores.length;
+    }
+
+    function domainScores(results) {
+      return DOMAINS.map(d => {
+        const v = results?.[d.key];
+        return { label: d.label, score: (v != null) ? Math.round(d.score(v)) : null };
+      });
+    }
+
+    // ════════════════════════════════════════
+    // CHART
+    // ════════════════════════════════════════
+    function drawChart(sessions) {
+      const canvas = document.getElementById('score-canvas');
+      const noData = document.getElementById('chart-no-data');
+
+      if (sessions.length < 2) {
+        canvas.style.display = 'none';
+        noData.style.display = 'flex';
+        return;
+      }
+
+      canvas.style.display = 'block';
+      noData.style.display = 'none';
+
+      // Set canvas resolution
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width - 56; // account for panel padding
+      const H = 200;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const pad = { top: 16, right: 20, bottom: 36, left: 44 };
+      const plotW = W - pad.left - pad.right;
+      const plotH = H - pad.top - pad.bottom;
+
+      // Data
+      const scores = sessions.map(s => compositeScore(s.results || {}));
+      const dates = sessions.map(s => {
+        const d = s.completedAt?.toDate ? s.completedAt.toDate() : new Date(s.completedAt);
+        return d;
+      });
+
+      const minScore = 0, maxScore = 100;
+      const xStep = plotW / (sessions.length - 1);
+
+      function xAt(i) { return pad.left + i * xStep; }
+      function yAt(v) { return pad.top + plotH - ((v - minScore) / (maxScore - minScore)) * plotH; }
+
+      const accentRgb = '31, 53, 90';
+
+      // Grid lines
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+      ctx.lineWidth = 1;
+      [0, 25, 50, 75, 100].forEach(v => {
+        const y = yAt(v);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(pad.left + plotW, y);
+        ctx.stroke();
+        ctx.fillStyle = '#aaa';
+        ctx.font = '10px Outfit, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(v, pad.left - 6, y + 3.5);
+      });
+
+      // Fill area
+      ctx.beginPath();
+      ctx.moveTo(xAt(0), yAt(scores[0]));
+      scores.forEach((v, i) => {
+        if (i > 0) ctx.lineTo(xAt(i), yAt(v));
+      });
+      ctx.lineTo(xAt(sessions.length - 1), pad.top + plotH);
+      ctx.lineTo(xAt(0), pad.top + plotH);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(${accentRgb}, 0.07)`;
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      ctx.moveTo(xAt(0), yAt(scores[0]));
+      scores.forEach((v, i) => {
+        if (i > 0) ctx.lineTo(xAt(i), yAt(v));
+      });
+      ctx.strokeStyle = `rgba(${accentRgb}, 1)`;
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Dots + date labels
+      scores.forEach((v, i) => {
+        const x = xAt(i);
+        const y = yAt(v);
+
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgb(${accentRgb})`;
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Date label
+        const d = dates[i];
+        const label = d ? `${d.getDate()} ${d.toLocaleString('en-GB', { month: 'short' })}` : `S${i+1}`;
+        ctx.fillStyle = '#aaa';
+        ctx.font = '10px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x, H - 8);
+      });
+    }
+
+    // ════════════════════════════════════════
+    // DOMAIN BARS
+    // ════════════════════════════════════════
+    function drawDomainBars(results) {
+      const panel = document.getElementById('domain-panel');
+      const container = document.getElementById('domain-bars');
+      const scores = domainScores(results);
+
+      if (scores.every(s => s.score === null)) {
+        panel.style.display = 'none';
+        return;
+      }
+
+      panel.style.display = 'block';
+      container.innerHTML = '';
+      scores.forEach(({ label, score }) => {
+        const row = document.createElement('div');
+        row.className = 'domain-row';
+        const val = score ?? 0;
+        row.innerHTML = `
+          <div class="domain-name">${label}</div>
+          <div class="domain-track"><div class="domain-fill" style="width:${val}%"></div></div>
+          <div class="domain-score">${score !== null ? score : '—'}</div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+  </script>
+</body>
+</html>
