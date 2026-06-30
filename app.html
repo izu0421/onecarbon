@@ -77,6 +77,19 @@
       display: none;
     }
     .nav-signout:hover { color: var(--text); }
+    .lang-toggle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: none;
+      border: 1.5px solid var(--accent);
+      border-radius: 20px;
+      cursor: pointer;
+      padding: 4px 12px;
+      letter-spacing: 0.02em;
+    }
+    .lang-toggle:hover { background: var(--accent-light); }
 
     /* ── App wrapper ── */
     .app-main {
@@ -579,7 +592,8 @@
       <img src="media/logo-full.png" alt="OneCarbon" style="height:44px;width:auto;">
     </a>
     <div class="nav-right">
-      <button class="nav-signout" id="btn-signout">Sign out</button>
+      <button class="lang-toggle" id="lang-toggle">中文</button>
+      <button class="nav-signout" id="btn-signout" data-i18n="nav.signout">Sign out</button>
     </div>
   </nav>
 
@@ -589,8 +603,8 @@
     <!-- ══ SCREEN 1: AUTH ══ -->
     <div id="screen-auth" class="screen active">
       <div class="auth-card">
-        <h1>Track your cognition</h1>
-        <p class="auth-sub">Sign in to access your longitudinal cognitive assessment dashboard.</p>
+        <h1 data-i18n="auth.h1">Track your cognition</h1>
+        <p class="auth-sub" data-i18n="auth.sub">Sign in to access your longitudinal cognitive assessment dashboard.</p>
 
         <div class="auth-error" id="auth-error"></div>
 
@@ -602,31 +616,31 @@
             <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
             <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
           </svg>
-          Continue with Google
+          <span data-i18n="auth.google">Continue with Google</span>
         </button>
 
-        <div class="auth-divider">or</div>
+        <div class="auth-divider" data-i18n="auth.or">or</div>
 
         <!-- Email/password form -->
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
+          <label data-i18n="auth.email">Email</label>
+          <input type="email" id="auth-email" placeholder="you@example.com" data-i18n-ph="auth.email_ph" autocomplete="email">
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label data-i18n="auth.password">Password</label>
           <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password">
         </div>
         <!-- Confirm password (hidden by default) -->
         <div class="form-group" id="confirm-group" style="display:none;">
-          <label>Confirm password</label>
+          <label data-i18n="auth.confirm">Confirm password</label>
           <input type="password" id="auth-confirm" placeholder="••••••••" autocomplete="new-password">
         </div>
 
-        <button class="btn-primary" id="btn-email-auth">Sign in</button>
+        <button class="btn-primary" id="btn-email-auth" data-i18n="auth.signin">Sign in</button>
 
         <div class="auth-toggle">
-          <span id="auth-toggle-text">Don't have an account?</span>
-          <a id="auth-mode-toggle"> Create one</a>
+          <span id="auth-toggle-text" data-i18n="auth.no_account">Don't have an account?</span>
+          <a id="auth-mode-toggle" data-i18n="auth.create"> Create one</a>
         </div>
       </div>
     </div>
@@ -634,81 +648,81 @@
     <!-- ══ SCREEN 2: ONBOARDING ══ -->
     <div id="screen-onboarding" class="screen">
       <div class="onboard-card">
-        <h1>Tell us about yourself — just once</h1>
-        <p class="onboard-sub">This information helps us contextualise your results. You won't be asked again.</p>
+        <h1 data-i18n="onboard.h1">Tell us about yourself — just once</h1>
+        <p class="onboard-sub" data-i18n="onboard.sub">This information helps us contextualise your results. You won't be asked again.</p>
 
         <div class="auth-error" id="onboard-error"></div>
 
         <div class="form-group section-gap">
-          <label>Full name</label>
-          <input type="text" id="onboard-name" placeholder="Your name">
+          <label data-i18n="onboard.name">Full name</label>
+          <input type="text" id="onboard-name" placeholder="Your name" data-i18n-ph="onboard.name_ph">
         </div>
 
         <div class="form-group section-gap">
-          <label>Email</label>
+          <label data-i18n="onboard.email">Email</label>
           <input type="email" id="onboard-email" readonly style="opacity:0.6;cursor:default;">
         </div>
 
         <div class="form-group section-gap">
-          <label>Age</label>
-          <input type="number" id="onboard-age" min="18" max="100" placeholder="e.g. 34">
+          <label data-i18n="onboard.age">Age</label>
+          <input type="number" id="onboard-age" min="18" max="100" placeholder="e.g. 34" data-i18n-ph="onboard.age_ph">
         </div>
 
         <div class="form-group section-gap">
-          <label>Biological sex</label>
+          <label data-i18n="onboard.sex">Biological sex</label>
           <div class="tile-group" id="sex-tiles">
-            <button class="tile-btn" data-value="female">Female</button>
-            <button class="tile-btn" data-value="male">Male</button>
-            <button class="tile-btn" data-value="prefer-not-to-say">Prefer not to say</button>
+            <button class="tile-btn" data-value="female" data-i18n="onboard.sex_f">Female</button>
+            <button class="tile-btn" data-value="male" data-i18n="onboard.sex_m">Male</button>
+            <button class="tile-btn" data-value="prefer-not-to-say" data-i18n="onboard.pnts">Prefer not to say</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Ethnicity</label>
+          <label data-i18n="onboard.eth">Ethnicity</label>
           <div class="tile-group list" id="ethnicity-tiles">
-            <button class="tile-btn" data-value="white">White</button>
-            <button class="tile-btn" data-value="asian-or-asian-british">Asian or Asian British</button>
-            <button class="tile-btn" data-value="black-african-caribbean-or-black-british">Black, African, Caribbean or Black British</button>
-            <button class="tile-btn" data-value="mixed-or-multiple-ethnic-groups">Mixed or multiple ethnic groups</button>
-            <button class="tile-btn" data-value="other-ethnic-group">Other ethnic group</button>
-            <button class="tile-btn" data-value="prefer-not-to-say">Prefer not to say</button>
+            <button class="tile-btn" data-value="white" data-i18n="onboard.eth_white">White</button>
+            <button class="tile-btn" data-value="asian-or-asian-british" data-i18n="onboard.eth_asian">Asian or Asian British</button>
+            <button class="tile-btn" data-value="black-african-caribbean-or-black-british" data-i18n="onboard.eth_black">Black, African, Caribbean or Black British</button>
+            <button class="tile-btn" data-value="mixed-or-multiple-ethnic-groups" data-i18n="onboard.eth_mixed">Mixed or multiple ethnic groups</button>
+            <button class="tile-btn" data-value="other-ethnic-group" data-i18n="onboard.eth_other">Other ethnic group</button>
+            <button class="tile-btn" data-value="prefer-not-to-say" data-i18n="onboard.pnts">Prefer not to say</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Highest level of education</label>
+          <label data-i18n="onboard.edu">Highest level of education</label>
           <div class="tile-group list" id="education-tiles">
-            <button class="tile-btn" data-value="secondary">Secondary school (GCSE / O-level)</button>
-            <button class="tile-btn" data-value="a_level">A-levels or equivalent</button>
-            <button class="tile-btn" data-value="undergraduate">Undergraduate degree</button>
-            <button class="tile-btn" data-value="postgraduate">Postgraduate degree (Masters / PhD)</button>
-            <button class="tile-btn" data-value="other">Other / prefer not to say</button>
+            <button class="tile-btn" data-value="secondary" data-i18n="onboard.edu_sec">Secondary school (GCSE / O-level)</button>
+            <button class="tile-btn" data-value="a_level" data-i18n="onboard.edu_alev">A-levels or equivalent</button>
+            <button class="tile-btn" data-value="undergraduate" data-i18n="onboard.edu_ug">Undergraduate degree</button>
+            <button class="tile-btn" data-value="postgraduate" data-i18n="onboard.edu_pg">Postgraduate degree (Masters / PhD)</button>
+            <button class="tile-btn" data-value="other" data-i18n="onboard.edu_other">Other / prefer not to say</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Do you have any of the following? <span style="font-weight:400;color:var(--text-muted);">(select all that apply)</span></label>
+          <label><span data-i18n="onboard.med">Do you have any of the following?</span> <span style="font-weight:400;color:var(--text-muted);" data-i18n="onboard.multi_hint">(select all that apply)</span></label>
           <div class="tile-group" id="medical-tiles" style="flex-wrap:wrap;">
-            <button class="tile-btn multi" data-value="diabetes">Diabetes</button>
-            <button class="tile-btn multi" data-value="hypertension">High blood pressure</button>
-            <button class="tile-btn multi" data-value="depression">Depression or anxiety</button>
-            <button class="tile-btn multi" data-value="sleep_disorder">Sleep disorder (e.g. insomnia, sleep apnoea)</button>
-            <button class="tile-btn multi" data-value="heart_disease">Heart disease</button>
-            <button class="tile-btn multi" data-value="none">None of the above</button>
+            <button class="tile-btn multi" data-value="diabetes" data-i18n="onboard.med_diabetes">Diabetes</button>
+            <button class="tile-btn multi" data-value="hypertension" data-i18n="onboard.med_hyp">High blood pressure</button>
+            <button class="tile-btn multi" data-value="depression" data-i18n="onboard.med_dep">Depression or anxiety</button>
+            <button class="tile-btn multi" data-value="sleep_disorder" data-i18n="onboard.med_sleep">Sleep disorder (e.g. insomnia, sleep apnoea)</button>
+            <button class="tile-btn multi" data-value="heart_disease" data-i18n="onboard.med_heart">Heart disease</button>
+            <button class="tile-btn multi" data-value="none" data-i18n="onboard.med_none">None of the above</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Data consent</label>
+          <label data-i18n="onboard.consent_label">Data consent</label>
           <div class="consent-row">
             <input type="checkbox" id="onboard-consent">
-            <label for="onboard-consent" style="font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400;">
+            <label for="onboard-consent" id="onboard-consent-text" style="font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400;">
               I consent to my anonymised data being used for research purposes, in accordance with our <a href="privacy.html">Privacy Policy</a>.
             </label>
           </div>
         </div>
 
-        <button class="btn-primary" id="btn-onboard-continue" style="margin-top:28px;">Continue to your first test →</button>
+        <button class="btn-primary" id="btn-onboard-continue" style="margin-top:28px;" data-i18n="onboard.continue">Continue to your first test →</button>
       </div>
     </div>
 
@@ -717,33 +731,33 @@
 
       <div class="dash-header">
         <div class="dash-greeting" id="dash-greeting">Welcome back</div>
-        <div class="dash-subtitle" id="dash-subtitle">Here's your cognitive health overview</div>
+        <div class="dash-subtitle" id="dash-subtitle" data-i18n="dash.subtitle">Here's your cognitive health overview</div>
       </div>
 
       <!-- Countdown + CTA -->
       <div class="dash-countdown" id="dash-countdown">
         <div>
-          <div class="countdown-label">Next test in</div>
+          <div class="countdown-label" data-i18n="dash.next_test">Next test in</div>
           <div>
             <span class="countdown-number" id="countdown-days">—</span>
-            <span class="countdown-unit">days</span>
+            <span class="countdown-unit" data-i18n="dash.days">days</span>
           </div>
         </div>
-        <button class="btn-take-test not-ready" id="btn-test-from-dash">Take the test now →</button>
+        <button class="btn-take-test not-ready" id="btn-test-from-dash" data-i18n="dash.take_test">Take the test now →</button>
       </div>
 
       <!-- Score history chart -->
       <div class="dash-panel">
-        <div class="panel-title">Composite score over time</div>
+        <div class="panel-title" data-i18n="dash.score_chart">Composite score over time</div>
         <canvas id="score-canvas"></canvas>
-        <div class="chart-no-data" id="chart-no-data" style="display:none;">
+        <div class="chart-no-data" id="chart-no-data" style="display:none;" data-i18n="dash.no_data">
           Complete at least 2 sessions to see your progress chart
         </div>
       </div>
 
       <!-- Domain breakdown -->
       <div class="dash-panel" id="domain-panel" style="display:none;">
-        <div class="panel-title">Last session — domain breakdown</div>
+        <div class="panel-title" data-i18n="dash.domain_title">Last session — domain breakdown</div>
         <div class="domain-bars" id="domain-bars"></div>
       </div>
 
@@ -752,13 +766,13 @@
     <!-- ══ SCREEN 3b: SLEEP QUESTIONNAIRE ══ -->
     <div id="screen-sleep" class="screen">
       <div class="onboard-card" style="max-width:560px;">
-        <h1 class="onboard-title">Before you begin</h1>
-        <p class="onboard-sub">A few quick questions about your sleep last night. Takes under 2 minutes.</p>
+        <h1 class="onboard-title" data-i18n="sleep.h1">Before you begin</h1>
+        <p class="onboard-sub" data-i18n="sleep.sub">A few quick questions about your sleep last night. Takes under 2 minutes.</p>
 
         <div class="auth-error" id="sleep-error"></div>
 
         <div class="form-group section-gap">
-          <label>Hours of sleep last night</label>
+          <label data-i18n="sleep.hours">Hours of sleep last night</label>
           <div style="display:flex;align-items:center;gap:16px;">
             <input type="range" id="sleep-hours" min="0" max="16" step="0.5" value="7" style="flex:1;accent-color:var(--accent);" oninput="document.getElementById('sleep-hours-val').textContent=this.value+' hrs'">
             <span id="sleep-hours-val" style="font-weight:500;min-width:48px;">7 hrs</span>
@@ -766,81 +780,81 @@
         </div>
 
         <div class="form-group section-gap">
-          <label>Overall sleep quality</label>
+          <label data-i18n="sleep.quality">Overall sleep quality</label>
           <div class="tile-group list" id="sleep-quality-tiles">
-            <button class="tile-btn" data-value="very_good">Very good</button>
-            <button class="tile-btn" data-value="good">Good</button>
-            <button class="tile-btn" data-value="average">Average</button>
-            <button class="tile-btn" data-value="poor">Poor</button>
-            <button class="tile-btn" data-value="very_poor">Very poor</button>
+            <button class="tile-btn" data-value="very_good" data-i18n="sleep.q_vg">Very good</button>
+            <button class="tile-btn" data-value="good" data-i18n="sleep.q_g">Good</button>
+            <button class="tile-btn" data-value="average" data-i18n="sleep.q_avg">Average</button>
+            <button class="tile-btn" data-value="poor" data-i18n="sleep.q_p">Poor</button>
+            <button class="tile-btn" data-value="very_poor" data-i18n="sleep.q_vp">Very poor</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Daytime sleepiness</label>
-          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">How likely are you to doze off unintentionally during the day?</p>
+          <label data-i18n="sleep.daytime">Daytime sleepiness</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;" data-i18n="sleep.daytime_sub">How likely are you to doze off unintentionally during the day?</p>
           <div class="tile-group" id="sleep-daytime-tiles">
-            <button class="tile-btn" data-value="never">Never</button>
-            <button class="tile-btn" data-value="sometimes">Sometimes</button>
-            <button class="tile-btn" data-value="often">Often</button>
+            <button class="tile-btn" data-value="never" data-i18n="sleep.dt_never">Never</button>
+            <button class="tile-btn" data-value="sometimes" data-i18n="sleep.dt_sometimes">Sometimes</button>
+            <button class="tile-btn" data-value="often" data-i18n="sleep.dt_often">Often</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Trouble falling asleep or staying asleep?</label>
+          <label data-i18n="sleep.trouble">Trouble falling asleep or staying asleep?</label>
           <div class="tile-group" id="sleep-trouble-tiles">
-            <button class="tile-btn" data-value="no">No</button>
-            <button class="tile-btn" data-value="occasionally">Occasionally</button>
-            <button class="tile-btn" data-value="yes">Yes, often</button>
+            <button class="tile-btn" data-value="no" data-i18n="sleep.tr_no">No</button>
+            <button class="tile-btn" data-value="occasionally" data-i18n="sleep.tr_occ">Occasionally</button>
+            <button class="tile-btn" data-value="yes" data-i18n="sleep.tr_yes">Yes, often</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Time to fall asleep</label>
+          <label data-i18n="sleep.onset">Time to fall asleep</label>
           <div class="tile-group" id="sleep-onset-tiles">
-            <button class="tile-btn" data-value="under_15">&lt;15 min</button>
-            <button class="tile-btn" data-value="15_to_30">15–30 min</button>
-            <button class="tile-btn" data-value="30_to_60">30–60 min</button>
-            <button class="tile-btn" data-value="over_60">&gt;60 min</button>
+            <button class="tile-btn" data-value="under_15" data-i18n="sleep.on_u15">&lt;15 min</button>
+            <button class="tile-btn" data-value="15_to_30" data-i18n="sleep.on_1530">15–30 min</button>
+            <button class="tile-btn" data-value="30_to_60" data-i18n="sleep.on_3060">30–60 min</button>
+            <button class="tile-btn" data-value="over_60" data-i18n="sleep.on_o60">&gt;60 min</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>What woke you during the night? <span style="font-weight:400;color:var(--text-muted);">(select all that apply)</span></label>
+          <label><span data-i18n="sleep.wake">What woke you during the night?</span> <span style="font-weight:400;color:var(--text-muted);" data-i18n="onboard.multi_hint">(select all that apply)</span></label>
           <div class="tile-group" id="sleep-wake-tiles" style="flex-wrap:wrap;">
-            <button class="tile-btn multi" data-value="bathroom">Bathroom</button>
-            <button class="tile-btn multi" data-value="noise">Noise / light</button>
-            <button class="tile-btn multi" data-value="temperature">Temperature</button>
-            <button class="tile-btn multi" data-value="pain">Pain</button>
-            <button class="tile-btn multi" data-value="worry">Worry</button>
-            <button class="tile-btn multi" data-value="partner">Partner / children</button>
-            <button class="tile-btn multi" data-value="none">I didn't wake</button>
+            <button class="tile-btn multi" data-value="bathroom" data-i18n="sleep.wk_bath">Bathroom</button>
+            <button class="tile-btn multi" data-value="noise" data-i18n="sleep.wk_noise">Noise / light</button>
+            <button class="tile-btn multi" data-value="temperature" data-i18n="sleep.wk_temp">Temperature</button>
+            <button class="tile-btn multi" data-value="pain" data-i18n="sleep.wk_pain">Pain</button>
+            <button class="tile-btn multi" data-value="worry" data-i18n="sleep.wk_worry">Worry</button>
+            <button class="tile-btn multi" data-value="partner" data-i18n="sleep.wk_partner">Partner / children</button>
+            <button class="tile-btn multi" data-value="none" data-i18n="sleep.wk_none">I didn't wake</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>How are you feeling today?</label>
-          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">Overall mood right now.</p>
+          <label data-i18n="sleep.mood">How are you feeling today?</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;" data-i18n="sleep.mood_sub">Overall mood right now.</p>
           <div class="tile-group" id="sleep-mood-tiles">
-            <button class="tile-btn" data-value="very_good">Very good</button>
-            <button class="tile-btn" data-value="good">Good</button>
-            <button class="tile-btn" data-value="neutral">Neutral</button>
-            <button class="tile-btn" data-value="low">Low</button>
-            <button class="tile-btn" data-value="very_low">Very low</button>
+            <button class="tile-btn" data-value="very_good" data-i18n="sleep.q_vg">Very good</button>
+            <button class="tile-btn" data-value="good" data-i18n="sleep.q_g">Good</button>
+            <button class="tile-btn" data-value="neutral" data-i18n="sleep.mood_n">Neutral</button>
+            <button class="tile-btn" data-value="low" data-i18n="sleep.mood_l">Low</button>
+            <button class="tile-btn" data-value="very_low" data-i18n="sleep.mood_vl">Very low</button>
           </div>
         </div>
 
         <div class="form-group section-gap">
-          <label>Stress level today</label>
+          <label data-i18n="sleep.stress">Stress level today</label>
           <div class="tile-group" id="sleep-stress-tiles">
-            <button class="tile-btn" data-value="none">None</button>
-            <button class="tile-btn" data-value="mild">Mild</button>
-            <button class="tile-btn" data-value="moderate">Moderate</button>
-            <button class="tile-btn" data-value="high">High</button>
+            <button class="tile-btn" data-value="none" data-i18n="sleep.st_none">None</button>
+            <button class="tile-btn" data-value="mild" data-i18n="sleep.st_mild">Mild</button>
+            <button class="tile-btn" data-value="moderate" data-i18n="sleep.st_mod">Moderate</button>
+            <button class="tile-btn" data-value="high" data-i18n="sleep.st_high">High</button>
           </div>
         </div>
 
-        <button class="btn-primary" id="btn-sleep-continue" style="margin-top:28px;">Start cognitive tests →</button>
+        <button class="btn-primary" id="btn-sleep-continue" style="margin-top:28px;" data-i18n="sleep.continue">Start cognitive tests →</button>
       </div>
     </div>
 
@@ -848,8 +862,8 @@
     <div id="screen-battery" class="screen">
       <div class="battery-header">
         <div class="battery-eyebrow" id="battery-session-label">Session 1</div>
-        <h1>Cognitive assessment</h1>
-        <p>Takes about 10 minutes. Find a quiet place and minimise distractions.</p>
+        <h1 data-i18n="battery.h1">Cognitive assessment</h1>
+        <p data-i18n="battery.sub">Takes about 10 minutes. Find a quiet place and minimise distractions.</p>
       </div>
 
       <div class="battery-progress">
@@ -868,6 +882,246 @@
   <script src="js/cognitive-tests.js"></script>
 
   <script>
+    // ════════════════════════════════════════
+    // INTERNATIONALISATION (EN / ZH)
+    // ════════════════════════════════════════
+    const TRANSLATIONS = {
+      en: {
+        'nav.signout': 'Sign out',
+        'auth.h1': 'Track your cognition',
+        'auth.sub': 'Sign in to access your longitudinal cognitive assessment dashboard.',
+        'auth.google': 'Continue with Google',
+        'auth.or': 'or',
+        'auth.email': 'Email',
+        'auth.email_ph': 'you@example.com',
+        'auth.password': 'Password',
+        'auth.confirm': 'Confirm password',
+        'auth.signin': 'Sign in',
+        'auth.signup': 'Create account',
+        'auth.no_account': "Don't have an account?",
+        'auth.create': ' Create one',
+        'auth.have_account': 'Already have an account?',
+        'auth.signin_link': ' Sign in',
+        'onboard.h1': 'Tell us about yourself — just once',
+        'onboard.sub': "This information helps us contextualise your results. You won't be asked again.",
+        'onboard.name': 'Full name',
+        'onboard.name_ph': 'Your name',
+        'onboard.email': 'Email',
+        'onboard.age': 'Age',
+        'onboard.age_ph': 'e.g. 34',
+        'onboard.sex': 'Biological sex',
+        'onboard.sex_f': 'Female',
+        'onboard.sex_m': 'Male',
+        'onboard.pnts': 'Prefer not to say',
+        'onboard.eth': 'Ethnicity',
+        'onboard.eth_white': 'White',
+        'onboard.eth_asian': 'Asian or Asian British',
+        'onboard.eth_black': 'Black, African, Caribbean or Black British',
+        'onboard.eth_mixed': 'Mixed or multiple ethnic groups',
+        'onboard.eth_other': 'Other ethnic group',
+        'onboard.edu': 'Highest level of education',
+        'onboard.edu_sec': 'Secondary school (GCSE / O-level)',
+        'onboard.edu_alev': 'A-levels or equivalent',
+        'onboard.edu_ug': 'Undergraduate degree',
+        'onboard.edu_pg': 'Postgraduate degree (Masters / PhD)',
+        'onboard.edu_other': 'Other / prefer not to say',
+        'onboard.med': 'Do you have any of the following?',
+        'onboard.multi_hint': '(select all that apply)',
+        'onboard.med_diabetes': 'Diabetes',
+        'onboard.med_hyp': 'High blood pressure',
+        'onboard.med_dep': 'Depression or anxiety',
+        'onboard.med_sleep': 'Sleep disorder (e.g. insomnia, sleep apnoea)',
+        'onboard.med_heart': 'Heart disease',
+        'onboard.med_none': 'None of the above',
+        'onboard.consent_label': 'Data consent',
+        'onboard.continue': 'Continue to your first test →',
+        'dash.subtitle': "Here's your cognitive health overview",
+        'dash.next_test': 'Next test in',
+        'dash.days': 'days',
+        'dash.take_test': 'Take the test now →',
+        'dash.score_chart': 'Composite score over time',
+        'dash.no_data': 'Complete at least 2 sessions to see your progress chart',
+        'dash.domain_title': 'Last session — domain breakdown',
+        'sleep.h1': 'Before you begin',
+        'sleep.sub': 'A few quick questions about your sleep last night. Takes under 2 minutes.',
+        'sleep.hours': 'Hours of sleep last night',
+        'sleep.quality': 'Overall sleep quality',
+        'sleep.q_vg': 'Very good',
+        'sleep.q_g': 'Good',
+        'sleep.q_avg': 'Average',
+        'sleep.q_p': 'Poor',
+        'sleep.q_vp': 'Very poor',
+        'sleep.daytime': 'Daytime sleepiness',
+        'sleep.daytime_sub': 'How likely are you to doze off unintentionally during the day?',
+        'sleep.dt_never': 'Never',
+        'sleep.dt_sometimes': 'Sometimes',
+        'sleep.dt_often': 'Often',
+        'sleep.trouble': 'Trouble falling asleep or staying asleep?',
+        'sleep.tr_no': 'No',
+        'sleep.tr_occ': 'Occasionally',
+        'sleep.tr_yes': 'Yes, often',
+        'sleep.onset': 'Time to fall asleep',
+        'sleep.on_u15': '<15 min',
+        'sleep.on_1530': '15–30 min',
+        'sleep.on_3060': '30–60 min',
+        'sleep.on_o60': '>60 min',
+        'sleep.wake': 'What woke you during the night?',
+        'sleep.wk_bath': 'Bathroom',
+        'sleep.wk_noise': 'Noise / light',
+        'sleep.wk_temp': 'Temperature',
+        'sleep.wk_pain': 'Pain',
+        'sleep.wk_worry': 'Worry',
+        'sleep.wk_partner': 'Partner / children',
+        'sleep.wk_none': "I didn't wake",
+        'sleep.mood': 'How are you feeling today?',
+        'sleep.mood_sub': 'Overall mood right now.',
+        'sleep.mood_n': 'Neutral',
+        'sleep.mood_l': 'Low',
+        'sleep.mood_vl': 'Very low',
+        'sleep.stress': 'Stress level today',
+        'sleep.st_none': 'None',
+        'sleep.st_mild': 'Mild',
+        'sleep.st_mod': 'Moderate',
+        'sleep.st_high': 'High',
+        'sleep.continue': 'Start cognitive tests →',
+        'battery.h1': 'Cognitive assessment',
+        'battery.sub': 'Takes about 10 minutes. Find a quiet place and minimise distractions.',
+      },
+      zh: {
+        'nav.signout': '退出登录',
+        'auth.h1': '追踪您的认知能力',
+        'auth.sub': '登录以访问您的纵向认知评估仪表板。',
+        'auth.google': '使用 Google 账号登录',
+        'auth.or': '或',
+        'auth.email': '电子邮件',
+        'auth.email_ph': '您的邮箱',
+        'auth.password': '密码',
+        'auth.confirm': '确认密码',
+        'auth.signin': '登录',
+        'auth.signup': '注册账号',
+        'auth.no_account': '还没有账号？',
+        'auth.create': ' 立即注册',
+        'auth.have_account': '已有账号？',
+        'auth.signin_link': ' 立即登录',
+        'onboard.h1': '填写您的个人信息 — 仅需一次',
+        'onboard.sub': '这些信息有助于我们解读您的结果，之后不会再次询问。',
+        'onboard.name': '全名',
+        'onboard.name_ph': '您的姓名',
+        'onboard.email': '电子邮件',
+        'onboard.age': '年龄',
+        'onboard.age_ph': '例如 34',
+        'onboard.sex': '生理性别',
+        'onboard.sex_f': '女',
+        'onboard.sex_m': '男',
+        'onboard.pnts': '不愿透露',
+        'onboard.eth': '种族 / 民族',
+        'onboard.eth_white': '白人',
+        'onboard.eth_asian': '亚裔或亚裔英国人',
+        'onboard.eth_black': '黑人、非洲裔、加勒比裔或黑人英国人',
+        'onboard.eth_mixed': '混血或多种族群体',
+        'onboard.eth_other': '其他族裔群体',
+        'onboard.edu': '最高学历',
+        'onboard.edu_sec': '中学（GCSE / O-level）',
+        'onboard.edu_alev': 'A-levels 或同等学历',
+        'onboard.edu_ug': '本科学位',
+        'onboard.edu_pg': '研究生学位（硕士 / 博士）',
+        'onboard.edu_other': '其他 / 不愿透露',
+        'onboard.med': '您是否有以下任何情况？',
+        'onboard.multi_hint': '（可多选）',
+        'onboard.med_diabetes': '糖尿病',
+        'onboard.med_hyp': '高血压',
+        'onboard.med_dep': '抑郁或焦虑',
+        'onboard.med_sleep': '睡眠障碍（如失眠、睡眠呼吸暂停）',
+        'onboard.med_heart': '心脏病',
+        'onboard.med_none': '以上均无',
+        'onboard.consent_label': '数据同意',
+        'onboard.continue': '继续进行首次测试 →',
+        'dash.subtitle': '这是您的认知健康概况',
+        'dash.next_test': '下次测试',
+        'dash.days': '天后',
+        'dash.take_test': '立即参加测试 →',
+        'dash.score_chart': '综合得分趋势',
+        'dash.no_data': '完成至少 2 次测试后即可查看进度图表',
+        'dash.domain_title': '上次测试 — 各领域得分',
+        'sleep.h1': '开始之前',
+        'sleep.sub': '关于昨晚睡眠的几个简短问题，不到 2 分钟即可完成。',
+        'sleep.hours': '昨晚睡眠时长',
+        'sleep.quality': '整体睡眠质量',
+        'sleep.q_vg': '非常好',
+        'sleep.q_g': '好',
+        'sleep.q_avg': '一般',
+        'sleep.q_p': '差',
+        'sleep.q_vp': '很差',
+        'sleep.daytime': '白天嗜睡',
+        'sleep.daytime_sub': '您在白天无意间打盹的可能性有多大？',
+        'sleep.dt_never': '从不',
+        'sleep.dt_sometimes': '偶尔',
+        'sleep.dt_often': '经常',
+        'sleep.trouble': '是否有入睡困难或睡眠中断的情况？',
+        'sleep.tr_no': '没有',
+        'sleep.tr_occ': '偶尔',
+        'sleep.tr_yes': '是的，经常',
+        'sleep.onset': '入睡时间',
+        'sleep.on_u15': '＜15 分钟',
+        'sleep.on_1530': '15–30 分钟',
+        'sleep.on_3060': '30–60 分钟',
+        'sleep.on_o60': '＞60 分钟',
+        'sleep.wake': '夜间是什么原因让您醒来？',
+        'sleep.wk_bath': '上厕所',
+        'sleep.wk_noise': '噪音 / 光线',
+        'sleep.wk_temp': '温度',
+        'sleep.wk_pain': '疼痛',
+        'sleep.wk_worry': '焦虑',
+        'sleep.wk_partner': '伴侣 / 孩子',
+        'sleep.wk_none': '没有醒来',
+        'sleep.mood': '今天感觉如何？',
+        'sleep.mood_sub': '当前整体情绪。',
+        'sleep.mood_n': '一般',
+        'sleep.mood_l': '低落',
+        'sleep.mood_vl': '非常低落',
+        'sleep.stress': '今日压力水平',
+        'sleep.st_none': '没有',
+        'sleep.st_mild': '轻微',
+        'sleep.st_mod': '中等',
+        'sleep.st_high': '高',
+        'sleep.continue': '开始认知测试 →',
+        'battery.h1': '认知评估',
+        'battery.sub': '约需 10 分钟，请找一个安静的地方，减少干扰。',
+      }
+    };
+
+    let currentLang = localStorage.getItem('oc-lang') || 'en';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('oc-lang', lang);
+      const t = TRANSLATIONS[lang];
+      // Text content
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      // Placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.dataset.i18nPh;
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      // Consent label needs innerHTML (has a link)
+      const consentEl = document.getElementById('onboard-consent-text');
+      if (consentEl) {
+        consentEl.innerHTML = lang === 'zh'
+          ? '我同意将我的匿名数据用于研究目的，符合我们的 <a href="privacy.html">隐私政策</a>。'
+          : 'I consent to my anonymised data being used for research purposes, in accordance with our <a href="privacy.html">Privacy Policy</a>.';
+      }
+      // Toggle button label
+      document.getElementById('lang-toggle').textContent = lang === 'en' ? '中文' : 'EN';
+      // Sign in / sign up mode text (re-apply current mode)
+      const isSignUp = document.getElementById('btn-email-auth').dataset.mode === 'signup';
+      document.getElementById('btn-email-auth').textContent = isSignUp ? t['auth.signup'] : t['auth.signin'];
+      document.getElementById('auth-toggle-text').textContent = isSignUp ? t['auth.have_account'] : t['auth.no_account'];
+      document.getElementById('auth-mode-toggle').textContent = isSignUp ? t['auth.signin_link'] : t['auth.create'];
+    }
+
     // ══════════════════════════════════════════════════════════
     // FIREBASE CONFIG — replace with your project's config
     // ══════════════════════════════════════════════════════════
@@ -991,12 +1245,21 @@
     let isSignUp = false;
     document.getElementById('auth-mode-toggle').addEventListener('click', () => {
       isSignUp = !isSignUp;
+      document.getElementById('btn-email-auth').dataset.mode = isSignUp ? 'signup' : 'signin';
       document.getElementById('confirm-group').style.display = isSignUp ? 'block' : 'none';
-      document.getElementById('btn-email-auth').textContent = isSignUp ? 'Create account' : 'Sign in';
-      document.getElementById('auth-toggle-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
-      document.getElementById('auth-mode-toggle').textContent = isSignUp ? ' Sign in' : ' Create one';
+      const t = TRANSLATIONS[currentLang];
+      document.getElementById('btn-email-auth').textContent = isSignUp ? t['auth.signup'] : t['auth.signin'];
+      document.getElementById('auth-toggle-text').textContent = isSignUp ? t['auth.have_account'] : t['auth.no_account'];
+      document.getElementById('auth-mode-toggle').textContent = isSignUp ? t['auth.signin_link'] : t['auth.create'];
       clearAuthError();
     });
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      applyLang(currentLang === 'en' ? 'zh' : 'en');
+    });
+
+    // Apply saved language on load
+    applyLang(currentLang);
 
     document.getElementById('btn-email-auth').addEventListener('click', async () => {
       const email = document.getElementById('auth-email').value.trim();
