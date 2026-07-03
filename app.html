@@ -502,6 +502,29 @@
       padding: 24px 28px;
       margin-bottom: 16px;
     }
+    /* ── Sleep health panel ── */
+    .sleep-bar-wrap { display: flex; align-items: center; gap: 12px; margin: 12px 0 14px; }
+    .sleep-bar-track { flex: 1; height: 8px; background: var(--bg); border-radius: 100px; overflow: hidden; }
+    .sleep-bar-fill  { height: 100%; border-radius: 100px; transition: width .6s ease; }
+    .sleep-bar-fill.excellent { background: #1d7a3e; }
+    .sleep-bar-fill.good      { background: #2d9e57; }
+    .sleep-bar-fill.fair      { background: #d97706; }
+    .sleep-bar-fill.poor      { background: #dc2626; }
+    .sleep-score-badge {
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600;
+      color: var(--text);
+    }
+    .sleep-score-label { font-size: 0.8rem; color: var(--text-faint); white-space: nowrap; }
+    .sleep-factors { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sleep-factor {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 100px; padding: 4px 12px;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .sleep-factor .sf-icon { font-size: 0.9rem; }
+    .sleep-factor .sf-val  { font-weight: 600; color: var(--text); }
+
     /* ── 1C-01 probiotic card ── */
     .probiotic-card { margin-bottom: 16px; }
     .probiotic-status-badge {
@@ -929,6 +952,19 @@
           <span class="chip-label" data-i18n="dash.chip_started">tracking since</span>
           <span class="chip-value" id="chip-started">—</span>
         </div>
+      </div>
+
+      <!-- Sleep health panel -->
+      <div class="dash-panel" id="sleep-panel" style="display:none;">
+        <div class="panel-header">
+          <div class="panel-title">Sleep health · last session</div>
+          <div class="sleep-score-badge" id="sleep-score-badge">—</div>
+        </div>
+        <div class="sleep-bar-wrap">
+          <div class="sleep-bar-track"><div class="sleep-bar-fill" id="sleep-bar-fill"></div></div>
+          <div class="sleep-score-label" id="sleep-score-label"></div>
+        </div>
+        <div class="sleep-factors" id="sleep-factors"></div>
       </div>
 
       <!-- Score history chart -->
@@ -1900,6 +1936,9 @@
       // Chart
       drawChart(sessions);
 
+      // Sleep health
+      renderSleepPanel(sessions);
+
       // 1C-01 probiotic tracker
       loadProbioticData(user.uid);
 
@@ -1926,6 +1965,87 @@
         feedbackSent.style.display = 'block';
         toggleBtn.style.display = 'none';
       });
+    }
+
+    // ════════════════════════════════════════
+    // SLEEP HEALTH SCORE
+    // ════════════════════════════════════════
+    function sleepScore(s) {
+      if (!s) return null;
+      let pts = 0, max = 0;
+
+      // Hours of sleep (30 pts) — optimal 7–9
+      if (s.hours != null) {
+        max += 30;
+        const h = s.hours;
+        if (h >= 7 && h <= 9)        pts += 30;
+        else if (h >= 6 && h < 7)    pts += 22;
+        else if (h > 9 && h <= 10)   pts += 22;
+        else if (h >= 5 && h < 6)    pts += 12;
+        else if (h > 10)             pts += 10;
+        // < 5 hrs → 0
+      }
+      // Sleep quality (25 pts)
+      const quality = { very_good: 25, good: 20, average: 12, poor: 5, very_poor: 0 };
+      if (s.quality != null) { max += 25; pts += quality[s.quality] ?? 0; }
+
+      // Daytime sleepiness (15 pts)
+      const daytime = { never: 15, sometimes: 8, often: 0 };
+      if (s.daytime_sleepiness != null) { max += 15; pts += daytime[s.daytime_sleepiness] ?? 0; }
+
+      // Trouble sleeping (15 pts)
+      const trouble = { no: 15, occasionally: 8, yes: 0 };
+      if (s.trouble != null) { max += 15; pts += trouble[s.trouble] ?? 0; }
+
+      // Sleep onset (15 pts)
+      const onset = { under_15: 15, '15_to_30': 10, '30_to_60': 5, over_60: 0 };
+      if (s.onset != null) { max += 15; pts += onset[s.onset] ?? 0; }
+
+      if (max === 0) return null;
+      return Math.round((pts / max) * 100);
+    }
+
+    function sleepLabel(score) {
+      if (score >= 80) return { text: 'Excellent', cls: 'excellent' };
+      if (score >= 65) return { text: 'Good',      cls: 'good' };
+      if (score >= 50) return { text: 'Fair',      cls: 'fair' };
+      return                  { text: 'Poor',      cls: 'poor' };
+    }
+
+    function renderSleepPanel(sessions) {
+      const panel = document.getElementById('sleep-panel');
+      if (!sessions.length) { panel.style.display = 'none'; return; }
+
+      const lastSleep = sessions[sessions.length - 1].sleep;
+      const score = sleepScore(lastSleep);
+      if (score === null) { panel.style.display = 'none'; return; }
+
+      panel.style.display = 'block';
+      const lbl = sleepLabel(score);
+
+      document.getElementById('sleep-score-badge').textContent = score + ' / 100';
+      const fill = document.getElementById('sleep-bar-fill');
+      fill.style.width = score + '%';
+      fill.className = 'sleep-bar-fill ' + lbl.cls;
+      document.getElementById('sleep-score-label').textContent = lbl.text;
+
+      // Factor chips
+      const factors = document.getElementById('sleep-factors');
+      factors.innerHTML = '';
+      const add = (icon, label, val) => {
+        if (val == null) return;
+        const chip = document.createElement('div');
+        chip.className = 'sleep-factor';
+        chip.innerHTML = `<span class="sf-icon">${icon}</span>${label}: <span class="sf-val">${val}</span>`;
+        factors.appendChild(chip);
+      };
+      add('🕐', 'Sleep', lastSleep?.hours != null ? lastSleep.hours + ' hrs' : null);
+      const qMap = { very_good: 'Very good', good: 'Good', average: 'Average', poor: 'Poor', very_poor: 'Very poor' };
+      add('⭐', 'Quality', qMap[lastSleep?.quality] || null);
+      const dMap = { never: 'No drowsiness', sometimes: 'Some drowsiness', often: 'Often drowsy' };
+      add('☀️', 'Daytime', dMap[lastSleep?.daytime_sleepiness] || null);
+      const oMap = { under_15: '<15 min', '15_to_30': '15–30 min', '30_to_60': '30–60 min', over_60: '>60 min' };
+      add('💤', 'Onset', oMap[lastSleep?.onset] || null);
     }
 
     // ════════════════════════════════════════
