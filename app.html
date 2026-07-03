@@ -725,11 +725,15 @@
         <div class="form-group section-gap">
           <label data-i18n="onboard.eth">Ethnicity</label>
           <div class="tile-group list" id="ethnicity-tiles">
-            <button class="tile-btn" data-value="white" data-i18n="onboard.eth_white">White</button>
-            <button class="tile-btn" data-value="asian-or-asian-british" data-i18n="onboard.eth_asian">Asian or Asian British</button>
-            <button class="tile-btn" data-value="black-african-caribbean-or-black-british" data-i18n="onboard.eth_black">Black, African, Caribbean or Black British</button>
-            <button class="tile-btn" data-value="mixed-or-multiple-ethnic-groups" data-i18n="onboard.eth_mixed">Mixed or multiple ethnic groups</button>
-            <button class="tile-btn" data-value="other-ethnic-group" data-i18n="onboard.eth_other">Other ethnic group</button>
+            <button class="tile-btn" data-value="white" data-i18n="onboard.eth_white">White / Caucasian</button>
+            <button class="tile-btn" data-value="east_asian" data-i18n="onboard.eth_east_asian">East Asian</button>
+            <button class="tile-btn" data-value="south_asian" data-i18n="onboard.eth_south_asian">South Asian</button>
+            <button class="tile-btn" data-value="southeast_asian" data-i18n="onboard.eth_se_asian">Southeast Asian</button>
+            <button class="tile-btn" data-value="black_african" data-i18n="onboard.eth_black">Black / African</button>
+            <button class="tile-btn" data-value="hispanic_latino" data-i18n="onboard.eth_hispanic">Hispanic / Latino</button>
+            <button class="tile-btn" data-value="middle_eastern" data-i18n="onboard.eth_mena">Middle Eastern / North African</button>
+            <button class="tile-btn" data-value="mixed" data-i18n="onboard.eth_mixed">Mixed or multiple</button>
+            <button class="tile-btn" data-value="other" data-i18n="onboard.eth_other">Other</button>
             <button class="tile-btn" data-value="prefer-not-to-say" data-i18n="onboard.pnts">Prefer not to say</button>
           </div>
         </div>
@@ -737,10 +741,12 @@
         <div class="form-group section-gap">
           <label data-i18n="onboard.edu">Highest level of education</label>
           <div class="tile-group list" id="education-tiles">
-            <button class="tile-btn" data-value="secondary" data-i18n="onboard.edu_sec">Secondary school (GCSE / O-level)</button>
-            <button class="tile-btn" data-value="a_level" data-i18n="onboard.edu_alev">A-levels or equivalent</button>
-            <button class="tile-btn" data-value="undergraduate" data-i18n="onboard.edu_ug">Undergraduate degree</button>
-            <button class="tile-btn" data-value="postgraduate" data-i18n="onboard.edu_pg">Postgraduate degree (Masters / PhD)</button>
+            <button class="tile-btn" data-value="primary" data-i18n="onboard.edu_primary">Primary school or less</button>
+            <button class="tile-btn" data-value="secondary" data-i18n="onboard.edu_sec">Secondary school</button>
+            <button class="tile-btn" data-value="high_school" data-i18n="onboard.edu_hs">High school diploma or equivalent</button>
+            <button class="tile-btn" data-value="vocational" data-i18n="onboard.edu_voc">Vocational / trade qualification</button>
+            <button class="tile-btn" data-value="undergraduate" data-i18n="onboard.edu_ug">Undergraduate degree (Bachelor's)</button>
+            <button class="tile-btn" data-value="postgraduate" data-i18n="onboard.edu_pg">Postgraduate degree (Master's / PhD)</button>
             <button class="tile-btn" data-value="other" data-i18n="onboard.edu_other">Other / prefer not to say</button>
           </div>
         </div>
@@ -750,9 +756,19 @@
           <div class="tile-group" id="medical-tiles" style="flex-wrap:wrap;">
             <button class="tile-btn multi" data-value="diabetes" data-i18n="onboard.med_diabetes">Diabetes</button>
             <button class="tile-btn multi" data-value="hypertension" data-i18n="onboard.med_hyp">High blood pressure</button>
-            <button class="tile-btn multi" data-value="depression" data-i18n="onboard.med_dep">Depression or anxiety</button>
-            <button class="tile-btn multi" data-value="sleep_disorder" data-i18n="onboard.med_sleep">Sleep disorder (e.g. insomnia, sleep apnoea)</button>
+            <button class="tile-btn multi" data-value="high_cholesterol" data-i18n="onboard.med_chol">High cholesterol</button>
             <button class="tile-btn multi" data-value="heart_disease" data-i18n="onboard.med_heart">Heart disease</button>
+            <button class="tile-btn multi" data-value="stroke" data-i18n="onboard.med_stroke">Stroke or TIA</button>
+            <button class="tile-btn multi" data-value="depression" data-i18n="onboard.med_dep">Depression or anxiety</button>
+            <button class="tile-btn multi" data-value="bipolar" data-i18n="onboard.med_bipolar">Bipolar disorder</button>
+            <button class="tile-btn multi" data-value="adhd" data-i18n="onboard.med_adhd">ADHD</button>
+            <button class="tile-btn multi" data-value="dementia" data-i18n="onboard.med_dementia">Dementia or memory problems</button>
+            <button class="tile-btn multi" data-value="sleep_disorder" data-i18n="onboard.med_sleep">Sleep disorder</button>
+            <button class="tile-btn multi" data-value="thyroid" data-i18n="onboard.med_thyroid">Thyroid condition</button>
+            <button class="tile-btn multi" data-value="autoimmune" data-i18n="onboard.med_autoimmune">Autoimmune condition</button>
+            <button class="tile-btn multi" data-value="chronic_pain" data-i18n="onboard.med_pain">Chronic pain</button>
+            <button class="tile-btn multi" data-value="cancer" data-i18n="onboard.med_cancer">Cancer (current or past)</button>
+            <button class="tile-btn multi" data-value="epilepsy" data-i18n="onboard.med_epilepsy">Epilepsy</button>
             <button class="tile-btn multi" data-value="none" data-i18n="onboard.med_none">None of the above</button>
           </div>
         </div>
@@ -976,24 +992,40 @@
         'onboard.sex_m': 'Male',
         'onboard.pnts': 'Prefer not to say',
         'onboard.eth': 'Ethnicity',
-        'onboard.eth_white': 'White',
-        'onboard.eth_asian': 'Asian or Asian British',
-        'onboard.eth_black': 'Black, African, Caribbean or Black British',
-        'onboard.eth_mixed': 'Mixed or multiple ethnic groups',
-        'onboard.eth_other': 'Other ethnic group',
+        'onboard.eth_white': 'White / Caucasian',
+        'onboard.eth_east_asian': 'East Asian',
+        'onboard.eth_south_asian': 'South Asian',
+        'onboard.eth_se_asian': 'Southeast Asian',
+        'onboard.eth_black': 'Black / African',
+        'onboard.eth_hispanic': 'Hispanic / Latino',
+        'onboard.eth_mena': 'Middle Eastern / North African',
+        'onboard.eth_mixed': 'Mixed or multiple',
+        'onboard.eth_other': 'Other',
         'onboard.edu': 'Highest level of education',
-        'onboard.edu_sec': 'Secondary school (GCSE / O-level)',
-        'onboard.edu_alev': 'A-levels or equivalent',
-        'onboard.edu_ug': 'Undergraduate degree',
-        'onboard.edu_pg': 'Postgraduate degree (Masters / PhD)',
+        'onboard.edu_primary': 'Primary school or less',
+        'onboard.edu_sec': 'Secondary school',
+        'onboard.edu_hs': 'High school diploma or equivalent',
+        'onboard.edu_voc': 'Vocational / trade qualification',
+        'onboard.edu_ug': "Undergraduate degree (Bachelor's)",
+        'onboard.edu_pg': "Postgraduate degree (Master's / PhD)",
         'onboard.edu_other': 'Other / prefer not to say',
         'onboard.med': 'Do you have any of the following?',
         'onboard.multi_hint': '(select all that apply)',
         'onboard.med_diabetes': 'Diabetes',
         'onboard.med_hyp': 'High blood pressure',
-        'onboard.med_dep': 'Depression or anxiety',
-        'onboard.med_sleep': 'Sleep disorder (e.g. insomnia, sleep apnoea)',
+        'onboard.med_chol': 'High cholesterol',
         'onboard.med_heart': 'Heart disease',
+        'onboard.med_stroke': 'Stroke or TIA',
+        'onboard.med_dep': 'Depression or anxiety',
+        'onboard.med_bipolar': 'Bipolar disorder',
+        'onboard.med_adhd': 'ADHD',
+        'onboard.med_dementia': 'Dementia or memory problems',
+        'onboard.med_sleep': 'Sleep disorder',
+        'onboard.med_thyroid': 'Thyroid condition',
+        'onboard.med_autoimmune': 'Autoimmune condition',
+        'onboard.med_pain': 'Chronic pain',
+        'onboard.med_cancer': 'Cancer (current or past)',
+        'onboard.med_epilepsy': 'Epilepsy',
         'onboard.med_none': 'None of the above',
         'onboard.consent_label': 'Data consent',
         'onboard.continue': 'Continue to your first test →',
@@ -1078,24 +1110,40 @@
         'onboard.sex_m': '男',
         'onboard.pnts': '不愿透露',
         'onboard.eth': '种族 / 民族',
-        'onboard.eth_white': '白人',
-        'onboard.eth_asian': '亚裔或亚裔英国人',
-        'onboard.eth_black': '黑人、非洲裔、加勒比裔或黑人英国人',
-        'onboard.eth_mixed': '混血或多种族群体',
-        'onboard.eth_other': '其他族裔群体',
+        'onboard.eth_white': '白人 / 高加索人',
+        'onboard.eth_east_asian': '东亚裔',
+        'onboard.eth_south_asian': '南亚裔',
+        'onboard.eth_se_asian': '东南亚裔',
+        'onboard.eth_black': '黑人 / 非洲裔',
+        'onboard.eth_hispanic': '西班牙裔 / 拉丁裔',
+        'onboard.eth_mena': '中东 / 北非裔',
+        'onboard.eth_mixed': '混血或多种族',
+        'onboard.eth_other': '其他',
         'onboard.edu': '最高学历',
-        'onboard.edu_sec': '中学（GCSE / O-level）',
-        'onboard.edu_alev': 'A-levels 或同等学历',
-        'onboard.edu_ug': '本科学位',
+        'onboard.edu_primary': '小学或以下',
+        'onboard.edu_sec': '初中',
+        'onboard.edu_hs': '高中文凭或同等学历',
+        'onboard.edu_voc': '职业 / 技术资格',
+        'onboard.edu_ug': '本科学位（学士）',
         'onboard.edu_pg': '研究生学位（硕士 / 博士）',
         'onboard.edu_other': '其他 / 不愿透露',
         'onboard.med': '您是否有以下任何情况？',
         'onboard.multi_hint': '（可多选）',
         'onboard.med_diabetes': '糖尿病',
         'onboard.med_hyp': '高血压',
-        'onboard.med_dep': '抑郁或焦虑',
-        'onboard.med_sleep': '睡眠障碍（如失眠、睡眠呼吸暂停）',
+        'onboard.med_chol': '高胆固醇',
         'onboard.med_heart': '心脏病',
+        'onboard.med_stroke': '中风或短暂性脑缺血发作',
+        'onboard.med_dep': '抑郁或焦虑',
+        'onboard.med_bipolar': '双相情感障碍',
+        'onboard.med_adhd': '注意力缺陷多动障碍（ADHD）',
+        'onboard.med_dementia': '痴呆或记忆问题',
+        'onboard.med_sleep': '睡眠障碍',
+        'onboard.med_thyroid': '甲状腺疾病',
+        'onboard.med_autoimmune': '自身免疫性疾病',
+        'onboard.med_pain': '慢性疼痛',
+        'onboard.med_cancer': '癌症（当前或既往）',
+        'onboard.med_epilepsy': '癫痫',
         'onboard.med_none': '以上均无',
         'onboard.consent_label': '数据同意',
         'onboard.continue': '继续进行首次测试 →',
