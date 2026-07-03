@@ -1777,19 +1777,36 @@
     async function saveSession(results) {
       const sessionId = Date.now().toString();
       try {
+        // Snapshot probiotic status at time of session
+        let probioticSnapshot = {};
+        try {
+          const usnap = await db.collection('users').doc(currentUser.uid).get();
+          const ud = usnap.exists ? usnap.data() : {};
+          probioticSnapshot = {
+            probiotic_start_date:  ud.probioticStart  || null,
+            probiotic_active:      ud.probioticActive  ?? null,
+            probiotic_stopped_date: ud.probioticStoppedDate || null,
+          };
+        } catch(_) {}
+
         await db.collection('users').doc(currentUser.uid)
           .collection('sessions').doc(sessionId).set({
             completedAt: firebase.firestore.FieldValue.serverTimestamp(),
             results,
             sleep: {
-              hours: sleepData.sleep_hours || null,
-              quality: sleepData['sleep-quality-tiles'] || null,
-              daytime_sleepiness: sleepData['sleep-daytime-tiles'] || null,
-              trouble: sleepData['sleep-trouble-tiles'] || null,
-              onset: sleepData['sleep-onset-tiles'] || null,
-              wake_causes: sleepData['sleep-wake-tiles'] || [],
-              mood: sleepData['sleep-mood-tiles'] || null,
-              stress: sleepData['sleep-stress-tiles'] || null,
+              hours:              sleepData.sleep_hours                  || null,
+              quality:            sleepData['sleep-quality-tiles']       || null,
+              daytime_sleepiness: sleepData['sleep-daytime-tiles']       || null,
+              trouble:            sleepData['sleep-trouble-tiles']       || null,
+              onset:              sleepData['sleep-onset-tiles']         || null,
+              wake_causes:        sleepData['sleep-wake-tiles']          || [],
+              mood:               sleepData['sleep-mood-tiles']          || null,
+              stress:             sleepData['sleep-stress-tiles']        || null,
+            },
+            probiotic: {
+              ...probioticSnapshot,
+              compliance_days: sleepData.probiotic_compliance_days ?? null,
+              compliance_pct:  sleepData.probiotic_compliance_pct  ?? null,
             },
             device: navigator.userAgent,
           });
