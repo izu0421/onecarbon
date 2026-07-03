@@ -1826,18 +1826,21 @@
       if (compSection.style.display !== 'none') {
         const sel = document.querySelector('.compliance-tile.selected');
         const days = sel ? parseInt(sel.dataset.days, 10) : null;
+        const maxDays = parseInt(compSection.dataset.maxDays || 14, 10);
         if (days !== null) {
           sleepData.probiotic_compliance_days = days;
-          sleepData.probiotic_compliance_pct  = Math.round((days / 14) * 100);
+          sleepData.probiotic_compliance_interval = maxDays;
+          sleepData.probiotic_compliance_pct = Math.round((days / maxDays) * 100);
         }
       }
       startBattery(pendingSessionNumber);
     });
 
-    // Build compliance tiles once on load
-    (function buildComplianceTiles() {
+    function buildComplianceTiles(maxDays) {
       const grid = document.getElementById('compliance-grid');
-      for (let d = 14; d >= 0; d--) {
+      grid.innerHTML = '';
+      // 5 columns; tiles run max→0
+      for (let d = maxDays; d >= 0; d--) {
         const tile = document.createElement('button');
         tile.type = 'button';
         tile.className = 'compliance-tile' + (d === 0 ? ' zero' : '');
@@ -1846,15 +1849,15 @@
         tile.addEventListener('click', () => {
           document.querySelectorAll('.compliance-tile').forEach(t => t.classList.remove('selected'));
           tile.classList.add('selected');
-          const pct = Math.round((d / 14) * 100);
+          const pct = Math.round((d / maxDays) * 100);
           document.getElementById('compliance-pct').textContent =
-            d === 14 ? 'Every day — great!' :
-            d === 0  ? 'None reported' :
-            pct + '% — ' + d + ' of 14 days';
+            d === maxDays ? 'Every day — great!' :
+            d === 0       ? 'None reported' :
+            `${pct}% — ${d} of ${maxDays} days`;
         });
         grid.appendChild(tile);
       }
-    })();
+    }
 
     async function showBattery(sessionNumber) {
       pendingSessionNumber = sessionNumber;
@@ -1873,6 +1876,22 @@
         try {
           const snap = await db.collection('users').doc(currentUser.uid).get();
           if (snap.exists && snap.data().probioticStart) {
+            // Days since last session (or since probiotic start if first session)
+            let intervalDays = 14; // sensible default
+            if (allSessions.length > 0) {
+              const last = allSessions[allSessions.length - 1];
+              const lastDate = last.completedAt?.toDate ? last.completedAt.toDate() : new Date(last.completedAt);
+              intervalDays = Math.max(1, Math.round((Date.now() - lastDate.getTime()) / 86400000));
+            } else {
+              const start = snap.data().probioticStart;
+              if (start) intervalDays = Math.max(1, Math.round((Date.now() - new Date(start + 'T12:00:00').getTime()) / 86400000));
+            }
+            const label = compSection.querySelector('label');
+            if (label) label.textContent = `1C-01 — days taken in the past ${intervalDays} days`;
+            const sub = compSection.querySelector('p');
+            if (sub) sub.textContent = `Tap the number of days you took your probiotic in the last ${intervalDays} days.`;
+            buildComplianceTiles(intervalDays);
+            compSection.dataset.maxDays = intervalDays;
             compSection.style.display = 'block';
           }
         } catch(_) {}
@@ -1981,8 +2000,9 @@
             },
             probiotic: {
               ...probioticSnapshot,
-              compliance_days: sleepData.probiotic_compliance_days ?? null,
-              compliance_pct:  sleepData.probiotic_compliance_pct  ?? null,
+              compliance_days:     sleepData.probiotic_compliance_days     ?? null,
+              compliance_interval: sleepData.probiotic_compliance_interval ?? null,
+              compliance_pct:      sleepData.probiotic_compliance_pct      ?? null,
             },
             device: navigator.userAgent,
           });
