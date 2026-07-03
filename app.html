@@ -2386,7 +2386,13 @@
         return d;
       });
 
-      const minScore = 0, maxScore = 100;
+      // Relative y-axis: fit to the data range with 10% padding
+      const rawMin = Math.min(...scores);
+      const rawMax = Math.max(...scores);
+      const span = rawMax - rawMin || 10;
+      const padding = Math.max(span * 0.15, 3);
+      const minScore = Math.max(0,   Math.floor(rawMin - padding));
+      const maxScore = Math.min(100, Math.ceil(rawMax  + padding));
       const xStep = plotW / (sessions.length - 1);
 
       function xAt(i) { return pad.left + i * xStep; }
@@ -2394,10 +2400,12 @@
 
       const accentRgb = '31, 53, 90';
 
-      // Grid lines
+      // Grid lines — 4 evenly-spaced ticks across the visible range
       ctx.strokeStyle = 'rgba(0,0,0,0.06)';
       ctx.lineWidth = 1;
-      [0, 25, 50, 75, 100].forEach(v => {
+      const tickCount = 4;
+      const tickStep = (maxScore - minScore) / tickCount;
+      Array.from({length: tickCount + 1}, (_, i) => Math.round(minScore + i * tickStep)).forEach(v => {
         const y = yAt(v);
         ctx.beginPath();
         ctx.moveTo(pad.left, y);
