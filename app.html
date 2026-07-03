@@ -502,6 +502,49 @@
       padding: 24px 28px;
       margin-bottom: 16px;
     }
+    /* ── 1C-01 probiotic card ── */
+    .probiotic-card { margin-bottom: 16px; }
+    .probiotic-status-badge {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      padding: 3px 10px; border-radius: 100px; text-transform: uppercase;
+    }
+    .probiotic-status-badge.active  { background: #e6f4ec; color: #1d7a3e; }
+    .probiotic-status-badge.stopped { background: #fdecea; color: #b91c1c; }
+    .probiotic-status-badge.unknown { background: var(--bg); color: var(--text-faint); border: 1px solid var(--border); }
+    .probiotic-prompt { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 14px; line-height: 1.55; }
+    .probiotic-start-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .probiotic-date-input {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 9px 12px; font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--bg); flex: 1; min-width: 140px;
+    }
+    .probiotic-date-input:focus { outline: none; border-color: var(--accent); }
+    .probiotic-save-btn {
+      background: var(--accent); color: #fff; border: none; border-radius: var(--radius-pill);
+      padding: 9px 20px; font-family: 'Outfit', sans-serif; font-size: 0.88rem;
+      cursor: pointer; white-space: nowrap; transition: background .2s;
+    }
+    .probiotic-save-btn:hover { background: var(--accent-dark); }
+    .probiotic-info-row { display: flex; gap: 32px; margin-bottom: 18px; }
+    .probiotic-info-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); margin-bottom: 4px; }
+    .probiotic-info-value { font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 500; color: var(--text); }
+    .probiotic-still-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .probiotic-still-label { font-size: 0.88rem; color: var(--text-muted); }
+    .probiotic-toggle-group { display: flex; gap: 6px; }
+    .probiotic-toggle-btn {
+      border: 1px solid var(--border); border-radius: var(--radius-pill);
+      background: var(--bg); color: var(--text-muted); font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem; padding: 6px 16px; cursor: pointer; transition: all .15s;
+    }
+    .probiotic-toggle-btn.active-yes { background: #e6f4ec; border-color: #1d7a3e; color: #1d7a3e; font-weight: 600; }
+    .probiotic-toggle-btn.active-no  { background: #fdecea; border-color: #b91c1c; color: #b91c1c; font-weight: 600; }
+    .probiotic-change-row { margin-top: 2px; }
+    .probiotic-change-link {
+      background: none; border: none; color: var(--text-faint); font-size: 0.8rem;
+      cursor: pointer; text-decoration: underline; padding: 0; font-family: 'Outfit', sans-serif;
+    }
+    .probiotic-change-link:hover { color: var(--text-muted); }
+
     .feedback-nudge {
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -898,6 +941,43 @@
         <div class="chart-no-data" id="chart-no-data" style="display:none;">
           <div class="no-data-icon">📊</div>
           <div class="no-data-text" data-i18n="dash.no_data">Complete at least 2 sessions to see your trend</div>
+        </div>
+      </div>
+
+      <!-- 1C-01 tracker -->
+      <div class="dash-panel probiotic-card" id="probiotic-card">
+        <div class="panel-header">
+          <div class="panel-title">1C-01 Probiotic</div>
+          <div class="probiotic-status-badge" id="probiotic-badge"></div>
+        </div>
+        <div id="probiotic-unset">
+          <p class="probiotic-prompt">Have you started taking 1C-01? Log your start date so we can track the effect on your cognition.</p>
+          <div class="probiotic-start-row">
+            <input type="date" class="probiotic-date-input" id="probiotic-date-input">
+            <button class="probiotic-save-btn" id="probiotic-save-btn">Log start date</button>
+          </div>
+        </div>
+        <div id="probiotic-set" style="display:none;">
+          <div class="probiotic-info-row">
+            <div class="probiotic-info-block">
+              <div class="probiotic-info-label">Started</div>
+              <div class="probiotic-info-value" id="probiotic-start-display">—</div>
+            </div>
+            <div class="probiotic-info-block">
+              <div class="probiotic-info-label">Duration</div>
+              <div class="probiotic-info-value" id="probiotic-days-display">—</div>
+            </div>
+          </div>
+          <div class="probiotic-still-row">
+            <span class="probiotic-still-label">Still taking it?</span>
+            <div class="probiotic-toggle-group">
+              <button class="probiotic-toggle-btn" id="probiotic-yes" data-val="true">Yes</button>
+              <button class="probiotic-toggle-btn" id="probiotic-no"  data-val="false">No</button>
+            </div>
+          </div>
+          <div class="probiotic-change-row">
+            <button class="probiotic-change-link" id="probiotic-change">Change start date</button>
+          </div>
         </div>
       </div>
 
@@ -1762,6 +1842,9 @@
       // Chart
       drawChart(sessions);
 
+      // 1C-01 probiotic tracker
+      loadProbioticData(user.uid);
+
       // Feedback form
       const toggleBtn = document.getElementById('feedback-toggle-btn');
       const feedbackForm = document.getElementById('feedback-form');
@@ -1785,6 +1868,93 @@
         feedbackSent.style.display = 'block';
         toggleBtn.style.display = 'none';
       });
+    }
+
+    // ════════════════════════════════════════
+    // 1C-01 PROBIOTIC TRACKER
+    // ════════════════════════════════════════
+    async function loadProbioticData(uid) {
+      const userRef = db.collection('users').doc(uid);
+      const snap = await userRef.get();
+      const data = snap.exists ? snap.data() : {};
+      renderProbioticCard(uid, data.probioticStart || null, data.probioticActive ?? null);
+    }
+
+    function renderProbioticCard(uid, startDate, active) {
+      const unsetEl = document.getElementById('probiotic-unset');
+      const setEl   = document.getElementById('probiotic-set');
+      const badge   = document.getElementById('probiotic-badge');
+
+      if (!startDate) {
+        unsetEl.style.display = 'block';
+        setEl.style.display   = 'none';
+        badge.textContent = 'Not logged';
+        badge.className = 'probiotic-status-badge unknown';
+
+        const saveBtn = document.getElementById('probiotic-save-btn');
+        saveBtn.onclick = async () => {
+          const val = document.getElementById('probiotic-date-input').value;
+          if (!val) return;
+          await saveProbioticData(uid, { probioticStart: val, probioticActive: true });
+          renderProbioticCard(uid, val, true);
+        };
+      } else {
+        unsetEl.style.display = 'none';
+        setEl.style.display   = 'block';
+
+        // Format date
+        const [y, m, d] = startDate.split('-');
+        const dateStr = new Date(startDate + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        document.getElementById('probiotic-start-display').textContent = dateStr;
+
+        // Duration
+        const daysOn = Math.floor((Date.now() - new Date(startDate + 'T12:00:00')) / 86400000);
+        document.getElementById('probiotic-days-display').textContent =
+          daysOn < 1 ? 'Started today' : daysOn + ' day' + (daysOn !== 1 ? 's' : '');
+
+        // Badge
+        if (active === true)  { badge.textContent = 'Active'; badge.className = 'probiotic-status-badge active'; }
+        else if (active === false) { badge.textContent = 'Stopped'; badge.className = 'probiotic-status-badge stopped'; }
+        else { badge.textContent = 'Unknown'; badge.className = 'probiotic-status-badge unknown'; }
+
+        // Yes / No toggles
+        const yesBtn = document.getElementById('probiotic-yes');
+        const noBtn  = document.getElementById('probiotic-no');
+        yesBtn.className = 'probiotic-toggle-btn' + (active === true  ? ' active-yes' : '');
+        noBtn.className  = 'probiotic-toggle-btn' + (active === false ? ' active-no'  : '');
+
+        yesBtn.onclick = async () => {
+          await saveProbioticData(uid, { probioticActive: true, probioticStoppedDate: null });
+          renderProbioticCard(uid, startDate, true);
+        };
+        noBtn.onclick = async () => {
+          const today = new Date().toISOString().slice(0, 10);
+          await saveProbioticData(uid, { probioticActive: false, probioticStoppedDate: today });
+          renderProbioticCard(uid, startDate, false);
+        };
+
+        // Change start date
+        document.getElementById('probiotic-change').onclick = () => {
+          const input = document.getElementById('probiotic-date-input');
+          input.value = startDate;
+          setEl.style.display   = 'none';
+          unsetEl.style.display = 'block';
+          badge.textContent = 'Not logged';
+          badge.className = 'probiotic-status-badge unknown';
+          const saveBtn = document.getElementById('probiotic-save-btn');
+          saveBtn.textContent = 'Update start date';
+          saveBtn.onclick = async () => {
+            const val = input.value;
+            if (!val) return;
+            await saveProbioticData(uid, { probioticStart: val });
+            renderProbioticCard(uid, val, active);
+          };
+        };
+      }
+    }
+
+    async function saveProbioticData(uid, fields) {
+      await db.collection('users').doc(uid).set(fields, { merge: true });
     }
 
     // ════════════════════════════════════════
