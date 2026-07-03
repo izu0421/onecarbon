@@ -346,12 +346,14 @@
   // ============================================================
   // 5. MATRIX PATTERN COMPLETION  ->  cog_matrix (count correct)
   // ------------------------------------------------------------
-  // Each puzzle: a 3x3 grid of small SVGs with the last cell missing.
-  // Rule-based and original. `answer` is the index into `options`.
+  // Large puzzle bank (20+ items). Each session randomly picks 5
+  // from three difficulty bands so no two sessions are identical.
+  // `answer` is the 0-based index into the `options` array.
   // ============================================================
+
+  // --- SVG cell generators ---
   function dots(n) {
-    // returns an SVG with n dots arranged in a small grid
-    var pts = [[18, 18], [36, 18], [54, 18], [18, 36], [36, 36], [54, 36], [18, 54], [36, 54], [54, 54]];
+    var pts = [[18,18],[36,18],[54,18],[18,36],[36,36],[54,36],[18,54],[36,54],[54,54]];
     var c = '';
     for (var i = 0; i < n; i++) c += '<circle cx="' + pts[i][0] + '" cy="' + pts[i][1] + '" r="6" fill="#456BB7"/>';
     return '<svg width="56" height="56" viewBox="0 0 72 72">' + c + '</svg>';
@@ -359,38 +361,195 @@
   function arrow(deg) {
     return '<svg width="48" height="48" viewBox="0 0 48 48" style="transform:rotate(' + deg + 'deg)"><path d="M24 6 L24 38 M14 28 L24 38 L34 28" stroke="#456BB7" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
   }
-  function shapeBars(n) {
+  function bars(n) {
     var c = '';
-    for (var i = 0; i < n; i++) c += '<rect x="' + (10 + i * 14) + '" y="14" width="8" height="32" fill="#456BB7"/>';
+    for (var i = 0; i < n; i++) c += '<rect x="' + (8 + i * 14) + '" y="12" width="9" height="36" fill="#456BB7"/>';
     return '<svg width="56" height="56" viewBox="0 0 72 60">' + c + '</svg>';
   }
-  function circleSize(r) {
+  function ring(r) {
     return '<svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="' + r + '" fill="none" stroke="#456BB7" stroke-width="3"/></svg>';
   }
-  var matrixPuzzles = [
-    { // increasing dot count: rows 1,2,3 / 2,3,4 / 3,4,? -> 5
-      grid: [dots(1), dots(2), dots(3), dots(2), dots(3), dots(4), dots(3), dots(4), null],
-      options: [dots(3), dots(5), dots(4), dots(6), dots(2), dots(7)], answer: 1
-    },
-    { // arrow rotating 90deg each cell across reading order, last = 360%
-      grid: [arrow(0), arrow(90), arrow(180), arrow(90), arrow(180), arrow(270), arrow(180), arrow(270), null],
-      options: [arrow(90), arrow(0), arrow(180), arrow(270), arrow(45), arrow(135)], answer: 1
-    },
-    { // bar count grows by row: 1,2,3 / 2,3,4 / 3,4,? -> 5
-      grid: [shapeBars(1), shapeBars(2), shapeBars(3), shapeBars(2), shapeBars(3), shapeBars(4), shapeBars(3), shapeBars(4), null],
-      options: [shapeBars(4), shapeBars(2), shapeBars(5), shapeBars(1), shapeBars(3), shapeBars(6)], answer: 2
-    },
-    { // circle size shrinks across each row by fixed step; last cell smallest
-      grid: [circleSize(22), circleSize(16), circleSize(10), circleSize(22), circleSize(16), circleSize(10), circleSize(22), circleSize(16), null],
-      options: [circleSize(16), circleSize(22), circleSize(10), circleSize(6), circleSize(13), circleSize(20)], answer: 2
-    },
-    { // diagonal: dots = row+col; bottom-right = 3+3 -> 6 (cap visual)
-      grid: [dots(2), dots(3), dots(4), dots(3), dots(4), dots(5), dots(4), dots(5), null],
-      options: [dots(5), dots(7), dots(6), dots(4), dots(8), dots(3)], answer: 2
+  // shape outline/half/filled — no clipPath needed
+  function shapeFill(sh, lvl) {
+    var bg = lvl === 2 ? '#456BB7' : '#fff';
+    var st = '#456BB7';
+    var half = '';
+    if (lvl === 1) {
+      if (sh === 'C') half = '<path d="M8,28 A20,20 0 0,0 48,28 Z" fill="' + st + '"/>';
+      if (sh === 'S') half = '<rect x="8" y="28" width="40" height="20" fill="' + st + '"/>';
+      if (sh === 'D') half = '<polygon points="6,28 50,28 28,50" fill="' + st + '"/>';
     }
+    var body = '';
+    if (sh === 'C') body = '<circle cx="28" cy="28" r="20" fill="' + bg + '" stroke="' + st + '" stroke-width="3"/>';
+    if (sh === 'S') body = '<rect x="8" y="8" width="40" height="40" fill="' + bg + '" stroke="' + st + '" stroke-width="3"/>';
+    if (sh === 'D') body = '<polygon points="28,5 51,28 28,51 5,28" fill="' + bg + '" stroke="' + st + '" stroke-width="3"/>';
+    return '<svg width="56" height="56" viewBox="0 0 56 56">' + body + half + '</svg>';
+  }
+  // multiple shapes side by side (1-3 icons)
+  function icons(sh, n) {
+    var positions = [[28,28], [18,28], [38,28]];
+    var offsets = n === 1 ? [[0,0]] : n === 2 ? [[-10,0],[10,0]] : [[-16,0],[0,0],[16,0]];
+    var c = '';
+    offsets.forEach(function(o) {
+      var x = 28 + o[0], y = 28 + o[1];
+      if (sh === 'C') c += '<circle cx="' + x + '" cy="' + y + '" r="10" fill="#456BB7"/>';
+      if (sh === 'S') c += '<rect x="' + (x-10) + '" y="' + (y-10) + '" width="20" height="20" fill="#456BB7"/>';
+      if (sh === 'D') c += '<polygon points="' + x + ',' + (y-12) + ' ' + (x+12) + ',' + y + ' ' + x + ',' + (y+12) + ' ' + (x-12) + ',' + y + '" fill="#456BB7"/>';
+    });
+    return '<svg width="56" height="56" viewBox="0 0 56 56">' + c + '</svg>';
+  }
+  // line count (horizontal lines)
+  function lines(n, thick) {
+    var c = '';
+    var step = 48 / (n + 1);
+    for (var i = 1; i <= n; i++) {
+      var y = 4 + Math.round(i * step);
+      c += '<line x1="6" y1="' + y + '" x2="50" y2="' + y + '" stroke="#456BB7" stroke-width="' + (thick || 2) + '"/>';
+    }
+    return '<svg width="56" height="56" viewBox="0 0 56 56">' + c + '</svg>';
+  }
+  // checkerboard-like: filled squares in a 2×2 layout by bitmask
+  function checker(mask) {
+    var cells = [
+      [4,4],[30,4],[4,30],[30,30]
+    ];
+    var c = '';
+    cells.forEach(function(p, i) {
+      var fill = (mask >> i) & 1 ? '#456BB7' : '#e8edf6';
+      c += '<rect x="' + p[0] + '" y="' + p[1] + '" width="22" height="22" fill="' + fill + '" stroke="#d0d8ee" stroke-width="1"/>';
+    });
+    return '<svg width="56" height="56" viewBox="0 0 56 56">' + c + '</svg>';
+  }
+
+  // ---- Puzzle bank ----
+  // diff: 1=easy (single rule), 2=medium, 3=hard (compound rules)
+  var PUZZLE_BANK = [
+
+    // ── Easy ──────────────────────────────────────────────────────
+    { diff: 1, // dot count increases L→R in each row (same pattern each row)
+      grid: [dots(1),dots(2),dots(3), dots(1),dots(2),dots(3), dots(1),dots(2),null],
+      options: [dots(3),dots(1),dots(4),dots(2),dots(5),dots(0)], answer: 0 },
+
+    { diff: 1, // arrow rotates +90° left→right, row 3 continues
+      grid: [arrow(0),arrow(90),arrow(180), arrow(90),arrow(180),arrow(270), arrow(180),arrow(270),null],
+      options: [arrow(90),arrow(0),arrow(180),arrow(360),arrow(45),arrow(270)], answer: 3 },
+
+    { diff: 1, // bars increase L→R, same in each row
+      grid: [bars(1),bars(2),bars(3), bars(1),bars(2),bars(3), bars(1),bars(2),null],
+      options: [bars(2),bars(4),bars(3),bars(1),bars(5),bars(6)], answer: 2 },
+
+    { diff: 1, // circle shrinks L→R (large → medium → small), repeats
+      grid: [ring(22),ring(16),ring(9), ring(22),ring(16),ring(9), ring(22),ring(16),null],
+      options: [ring(16),ring(22),ring(9),ring(6),ring(13),ring(20)], answer: 2 },
+
+    { diff: 1, // fill goes empty→half→full across each row (circle)
+      grid: [shapeFill('C',0),shapeFill('C',1),shapeFill('C',2),
+             shapeFill('C',0),shapeFill('C',1),shapeFill('C',2),
+             shapeFill('C',0),shapeFill('C',1),null],
+      options: [shapeFill('C',1),shapeFill('C',0),shapeFill('C',2),shapeFill('S',2),shapeFill('D',2),shapeFill('C',0)],
+      answer: 2 },
+
+    { diff: 1, // icon count increases down each column (1,2,3 top→bottom)
+      grid: [icons('C',1),icons('S',1),icons('D',1),
+             icons('C',2),icons('S',2),icons('D',2),
+             icons('C',3),icons('S',3),null],
+      options: [icons('D',2),icons('D',3),icons('D',1),icons('C',3),icons('S',3),icons('C',2)],
+      answer: 1 },
+
+    { diff: 1, // lines increase top→bottom in each row (row 3 = 3 lines)
+      grid: [lines(1),lines(1),lines(1), lines(2),lines(2),lines(2), lines(3),lines(3),null],
+      options: [lines(2),lines(4),lines(3),lines(1),lines(5),lines(3,4)], answer: 2 },
+
+    // ── Medium ────────────────────────────────────────────────────
+    { diff: 2, // diagonal: dots = row + col (0-indexed); cell[2][2]=4
+      grid: [dots(0),dots(1),dots(2), dots(1),dots(2),dots(3), dots(2),dots(3),null],
+      options: [dots(3),dots(5),dots(4),dots(6),dots(2),dots(7)], answer: 2 },
+
+    { diff: 2, // fill goes empty→half→full down each COLUMN (not row)
+      grid: [shapeFill('S',0),shapeFill('C',0),shapeFill('D',0),
+             shapeFill('S',1),shapeFill('C',1),shapeFill('D',1),
+             shapeFill('S',2),shapeFill('C',2),null],
+      options: [shapeFill('D',1),shapeFill('S',2),shapeFill('D',2),shapeFill('D',0),shapeFill('C',2),shapeFill('S',1)],
+      answer: 2 },
+
+    { diff: 2, // shape Latin square: C/S/D each once per row & column
+      //  C S D
+      //  S D C
+      //  D C ?  -> S
+      grid: [shapeFill('C',2),shapeFill('S',2),shapeFill('D',2),
+             shapeFill('S',2),shapeFill('D',2),shapeFill('C',2),
+             shapeFill('D',2),shapeFill('C',2),null],
+      options: [shapeFill('D',2),shapeFill('C',2),shapeFill('S',2),shapeFill('S',0),shapeFill('D',0),shapeFill('C',0)],
+      answer: 2 },
+
+    { diff: 2, // bars increase left→right AND row by row (step: col+1, bonus +row)
+      //  row0: 1,2,3   row1: 2,3,4   row2: 3,4,?=5
+      grid: [bars(1),bars(2),bars(3), bars(2),bars(3),bars(4), bars(3),bars(4),null],
+      options: [bars(4),bars(2),bars(5),bars(1),bars(3),bars(6)], answer: 2 },
+
+    { diff: 2, // arrow rotates +90° top→bottom in each column
+      //  col0: 0,90,180  col1: 90,180,270  col2: 180,270,?=0
+      grid: [arrow(0),arrow(90),arrow(180), arrow(90),arrow(180),arrow(270), arrow(180),arrow(270),null],
+      options: [arrow(90),arrow(0),arrow(180),arrow(270),arrow(45),arrow(135)], answer: 1 },
+
+    { diff: 2, // checkerboard: each row adds one more filled quadrant (bitmask 0,1,3,7 → row 3 col 2 = 0b0111=7)
+      grid: [checker(0),checker(1),checker(3), checker(0),checker(1),checker(3), checker(0),checker(1),null],
+      options: [checker(7),checker(5),checker(3),checker(15),checker(9),checker(6)], answer: 0 },
+
+    { diff: 2, // size shrinks AND fill increases: large-empty→med-half→small-full
+      grid: [ring(22),ring(16),ring(9), ring(22),ring(16),ring(9), ring(22),ring(16),null],
+      options: [ring(6),ring(16),ring(9),ring(13),ring(20),ring(4)], answer: 2 },
+
+    // ── Hard ──────────────────────────────────────────────────────
+    { diff: 3, // each row: same shape, fill follows col; each col: same fill, shape follows row
+      //  (C,0)(S,0)(D,0)   (C,1)(S,1)(D,1)   (C,2)(S,2)(?,2) → D,2
+      grid: [shapeFill('C',0),shapeFill('S',0),shapeFill('D',0),
+             shapeFill('C',1),shapeFill('S',1),shapeFill('D',1),
+             shapeFill('C',2),shapeFill('S',2),null],
+      options: [shapeFill('C',2),shapeFill('S',0),shapeFill('D',2),shapeFill('D',1),shapeFill('S',2),shapeFill('C',0)],
+      answer: 2 },
+
+    { diff: 3, // dots = row × col (0-indexed, min 1): row2×col2 = 2×2 = 4? No: (r+1)*(c+1)
+      // 1,2,3 / 2,4,6 / 3,6,? = 9
+      grid: [dots(1),dots(2),dots(3), dots(2),dots(4),dots(6), dots(3),dots(6),null],
+      options: [dots(6),dots(8),dots(9),dots(7),dots(5),dots(4)], answer: 2 },
+
+    { diff: 3, // arrow rotates +45° L→R AND +45° top→bottom: cell[2][2] = 180°
+      // (0,45,90) / (45,90,135) / (90,135,?)
+      grid: [arrow(0),arrow(45),arrow(90), arrow(45),arrow(90),arrow(135), arrow(90),arrow(135),null],
+      options: [arrow(90),arrow(45),arrow(135),arrow(180),arrow(225),arrow(270)], answer: 3 },
+
+    { diff: 3, // icon count = row+col+1: row2,col2 = 2+2+1 = 5 (show as dots)
+      grid: [dots(1),dots(2),dots(3), dots(2),dots(3),dots(4), dots(3),dots(4),null],
+      options: [dots(4),dots(6),dots(5),dots(3),dots(7),dots(2)], answer: 2 },
+
+    { diff: 3, // fill & shape both rotate: shape C→S→D across col, fill 0→1→2 across row
+      // row0: (C,0)(S,0)(D,0)  row1: (C,1)(S,1)(D,1)  row2: (C,2)(S,2)(D,?) → 2
+      grid: [shapeFill('C',0),shapeFill('S',0),shapeFill('D',0),
+             shapeFill('C',1),shapeFill('S',1),shapeFill('D',1),
+             shapeFill('C',2),shapeFill('S',2),null],
+      options: [shapeFill('S',2),shapeFill('C',2),shapeFill('D',2),shapeFill('D',0),shapeFill('D',1),shapeFill('C',0)],
+      answer: 2 },
+
+    { diff: 3, // checker: each row XORs with next column bit  0,5,15 / 0,5,15 / 0,5,? = 15
+      grid: [checker(0),checker(5),checker(15), checker(0),checker(5),checker(15), checker(0),checker(5),null],
+      options: [checker(10),checker(5),checker(15),checker(7),checker(3),checker(9)], answer: 2 }
   ];
+
+  function pickPuzzles(n) {
+    // Pick n puzzles stratified by difficulty band so sessions vary
+    var easy   = shuffle(PUZZLE_BANK.filter(function(p){ return p.diff === 1; }));
+    var medium = shuffle(PUZZLE_BANK.filter(function(p){ return p.diff === 2; }));
+    var hard   = shuffle(PUZZLE_BANK.filter(function(p){ return p.diff === 3; }));
+    // allocate: 2 easy, 2 medium, 1 hard (for n=5)
+    var picked = easy.slice(0,2).concat(medium.slice(0,2)).concat(hard.slice(0,1));
+    // fall back if a band has fewer than needed
+    if (picked.length < n) picked = shuffle(PUZZLE_BANK).slice(0, n);
+    return picked; // already in easy→hard order within bands
+  }
+
   function testMatrices(stage, done) {
-    var puzzles = matrixPuzzles; // fixed order, fixed difficulty progression
+    var puzzles = pickPuzzles(5);
     var idx = 0, correct = 0;
     var responses = [];
     function render() {
@@ -414,7 +573,7 @@
         c.addEventListener('click', function () {
           var isCorrect = o.correct;
           if (isCorrect) correct++;
-          responses.push({ puzzle: idx + 1, correct: isCorrect, rt_ms: Math.round(now() - shownAt) });
+          responses.push({ puzzle: idx + 1, diff: p.diff, correct: isCorrect, rt_ms: Math.round(now() - shownAt) });
           idx++; render();
         });
         opts.appendChild(c);
