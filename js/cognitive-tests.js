@@ -118,7 +118,7 @@
   function testReactionTime(stage, done) {
     var TRIALS = 10;
     var trial = 0, times = [], awaiting = false, shownAt = 0, isMatch = false, timeout;
-    var trials = [];
+    var trials = [], lastMatch = null;
     var prompt = el('<div class="cog-prompt">Press <strong>MATCH</strong> only when the two cards are identical.</div>');
     var cards = el('<div class="cog-cards"><div class="cog-card" id="cogc1"></div><div class="cog-card" id="cogc2"></div></div>');
     var fb = el('<div class="cog-feedback"></div>');
@@ -141,7 +141,10 @@
     }
     function showCards() {
       var s1 = symbolsRT[Math.floor(Math.random() * symbolsRT.length)];
+      // Pick randomly, but re-roll once if it would repeat the previous outcome
       isMatch = Math.random() < 0.5;
+      if (lastMatch !== null && isMatch === lastMatch) isMatch = Math.random() < 0.5;
+      lastMatch = isMatch;
       var s2 = isMatch ? s1 : symbolsRT[(symbolsRT.indexOf(s1) + 1 + Math.floor(Math.random() * (symbolsRT.length - 1))) % symbolsRT.length];
       c1.textContent = s1; c2.textContent = s2;
       awaiting = true; shownAt = now();
