@@ -502,6 +502,54 @@
       padding: 24px 28px;
       margin-bottom: 16px;
     }
+    .feedback-nudge {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-top: 8px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .feedback-nudge-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .feedback-nudge-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .feedback-toggle-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 9px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--accent);
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .feedback-toggle-btn:hover { border-color: var(--accent); background: rgba(31,53,90,0.04); }
+    .feedback-form { margin-top: 20px; text-align: left; }
+    .feedback-textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--bg);
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .feedback-textarea:focus { outline: none; border-color: var(--accent); }
+    .feedback-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
+    .feedback-sent { text-align: center; margin-top: 14px; color: var(--accent); font-size: 0.9rem; }
     .panel-header {
       display: flex;
       justify-content: space-between;
@@ -851,6 +899,23 @@
           <div class="no-data-icon">📊</div>
           <div class="no-data-text" data-i18n="dash.no_data">Complete at least 2 sessions to see your trend</div>
         </div>
+      </div>
+
+      <!-- Feedback nudge -->
+      <div class="feedback-nudge" id="feedback-nudge">
+        <div class="feedback-nudge-text">💬 Tell us how you feel!</div>
+        <p class="feedback-nudge-sub">Any thoughts, bugs, or suggestions — we read every message.</p>
+        <button class="feedback-toggle-btn" id="feedback-toggle-btn">Leave feedback →</button>
+        <form class="feedback-form" id="feedback-form" style="display:none;" action="https://formspree.io/f/xqejdjwr" method="POST">
+          <input type="hidden" name="_subject" value="App feedback — OneCarbon">
+          <input type="hidden" name="_replyto" id="feedback-email-hidden">
+          <input type="hidden" name="_cc" value="yizhou@onecarbon.com">
+          <textarea class="feedback-textarea" name="message" placeholder="How was your experience? Any issues or ideas?" rows="4" required></textarea>
+          <div class="feedback-actions">
+            <button class="cog-btn" type="submit">Send →</button>
+          </div>
+          <div class="feedback-sent" id="feedback-sent" style="display:none;">✓ Thanks — we'll be in touch!</div>
+        </form>
       </div>
 
     </div>
@@ -1696,6 +1761,30 @@
 
       // Chart
       drawChart(sessions);
+
+      // Feedback form
+      const toggleBtn = document.getElementById('feedback-toggle-btn');
+      const feedbackForm = document.getElementById('feedback-form');
+      const feedbackSent = document.getElementById('feedback-sent');
+      document.getElementById('feedback-email-hidden').value = user.email || '';
+      toggleBtn.addEventListener('click', () => {
+        const open = feedbackForm.style.display !== 'none';
+        feedbackForm.style.display = open ? 'none' : 'block';
+        toggleBtn.textContent = open ? 'Leave feedback →' : 'Never mind';
+      }, { once: false });
+      feedbackForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(feedbackForm);
+        data.append('_replyto', user.email || '');
+        data.append('user', user.displayName || user.email || 'unknown');
+        data.append('sessions', sessions.length);
+        try {
+          await fetch(feedbackForm.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        } catch(_) {}
+        feedbackForm.style.display = 'none';
+        feedbackSent.style.display = 'block';
+        toggleBtn.style.display = 'none';
+      });
     }
 
     // ════════════════════════════════════════
