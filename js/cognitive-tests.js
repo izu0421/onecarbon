@@ -494,22 +494,220 @@
   }
 
   // ============================================================
+  // PRACTICE PROLOGUES  (shown only on first session)
+  // ============================================================
+
+  var PRAC_SYMBOLS = ['●', '▲', '■', '◆', '★'];
+
+  function pracBanner(stage, msg) {
+    var b = el('<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:18px;">' +
+      '<span style="background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px;">Practice — won\'t be scored</span>' +
+      '<div style="font-size:0.92rem;color:var(--text-muted);text-align:center;">' + msg + '</div>' +
+    '</div>');
+    stage.insertBefore(b, stage.firstChild);
+  }
+
+  function pracDone(stage, cb) {
+    clear(stage);
+    var box = el('<div style="text-align:center;padding:28px 12px;">' +
+      '<div style="font-size:2.4rem;margin-bottom:10px;">✓</div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:1.1rem;font-weight:500;margin-bottom:6px;color:var(--text);">Practice complete!</div>' +
+      '<div style="font-size:0.9rem;color:var(--text-muted);">The real test starts now.</div>' +
+    '</div>');
+    stage.appendChild(box);
+    setTimeout(cb, 1800);
+  }
+
+  // --- 1. Reaction time ---
+  function pracRT(stage, done) {
+    var steps = [
+      { s1: '▲', s2: '▲', isMatch: true,  hint: 'Same symbol on both cards → press <strong>MATCH</strong>' },
+      { s1: '●', s2: '■', isMatch: false, hint: 'Different symbols → <strong>do not</strong> press MATCH, wait' },
+      { s1: '◆', s2: '◆', isMatch: true,  hint: 'Same again → press <strong>MATCH</strong>!' },
+    ];
+    var t = 0;
+    function show() {
+      if (t >= steps.length) { pracDone(stage, done); return; }
+      var s = steps[t];
+      clear(stage);
+      pracBanner(stage, s.hint);
+      stage.appendChild(el('<div class="cog-cards"><div class="cog-card">' + s.s1 + '</div><div class="cog-card">' + s.s2 + '</div></div>'));
+      var fb = el('<div class="cog-feedback"></div>');
+      stage.appendChild(fb);
+      var actions = el('<div class="cog-actions"></div>');
+      if (s.isMatch) {
+        var btn = el('<button class="cog-btn" type="button">MATCH</button>');
+        btn.addEventListener('click', function () { fb.textContent = '✓ Correct!'; setTimeout(function(){ t++; show(); }, 900); });
+        actions.appendChild(btn);
+      } else {
+        var skip = el('<button class="cog-btn cog-btn-ghost" type="button">Skip →</button>');
+        skip.addEventListener('click', function () { fb.textContent = '✓ Right — don\'t press on mismatches.'; setTimeout(function(){ t++; show(); }, 900); });
+        actions.appendChild(skip);
+      }
+      stage.appendChild(actions);
+    }
+    show();
+  }
+
+  // --- 2. Numeric memory ---
+  function pracNumeric(stage, done) {
+    var seq = [4, 7, 2];
+    clear(stage);
+    pracBanner(stage, 'A number will flash. When it disappears, type it back.');
+    var num = el('<div class="cog-bignum">' + seq.join('  ') + '</div>');
+    stage.appendChild(num);
+    setTimeout(function () {
+      num.style.visibility = 'hidden';
+      var inp = el('<input class="cog-input" type="tel" inputmode="numeric" placeholder="Type the number" autocomplete="off">');
+      stage.appendChild(inp);
+      var btn = el('<button class="cog-btn" style="margin-top:12px;" type="button">Check</button>');
+      stage.appendChild(btn);
+      var fb = el('<div class="cog-feedback" style="margin-top:8px;"></div>');
+      stage.appendChild(fb);
+      btn.addEventListener('click', function () {
+        var ans = inp.value.replace(/\s/g, '');
+        if (ans === seq.join('')) {
+          fb.textContent = '✓ Correct! Each round adds one more digit.';
+        } else {
+          fb.textContent = 'The answer was ' + seq.join('') + '. That\'s fine — let\'s begin!';
+        }
+        btn.disabled = true;
+        setTimeout(function(){ pracDone(stage, done); }, 1600);
+      });
+      inp.focus();
+    }, 2200);
+  }
+
+  // --- 3. Symbol digit ---
+  function pracSymbol(stage, done) {
+    var key = [{ sym: '❋', dig: 3 }, { sym: '⬡', dig: 6 }, { sym: '⬟', dig: 1 }];
+    clear(stage);
+    pracBanner(stage, 'Use the key to find the matching digit for each symbol.');
+    var keyEl = el('<div style="display:flex;gap:12px;justify-content:center;margin-bottom:20px;"></div>');
+    key.forEach(function(k) {
+      keyEl.appendChild(el('<div style="border:1px solid var(--border);padding:8px 14px;text-align:center;"><div style="font-size:1.5rem;">' + k.sym + '</div><div style="font-size:0.85rem;color:var(--text-faint);">' + k.dig + '</div></div>'));
+    });
+    stage.appendChild(keyEl);
+    var t = 0;
+    var fb = el('<div class="cog-feedback" style="min-height:20px;margin-top:8px;"></div>');
+    function nextSymbol() {
+      if (t >= key.length) { pracDone(stage, done); return; }
+      var target = key[t];
+      var targetEl = stage.querySelector('.prac-target');
+      if (targetEl) stage.removeChild(targetEl);
+      var dig = stage.querySelector('.prac-digits');
+      if (dig) stage.removeChild(dig);
+      var tEl = el('<div class="cog-target-sym prac-target">' + target.sym + '</div>');
+      var digs = el('<div class="cog-digits prac-digits"></div>');
+      shuffle([1,2,3,4,5,6]).slice(0,4).concat([target.dig]).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,4).forEach(function(d) {
+        var b = el('<button class="cog-digit-btn" type="button">' + d + '</button>');
+        b.addEventListener('click', function() {
+          if (d === target.dig) { fb.textContent = '✓ Correct!'; }
+          else { fb.textContent = 'The answer was ' + target.dig + '.'; }
+          t++;
+          setTimeout(nextSymbol, 900);
+        });
+        digs.appendChild(b);
+      });
+      stage.insertBefore(fb, null);
+      stage.appendChild(tEl);
+      stage.appendChild(digs);
+    }
+    stage.appendChild(fb);
+    nextSymbol();
+  }
+
+  // --- 4. Word pairs ---
+  function pracPAL(stage, done) {
+    var pairs = [['Ocean', 'Tiger'], ['Candle', 'Bridge']];
+    clear(stage);
+    pracBanner(stage, 'Memorise these pairs — you\'ll need to recall them in 5 seconds.');
+    var grid = el('<div class="cog-pairs"></div>');
+    pairs.forEach(function(p) {
+      grid.appendChild(el('<div class="cog-pair-a">' + p[0] + '</div>'));
+      grid.appendChild(el('<div class="cog-pair-b">' + p[1] + '</div>'));
+    });
+    stage.appendChild(grid);
+    var bar = el('<div style="font-size:0.85rem;color:var(--text-faint);margin-top:12px;">Disappearing in 5 s…</div>');
+    stage.appendChild(bar);
+    setTimeout(function() {
+      clear(stage);
+      pracBanner(stage, 'Which word was paired with <strong>Ocean</strong>?');
+      var choices = shuffle(['Tiger', 'River', 'Feather', 'Clock']);
+      var fb = el('<div class="cog-feedback" style="margin-top:10px;"></div>');
+      var ch = el('<div class="cog-choices"></div>');
+      choices.forEach(function(c) {
+        var btn = el('<button class="cog-choice" type="button">' + c + '</button>');
+        btn.addEventListener('click', function() {
+          fb.textContent = c === 'Tiger' ? '✓ Correct!' : 'It was Tiger. No worries — just a practice!';
+          setTimeout(function(){ pracDone(stage, done); }, 1400);
+        });
+        ch.appendChild(btn);
+      });
+      stage.appendChild(ch);
+      stage.appendChild(fb);
+    }, 5000);
+  }
+
+  // --- 5. Pattern puzzles ---
+  function pracMatrix(stage, done) {
+    // Simple 3×3: all cells are ◆ except bottom-right (missing)
+    var sym = '◆';
+    var cells = [sym, sym, sym, sym, sym, sym, sym, sym, '?'];
+    clear(stage);
+    pracBanner(stage, 'Find the piece that completes the pattern.');
+    var grid = el('<div class="cog-matrix-grid"></div>');
+    cells.forEach(function(c) {
+      grid.appendChild(el('<div class="cog-matrix-cell' + (c === '?' ? ' cog-missing' : '') + '">' + (c === '?' ? '' : c) + '</div>'));
+    });
+    stage.appendChild(grid);
+    var opts2 = el('<div class="cog-options"></div>');
+    var answers = shuffle([{ h: sym, correct: true }, { h: '●', correct: false }, { h: '▲', correct: false }]);
+    var fb = el('<div class="cog-feedback" style="margin-top:10px;"></div>');
+    answers.forEach(function(a) {
+      var opt = el('<div class="cog-option">' + a.h + '</div>');
+      opt.addEventListener('click', function() {
+        fb.textContent = a.correct ? '✓ Correct!' : 'Not quite — the pattern repeats ◆. Let\'s continue!';
+        setTimeout(function(){ pracDone(stage, done); }, 1400);
+      });
+      opts2.appendChild(opt);
+    });
+    stage.appendChild(opts2);
+    stage.appendChild(fb);
+  }
+
+  // --- 6. Trail A ---
+  function pracTrailA(stage, done) {
+    var positions = [{x:30,y:30},{x:65,y:55},{x:40,y:72},{x:72,y:22}];
+    clear(stage);
+    pracBanner(stage, 'Tap the numbered circles in order: 1 → 2 → 3 → 4');
+    runTrail(stage, ['1','2','3','4'], function() { pracDone(stage, done); });
+  }
+
+  // --- 7. Trail B ---
+  function pracTrailB(stage, done) {
+    clear(stage);
+    pracBanner(stage, 'Alternate numbers and letters: 1 → A → 2 → B');
+    runTrail(stage, ['1','A','2','B'], function() { pracDone(stage, done); });
+  }
+
+  // ============================================================
   // Battery controller
   // ============================================================
   var BATTERY = [
-    { field: 'cog_rt', name: 'Reaction time', run: testReactionTime,
+    { field: 'cog_rt', name: 'Reaction time', run: testReactionTime, prac: pracRT,
       instr: '<p>Two cards will appear side by side. Press the <strong>MATCH</strong> button as quickly as you can <strong>only when the two cards are identical</strong>.</p><p class="cog-eg">Tip: don\'t press when they differ — wait for a true match.</p>' },
-    { field: 'cog_numeric', name: 'Numeric memory', run: testNumericMemory,
+    { field: 'cog_numeric', name: 'Numeric memory', run: testNumericMemory, prac: pracNumeric,
       instr: '<p>A number will flash on screen. When it disappears, type it back exactly. Each correct answer makes the next number one digit longer.</p><p class="cog-eg">It continues until you make a mistake.</p>' },
-    { field: 'cog_symbol', name: 'Symbol-digit matching', run: testSymbolDigit,
+    { field: 'cog_symbol', name: 'Symbol-digit matching', run: testSymbolDigit, prac: pracSymbol,
       instr: '<p>You\'ll see a key pairing six symbols with the digits 1–6. For each symbol shown, tap the matching digit as fast as you can.</p><p class="cog-eg">You have 60 seconds — get as many correct as possible.</p>' },
-    { field: 'cog_pal', name: 'Word-pair memory', run: testPairedAssociate,
+    { field: 'cog_pal', name: 'Word-pair memory', run: testPairedAssociate, prac: pracPAL,
       instr: '<p>You\'ll be shown several pairs of words to memorise. Then, for each first word, choose the word it was paired with.</p><p class="cog-eg">You have 15 seconds to study the pairs.</p>' },
-    { field: 'cog_matrix', name: 'Pattern puzzles', run: testMatrices,
+    { field: 'cog_matrix', name: 'Pattern puzzles', run: testMatrices, prac: pracMatrix,
       instr: '<p>Each puzzle shows a 3×3 grid with one piece missing. Work out the pattern and choose the piece that completes it.</p><p class="cog-eg">There are five puzzles of increasing difficulty.</p>' },
-    { field: 'cog_tmta', name: 'Trail making (numbers)', run: testTrailA,
+    { field: 'cog_tmta', name: 'Trail making (numbers)', run: testTrailA, prac: pracTrailA,
       instr: '<p>Numbered circles are scattered on the board. Tap them in order: 1, 2, 3 … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' },
-    { field: 'cog_tmtb', name: 'Trail making (alternating)', run: testTrailB,
+    { field: 'cog_tmtb', name: 'Trail making (alternating)', run: testTrailB, prac: pracTrailB,
       instr: '<p>Now tap circles alternating numbers and letters in order: 1, A, 2, B, 3, C … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' }
   ];
 
@@ -525,6 +723,22 @@
       if (i >= total) { if (opts.onComplete) opts.onComplete(results); return; }
       var task = battery[i];
       if (opts.onProgress) opts.onProgress(i, total);
+      if (opts.practice && task.prac) {
+        showPractice(task, function() { showRealInstructions(task); });
+      } else {
+        showRealInstructions(task);
+      }
+    }
+    function showPractice(task, done) {
+      clear(container);
+      var wrap = el('<div class="cog-wrap"></div>');
+      wrap.appendChild(el('<div class="cog-progress">Task ' + (i + 1) + ' of ' + total + ' — Practice</div>'));
+      var stage = el('<div class="cog-stage"></div>');
+      wrap.appendChild(stage);
+      container.appendChild(wrap);
+      task.prac(stage, done);
+    }
+    function showRealInstructions(task) {
       clear(container);
       var wrap = el('<div class="cog-wrap"></div>');
       wrap.appendChild(el('<div class="cog-progress">Task ' + (i + 1) + ' of ' + total + '</div>'));

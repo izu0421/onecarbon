@@ -1576,6 +1576,7 @@
       }
 
       CognitiveTests.start(document.getElementById('cog-container'), {
+        practice: sessionNumber === 1,
         onProgress: (done, total) => {
           const pct = Math.round((done / total) * 100);
           document.getElementById('battery-progress-fill').style.width = pct + '%';
