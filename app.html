@@ -345,62 +345,71 @@
        DASHBOARD SCREEN
     ───────────────────────────────────────────────── */
     #screen-dashboard {
-      max-width: 720px;
+      max-width: 680px;
       margin: 0 auto;
       width: 100%;
     }
-    .dash-header { margin-bottom: 24px; }
+    .dash-header { margin-bottom: 28px; }
     .dash-greeting {
       font-family: 'DM Sans', sans-serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 500;
       color: var(--text);
       margin-bottom: 4px;
     }
     .dash-subtitle { font-size: 14px; color: var(--text-muted); }
 
-    /* Stats row */
-    .dash-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    /* Score card */
-    .score-card {
+    /* ── Hero card ── */
+    .dash-hero {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 24px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .hero-score {
+      padding: 32px 28px 28px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      gap: 0;
     }
+    .hero-countdown {
+      background: var(--accent);
+      color: #fff;
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Score ring */
     .score-eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.08em;
+      font-size: 10px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
-      font-weight: 500;
-      margin-bottom: 20px;
-      align-self: flex-start;
+      font-weight: 600;
+      margin-bottom: 24px;
     }
     .score-ring-wrap {
       position: relative;
-      width: 130px;
-      height: 130px;
+      width: 148px;
+      height: 148px;
+      margin-bottom: 20px;
     }
     .score-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .ring-bg   { fill: none; stroke: var(--bg-alt); stroke-width: 9; }
+    .ring-bg   { fill: none; stroke: var(--bg-alt); stroke-width: 10; }
     .ring-fill {
       fill: none;
       stroke: var(--accent);
-      stroke-width: 9;
+      stroke-width: 10;
       stroke-linecap: round;
       stroke-dasharray: 314;
       stroke-dashoffset: 314;
-      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .score-overlay {
       position: absolute; inset: 0;
@@ -409,50 +418,39 @@
     }
     .score-big {
       font-family: 'DM Sans', sans-serif;
-      font-size: 42px;
+      font-size: 48px;
       font-weight: 500;
       color: var(--accent);
       line-height: 1;
     }
-    .score-of { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+    .score-of { font-size: 12px; color: var(--text-faint); margin-top: 3px; }
     .score-delta {
-      margin-top: 16px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      min-height: 18px;
+      min-height: 16px;
     }
     .score-delta.up   { color: #2a7d46; }
     .score-delta.down { color: #c0392b; }
     .score-delta.same { color: var(--text-muted); }
 
-    /* Countdown card */
-    .dash-countdown {
-      background: var(--accent);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .countdown-label {
-      font-size: 11px;
-      letter-spacing: 0.08em;
+    /* Countdown */
+    .countdown-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.65;
-      font-weight: 500;
+      opacity: 0.6;
+      font-weight: 600;
     }
-    .countdown-row { display: flex; align-items: baseline; gap: 8px; }
+    .countdown-row { display: flex; align-items: baseline; gap: 8px; margin: 12px 0 auto; }
     .countdown-number {
       font-family: 'DM Sans', sans-serif;
-      font-size: 64px;
+      font-size: 72px;
       font-weight: 300;
       line-height: 1;
     }
-    .countdown-unit { font-size: 18px; opacity: 0.65; }
+    .countdown-unit { font-size: 18px; opacity: 0.6; }
     .btn-take-test {
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 100px;
       border: none;
       font-family: 'DM Sans', sans-serif;
@@ -461,19 +459,42 @@
       cursor: pointer;
       transition: all 0.15s;
       white-space: nowrap;
-      text-align: center;
       align-self: flex-start;
     }
     .btn-take-test.ready { background: #fff; color: var(--accent); }
     .btn-take-test.ready:hover { background: #eef1f8; }
     .btn-take-test.not-ready {
-      background: rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.65);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
       cursor: default;
     }
 
-    /* Panels */
+    /* ── Stat chips ── */
+    .dash-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .stat-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .chip-value {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .chip-label { color: var(--text-muted); }
+
+    /* ── Chart panel ── */
     .dash-panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -481,50 +502,31 @@
       padding: 24px 28px;
       margin-bottom: 16px;
     }
-    .panel-title {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-    #score-canvas { width: 100%; height: 180px; display: block; }
-    .chart-no-data {
-      display: flex; align-items: center; justify-content: center;
-      height: 160px; font-size: 14px; color: var(--text-faint); font-style: italic;
-    }
-
-    /* Domain grid */
-    .domain-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px 32px;
-    }
-    .domain-item {}
-    .domain-item-header {
+    .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 7px;
+      margin-bottom: 20px;
     }
-    .domain-name { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .domain-score { font-size: 13px; font-weight: 600; color: var(--text); }
-    .domain-track {
-      height: 5px;
-      background: var(--bg-alt);
-      border-radius: 100px;
-      overflow: hidden;
+    .panel-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
     }
-    .domain-fill {
-      height: 100%;
-      border-radius: 100px;
-      transition: width 0.7s ease;
+    .panel-meta { font-size: 12px; color: var(--text-faint); }
+    #score-canvas { width: 100%; height: 200px; display: block; }
+    .chart-no-data {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 180px; gap: 12px;
     }
+    .no-data-icon { font-size: 32px; opacity: 0.3; }
+    .no-data-text { font-size: 14px; color: var(--text-faint); }
 
     @media (max-width: 520px) {
-      .dash-stats { grid-template-columns: 1fr; }
-      .domain-grid { grid-template-columns: 1fr; }
+      .dash-hero { grid-template-columns: 1fr; }
+      .hero-countdown { border-radius: 0 0 var(--radius) var(--radius); }
     }
 
     /* ─────────────────────────────────────────────────
@@ -795,10 +797,9 @@
         <div class="dash-subtitle" id="dash-subtitle">Here's your cognitive health overview</div>
       </div>
 
-      <!-- Stats row: score ring + countdown -->
-      <div class="dash-stats">
-        <!-- Score card -->
-        <div class="score-card">
+      <!-- Hero card: score ring + countdown -->
+      <div class="dash-hero">
+        <div class="hero-score">
           <div class="score-eyebrow" data-i18n="dash.score_label">Cognitive score</div>
           <div class="score-ring-wrap">
             <svg class="score-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -813,9 +814,8 @@
           <div class="score-delta" id="score-delta"></div>
         </div>
 
-        <!-- Countdown card -->
-        <div class="dash-countdown" id="dash-countdown">
-          <div class="countdown-label" data-i18n="dash.next_test">Next test in</div>
+        <div class="hero-countdown">
+          <div class="countdown-eyebrow" data-i18n="dash.next_test">Next test in</div>
           <div class="countdown-row">
             <span class="countdown-number" id="countdown-days">—</span>
             <span class="countdown-unit" data-i18n="dash.days">days</span>
@@ -824,19 +824,33 @@
         </div>
       </div>
 
-      <!-- Score history chart -->
-      <div class="dash-panel">
-        <div class="panel-title" data-i18n="dash.score_chart">Composite score over time</div>
-        <canvas id="score-canvas"></canvas>
-        <div class="chart-no-data" id="chart-no-data" style="display:none;" data-i18n="dash.no_data">
-          Complete at least 2 sessions to see your progress chart
+      <!-- Stat chips -->
+      <div class="dash-chips">
+        <div class="stat-chip">
+          <span class="chip-value" id="chip-sessions">0</span>
+          <span class="chip-label" data-i18n="dash.chip_sessions">sessions completed</span>
+        </div>
+        <div class="stat-chip">
+          <span class="chip-value" id="chip-days-since">—</span>
+          <span class="chip-label" data-i18n="dash.chip_since">days since last test</span>
+        </div>
+        <div class="stat-chip" id="chip-started-wrap" style="display:none;">
+          <span class="chip-label" data-i18n="dash.chip_started">tracking since</span>
+          <span class="chip-value" id="chip-started">—</span>
         </div>
       </div>
 
-      <!-- Domain breakdown -->
-      <div class="dash-panel" id="domain-panel" style="display:none;">
-        <div class="panel-title" data-i18n="dash.domain_title">Last session — domain breakdown</div>
-        <div class="domain-grid" id="domain-bars"></div>
+      <!-- Score history chart -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-title" data-i18n="dash.score_chart">Composite score over time</div>
+          <div class="panel-meta" id="chart-range"></div>
+        </div>
+        <canvas id="score-canvas"></canvas>
+        <div class="chart-no-data" id="chart-no-data" style="display:none;">
+          <div class="no-data-icon">📊</div>
+          <div class="no-data-text" data-i18n="dash.no_data">Complete at least 2 sessions to see your trend</div>
+        </div>
       </div>
 
     </div>
@@ -1034,9 +1048,11 @@
         'dash.next_test': 'Next test in',
         'dash.days': 'days',
         'dash.take_test': 'Take the test now →',
-        'dash.score_chart': 'Composite score over time',
-        'dash.no_data': 'Complete at least 2 sessions to see your progress chart',
-        'dash.domain_title': 'Last session — domain breakdown',
+        'dash.score_chart': 'Score over time',
+        'dash.no_data': 'Complete at least 2 sessions to see your trend',
+        'dash.chip_sessions': 'sessions completed',
+        'dash.chip_since': 'days since last test',
+        'dash.chip_started': 'tracking since',
         'sleep.h1': 'Before you begin',
         'sleep.sub': 'A few quick questions about your sleep last night. Takes under 2 minutes.',
         'sleep.hours': 'Hours of sleep last night',
@@ -1152,9 +1168,11 @@
         'dash.next_test': '下次测试',
         'dash.days': '天后',
         'dash.take_test': '立即参加测试 →',
-        'dash.score_chart': '综合得分趋势',
-        'dash.no_data': '完成至少 2 次测试后即可查看进度图表',
-        'dash.domain_title': '上次测试 — 各领域得分',
+        'dash.score_chart': '得分趋势',
+        'dash.no_data': '完成至少 2 次测试后即可查看趋势图',
+        'dash.chip_sessions': '次测试已完成',
+        'dash.chip_since': '距上次测试天数',
+        'dash.chip_started': '开始追踪于',
         'sleep.h1': '开始之前',
         'sleep.sub': '关于昨晚睡眠的几个简短问题，不到 2 分钟即可完成。',
         'sleep.hours': '昨晚睡眠时长',
@@ -1651,7 +1669,8 @@
       }
 
       // Countdown
-      const days = Math.max(0, Math.ceil(14 - daysSinceLastSession(sessions)));
+      const daysSince = sessions.length > 0 ? Math.floor(daysSinceLastSession(sessions)) : null;
+      const days = sessions.length === 0 ? 0 : Math.max(0, Math.ceil(14 - daysSinceLastSession(sessions)));
       document.getElementById('countdown-days').textContent = sessions.length === 0 ? '0' : days;
       const btn = document.getElementById('btn-test-from-dash');
       if (days === 0 || sessions.length === 0) {
@@ -1663,13 +1682,19 @@
         showBattery(sessions.length + 1);
       }, { once: true });
 
+      // Stat chips
+      document.getElementById('chip-sessions').textContent = sessions.length;
+      document.getElementById('chip-days-since').textContent = daysSince !== null ? daysSince : '—';
+      if (sessions.length > 0) {
+        const first = sessions[0];
+        const firstDate = first.completedAt?.toDate ? first.completedAt.toDate() : new Date(first.completedAt);
+        document.getElementById('chip-started').textContent =
+          firstDate.toLocaleString('en-GB', { month: 'short', year: 'numeric' });
+        document.getElementById('chip-started-wrap').style.display = 'flex';
+      }
+
       // Chart
       drawChart(sessions);
-
-      // Domain bars for last session
-      if (sessions.length > 0) {
-        drawDomainBars(sessions[sessions.length - 1].results || {});
-      }
     }
 
     // ════════════════════════════════════════
@@ -1711,14 +1736,24 @@
       const canvas = document.getElementById('score-canvas');
       const noData = document.getElementById('chart-no-data');
 
+      const rangeEl = document.getElementById('chart-range');
       if (sessions.length < 2) {
         canvas.style.display = 'none';
         noData.style.display = 'flex';
+        if (rangeEl) rangeEl.textContent = '';
         return;
       }
 
       canvas.style.display = 'block';
       noData.style.display = 'none';
+
+      // Show date range in panel header
+      if (rangeEl && sessions.length >= 2) {
+        const fmt = d => d.toLocaleString('en-GB', { day: 'numeric', month: 'short' });
+        const first = sessions[0].completedAt?.toDate ? sessions[0].completedAt.toDate() : new Date(sessions[0].completedAt);
+        const last  = sessions[sessions.length-1].completedAt?.toDate ? sessions[sessions.length-1].completedAt.toDate() : new Date(sessions[sessions.length-1].completedAt);
+        rangeEl.textContent = `${fmt(first)} – ${fmt(last)}`;
+      }
 
       // Set canvas resolution
       const dpr = window.devicePixelRatio || 1;
