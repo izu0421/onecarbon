@@ -399,7 +399,9 @@
       width: 148px;
       height: 148px;
       margin-bottom: 20px;
+      cursor: pointer;
     }
+    .score-ring-wrap:hover .score-overlay { opacity: 0.8; }
     .score-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
     .ring-bg   { fill: none; stroke: var(--bg-alt); stroke-width: 10; }
     .ring-fill {
@@ -566,16 +568,7 @@
     .probiotic-info-row { display: flex; gap: 32px; margin-bottom: 18px; }
     .probiotic-info-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-faint); margin-bottom: 4px; }
     .probiotic-info-value { font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 500; color: var(--text); }
-    .probiotic-still-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-    .probiotic-still-label { font-size: 0.88rem; color: var(--text-muted); }
-    .probiotic-toggle-group { display: flex; gap: 6px; }
-    .probiotic-toggle-btn {
-      border: 1px solid var(--border); border-radius: var(--radius-pill);
-      background: var(--bg); color: var(--text-muted); font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem; padding: 6px 16px; cursor: pointer; transition: all .15s;
-    }
-    .probiotic-toggle-btn.active-yes { background: #e6f4ec; border-color: #1d7a3e; color: #1d7a3e; font-weight: 600; }
-    .probiotic-toggle-btn.active-no  { background: #fdecea; border-color: #b91c1c; color: #b91c1c; font-weight: 600; }
+    .probiotic-compliance-note { font-size: 0.82rem; color: var(--text-faint); margin: 4px 0 10px; line-height: 1.5; }
     .probiotic-change-row { margin-top: 2px; }
     .probiotic-change-link {
       background: none; border: none; color: var(--text-faint); font-size: 0.8rem;
@@ -946,6 +939,7 @@
       <div class="dash-hero">
         <div class="hero-score">
           <div class="score-eyebrow" data-i18n="dash.score_label">Cognitive score</div>
+          <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px;">tap to expand ↓</div>
           <div class="score-ring-wrap">
             <svg class="score-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
               <circle class="ring-bg"   cx="60" cy="60" r="50"/>
@@ -1016,9 +1010,10 @@
       </div>
 
       <!-- Domain trends -->
+      <!-- Domain trends (hidden; toggled by clicking score) -->
       <div class="dash-panel" id="domain-chart-panel" style="display:none;">
         <div class="panel-header">
-          <div class="panel-title">Domain trends</div>
+          <div class="panel-title">Domain breakdown</div>
           <div class="panel-meta" id="domain-chart-range"></div>
         </div>
         <div id="domain-sparklines"></div>
@@ -1044,17 +1039,15 @@
               <div class="probiotic-info-value" id="probiotic-start-display">—</div>
             </div>
             <div class="probiotic-info-block">
-              <div class="probiotic-info-label">Duration</div>
+              <div class="probiotic-info-label">Days on supplement</div>
               <div class="probiotic-info-value" id="probiotic-days-display">—</div>
             </div>
-          </div>
-          <div class="probiotic-still-row">
-            <span class="probiotic-still-label">Still taking it?</span>
-            <div class="probiotic-toggle-group">
-              <button class="probiotic-toggle-btn" id="probiotic-yes" data-val="true">Yes</button>
-              <button class="probiotic-toggle-btn" id="probiotic-no"  data-val="false">No</button>
+            <div class="probiotic-info-block" id="probiotic-compliance-block" style="display:none;">
+              <div class="probiotic-info-label">Avg. compliance</div>
+              <div class="probiotic-info-value" id="probiotic-avg-compliance">—</div>
             </div>
           </div>
+          <p class="probiotic-compliance-note" id="probiotic-compliance-note" style="display:none;"></p>
           <div class="probiotic-change-row">
             <button class="probiotic-change-link" id="probiotic-change">Change start date</button>
           </div>
@@ -2041,11 +2034,20 @@
       // Sleep health
       renderSleepPanel(sessions);
 
-      // Domain trends
-      drawDomainCharts(sessions);
+      // Domain chart panel always starts collapsed
+      document.getElementById('domain-chart-panel').style.display = 'none';
 
       // 1C-01 probiotic tracker
-      loadProbioticData(user.uid);
+      loadProbioticData(user.uid, sessions);
+
+      // Score ring → toggle domain chart
+      const ringWrap = document.querySelector('.score-ring-wrap');
+      const domainPanel = document.getElementById('domain-chart-panel');
+      ringWrap.onclick = () => {
+        const open = domainPanel.style.display !== 'none';
+        domainPanel.style.display = open ? 'none' : 'block';
+        if (!open) drawDomainCharts(sessions);
+      };
 
       // Feedback form
       const toggleBtn = document.getElementById('feedback-toggle-btn');
@@ -2156,14 +2158,13 @@
     // ════════════════════════════════════════
     // 1C-01 PROBIOTIC TRACKER
     // ════════════════════════════════════════
-    async function loadProbioticData(uid) {
-      const userRef = db.collection('users').doc(uid);
-      const snap = await userRef.get();
+    async function loadProbioticData(uid, sessions) {
+      const snap = await db.collection('users').doc(uid).get();
       const data = snap.exists ? snap.data() : {};
-      renderProbioticCard(uid, data.probioticStart || null, data.probioticActive ?? null);
+      renderProbioticCard(uid, data.probioticStart || null, sessions);
     }
 
-    function renderProbioticCard(uid, startDate, active) {
+    function renderProbioticCard(uid, startDate, sessions) {
       const unsetEl = document.getElementById('probiotic-unset');
       const setEl   = document.getElementById('probiotic-set');
       const badge   = document.getElementById('probiotic-badge');
@@ -2174,47 +2175,45 @@
         badge.textContent = 'Not logged';
         badge.className = 'probiotic-status-badge unknown';
 
-        const saveBtn = document.getElementById('probiotic-save-btn');
-        saveBtn.onclick = async () => {
+        document.getElementById('probiotic-save-btn').onclick = async () => {
           const val = document.getElementById('probiotic-date-input').value;
           if (!val) return;
-          await saveProbioticData(uid, { probioticStart: val, probioticActive: true });
-          renderProbioticCard(uid, val, true);
+          await saveProbioticData(uid, { probioticStart: val });
+          renderProbioticCard(uid, val, sessions);
         };
       } else {
         unsetEl.style.display = 'none';
         setEl.style.display   = 'block';
 
-        // Format date
-        const [y, m, d] = startDate.split('-');
+        // Start date + duration
         const dateStr = new Date(startDate + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
         document.getElementById('probiotic-start-display').textContent = dateStr;
-
-        // Duration
         const daysOn = Math.floor((Date.now() - new Date(startDate + 'T12:00:00')) / 86400000);
         document.getElementById('probiotic-days-display').textContent =
-          daysOn < 1 ? 'Started today' : daysOn + ' day' + (daysOn !== 1 ? 's' : '');
+          daysOn < 1 ? 'Started today' : daysOn + (daysOn !== 1 ? ' days' : ' day');
 
-        // Badge
-        if (active === true)  { badge.textContent = 'Active'; badge.className = 'probiotic-status-badge active'; }
-        else if (active === false) { badge.textContent = 'Stopped'; badge.className = 'probiotic-status-badge stopped'; }
-        else { badge.textContent = 'Unknown'; badge.className = 'probiotic-status-badge unknown'; }
-
-        // Yes / No toggles
-        const yesBtn = document.getElementById('probiotic-yes');
-        const noBtn  = document.getElementById('probiotic-no');
-        yesBtn.className = 'probiotic-toggle-btn' + (active === true  ? ' active-yes' : '');
-        noBtn.className  = 'probiotic-toggle-btn' + (active === false ? ' active-no'  : '');
-
-        yesBtn.onclick = async () => {
-          await saveProbioticData(uid, { probioticActive: true, probioticStoppedDate: null });
-          renderProbioticCard(uid, startDate, true);
-        };
-        noBtn.onclick = async () => {
-          const today = new Date().toISOString().slice(0, 10);
-          await saveProbioticData(uid, { probioticActive: false, probioticStoppedDate: today });
-          renderProbioticCard(uid, startDate, false);
-        };
+        // Compliance from session data
+        const sessionsWithCompliance = sessions.filter(s => s.probiotic?.compliance_days != null);
+        const complianceBlock = document.getElementById('probiotic-compliance-block');
+        const complianceNote  = document.getElementById('probiotic-compliance-note');
+        if (sessionsWithCompliance.length > 0) {
+          const avg = Math.round(sessionsWithCompliance.reduce((sum, s) => sum + s.probiotic.compliance_days, 0) / sessionsWithCompliance.length);
+          const avgPct = Math.round((avg / 14) * 100);
+          document.getElementById('probiotic-avg-compliance').textContent = `${avgPct}%`;
+          complianceBlock.style.display = 'block';
+          // Note from most recent reported session
+          const last = sessionsWithCompliance[sessionsWithCompliance.length - 1];
+          const lastDays = last.probiotic.compliance_days;
+          complianceNote.textContent = `Last reported: ${lastDays}/14 days. Reported in ${sessionsWithCompliance.length} session${sessionsWithCompliance.length !== 1 ? 's' : ''}.`;
+          complianceNote.style.display = 'block';
+          badge.textContent = lastDays > 0 ? 'Active' : 'Paused';
+          badge.className = 'probiotic-status-badge ' + (lastDays > 0 ? 'active' : 'stopped');
+        } else {
+          complianceBlock.style.display = 'none';
+          complianceNote.style.display  = 'none';
+          badge.textContent = 'Logged';
+          badge.className = 'probiotic-status-badge unknown';
+        }
 
         // Change start date
         document.getElementById('probiotic-change').onclick = () => {
@@ -2230,7 +2229,7 @@
             const val = input.value;
             if (!val) return;
             await saveProbioticData(uid, { probioticStart: val });
-            renderProbioticCard(uid, val, active);
+            renderProbioticCard(uid, val, sessions);
           };
         };
       }
@@ -2430,10 +2429,8 @@
     const DOMAIN_COLOURS = ['#1f6feb','#d4871a','#7c3aed','#0d7a46','#dc2626','#0891b2','#be185d'];
 
     function drawDomainCharts(sessions) {
-      const panel = document.getElementById('domain-chart-panel');
       const container = document.getElementById('domain-sparklines');
-      if (sessions.length < 2) { panel.style.display = 'none'; return; }
-      panel.style.display = 'block';
+      if (sessions.length < 2) return;
       container.innerHTML = '';
 
       const grid = document.createElement('div');
