@@ -1091,6 +1091,19 @@
           </div>
         </div>
 
+        <!-- 1C-01 compliance — only shown when user has logged a start date -->
+        <div class="form-group section-gap" id="compliance-section" style="display:none;">
+          <label>1C-01 compliance — past 14 days</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">How many days out of the last 14 did you take your 1C-01 probiotic?</p>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <input type="range" id="compliance-slider" min="0" max="14" step="1" value="14"
+              style="flex:1;accent-color:var(--accent);"
+              oninput="document.getElementById('compliance-val').textContent=this.value+' / 14 days'">
+            <span id="compliance-val" style="font-weight:500;min-width:80px;">14 / 14 days</span>
+          </div>
+          <div id="compliance-pct" style="font-size:12px;color:var(--text-faint);margin-top:6px;">100% compliance</div>
+        </div>
+
         <button class="btn-primary" id="btn-sleep-continue" style="margin-top:28px;" data-i18n="sleep.continue">Start cognitive tests →</button>
       </div>
     </div>
@@ -1694,16 +1707,44 @@
 
     document.getElementById('btn-sleep-continue').addEventListener('click', () => {
       sleepData.sleep_hours = parseFloat(document.getElementById('sleep-hours').value);
+      const compSection = document.getElementById('compliance-section');
+      if (compSection.style.display !== 'none') {
+        const days = parseInt(document.getElementById('compliance-slider').value, 10);
+        sleepData.probiotic_compliance_days = days;
+        sleepData.probiotic_compliance_pct  = Math.round((days / 14) * 100);
+      }
       startBattery(pendingSessionNumber);
     });
 
-    function showBattery(sessionNumber) {
+    // update compliance % label on slider input
+    document.getElementById('compliance-slider').addEventListener('input', function() {
+      const pct = Math.round((parseInt(this.value) / 14) * 100);
+      document.getElementById('compliance-pct').textContent = pct + '% compliance';
+    });
+
+    async function showBattery(sessionNumber) {
       pendingSessionNumber = sessionNumber;
       // Reset sleep selections
       document.querySelectorAll('#screen-sleep .tile-btn').forEach(b => b.classList.remove('selected'));
       document.getElementById('sleep-hours').value = 7;
       document.getElementById('sleep-hours-val').textContent = '7 hrs';
+      document.getElementById('compliance-slider').value = 14;
+      document.getElementById('compliance-val').textContent = '14 / 14 days';
+      document.getElementById('compliance-pct').textContent = '100% compliance';
       Object.keys(sleepData).forEach(k => delete sleepData[k]);
+
+      // Show compliance question only if user has logged a probiotic start date
+      const compSection = document.getElementById('compliance-section');
+      compSection.style.display = 'none';
+      if (currentUser) {
+        try {
+          const snap = await db.collection('users').doc(currentUser.uid).get();
+          if (snap.exists && snap.data().probioticStart) {
+            compSection.style.display = 'block';
+          }
+        } catch(_) {}
+      }
+
       showScreen('sleep');
     }
 
