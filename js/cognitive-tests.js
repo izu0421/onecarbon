@@ -187,7 +187,7 @@
   // 2. NUMERIC MEMORY  ->  cog_numeric (max digit length recalled)
   // ============================================================
   function testNumericMemory(stage, done) {
-    var len = 2, maxCorrect = 0, current = '';
+    var len = 4, maxCorrect = 0, current = '';
     var attempts = [];
     function showNumber() {
       current = '';
