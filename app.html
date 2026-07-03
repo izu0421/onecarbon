@@ -576,6 +576,36 @@
     }
     .probiotic-change-link:hover { color: var(--text-muted); }
 
+    /* Compliance day grid */
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .compliance-tile {
+      aspect-ratio: 1;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .12s, border-color .12s, color .12s;
+    }
+    .compliance-tile:hover { border-color: var(--accent); color: var(--accent); }
+    .compliance-tile.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+    .compliance-tile.zero.selected { background: #b91c1c; border-color: #b91c1c; }
+
     .feedback-nudge {
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -1166,15 +1196,12 @@
 
         <!-- 1C-01 compliance — only shown when user has logged a start date -->
         <div class="form-group section-gap" id="compliance-section" style="display:none;">
-          <label>1C-01 compliance — past 14 days</label>
-          <p style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">How many days out of the last 14 did you take your 1C-01 probiotic?</p>
-          <div style="display:flex;align-items:center;gap:16px;">
-            <input type="range" id="compliance-slider" min="0" max="14" step="1" value="14"
-              style="flex:1;accent-color:var(--accent);"
-              oninput="document.getElementById('compliance-val').textContent=this.value+' / 14 days'">
-            <span id="compliance-val" style="font-weight:500;min-width:80px;">14 / 14 days</span>
+          <label>1C-01 — days taken in the past 14 days</label>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Tap the number of days you took your probiotic.</p>
+          <div class="compliance-grid" id="compliance-grid">
+            <!-- 0–14 tiles injected by JS -->
           </div>
-          <div id="compliance-pct" style="font-size:12px;color:var(--text-faint);margin-top:6px;">100% compliance</div>
+          <div id="compliance-pct" style="font-size:12px;color:var(--text-faint);margin-top:10px;min-height:16px;"></div>
         </div>
 
         <button class="btn-primary" id="btn-sleep-continue" style="margin-top:28px;" data-i18n="sleep.continue">Start cognitive tests →</button>
@@ -1797,18 +1824,37 @@
       sleepData.sleep_hours = parseFloat(document.getElementById('sleep-hours').value);
       const compSection = document.getElementById('compliance-section');
       if (compSection.style.display !== 'none') {
-        const days = parseInt(document.getElementById('compliance-slider').value, 10);
-        sleepData.probiotic_compliance_days = days;
-        sleepData.probiotic_compliance_pct  = Math.round((days / 14) * 100);
+        const sel = document.querySelector('.compliance-tile.selected');
+        const days = sel ? parseInt(sel.dataset.days, 10) : null;
+        if (days !== null) {
+          sleepData.probiotic_compliance_days = days;
+          sleepData.probiotic_compliance_pct  = Math.round((days / 14) * 100);
+        }
       }
       startBattery(pendingSessionNumber);
     });
 
-    // update compliance % label on slider input
-    document.getElementById('compliance-slider').addEventListener('input', function() {
-      const pct = Math.round((parseInt(this.value) / 14) * 100);
-      document.getElementById('compliance-pct').textContent = pct + '% compliance';
-    });
+    // Build compliance tiles once on load
+    (function buildComplianceTiles() {
+      const grid = document.getElementById('compliance-grid');
+      for (let d = 14; d >= 0; d--) {
+        const tile = document.createElement('button');
+        tile.type = 'button';
+        tile.className = 'compliance-tile' + (d === 0 ? ' zero' : '');
+        tile.dataset.days = d;
+        tile.textContent = d;
+        tile.addEventListener('click', () => {
+          document.querySelectorAll('.compliance-tile').forEach(t => t.classList.remove('selected'));
+          tile.classList.add('selected');
+          const pct = Math.round((d / 14) * 100);
+          document.getElementById('compliance-pct').textContent =
+            d === 14 ? 'Every day — great!' :
+            d === 0  ? 'None reported' :
+            pct + '% — ' + d + ' of 14 days';
+        });
+        grid.appendChild(tile);
+      }
+    })();
 
     async function showBattery(sessionNumber) {
       pendingSessionNumber = sessionNumber;
@@ -1816,9 +1862,8 @@
       document.querySelectorAll('#screen-sleep .tile-btn').forEach(b => b.classList.remove('selected'));
       document.getElementById('sleep-hours').value = 7;
       document.getElementById('sleep-hours-val').textContent = '7 hrs';
-      document.getElementById('compliance-slider').value = 14;
-      document.getElementById('compliance-val').textContent = '14 / 14 days';
-      document.getElementById('compliance-pct').textContent = '100% compliance';
+      document.querySelectorAll('.compliance-tile').forEach(t => t.classList.remove('selected'));
+      document.getElementById('compliance-pct').textContent = '';
       Object.keys(sleepData).forEach(k => delete sleepData[k]);
 
       // Show compliance question only if user has logged a probiotic start date
