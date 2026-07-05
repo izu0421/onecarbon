@@ -2275,7 +2275,10 @@
       ringWrap.onclick = () => {
         const open = domainPanel.style.display !== 'none';
         domainPanel.style.display = open ? 'none' : 'block';
-        if (!open) drawDomainCharts(sessions);
+        if (!open) {
+          drawDomainCharts(sessions);
+          setTimeout(() => domainPanel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
       };
 
       // Feedback form
