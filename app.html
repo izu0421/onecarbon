@@ -1012,7 +1012,7 @@
       <!-- Sleep health panel -->
       <div class="dash-panel" id="sleep-panel" style="display:none;">
         <div class="panel-header">
-          <div class="panel-title">Sleep health · last session</div>
+          <div class="panel-title" data-i18n="sleep.panel_title">Sleep health · last session</div>
           <div class="sleep-score-badge" id="sleep-score-badge">—</div>
         </div>
         <div class="sleep-bar-wrap">
@@ -1030,8 +1030,8 @@
         </div>
         <canvas id="score-canvas"></canvas>
         <div class="chart-legend" id="chart-legend" style="display:none;">
-          <div class="legend-item"><div class="legend-line solid"></div>Cognitive</div>
-          <div class="legend-item"><div class="legend-line dashed"></div>Sleep</div>
+          <div class="legend-item"><div class="legend-line solid"></div><span data-i18n="chart.legend_cog">Cognitive</span></div>
+          <div class="legend-item"><div class="legend-line dashed"></div><span data-i18n="chart.legend_sleep">Sleep</span></div>
         </div>
         <div class="chart-no-data" id="chart-no-data" style="display:none;">
           <div class="no-data-icon">📊</div>
@@ -1043,7 +1043,7 @@
       <!-- Domain trends (hidden; toggled by clicking score) -->
       <div class="dash-panel" id="domain-chart-panel" style="display:none;">
         <div class="panel-header">
-          <div class="panel-title">Domain breakdown</div>
+          <div class="panel-title" data-i18n="domain.panel_title">Domain breakdown</div>
           <div class="panel-meta" id="domain-chart-range"></div>
         </div>
         <div id="domain-sparklines"></div>
@@ -1052,52 +1052,52 @@
       <!-- 1C-01 tracker -->
       <div class="dash-panel probiotic-card" id="probiotic-card">
         <div class="panel-header">
-          <div class="panel-title">1C-01 Probiotic</div>
+          <div class="panel-title" data-i18n="prob.panel_title">1C-01 Probiotic</div>
           <div class="probiotic-status-badge" id="probiotic-badge"></div>
         </div>
         <div id="probiotic-unset">
-          <p class="probiotic-prompt">Have you started taking 1C-01? Log your start date so we can track the effect on your cognition.</p>
+          <p class="probiotic-prompt" data-i18n="prob.prompt">Have you started taking 1C-01? Log your start date so we can track the effect on your cognition.</p>
           <div class="probiotic-start-row">
             <input type="date" class="probiotic-date-input" id="probiotic-date-input">
-            <button class="probiotic-save-btn" id="probiotic-save-btn">Log start date</button>
+            <button class="probiotic-save-btn" id="probiotic-save-btn" data-i18n="prob.log_btn">Log start date</button>
           </div>
         </div>
         <div id="probiotic-set" style="display:none;">
           <div class="probiotic-info-row">
             <div class="probiotic-info-block">
-              <div class="probiotic-info-label">Started</div>
+              <div class="probiotic-info-label" data-i18n="prob.lbl_started">Started</div>
               <div class="probiotic-info-value" id="probiotic-start-display">—</div>
             </div>
             <div class="probiotic-info-block">
-              <div class="probiotic-info-label">Days on supplement</div>
+              <div class="probiotic-info-label" data-i18n="prob.lbl_days">Days on supplement</div>
               <div class="probiotic-info-value" id="probiotic-days-display">—</div>
             </div>
             <div class="probiotic-info-block" id="probiotic-compliance-block" style="display:none;">
-              <div class="probiotic-info-label">Avg. compliance</div>
+              <div class="probiotic-info-label" data-i18n="prob.lbl_compliance">Avg. compliance</div>
               <div class="probiotic-info-value" id="probiotic-avg-compliance">—</div>
             </div>
           </div>
           <p class="probiotic-compliance-note" id="probiotic-compliance-note" style="display:none;"></p>
           <div class="probiotic-change-row">
-            <button class="probiotic-change-link" id="probiotic-change">Change start date</button>
+            <button class="probiotic-change-link" id="probiotic-change" data-i18n="prob.change">Change start date</button>
           </div>
         </div>
       </div>
 
       <!-- Feedback nudge -->
       <div class="feedback-nudge" id="feedback-nudge">
-        <div class="feedback-nudge-text">💬 Tell us how you feel!</div>
-        <p class="feedback-nudge-sub">Any thoughts, bugs, or suggestions — we read every message.</p>
-        <button class="feedback-toggle-btn" id="feedback-toggle-btn">Leave feedback →</button>
+        <div class="feedback-nudge-text" data-i18n="feedback.title">💬 Tell us how you feel!</div>
+        <p class="feedback-nudge-sub" data-i18n="feedback.sub">Any thoughts, bugs, or suggestions — we read every message.</p>
+        <button class="feedback-toggle-btn" id="feedback-toggle-btn" data-i18n="feedback.open">Leave feedback →</button>
         <form class="feedback-form" id="feedback-form" style="display:none;" action="https://formspree.io/f/xqejdjwr" method="POST">
           <input type="hidden" name="_subject" value="App feedback — OneCarbon">
           <input type="hidden" name="_replyto" id="feedback-email-hidden">
           <input type="hidden" name="_cc" value="yizhou@onecarbon.com">
-          <textarea class="feedback-textarea" name="message" placeholder="How was your experience? Any issues or ideas?" rows="4" required></textarea>
+          <textarea class="feedback-textarea" name="message" data-i18n-ph="feedback.placeholder" placeholder="How was your experience? Any issues or ideas?" rows="4" required></textarea>
           <div class="feedback-actions">
             <button class="cog-btn" type="submit">Send →</button>
           </div>
-          <div class="feedback-sent" id="feedback-sent" style="display:none;">✓ Thanks — we'll be in touch!</div>
+          <div class="feedback-sent" id="feedback-sent" data-i18n="feedback.sent" style="display:none;">✓ Thanks — we'll be in touch!</div>
         </form>
       </div>
 
@@ -1114,7 +1114,7 @@
         <div class="form-group section-gap">
           <label data-i18n="sleep.hours">Hours of sleep last night</label>
           <div style="display:flex;align-items:center;gap:16px;">
-            <input type="range" id="sleep-hours" min="0" max="16" step="0.5" value="7" style="flex:1;accent-color:var(--accent);" oninput="document.getElementById('sleep-hours-val').textContent=this.value+' hrs'">
+            <input type="range" id="sleep-hours" min="0" max="16" step="0.5" value="7" style="flex:1;accent-color:var(--accent);" oninput="document.getElementById('sleep-hours-val').textContent=this.value+T('sleep.hrs_unit')">
             <span id="sleep-hours-val" style="font-weight:500;min-width:48px;">7 hrs</span>
           </div>
         </div>
@@ -1213,13 +1213,13 @@
     <div id="screen-results" class="screen">
       <div style="max-width:560px;margin:0 auto;">
         <div class="results-header">
-          <div class="results-eyebrow">Session complete</div>
+          <div class="results-eyebrow" data-i18n="results.eyebrow">Session complete</div>
           <div class="results-composite" id="results-composite">—</div>
-          <div class="results-composite-label">/ 100 composite score</div>
+          <div class="results-composite-label" data-i18n="results.composite_label">/ 100 composite score</div>
           <div class="results-delta" id="results-delta"></div>
         </div>
         <div class="results-domains" id="results-domains"></div>
-        <button class="btn-primary" id="btn-results-continue" style="margin-top:24px;">Save &amp; view dashboard →</button>
+        <button class="btn-primary" id="btn-results-continue" data-i18n="results.save" style="margin-top:24px;">Save &amp; view dashboard →</button>
       </div>
     </div>
 
@@ -1369,6 +1369,83 @@
         'sleep.continue': 'Start cognitive tests →',
         'battery.h1': 'Cognitive assessment',
         'battery.sub': 'Takes about 10 minutes. Find a quiet place and minimise distractions.',
+        // Results screen
+        'results.eyebrow': 'Session complete',
+        'results.composite_label': '/ 100 composite score',
+        'results.delta_up': '▲ {n} from last session',
+        'results.delta_down': '▼ {n} from last session',
+        'results.delta_same': 'Same as last session',
+        'results.first': 'Your first session',
+        'results.save': 'Save & view dashboard →',
+        'results.saving': 'Saving…',
+        // Dashboard chips / progress
+        'battery.session': 'Session {n}',
+        'battery.progress': '{done} of {total}',
+        // Sleep panel
+        'sleep.panel_title': 'Sleep health · last session',
+        'sleep.chip_sleep': 'Sleep',
+        'sleep.chip_quality': 'Quality',
+        'sleep.chip_daytime': 'Daytime',
+        'sleep.chip_onset': 'Onset',
+        'sleep.q_very_good': 'Very good',
+        'sleep.q_average': 'Average',
+        'sleep.q_very_poor': 'Very poor',
+        'sleep.dt_no': 'No drowsiness',
+        'sleep.dt_some': 'Some drowsiness',
+        'sleep.dt_often': 'Often drowsy',
+        'sleep.on_u15': '<15 min',
+        'sleep.on_1530': '15–30 min',
+        'sleep.on_3060': '30–60 min',
+        'sleep.on_o60': '>60 min',
+        // Domain chart
+        'domain.panel_title': 'Domain breakdown',
+        // Probiotic card
+        'prob.panel_title': '1C-01 益生菌',
+        'prob.prompt': 'Have you started taking 1C-01? Log your start date so we can track the effect on your cognition.',
+        'prob.log_btn': 'Log start date',
+        'prob.update_btn': 'Update start date',
+        'prob.lbl_started': 'Started',
+        'prob.lbl_days': 'Days on supplement',
+        'prob.lbl_compliance': 'Avg. compliance',
+        'prob.change': 'Change start date',
+        'prob.badge_not_logged': 'Not logged',
+        'prob.badge_logged': 'Logged',
+        'prob.badge_active': 'Active',
+        'prob.badge_paused': 'Paused',
+        'prob.started_today': 'Started today',
+        'prob.days_singular': ' day',
+        'prob.days_plural': ' days',
+        'prob.note': 'Last reported: {days}/{interval} days. Reported in {n} session{s}.',
+        // Feedback
+        'feedback.title': '💬 Tell us how you feel!',
+        'feedback.sub': 'Any thoughts, bugs, or suggestions — we read every message.',
+        'feedback.open': 'Leave feedback →',
+        'feedback.close': 'Never mind',
+        'feedback.placeholder': 'How was your experience? Any issues or ideas?',
+        'feedback.sent': '✓ Thanks — we\'ll be in touch!',
+        // Onboarding errors
+        'err.age': 'Please enter a valid age (18–100).',
+        'err.sex': 'Please select your biological sex.',
+        'err.eth': 'Please select your ethnicity.',
+        'err.consent': 'Please tick the consent checkbox to continue.',
+        'err.save': 'Failed to save: ',
+        // Compliance section (battery pre-test)
+        'comp.label': '1C-01 — days taken in the past {n} days',
+        'comp.sub': 'Tap the number of days you took your probiotic in the last {n} days.',
+        // Score chart
+        'chart.range': '{from} – {to}',
+        // Chart legend
+        'chart.legend_cog': 'Cognitive',
+        'chart.legend_sleep': 'Sleep',
+        'sleep.hrs_unit': ' hrs',
+        // Domain labels
+        'domain.rt': 'Reaction time',
+        'domain.numeric': 'Numeric memory',
+        'domain.symbol': 'Symbol matching',
+        'domain.pal': 'Word pairs',
+        'domain.matrix': 'Pattern puzzles',
+        'domain.tmta': 'Trail making A',
+        'domain.tmtb': 'Trail making B',
       },
       zh: {
         'nav.signout': '退出登录',
@@ -1489,6 +1566,83 @@
         'sleep.continue': '开始认知测试 →',
         'battery.h1': '认知评估',
         'battery.sub': '约需 10 分钟，请找一个安静的地方，减少干扰。',
+        // Results screen
+        'results.eyebrow': '本次测试完成',
+        'results.composite_label': '/ 100 综合得分',
+        'results.delta_up': '▲ 比上次提高 {n} 分',
+        'results.delta_down': '▼ 比上次下降 {n} 分',
+        'results.delta_same': '与上次相同',
+        'results.first': '您的第一次测试',
+        'results.save': '保存并查看仪表板 →',
+        'results.saving': '保存中…',
+        // Dashboard chips / progress
+        'battery.session': '第 {n} 次测试',
+        'battery.progress': '{done} / {total}',
+        // Sleep panel
+        'sleep.panel_title': '睡眠健康 · 上次记录',
+        'sleep.chip_sleep': '睡眠时长',
+        'sleep.chip_quality': '质量',
+        'sleep.chip_daytime': '白天嗜睡',
+        'sleep.chip_onset': '入睡时间',
+        'sleep.q_very_good': '非常好',
+        'sleep.q_average': '一般',
+        'sleep.q_very_poor': '很差',
+        'sleep.dt_no': '无嗜睡',
+        'sleep.dt_some': '偶有嗜睡',
+        'sleep.dt_often': '经常嗜睡',
+        'sleep.on_u15': '＜15 分钟',
+        'sleep.on_1530': '15–30 分钟',
+        'sleep.on_3060': '30–60 分钟',
+        'sleep.on_o60': '＞60 分钟',
+        // Domain chart
+        'domain.panel_title': '各维度得分',
+        // Probiotic card
+        'prob.panel_title': '1C-01 益生菌',
+        'prob.prompt': '您是否已开始服用 1C-01？记录开始日期，以便我们追踪对认知能力的影响。',
+        'prob.log_btn': '记录开始日期',
+        'prob.update_btn': '更新开始日期',
+        'prob.lbl_started': '开始日期',
+        'prob.lbl_days': '已服用天数',
+        'prob.lbl_compliance': '平均依从性',
+        'prob.change': '修改开始日期',
+        'prob.badge_not_logged': '未记录',
+        'prob.badge_logged': '已记录',
+        'prob.badge_active': '使用中',
+        'prob.badge_paused': '已暂停',
+        'prob.started_today': '今天开始',
+        'prob.days_singular': ' 天',
+        'prob.days_plural': ' 天',
+        'prob.note': '最近报告：{days}/{interval} 天。共在 {n} 次测试中报告。',
+        // Feedback
+        'feedback.title': '💬 告诉我们您的感受！',
+        'feedback.sub': '任何想法、问题或建议——我们阅读每一条留言。',
+        'feedback.open': '留下反馈 →',
+        'feedback.close': '取消',
+        'feedback.placeholder': '您的体验如何？有什么问题或想法？',
+        'feedback.sent': '✓ 感谢您的反馈，我们会尽快与您联系！',
+        // Onboarding errors
+        'err.age': '请输入有效年龄（18–100）。',
+        'err.sex': '请选择您的生理性别。',
+        'err.eth': '请选择您的种族 / 民族。',
+        'err.consent': '请勾选数据同意复选框以继续。',
+        'err.save': '保存失败：',
+        // Compliance section (battery pre-test)
+        'comp.label': '1C-01 — 过去 {n} 天的服用情况',
+        'comp.sub': '请点击过去 {n} 天中您服用益生菌的天数。',
+        // Score chart
+        'chart.range': '{from} – {to}',
+        // Chart legend
+        'chart.legend_cog': '认知得分',
+        'chart.legend_sleep': '睡眠',
+        'sleep.hrs_unit': ' 小时',
+        // Domain labels
+        'domain.rt': '反应时间',
+        'domain.numeric': '数字记忆',
+        'domain.symbol': '符号匹配',
+        'domain.pal': '词语配对',
+        'domain.matrix': '图案推理',
+        'domain.tmta': '连线测试 A',
+        'domain.tmtb': '连线测试 B',
       }
     };
 
@@ -1522,6 +1676,14 @@
       document.getElementById('btn-email-auth').textContent = isSignUp ? t['auth.signup'] : t['auth.signin'];
       document.getElementById('auth-toggle-text').textContent = isSignUp ? t['auth.have_account'] : t['auth.no_account'];
       document.getElementById('auth-mode-toggle').textContent = isSignUp ? t['auth.signin_link'] : t['auth.create'];
+    }
+
+    // T(key, vars) — translate a key from TRANSLATIONS, optionally substituting {placeholders}
+    function T(key, vars) {
+      const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+      let s = t[key] !== undefined ? t[key] : (TRANSLATIONS.en[key] || key);
+      if (vars) Object.keys(vars).forEach(k => { s = s.replace(new RegExp('{' + k + '}', 'g'), vars[k]); });
+      return s;
     }
 
     // ══════════════════════════════════════════════════════════
@@ -1753,22 +1915,22 @@
       errorEl.classList.remove('visible');
 
       if (!age || age < 18 || age > 100) {
-        errorEl.textContent = 'Please enter a valid age (18–100).';
+        errorEl.textContent = T('err.age');
         errorEl.classList.add('visible');
         return;
       }
       if (!selectedSex) {
-        errorEl.textContent = 'Please select your biological sex.';
+        errorEl.textContent = T('err.sex');
         errorEl.classList.add('visible');
         return;
       }
       if (!selectedEthnicity) {
-        errorEl.textContent = 'Please select your ethnicity.';
+        errorEl.textContent = T('err.eth');
         errorEl.classList.add('visible');
         return;
       }
       if (!consent) {
-        errorEl.textContent = 'Please tick the consent checkbox to continue.';
+        errorEl.textContent = T('err.consent');
         errorEl.classList.add('visible');
         return;
       }
@@ -1788,7 +1950,7 @@
         showBattery(1);
       } catch (e) {
         console.error('❌ Firestore save error:', e.code, e.message);
-        errorEl.textContent = 'Failed to save: ' + (e.code || e.message);
+        errorEl.textContent = T('err.save') + (e.code || e.message);
         errorEl.classList.add('visible');
       }
     });
@@ -1864,7 +2026,7 @@
       // Reset sleep selections
       document.querySelectorAll('#screen-sleep .tile-btn').forEach(b => b.classList.remove('selected'));
       document.getElementById('sleep-hours').value = 7;
-      document.getElementById('sleep-hours-val').textContent = '7 hrs';
+      document.getElementById('sleep-hours-val').textContent = '7' + T('sleep.hrs_unit');
       document.querySelectorAll('.compliance-tile').forEach(t => t.classList.remove('selected'));
       document.getElementById('compliance-pct').textContent = '';
       Object.keys(sleepData).forEach(k => delete sleepData[k]);
@@ -1887,9 +2049,9 @@
               if (start) intervalDays = Math.max(1, Math.round((Date.now() - new Date(start + 'T12:00:00').getTime()) / 86400000));
             }
             const label = compSection.querySelector('label');
-            if (label) label.textContent = `1C-01 — days taken in the past ${intervalDays} days`;
+            if (label) label.textContent = T('comp.label', {n: intervalDays});
             const sub = compSection.querySelector('p');
-            if (sub) sub.textContent = `Tap the number of days you took your probiotic in the last ${intervalDays} days.`;
+            if (sub) sub.textContent = T('comp.sub', {n: intervalDays});
             buildComplianceTiles(intervalDays);
             compSection.dataset.maxDays = intervalDays;
             compSection.style.display = 'block';
@@ -1901,9 +2063,9 @@
     }
 
     function startBattery(sessionNumber) {
-      document.getElementById('battery-session-label').textContent = `Session ${sessionNumber}`;
+      document.getElementById('battery-session-label').textContent = T('battery.session', {n: sessionNumber});
       document.getElementById('battery-progress-fill').style.width = '0%';
-      document.getElementById('battery-progress-label').textContent = '0 of 7';
+      document.getElementById('battery-progress-label').textContent = T('battery.progress', {done: 0, total: 7});
       showScreen('battery');
 
       // Only start if CognitiveTests is available
@@ -1918,7 +2080,7 @@
         onProgress: (done, total) => {
           const pct = Math.round((done / total) * 100);
           document.getElementById('battery-progress-fill').style.width = pct + '%';
-          document.getElementById('battery-progress-label').textContent = `${done} of ${total}`;
+          document.getElementById('battery-progress-label').textContent = T('battery.progress', {done, total});
         },
         onComplete: async (results) => {
           showResults(results);
@@ -1936,11 +2098,11 @@
       if (allSessions.length > 0) {
         const prev = Math.round(compositeScore(allSessions[allSessions.length - 1].results || {}));
         const diff = composite - prev;
-        if (diff > 0)      { deltaEl.textContent = `▲ ${diff} from last session`; deltaEl.className = 'results-delta up'; }
-        else if (diff < 0) { deltaEl.textContent = `▼ ${Math.abs(diff)} from last session`; deltaEl.className = 'results-delta down'; }
-        else               { deltaEl.textContent = 'Same as last session'; deltaEl.className = 'results-delta same'; }
+        if (diff > 0)      { deltaEl.textContent = T('results.delta_up',   {n: diff});           deltaEl.className = 'results-delta up'; }
+        else if (diff < 0) { deltaEl.textContent = T('results.delta_down', {n: Math.abs(diff)}); deltaEl.className = 'results-delta down'; }
+        else               { deltaEl.textContent = T('results.delta_same');                       deltaEl.className = 'results-delta same'; }
       } else {
-        deltaEl.textContent = 'Your first session'; deltaEl.className = 'results-delta same';
+        deltaEl.textContent = T('results.first'); deltaEl.className = 'results-delta same';
       }
 
       // Domain bars
@@ -1964,7 +2126,7 @@
       const btn = document.getElementById('btn-results-continue');
       btn.onclick = async () => {
         btn.disabled = true;
-        btn.textContent = 'Saving…';
+        btn.textContent = T('results.saving');
         await saveSession(results);
       };
     }
@@ -2122,7 +2284,7 @@
       toggleBtn.addEventListener('click', () => {
         const open = feedbackForm.style.display !== 'none';
         feedbackForm.style.display = open ? 'none' : 'block';
-        toggleBtn.textContent = open ? 'Leave feedback →' : 'Never mind';
+        toggleBtn.textContent = open ? T('feedback.open') : T('feedback.close');
       }, { once: false });
       feedbackForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -2211,13 +2373,13 @@
         chip.innerHTML = `<span class="sf-icon">${icon}</span>${label}: <span class="sf-val">${val}</span>`;
         factors.appendChild(chip);
       };
-      add('🕐', 'Sleep', lastSleep?.hours != null ? lastSleep.hours + ' hrs' : null);
-      const qMap = { very_good: 'Very good', good: 'Good', average: 'Average', poor: 'Poor', very_poor: 'Very poor' };
-      add('⭐', 'Quality', qMap[lastSleep?.quality] || null);
-      const dMap = { never: 'No drowsiness', sometimes: 'Some drowsiness', often: 'Often drowsy' };
-      add('☀️', 'Daytime', dMap[lastSleep?.daytime_sleepiness] || null);
-      const oMap = { under_15: '<15 min', '15_to_30': '15–30 min', '30_to_60': '30–60 min', over_60: '>60 min' };
-      add('💤', 'Onset', oMap[lastSleep?.onset] || null);
+      add('🕐', T('sleep.chip_sleep'), lastSleep?.hours != null ? lastSleep.hours + ' hrs' : null);
+      const qMap = { very_good: T('sleep.q_very_good'), good: T('sleep.q_g'), average: T('sleep.q_average'), poor: T('sleep.q_p'), very_poor: T('sleep.q_very_poor') };
+      add('⭐', T('sleep.chip_quality'), qMap[lastSleep?.quality] || null);
+      const dMap = { never: T('sleep.dt_no'), sometimes: T('sleep.dt_some'), often: T('sleep.dt_often') };
+      add('☀️', T('sleep.chip_daytime'), dMap[lastSleep?.daytime_sleepiness] || null);
+      const oMap = { under_15: T('sleep.on_u15'), '15_to_30': T('sleep.on_1530'), '30_to_60': T('sleep.on_3060'), over_60: T('sleep.on_o60') };
+      add('💤', T('sleep.chip_onset'), oMap[lastSleep?.onset] || null);
     }
 
     // ════════════════════════════════════════
@@ -2237,7 +2399,7 @@
       if (!startDate) {
         unsetEl.style.display = 'block';
         setEl.style.display   = 'none';
-        badge.textContent = 'Not logged';
+        badge.textContent = T('prob.badge_not_logged');
         badge.className = 'probiotic-status-badge unknown';
 
         document.getElementById('probiotic-save-btn').onclick = async () => {
@@ -2255,7 +2417,7 @@
         document.getElementById('probiotic-start-display').textContent = dateStr;
         const daysOn = Math.floor((Date.now() - new Date(startDate + 'T12:00:00')) / 86400000);
         document.getElementById('probiotic-days-display').textContent =
-          daysOn < 1 ? 'Started today' : daysOn + (daysOn !== 1 ? ' days' : ' day');
+          daysOn < 1 ? T('prob.started_today') : daysOn + T('prob.days_plural');
 
         // Compliance from session data
         const sessionsWithCompliance = sessions.filter(s => s.probiotic?.compliance_days != null);
@@ -2267,16 +2429,18 @@
           document.getElementById('probiotic-avg-compliance').textContent = `${avgPct}%`;
           complianceBlock.style.display = 'block';
           // Note from most recent reported session
-          const last = sessionsWithCompliance[sessionsWithCompliance.length - 1];
+          const n = sessionsWithCompliance.length;
+          const last = sessionsWithCompliance[n - 1];
           const lastDays = last.probiotic.compliance_days;
-          complianceNote.textContent = `Last reported: ${lastDays}/14 days. Reported in ${sessionsWithCompliance.length} session${sessionsWithCompliance.length !== 1 ? 's' : ''}.`;
+          const interval = last.probiotic.compliance_interval || 14;
+          complianceNote.textContent = T('prob.note', {days: lastDays, interval, n, s: n !== 1 ? 's' : ''});
           complianceNote.style.display = 'block';
-          badge.textContent = lastDays > 0 ? 'Active' : 'Paused';
+          badge.textContent = lastDays > 0 ? T('prob.badge_active') : T('prob.badge_paused');
           badge.className = 'probiotic-status-badge ' + (lastDays > 0 ? 'active' : 'stopped');
         } else {
           complianceBlock.style.display = 'none';
           complianceNote.style.display  = 'none';
-          badge.textContent = 'Logged';
+          badge.textContent = T('prob.badge_logged');
           badge.className = 'probiotic-status-badge unknown';
         }
 
@@ -2286,10 +2450,10 @@
           input.value = startDate;
           setEl.style.display   = 'none';
           unsetEl.style.display = 'block';
-          badge.textContent = 'Not logged';
+          badge.textContent = T('prob.badge_not_logged');
           badge.className = 'probiotic-status-badge unknown';
           const saveBtn = document.getElementById('probiotic-save-btn');
-          saveBtn.textContent = 'Update start date';
+          saveBtn.textContent = T('prob.update_btn');
           saveBtn.onclick = async () => {
             const val = input.value;
             if (!val) return;
@@ -2310,14 +2474,16 @@
     function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
 
     const DOMAINS = [
-      { key: 'cog_rt',     label: 'Reaction time',    score: v => clamp(100 - (v - 200) / 8, 0, 100) },
-      { key: 'cog_numeric',label: 'Numeric memory',   score: v => clamp(v * 10, 0, 100) },
-      { key: 'cog_symbol', label: 'Symbol matching',  score: v => clamp(v * 5, 0, 100) },
-      { key: 'cog_pal',    label: 'Word pairs',       score: v => clamp(v * 12.5, 0, 100) },
-      { key: 'cog_matrix', label: 'Pattern puzzles',  score: v => clamp(v * 20, 0, 100) },
-      { key: 'cog_tmta',   label: 'Trail making A',   score: v => clamp(100 - (v - 10000) / 1500, 0, 100) },
-      { key: 'cog_tmtb',   label: 'Trail making B',   score: v => clamp(100 - (v - 20000) / 2500, 0, 100) },
+      { key: 'cog_rt',     labelKey: 'domain.rt',      score: v => clamp(100 - (v - 200) / 8, 0, 100) },
+      { key: 'cog_numeric',labelKey: 'domain.numeric',  score: v => clamp(v * 10, 0, 100) },
+      { key: 'cog_symbol', labelKey: 'domain.symbol',   score: v => clamp(v * 5, 0, 100) },
+      { key: 'cog_pal',    labelKey: 'domain.pal',      score: v => clamp(v * 12.5, 0, 100) },
+      { key: 'cog_matrix', labelKey: 'domain.matrix',   score: v => clamp(v * 20, 0, 100) },
+      { key: 'cog_tmta',   labelKey: 'domain.tmta',     score: v => clamp(100 - (v - 10000) / 1500, 0, 100) },
+      { key: 'cog_tmtb',   labelKey: 'domain.tmtb',     score: v => clamp(100 - (v - 20000) / 2500, 0, 100) },
     ];
+    // resolved label (always current language)
+    DOMAINS.forEach(d => Object.defineProperty(d, 'label', { get() { return T(this.labelKey); } }));
 
     function compositeScore(results) {
       if (!results) return 0;
