@@ -26,6 +26,49 @@
 (function (global) {
   'use strict';
 
+  // Localisation helper — reads window.currentLang set by app.html
+  var COG_STR = {
+    en: {
+      prac_badge:      'Practice — won\'t be scored',
+      prac_done_title: 'Practice complete!',
+      prac_done_sub:   'The real test starts now.',
+      start:           'Start',
+      // Practice hints
+      rt_hint1: 'Same symbol on both cards → press <strong>MATCH</strong>',
+      rt_hint2: 'Different symbols → <strong>do not</strong> press MATCH, wait',
+      rt_hint3: 'Same again → press <strong>MATCH</strong>!',
+      numeric_hint: 'A number will flash. When it disappears, type it back.',
+      symbol_hint:  'Use the key to find the matching digit for each symbol.',
+      pal_study:    'Memorise these pairs — you\'ll need to recall them in 5 seconds.',
+      pal_recall:   'Which word was paired with <strong>Ocean</strong>?',
+      matrix_hint:  'Find the piece that completes the pattern.',
+      tmta_hint:    'Tap the numbered circles in order: 1 → 2 → 3 → 4',
+      tmtb_hint:    'Alternate numbers and letters: 1 → A → 2 → B',
+    },
+    zh: {
+      prac_badge:      '练习 — 不计入评分',
+      prac_done_title: '练习完成！',
+      prac_done_sub:   '正式测试现在开始。',
+      start:           '开始',
+      // Practice hints
+      rt_hint1: '两张卡片相同 → 按下 <strong>匹配</strong>',
+      rt_hint2: '两张卡片不同 → <strong>不要</strong> 按匹配，请等待',
+      rt_hint3: '再次相同 → 按下 <strong>匹配</strong>！',
+      numeric_hint: '数字会闪现。消失后请原样输入。',
+      symbol_hint:  '根据对应表，找出每个符号对应的数字。',
+      pal_study:    '请记住这些词对——5 秒后需要回忆。',
+      pal_recall:   '<strong>Ocean（海洋）</strong>与哪个词配对？',
+      matrix_hint:  '找出能补全图案的选项。',
+      tmta_hint:    '按顺序点击数字圆圈：1 → 2 → 3 → 4',
+      tmtb_hint:    '交替点击数字和字母：1 → A → 2 → B',
+    }
+  };
+
+  function cog_t(key) {
+    var lang = (window.currentLang === 'zh') ? 'zh' : 'en';
+    return (COG_STR[lang] || COG_STR.en)[key] || COG_STR.en[key] || key;
+  }
+
   // ---- Inject styles (kept with the logic so the module is self-contained) ----
   var STYLE_ID = 'cog-test-styles';
   if (!document.getElementById(STYLE_ID)) {
@@ -660,7 +703,7 @@
 
   function pracBanner(stage, msg) {
     var b = el('<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:18px;">' +
-      '<span style="background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px;">Practice — won\'t be scored</span>' +
+      '<span style="background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px;">' + cog_t('prac_badge') + '</span>' +
       '<div style="font-size:0.92rem;color:var(--text-muted);text-align:center;">' + msg + '</div>' +
     '</div>');
     stage.insertBefore(b, stage.firstChild);
@@ -670,8 +713,8 @@
     clear(stage);
     var box = el('<div style="text-align:center;padding:28px 12px;">' +
       '<div style="font-size:2.4rem;margin-bottom:10px;">✓</div>' +
-      '<div style="font-family:\'DM Sans\',sans-serif;font-size:1.1rem;font-weight:500;margin-bottom:6px;color:var(--text);">Practice complete!</div>' +
-      '<div style="font-size:0.9rem;color:var(--text-muted);">The real test starts now.</div>' +
+      '<div style="font-family:\'DM Sans\',sans-serif;font-size:1.1rem;font-weight:500;margin-bottom:6px;color:var(--text);">' + cog_t('prac_done_title') + '</div>' +
+      '<div style="font-size:0.9rem;color:var(--text-muted);">' + cog_t('prac_done_sub') + '</div>' +
     '</div>');
     stage.appendChild(box);
     setTimeout(cb, 1800);
@@ -680,9 +723,9 @@
   // --- 1. Reaction time ---
   function pracRT(stage, done) {
     var steps = [
-      { s1: '▲', s2: '▲', isMatch: true,  hint: 'Same symbol on both cards → press <strong>MATCH</strong>' },
-      { s1: '●', s2: '■', isMatch: false, hint: 'Different symbols → <strong>do not</strong> press MATCH, wait' },
-      { s1: '◆', s2: '◆', isMatch: true,  hint: 'Same again → press <strong>MATCH</strong>!' },
+      { s1: '▲', s2: '▲', isMatch: true,  get hint() { return cog_t('rt_hint1'); } },
+      { s1: '●', s2: '■', isMatch: false, get hint() { return cog_t('rt_hint2'); } },
+      { s1: '◆', s2: '◆', isMatch: true,  get hint() { return cog_t('rt_hint3'); } },
     ];
     var t = 0;
     function show() {
@@ -712,7 +755,7 @@
   function pracNumeric(stage, done) {
     var seq = [4, 7, 2];
     clear(stage);
-    pracBanner(stage, 'A number will flash. When it disappears, type it back.');
+    pracBanner(stage, cog_t('numeric_hint'));
     var num = el('<div class="cog-bignum">' + seq.join('  ') + '</div>');
     stage.appendChild(num);
     setTimeout(function () {
@@ -741,7 +784,7 @@
   function pracSymbol(stage, done) {
     var key = [{ sym: '❋', dig: 3 }, { sym: '⬡', dig: 6 }, { sym: '⬟', dig: 1 }];
     clear(stage);
-    pracBanner(stage, 'Use the key to find the matching digit for each symbol.');
+    pracBanner(stage, cog_t('symbol_hint'));
     var keyEl = el('<div style="display:flex;gap:12px;justify-content:center;margin-bottom:20px;"></div>');
     key.forEach(function(k) {
       keyEl.appendChild(el('<div style="border:1px solid var(--border);padding:8px 14px;text-align:center;"><div style="font-size:1.5rem;">' + k.sym + '</div><div style="font-size:0.85rem;color:var(--text-faint);">' + k.dig + '</div></div>'));
@@ -780,7 +823,7 @@
   function pracPAL(stage, done) {
     var pairs = [['Ocean', 'Tiger'], ['Candle', 'Bridge']];
     clear(stage);
-    pracBanner(stage, 'Memorise these pairs — you\'ll need to recall them in 5 seconds.');
+    pracBanner(stage, cog_t('pal_study'));
     var grid = el('<div class="cog-pairs"></div>');
     pairs.forEach(function(p) {
       grid.appendChild(el('<div class="cog-pair-a">' + p[0] + '</div>'));
@@ -791,7 +834,7 @@
     stage.appendChild(bar);
     setTimeout(function() {
       clear(stage);
-      pracBanner(stage, 'Which word was paired with <strong>Ocean</strong>?');
+      pracBanner(stage, cog_t('pal_recall'));
       var choices = shuffle(['Tiger', 'River', 'Feather', 'Clock']);
       var fb = el('<div class="cog-feedback" style="margin-top:10px;"></div>');
       var ch = el('<div class="cog-choices"></div>');
@@ -814,7 +857,7 @@
     var sym = '◆';
     var cells = [sym, sym, sym, sym, sym, sym, sym, sym, '?'];
     clear(stage);
-    pracBanner(stage, 'Find the piece that completes the pattern.');
+    pracBanner(stage, cog_t('matrix_hint'));
     var grid = el('<div class="cog-matrix-grid"></div>');
     cells.forEach(function(c) {
       grid.appendChild(el('<div class="cog-matrix-cell' + (c === '?' ? ' cog-missing' : '') + '">' + (c === '?' ? '' : c) + '</div>'));
@@ -839,35 +882,75 @@
   function pracTrailA(stage, done) {
     var positions = [{x:30,y:30},{x:65,y:55},{x:40,y:72},{x:72,y:22}];
     clear(stage);
-    pracBanner(stage, 'Tap the numbered circles in order: 1 → 2 → 3 → 4');
+    pracBanner(stage, cog_t('tmta_hint'));
     runTrail(stage, ['1','2','3','4'], function() { pracDone(stage, done); });
   }
 
   // --- 7. Trail B ---
   function pracTrailB(stage, done) {
     clear(stage);
-    pracBanner(stage, 'Alternate numbers and letters: 1 → A → 2 → B');
+    pracBanner(stage, cog_t('tmtb_hint'));
     runTrail(stage, ['1','A','2','B'], function() { pracDone(stage, done); });
   }
 
   // ============================================================
   // Battery controller
   // ============================================================
+
+  var TASK_INSTR = {
+    cog_rt: {
+      en: '<p>Two cards will appear side by side. Press the <strong>MATCH</strong> button as quickly as you can <strong>only when the two cards are identical</strong>.</p><p class="cog-eg">Tip: don\'t press when they differ — wait for a true match.</p>',
+      zh: '<p>屏幕上将并排出现两张卡片。<strong>仅当两张卡片完全相同时</strong>，请尽快按下 <strong>匹配</strong> 按钮。</p><p class="cog-eg">提示：如果两张卡片不同，请不要按——等待真正匹配的时机。</p>'
+    },
+    cog_numeric: {
+      en: '<p>A number will flash on screen. When it disappears, type it back exactly. Each correct answer makes the next number one digit longer.</p><p class="cog-eg">It continues until you make a mistake.</p>',
+      zh: '<p>屏幕上会闪现一组数字。数字消失后，请原样输入。每答对一次，下一组数字会多一位。</p><p class="cog-eg">测试持续到您出错为止。</p>'
+    },
+    cog_symbol: {
+      en: '<p>You\'ll see a key pairing six symbols with the digits 1–6. For each symbol shown, tap the matching digit as fast as you can.</p><p class="cog-eg">You have 60 seconds — get as many correct as possible.</p>',
+      zh: '<p>屏幕顶部会显示六个符号与数字 1–6 的对应关系。看到符号后，请尽快点击对应的数字。</p><p class="cog-eg">您有 60 秒时间——尽可能多答对。</p>'
+    },
+    cog_pal: {
+      en: '<p>You\'ll be shown several pairs of words to memorise. Then, for each first word, choose the word it was paired with.</p><p class="cog-eg">You have 15 seconds to study the pairs.</p>',
+      zh: '<p>屏幕上会显示几组词语搭配，请记住它们。之后，看到第一个词时，请选出与它配对的词语。</p><p class="cog-eg">您有 15 秒时间记忆这些词对。</p>'
+    },
+    cog_matrix: {
+      en: '<p>Each puzzle shows a 3×3 grid with one piece missing. Work out the pattern and choose the piece that completes it.</p><p class="cog-eg">There are five puzzles of increasing difficulty.</p>',
+      zh: '<p>每道题显示一个 3×3 的方格，其中一格缺失。找出规律，选择能补全方格的选项。</p><p class="cog-eg">共五道题，难度逐渐增加。</p>'
+    },
+    cog_tmta: {
+      en: '<p>Numbered circles are scattered on the board. Tap them in order: 1, 2, 3 … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>',
+      zh: '<p>板上散布着带数字的圆圈。请按顺序依次点击：1、2、3……越快越好。</p><p class="cog-eg">我们记录您完成路径所需的时间。</p>'
+    },
+    cog_tmtb: {
+      en: '<p>Now tap circles alternating numbers and letters in order: 1, A, 2, B, 3, C … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>',
+      zh: '<p>现在请交替点击数字和字母：1、A、2、B、3、C……越快越好。</p><p class="cog-eg">我们记录您完成路径所需的时间。</p>'
+    }
+  };
+
+  function getInstr(field) {
+    var lang = (window.currentLang === 'zh') ? 'zh' : 'en';
+    return (TASK_INSTR[field] || {})[lang] || (TASK_INSTR[field] || {}).en || '';
+  }
+
+  var TASK_NAMES = {
+    cog_rt:     { en: 'Reaction time',           zh: '反应时间' },
+    cog_numeric: { en: 'Numeric memory',          zh: '数字记忆' },
+    cog_symbol: { en: 'Symbol-digit matching',    zh: '符号数字匹配' },
+    cog_pal:    { en: 'Word-pair memory',         zh: '词语配对记忆' },
+    cog_matrix: { en: 'Pattern puzzles',          zh: '图案推理' },
+    cog_tmta:   { en: 'Trail making (numbers)',   zh: '连线测试（数字）' },
+    cog_tmtb:   { en: 'Trail making (alternating)', zh: '连线测试（交替）' }
+  };
+
   var BATTERY = [
-    { field: 'cog_rt', name: 'Reaction time', run: testReactionTime, prac: pracRT,
-      instr: '<p>Two cards will appear side by side. Press the <strong>MATCH</strong> button as quickly as you can <strong>only when the two cards are identical</strong>.</p><p class="cog-eg">Tip: don\'t press when they differ — wait for a true match.</p>' },
-    { field: 'cog_numeric', name: 'Numeric memory', run: testNumericMemory, prac: pracNumeric,
-      instr: '<p>A number will flash on screen. When it disappears, type it back exactly. Each correct answer makes the next number one digit longer.</p><p class="cog-eg">It continues until you make a mistake.</p>' },
-    { field: 'cog_symbol', name: 'Symbol-digit matching', run: testSymbolDigit, prac: pracSymbol,
-      instr: '<p>You\'ll see a key pairing six symbols with the digits 1–6. For each symbol shown, tap the matching digit as fast as you can.</p><p class="cog-eg">You have 60 seconds — get as many correct as possible.</p>' },
-    { field: 'cog_pal', name: 'Word-pair memory', run: testPairedAssociate, prac: pracPAL,
-      instr: '<p>You\'ll be shown several pairs of words to memorise. Then, for each first word, choose the word it was paired with.</p><p class="cog-eg">You have 15 seconds to study the pairs.</p>' },
-    { field: 'cog_matrix', name: 'Pattern puzzles', run: testMatrices, prac: pracMatrix,
-      instr: '<p>Each puzzle shows a 3×3 grid with one piece missing. Work out the pattern and choose the piece that completes it.</p><p class="cog-eg">There are five puzzles of increasing difficulty.</p>' },
-    { field: 'cog_tmta', name: 'Trail making (numbers)', run: testTrailA, prac: pracTrailA,
-      instr: '<p>Numbered circles are scattered on the board. Tap them in order: 1, 2, 3 … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' },
-    { field: 'cog_tmtb', name: 'Trail making (alternating)', run: testTrailB, prac: pracTrailB,
-      instr: '<p>Now tap circles alternating numbers and letters in order: 1, A, 2, B, 3, C … as fast as you can.</p><p class="cog-eg">We measure how long it takes you to complete the path.</p>' }
+    { field: 'cog_rt',      get name() { return (TASK_NAMES.cog_rt[(window.currentLang==='zh'?'zh':'en')]); },      run: testReactionTime,    prac: pracRT,      get instr() { return getInstr('cog_rt'); } },
+    { field: 'cog_numeric', get name() { return (TASK_NAMES.cog_numeric[(window.currentLang==='zh'?'zh':'en')]); }, run: testNumericMemory,   prac: pracNumeric, get instr() { return getInstr('cog_numeric'); } },
+    { field: 'cog_symbol',  get name() { return (TASK_NAMES.cog_symbol[(window.currentLang==='zh'?'zh':'en')]); },  run: testSymbolDigit,     prac: pracSymbol,  get instr() { return getInstr('cog_symbol'); } },
+    { field: 'cog_pal',     get name() { return (TASK_NAMES.cog_pal[(window.currentLang==='zh'?'zh':'en')]); },     run: testPairedAssociate, prac: pracPAL,     get instr() { return getInstr('cog_pal'); } },
+    { field: 'cog_matrix',  get name() { return (TASK_NAMES.cog_matrix[(window.currentLang==='zh'?'zh':'en')]); },  run: testMatrices,        prac: pracMatrix,  get instr() { return getInstr('cog_matrix'); } },
+    { field: 'cog_tmta',    get name() { return (TASK_NAMES.cog_tmta[(window.currentLang==='zh'?'zh':'en')]); },    run: testTrailA,          prac: pracTrailA,  get instr() { return getInstr('cog_tmta'); } },
+    { field: 'cog_tmtb',    get name() { return (TASK_NAMES.cog_tmtb[(window.currentLang==='zh'?'zh':'en')]); },    run: testTrailB,          prac: pracTrailB,  get instr() { return getInstr('cog_tmtb'); } }
   ];
 
   function start(container, opts) {
@@ -903,7 +986,7 @@
       wrap.appendChild(el('<div class="cog-progress">Task ' + (i + 1) + ' of ' + total + '</div>'));
       wrap.appendChild(el('<div class="cog-instructions">' + task.instr + '</div>'));
       var actions = el('<div class="cog-actions"></div>');
-      var begin = el('<button class="cog-btn" type="button">Start</button>');
+      var begin = el('<button class="cog-btn" type="button">' + cog_t('start') + '</button>');
       actions.appendChild(begin);
       wrap.appendChild(actions);
       container.appendChild(wrap);
