@@ -1647,9 +1647,11 @@
     };
 
     let currentLang = localStorage.getItem('oc-lang') || 'en';
+    window.currentLang = currentLang; // exposed for cognitive-tests.js
 
     function applyLang(lang) {
       currentLang = lang;
+      window.currentLang = lang;
       localStorage.setItem('oc-lang', lang);
       const t = TRANSLATIONS[lang];
       // Text content
