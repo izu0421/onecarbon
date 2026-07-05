@@ -57,7 +57,7 @@
       numeric_hint: '数字会闪现。消失后请原样输入。',
       symbol_hint:  '根据对应表，找出每个符号对应的数字。',
       pal_study:    '请记住这些词对——5 秒后需要回忆。',
-      pal_recall:   '<strong>Ocean（海洋）</strong>与哪个词配对？',
+      pal_recall:   '<strong>海洋</strong>与哪个词配对？',
       matrix_hint:  '找出能补全图案的选项。',
       tmta_hint:    '按顺序点击数字圆圈：1 → 2 → 3 → 4',
       tmtb_hint:    '交替点击数字和字母：1 → A → 2 → B',
@@ -332,19 +332,29 @@
   // ============================================================
   // 4. PAIRED ASSOCIATE LEARNING  ->  cog_pal (count correct)
   // ============================================================
-  var wordPairs = [
-    ['HARBOUR', 'LANTERN'], ['MEADOW', 'COMPASS'], ['VELVET', 'THUNDER'],
-    ['ORCHARD', 'PEBBLE'], ['CANDLE', 'RIVER'], ['MARBLE', 'FOREST'],
-    ['WILLOW', 'COPPER'], ['SADDLE', 'BEACON']
-  ];
+  var wordPairs = {
+    en: [
+      ['HARBOUR', 'LANTERN'], ['MEADOW', 'COMPASS'], ['VELVET', 'THUNDER'],
+      ['ORCHARD', 'PEBBLE'], ['CANDLE', 'RIVER'], ['MARBLE', 'FOREST'],
+      ['WILLOW', 'COPPER'], ['SADDLE', 'BEACON']
+    ],
+    zh: [
+      ['港口', '灯笼'], ['草地', '罗盘'], ['天鹅绒', '雷声'],
+      ['果园', '鹅卵石'], ['蜡烛', '河流'], ['大理石', '森林'],
+      ['柳树', '铜'], ['马鞍', '灯塔']
+    ]
+  };
+  function getWordPairs() {
+    return (window.currentLang === 'zh') ? wordPairs.zh : wordPairs.en;
+  }
   function testPairedAssociate(stage, done) {
-    var pairs = shuffle(wordPairs).slice(0, 6);
+    var pairs = shuffle(getWordPairs()).slice(0, 6);
     var correct = 0, idx = 0, order;
     var responses = [];
 
     function study() {
       clear(stage);
-      stage.appendChild(el('<div class="cog-prompt">Memorise these word pairs (you have 15 seconds)</div>'));
+      stage.appendChild(el('<div class="cog-prompt">' + (window.currentLang === 'zh' ? '请记住这些词对（15 秒后开始测试）' : 'Memorise these word pairs (you have 15 seconds)') + '</div>'));
       var grid = el('<div class="cog-pairs"></div>');
       pairs.forEach(function (p) {
         grid.appendChild(el('<div class="cog-pair-a">' + p[0] + '</div>'));
@@ -352,7 +362,7 @@
       });
       stage.appendChild(grid);
       var actions = el('<div class="cog-actions"></div>');
-      var ready = el('<button class="cog-btn cog-btn-ghost" type="button">I\'m ready</button>');
+      var ready = el('<button class="cog-btn cog-btn-ghost" type="button">' + (window.currentLang === 'zh' ? '我已准备好' : "I'm ready") + '</button>');
       actions.appendChild(ready); stage.appendChild(actions);
       var auto = setTimeout(startTest, 15000);
       ready.addEventListener('click', function () { clearTimeout(auto); startTest(); });
@@ -364,8 +374,8 @@
       var others = pairs.filter(function (p) { return p[1] !== pair[1]; }).map(function (p) { return p[1]; });
       var choices = shuffle([pair[1]].concat(shuffle(others).slice(0, 3)));
       clear(stage);
-      stage.appendChild(el('<div class="cog-progress">Pair ' + (idx + 1) + ' of ' + order.length + '</div>'));
-      stage.appendChild(el('<div class="cog-prompt">Which word was paired with</div>'));
+      stage.appendChild(el('<div class="cog-progress">' + (window.currentLang === 'zh' ? '词对 ' + (idx + 1) + ' / ' + order.length : 'Pair ' + (idx + 1) + ' of ' + order.length) + '</div>'));
+      stage.appendChild(el('<div class="cog-prompt">' + (window.currentLang === 'zh' ? '与以下词配对的是哪个词？' : 'Which word was paired with') + '</div>'));
       stage.appendChild(el('<div class="cog-bignum" style="font-size:1.8rem">' + pair[0] + '</div>'));
       var box = el('<div class="cog-choices"></div>');
       var shownAt = now();
@@ -821,27 +831,32 @@
 
   // --- 4. Word pairs ---
   function pracPAL(stage, done) {
-    var pairs = [['Ocean', 'Tiger'], ['Candle', 'Bridge']];
+    var isZh = window.currentLang === 'zh';
+    var pracPairs = isZh ? [['海洋', '老虎'], ['蜡烛', '桥']] : [['Ocean', 'Tiger'], ['Candle', 'Bridge']];
+    var correctAnswer = isZh ? '老虎' : 'Tiger';
+    var distractors = isZh ? ['河流', '羽毛', '时钟'] : ['River', 'Feather', 'Clock'];
     clear(stage);
     pracBanner(stage, cog_t('pal_study'));
     var grid = el('<div class="cog-pairs"></div>');
-    pairs.forEach(function(p) {
+    pracPairs.forEach(function(p) {
       grid.appendChild(el('<div class="cog-pair-a">' + p[0] + '</div>'));
       grid.appendChild(el('<div class="cog-pair-b">' + p[1] + '</div>'));
     });
     stage.appendChild(grid);
-    var bar = el('<div style="font-size:0.85rem;color:var(--text-faint);margin-top:12px;">Disappearing in 5 s…</div>');
+    var bar = el('<div style="font-size:0.85rem;color:var(--text-faint);margin-top:12px;">' + (isZh ? '5 秒后消失…' : 'Disappearing in 5 s…') + '</div>');
     stage.appendChild(bar);
     setTimeout(function() {
       clear(stage);
       pracBanner(stage, cog_t('pal_recall'));
-      var choices = shuffle(['Tiger', 'River', 'Feather', 'Clock']);
+      var choices = shuffle([correctAnswer].concat(distractors));
       var fb = el('<div class="cog-feedback" style="margin-top:10px;"></div>');
       var ch = el('<div class="cog-choices"></div>');
       choices.forEach(function(c) {
         var btn = el('<button class="cog-choice" type="button">' + c + '</button>');
         btn.addEventListener('click', function() {
-          fb.textContent = c === 'Tiger' ? '✓ Correct!' : 'It was Tiger. No worries — just a practice!';
+          fb.textContent = c === correctAnswer
+            ? (isZh ? '✓ 正确！' : '✓ Correct!')
+            : (isZh ? '答案是"' + correctAnswer + '"。没关系——只是练习！' : 'It was ' + correctAnswer + '. No worries — just a practice!');
           setTimeout(function(){ pracDone(stage, done); }, 1400);
         });
         ch.appendChild(btn);
