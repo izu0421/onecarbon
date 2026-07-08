@@ -453,49 +453,14 @@
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="partner"><span class="tile-emoji">💑</span>A Partner</button>
       <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="other"><span class="tile-emoji">🤝</span>Someone Else</button>
     </div>
-    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-s2')">Continue</button>
   </div>
 
-  <!-- Q2 Biological sex -->
-  <div class="screen" id="qz-sex">
-    <div class="steps" id="qz-sd2"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 2 of 5</p>
-    <h2 class="q-title">What's your biological sex?</h2>
-    <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="female"><span class="tile-emoji">👩</span>Female</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="male"><span class="tile-emoji">👨</span>Male</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="na"><span class="tile-emoji">🫥</span>Prefer not to say</button>
-    </div>
-    <button class="cont-btn" id="qz-next-sex" disabled onclick="qzGoTo('qz-eth')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
-  </div>
-
-  <!-- Q3 Ethnicity -->
-  <div class="screen" id="qz-eth">
-    <div class="steps" id="qz-sd-eth"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 3 of 6</p>
-    <h2 class="q-title">What is your ethnicity?</h2>
-    <p class="hint">Select one.</p>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="white"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>White</button>
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="asian"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Asian or Asian British</button>
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="black"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Black, African, Caribbean or Black British</button>
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="mixed"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mixed or multiple ethnic groups</button>
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="other"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other ethnic group</button>
-      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="na"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Prefer not to say</button>
-    </div>
-    <p class="sci-disclaimer" style="margin-top:0.5rem;">We ask because ethnicity is a known factor in cognitive health research.</p>
-    <button class="cont-btn" id="qz-next-eth" disabled onclick="qzGoTo('qz-s2')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
-  </div>
-
-  <!-- Q4 What's prompting interest -->
+  <!-- Q2 What's prompting interest -->
   <div class="screen" id="qz-s2">
     <div class="steps" id="qz-sd3"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 4 of 6</p>
+    <p class="eyebrow">Question 2 of 6</p>
     <h2 class="q-title">What's prompting your interest?</h2>
     <p class="hint">Select all that apply.</p>
     <div class="circle-grid">
@@ -506,7 +471,7 @@
     </div>
     <p class="sci-disclaimer" style="margin-top:0.5rem;">We ask to understand who's interested — this isn't a health assessment or diagnosis.</p>
     <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-eth')">← Back</button>
+    <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
   </div>
 
   <!-- Sci 1 -->
@@ -537,15 +502,66 @@
     <div class="usp-strip">
       <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
     </div>
-    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s5')">Continue →</button>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s7')">Continue →</button>
     <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
   </div>
 
-  <!-- Q5 Medication -->
+  <!-- Q3 Age -->
+  <div class="screen" id="qz-s7">
+    <div class="steps" id="qz-sd10"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 3 of 6</p>
+    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
+    <div class="tiles-grid">
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="60-70"><span class="tile-emoji">👨</span>60–70</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="70-80"><span class="tile-emoji">👴</span>70–80</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="80+"><span class="tile-emoji">🌟</span>80+</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
+  </div>
+
+  <!-- Q4 Biological sex -->
+  <div class="screen" id="qz-sex">
+    <div class="steps" id="qz-sd2"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 4 of 6</p>
+    <h2 class="q-title">What's your biological sex?</h2>
+    <div class="tiles-grid">
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="female"><span class="tile-emoji">👩</span>Female</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="male"><span class="tile-emoji">👨</span>Male</button>
+      <button type="button" class="tile-grid-item" onclick="qzPick(this,'sex')" data-val="na"><span class="tile-emoji">🫥</span>Prefer not to say</button>
+    </div>
+    <button class="cont-btn" id="qz-next-sex" disabled onclick="qzGoTo('qz-eth')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s7')">← Back</button>
+  </div>
+
+  <!-- Q5 Ethnicity -->
+  <div class="screen" id="qz-eth">
+    <div class="steps" id="qz-sd-eth"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 5 of 6</p>
+    <h2 class="q-title">What is your ethnicity?</h2>
+    <p class="hint">Select one.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="white"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>White</button>
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="asian"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Asian or Asian British</button>
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="black"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Black, African, Caribbean or Black British</button>
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="mixed"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mixed or multiple ethnic groups</button>
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="other"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Other ethnic group</button>
+      <button type="button" class="tile" onclick="qzPick(this,'eth')" data-val="na"><span class="t-mark"><svg class="t-chk" viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Prefer not to say</button>
+    </div>
+    <p class="sci-disclaimer" style="margin-top:0.5rem;">We ask because ethnicity is a known factor in cognitive health research.</p>
+    <button class="cont-btn" id="qz-next-eth" disabled onclick="qzGoTo('qz-s5')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
+  </div>
+
+  <!-- Q6 Medication -->
   <div class="screen" id="qz-s5">
     <div class="steps" id="qz-sd7"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 5 of 6</p>
+    <p class="eyebrow">Question 6 of 6</p>
     <h2 class="q-title" id="qz-s5-title">Are you currently taking any medication or supplements?</h2>
     <div class="safe-banner"><strong>1C-01 is safe to take alongside existing medication and supplements</strong> — it's a food-grade probiotic, not a drug. Always consult your doctor if you have any concerns.</div>
     <p class="hint">Select all that apply.</p>
@@ -555,7 +571,7 @@
       <button type="button" class="circle-btn" onclick="qzMulti(this,'s5')" data-val="none"><span class="circle-em">🌻</span><span class="circle-lbl">Nothing currently</span></button>
     </div>
     <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
+    <button class="back" onclick="qzGoTo('qz-eth')">← Back</button>
   </div>
 
   <!-- Email gate -->
@@ -579,22 +595,6 @@
     <button class="skip" onclick="qzShowResult()">Skip for now</button>
   </div>
 
-  <!-- Q4 Age -->
-  <div class="screen" id="qz-s7">
-    <div class="steps" id="qz-sd10"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 6 of 6</p>
-    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
-    <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="under59"><span class="tile-emoji">🧑</span>Under 59</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="60-70"><span class="tile-emoji">👨</span>60–70</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="70-80"><span class="tile-emoji">👴</span>70–80</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s7')" data-val="80+"><span class="tile-emoji">🌟</span>80+</button>
-    </div>
-    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">See my results</button>
-    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
-  </div>
-
   <!-- Result -->
   <div class="screen" id="qz-s-result">
     <div class="result-hero">
@@ -613,7 +613,7 @@
   <script>
   const qzA={};const qzTOTAL=6;
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
-  const qzSdMap={'qz-s1':1,'qz-sex':2,'qz-eth':3,'qz-s2':4,'qz-sci1':4,'qz-sci2':4,'qz-s5':5,'qz-s-email':5,'qz-s7':6};
+  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':2,'qz-sci2':2,'qz-s7':3,'qz-sex':4,'qz-eth':5,'qz-s5':6,'qz-s-email':6};
   function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
@@ -637,14 +637,17 @@
       q2_sex:(qzA['sex']||[]).join(','),
       q3_ethnicity:(qzA['eth']||[]).join(','),
       q4_concerns:(qzA['s2']||[]).join(','),
-      q5_medication:(qzA['s5']||[]).join(','),
+      q5_age:(qzA['s7']||[]).join(','),
+      q6_sex:(qzA['sex']||[]).join(','),
+      q7_ethnicity:(qzA['eth']||[]).join(','),
+      q8_medication:(qzA['s5']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(payload),
     }).catch(()=>{}); // fire-and-forget; don't block UX
-    qzGoTo('qz-s7');
+    qzShowResult();
   }
   function qzShowResult(){
     const email=document.getElementById('qz-ef').value||'(not provided)';
