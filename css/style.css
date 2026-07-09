@@ -761,6 +761,24 @@ p {
   max-width: none;
 }
 
+.research-header-bullets {
+  margin: 16px 0 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.research-header-bullets li {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.research-header-bullets li strong {
+  color: var(--text);
+}
+
 
 /* ════════════════════════════════
    RESEARCH PAGE
