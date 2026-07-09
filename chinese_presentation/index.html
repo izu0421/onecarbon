@@ -775,8 +775,8 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <div class="frame-num">06 / 12</div>
   </section>
 
-  <!-- 8: VALIDATION ROADMAP -->
-  <section class="slide roadmap">
+  <!-- 8: VALIDATION ROADMAP — moved to supplementary at end -->
+  <section class="slide roadmap" style="display:none;" aria-hidden="true">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
     <div class="eyebrow reveal">验证路径与估值</div>
     <h1 class="headline reveal reveal-d1"><em>分阶段</em>降低风险——每一步验证都为下一步奠定基础。</h1>
@@ -1379,6 +1379,108 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
       </div>
     </div>
     <div class="frame-num" style="color:rgba(255,255,255,0.5);">12 / 12</div>
+  </section>
+
+  <!-- SUPPLEMENTARY: VALIDATION ROADMAP -->
+  <section class="slide roadmap">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">补充资料 · 验证路径与估值</div>
+    <h1 class="headline reveal reveal-d1"><em>分阶段</em>降低风险——每一步验证都为下一步奠定基础。</h1>
+
+
+    <!-- Value creation chart: viewBox 800x500 (1.6:1) fills space on both desktop & mobile -->
+    <!-- x(yr)=75+(yr-2019)/13*715  y(v)=470-(log10(v)-0.301)/2.544*440 -->
+    <!-- Dots: Discovery(350,418) Optim(405,342) Pilot(460,290) PROFILE(515,221) RCT(625,165) Exit(790,72) -->
+    <div class="reveal reveal-d3" id="vc-wrap-supp">
+      <div id="vc-tip-supp" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.55;pointer-events:auto;opacity:0;transition:opacity 0.15s ease;max-width:230px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
+      <svg id="vc-svg-supp" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+        <defs>
+          <linearGradient id="vcFill2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E9A8D" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#1E9A8D" stop-opacity="0.02"/>
+          </linearGradient>
+          <filter id="glow2"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <text x="68" y="354" font-size="19" fill="#999" font-family="serif" text-anchor="end">£10M</text>
+        <text x="68" y="233" font-size="19" fill="#999" font-family="serif" text-anchor="end">£50M</text>
+        <text x="68" y="129" font-size="19" fill="#999" font-family="serif" text-anchor="end">£200M</text>
+        <line x1="75" y1="470" x2="792" y2="470" stroke="#888" stroke-width="2.5"/>
+        <line x1="75" y1="35" x2="75" y2="470" stroke="#888" stroke-width="2.5"/>
+        <text x="75"  y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2019</text>
+        <text x="240" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2022</text>
+        <text x="405" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2025</text>
+        <text x="570" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2028</text>
+        <text x="735" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2031</text>
+        <text transform="rotate(-90,20,252)" x="20" y="252" font-size="16" fill="#bbb" font-family="serif" text-anchor="middle" letter-spacing="2">估值</text>
+        <path d="M 75,470 C 130,470 175,435 213,418 C 270,405 325,355 378,342 C 400,328 415,308 433,290 C 451,272 468,242 488,221 C 512,202 545,178 570,165 C 610,148 660,95 708,72 C 735,65 765,58 790,55 L 790,470 L 75,470 Z" fill="url(#vcFill2)"/>
+        <path d="M 75,470 C 130,470 175,435 213,418 C 270,405 325,355 378,342 C 400,328 415,308 433,290 C 451,272 468,242 488,221 C 512,202 545,178 570,165 C 610,148 660,95 708,72 C 735,65 765,58 790,55" fill="none" stroke="#1E9A8D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="488" y1="38" x2="488" y2="470" stroke="#1f355a" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.3"/>
+        <text x="494" y="60" font-size="17" fill="#1f355a" font-family="serif" font-weight="700" opacity="0.55" letter-spacing="2">当前</text>
+        <g class="vc-dot-supp" data-title="发现" data-years="2019–2024" data-val="£3–5M" data-status="done" data-detail="剑桥AI/ML多组学分析逾50万人群队列。5篇同行评审论文确认单碳代谢是阿尔茨海默病中神经元抗性的关键驱动因素。" style="cursor:default;">
+          <circle cx="213" cy="418" r="12" fill="#1f355a" opacity="0.12"/>
+          <circle cx="213" cy="418" r="8" fill="#1f355a" opacity="0.45"/>
+          <text x="213" y="397" font-size="19" fill="#888" font-family="serif" text-anchor="middle">发现</text>
+        </g>
+        <g class="vc-dot-supp" data-title="优化" data-years="2024–2025" data-val="£8–15M" data-status="done" data-detail="对肠道细菌实施定向进化，最大化单碳分子产量。筛选并鉴定先导菌株1C-01。实验室落地剑桥Milner Institute。" style="cursor:default;">
+          <circle cx="378" cy="342" r="12" fill="#1f355a" opacity="0.12"/>
+          <circle cx="378" cy="342" r="8" fill="#1f355a" opacity="0.55"/>
+          <text x="378" y="320" font-size="19" fill="#888" font-family="serif" text-anchor="middle">优化</text>
+        </g>
+        <g class="vc-dot-supp" data-title="人体试验" data-years="2025–2026" data-val="£15–30M" data-status="done" data-detail="60名参与者开放标签先导试验。所有参与者粪便中均检出1C-01定植（p&lt;0.00001）。血液神经保护代谢物显著升高。" style="cursor:default;">
+          <circle cx="433" cy="290" r="12" fill="#1f355a" opacity="0.14"/>
+          <circle cx="433" cy="290" r="8" fill="#1f355a" opacity="0.7"/>
+          <text x="433" y="268" font-size="19" fill="#666" font-family="serif" text-anchor="middle">人体试验</text>
+        </g>
+        <g class="vc-dot-supp" data-title="PROFILE trial" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="Pre-post open-label cohort · 180 participants · full blood + stool biomarker suite." style="cursor:default;">
+          <circle cx="488" cy="221" r="22" fill="#1E9A8D" opacity="0.12" filter="url(#glow2)"/>
+          <circle cx="488" cy="221" r="11" fill="#1E9A8D"/>
+          <text x="488" y="195" font-size="20" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">PROFILE</text>
+        </g>
+        <g class="vc-dot-supp" data-title="阿尔茨海默病随机对照试验" data-years="2027–2029" data-val="£80–150M+" data-status="future" data-detail="针对早期阿尔茨海默病患者的随机对照试验。主要终点为神经保护生物标志物。" style="cursor:default;">
+          <circle cx="570" cy="165" r="12" fill="#1f355a" opacity="0.08"/>
+          <circle cx="570" cy="165" r="8" fill="#1f355a" opacity="0.2"/>
+          <text x="570" y="143" font-size="19" fill="#bbb" font-family="serif" text-anchor="middle">RCT</text>
+        </g>
+        <g class="vc-dot-supp" data-title="监管与退出" data-years="2029–2032" data-val="£200–600M+" data-status="exit" data-detail="获得MHRA/FDA功能性声明批准。与制药或营养健康合作方达成战略收购或授权协议。" style="cursor:default;">
+          <circle cx="708" cy="72" r="16" fill="#e05c3a" opacity="0.14"/>
+          <circle cx="708" cy="72" r="10" fill="#e05c3a" opacity="0.9"/>
+          <text x="701" y="49" font-size="20" fill="#e05c3a" font-family="serif" text-anchor="end" font-weight="700">退出 · £200–600M+</text>
+        </g>
+      </svg>
+      <script>(function(){
+        var tip2 = document.getElementById('vc-tip-supp');
+        var wrap2 = document.getElementById('vc-wrap-supp');
+        var hideTimer2;
+        function showTip2(d, e) {
+          clearTimeout(hideTimer2);
+          var statusColor = d.status==='now' ? '#1E9A8D' : d.status==='exit' ? '#e05c3a' : 'rgba(255,255,255,0.45)';
+          tip2.innerHTML = '<div style="font-weight:700;font-size:13px;margin-bottom:3px;">'+d.title+'</div>'
+            +'<div style="font-size:10px;opacity:0.6;margin-bottom:6px;">'+d.years+'</div>'
+            +'<div style="font-size:15px;font-weight:700;color:'+statusColor+';margin-bottom:6px;">'+d.val+'</div>'
+            +'<div style="font-size:11px;opacity:0.82;line-height:1.5;">'+d.detail+'</div>';
+          moveTip2(e);
+          tip2.style.opacity='1';
+        }
+        function moveTip2(e) {
+          var r = wrap2.getBoundingClientRect();
+          var x = e.clientX - r.left + 14;
+          var y = e.clientY - r.top - 14;
+          if(x + 240 > r.width) x = e.clientX - r.left - 248;
+          tip2.style.left = x+'px';
+          tip2.style.top = y+'px';
+        }
+        function hideTip2() { hideTimer2 = setTimeout(function(){ tip2.style.opacity='0'; }, 120); }
+        tip2.addEventListener('mouseenter', function(){ clearTimeout(hideTimer2); });
+        tip2.addEventListener('mouseleave', hideTip2);
+        document.querySelectorAll('#vc-svg-supp .vc-dot-supp').forEach(function(g){
+          g.addEventListener('mouseenter', function(e){ showTip2(g.dataset, e); });
+          g.addEventListener('mousemove', moveTip2);
+          g.addEventListener('mouseleave', hideTip2);
+        });
+      })();</script>
+    </div>
+
+    <div class="frame-num">补充</div>
   </section>
 
 </div>
