@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>OneCarbon — 投资人路演</title>
+<link rel="icon" type="image/png" href="assets/onecarbon_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="vendor/chart.umd.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="vendor/three.min.js"></script>
+<style>
+:root {
+  --accent:#1f355a;
+  --accent-dark:#162844;
+  --accent-soft:#d0d9e8;
+  --accent-tint:#eaecf2;
+  --bg:#F7F5F0;
+  --bg-deep:#EDEAE3;
+  --surface:#FFFFFF;
+  --text:#1A1A18;
+  --text-muted:#555555;
+  --text-faint:#888888;
+  --border:rgba(0,0,0,0.08);
+  --ink:#0E1521;
+  --gold:#C9A961;
+  --rs:10px; --rm:20px; --rl:30px; --rp:100px;
+  --serif:'DM Sans', system-ui, sans-serif;
+  --sans:'Outfit', system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-0.01em}
+
+.deck{scroll-snap-type:y mandatory;overflow-y:scroll;height:100vh;scroll-behavior:smooth}
+.slide{scroll-snap-align:start;scroll-snap-stop:always;height:100vh;width:100vw;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:5vh 5vw;background:var(--bg)}
+.slide.surface{background:var(--surface)}
+.slide.dark{background:var(--ink);color:var(--surface)}
+.slide.accent{background:var(--accent-dark);color:var(--surface)}
+.slide.tint{background:var(--accent-tint)}
+
+/* Frame */
+.frame-mark{position:absolute;top:3vh;right:3vw;display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:14px;font-weight:500;color:var(--text)}
+.frame-mark .lg{font-weight:700;color:var(--accent)}
+.dark .frame-mark, .accent .frame-mark{color:var(--surface)}
+.dark .frame-mark .lg, .accent .frame-mark .lg{color:var(--accent-soft)}
+.frame-num{position:absolute;bottom:3vh;right:3vw;font-family:var(--serif);font-size:13px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;font-weight:500}
+.dark .frame-num, .accent .frame-num{color:rgba(255,255,255,0.5)}
+.frame-foot{position:absolute;bottom:3vh;left:3vw;font-family:var(--sans);font-size:13px;letter-spacing:0.06em;color:var(--text-faint)}
+.dark .frame-foot, .accent .frame-foot{color:rgba(255,255,255,0.5)}
+
+/* Typography */
+.eyebrow{display:inline-block;font-family:var(--sans);font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:600;padding:6px 0}
+.dark .eyebrow, .accent .eyebrow{color:var(--accent-soft)}
+.eyebrow::before{content:'';display:inline-block;width:28px;height:1.5px;background:currentColor;vertical-align:middle;margin-right:14px;opacity:.7;border-radius:2px}
+h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-0.03em;color:var(--text);margin:0.2em 0 0.4em;font-weight:600;max-width:1200px}
+.dark h1.headline, .accent h1.headline{color:var(--surface)}
+.headline em{font-style:normal;color:var(--accent);font-weight:600}
+.dark .headline em, .accent .headline em{color:var(--accent-soft)}
+.subhead{font-family:var(--sans);font-size:clamp(15px, 1.2vw, 19px);line-height:1.55;color:var(--text-muted);font-weight:400;max-width:920px}
+.dark .subhead, .accent .subhead{color:rgba(255,255,255,0.8)}
+.tag{font-family:var(--serif);font-size:13px;letter-spacing:0.14em;color:var(--text-faint);text-transform:uppercase;font-weight:500}
+.dark .tag, .accent .tag{color:rgba(255,255,255,0.55)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.9s cubic-bezier(.2,.6,.1,1), transform 0.9s cubic-bezier(.2,.6,.1,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.18s}
+.reveal-d3{transition-delay:.28s}
+.reveal-d4{transition-delay:.38s}
+.reveal-d5{transition-delay:.48s}
+.reveal-d6{transition-delay:.58s}
+
+/* ============ Cover ============ */
+.cover{padding:0;overflow:hidden}
+.cover-grid{display:grid;grid-template-columns:1.1fr 0.9fr;height:100%;position:relative}
+.cover-left{padding:8vh 5vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;background:var(--bg)}
+.cover-right{background:transparent;position:relative;overflow:visible;display:flex;align-items:center;justify-content:center}
+.cover-neuron-bg{position:absolute;top:0;right:-5%;bottom:0;width:65%;pointer-events:none;z-index:0;}
+.brand{display:flex;align-items:center;gap:12px;z-index:2}
+.brand-name{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:-0.01em}
+.brand-name span{color:var(--accent);font-weight:700}
+.brand-sub{display:block;font-family:var(--serif);font-size:12px;letter-spacing:0.22em;color:var(--text-faint);text-transform:uppercase;margin-top:3px;font-weight:500}
+.cover-title{z-index:2}
+.cover-title h1{font-family:var(--serif);font-weight:700;font-size:clamp(52px, 5.6vw, 88px);line-height:0.95;letter-spacing:-0.03em;color:var(--text)}
+.cover-title h1 .accent{font-style:normal;color:var(--accent);font-weight:600}
+.cover-title p{font-family:var(--sans);font-size:clamp(17px, 1.4vw, 22px);line-height:1.4;color:var(--text-muted);margin-top:1.2em;max-width:560px;font-weight:300}
+.cover-meta{z-index:2;font-family:var(--sans);font-size:14px;line-height:1.85;color:var(--text-muted)}
+.cover-meta .name{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:600;letter-spacing:-0.005em}
+.cover-meta a{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:0.04em;font-weight:600;text-decoration:none;margin-right:1em;text-transform:uppercase}
+.cover-art{position:absolute;inset:0;overflow:visible}
+.cover-tag{position:absolute;bottom:5%;left:6%;right:6%;display:flex;justify-content:space-between;color:rgba(255,255,255,0.6);font-family:var(--serif);font-size:12px;letter-spacing:0.25em;text-transform:uppercase;font-weight:500}
+
+/* ============ Opportunity (3 big stats) ============ */
+.opp{padding:6vh 5vw}
+.opp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:4vh;align-items:stretch}
+.opp-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:3.5vh 1.8vw;border-top:4px solid var(--accent);display:flex;flex-direction:column}
+.opp-stat:nth-child(2){border-top-color:var(--accent-dark)}
+.opp-stat:nth-child(3){border-top-color:#4a6a9a}
+.opp-stat .big{font-family:var(--serif);font-size:clamp(48px,5.6vw,80px);color:var(--accent);font-weight:500;line-height:1;letter-spacing:-0.02em}
+.opp-stat:nth-child(2) .big{color:var(--accent-dark)}
+.opp-stat:nth-child(3) .big{color:#4a6a9a}
+.opp-stat .big em{font-style:italic}
+.opp-stat .lbl{font-family:var(--serif);font-size:13px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-top:1em}
+.opp-stat .desc{font-family:var(--sans);font-size:14px;color:var(--text-muted);margin-top:0.6em;line-height:1.55;flex-grow:1}
+
+/* ============ Three-step framework (BooblyBiome-style) ============ */
+.framework{padding:6vh 5vw}
+.fw-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;margin-top:4vh}
+.fw-card{padding:0 2vw 0 1.6vw;border-left:3px solid var(--accent);position:relative}
+.fw-card .fw-step{display:inline-block;background:var(--accent);color:var(--surface);font-family:var(--serif);font-size:12px;letter-spacing:0.18em;padding:4px 12px;border-radius:var(--rp);font-weight:700;text-transform:uppercase;margin-bottom:1.4em}
+.fw-card h3{font-family:var(--serif);font-size:24px;color:var(--text);font-weight:500;margin:0 0 0.35em;letter-spacing:-0.01em}
+.fw-card .fw-sub{font-family:var(--serif);font-size:14px;color:var(--accent);font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em}
+.fw-card p{font-family:var(--sans);font-size:15px;color:var(--text-muted);line-height:1.6}
+.fw-card ul{list-style:none;padding-left:0;margin-top:1em}
+.fw-card li{font-family:var(--sans);font-size:15px;color:var(--text);padding:6px 0;padding-left:20px;position:relative;line-height:1.5}
+.fw-card li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;background:var(--accent);border-radius:50%}
+.supp-panel{position:absolute;inset:0;z-index:50;background:var(--surface);padding:clamp(1.5rem,3.5vw,3.5rem) clamp(1.5rem,4vw,4rem);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity 0.22s ease,transform 0.22s ease;overflow-y:auto;}
+.supp-panel.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.supp-panel-close{font-family:var(--serif);font-size:14px;letter-spacing:0.1em;color:var(--accent);font-weight:700;background:none;border:1.5px solid var(--accent);border-radius:var(--rp);padding:8px 18px;cursor:pointer;margin-bottom:2.5vh;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s,color 0.15s;}
+.supp-panel-close:hover{background:var(--accent);color:var(--surface);}
+
+/* ============ Science (publications) ============ */
+.science{padding:6vh 5vw}
+.pubs{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:3vh}
+.pub{background:var(--surface);border-radius:var(--rm);padding:2.4vh 1.6vw;border:1px solid var(--border)}
+.pub .pub-tag{font-family:var(--serif);font-size:12px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;font-weight:600}
+.pub .pub-title{font-family:var(--serif);font-weight:500;font-size:16px;color:var(--text);margin:8px 0 10px;line-height:1.35}
+.pub .pub-meta{font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.5}
+.pub .pub-id{font-family:var(--serif);font-size:12px;letter-spacing:0.08em;color:var(--text-faint);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-weight:500;word-break:break-all}
+
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;margin-top:3vh;padding-top:3vh;border-top:1px solid var(--border)}
+.ss-item .n{font-family:var(--serif);font-size:clamp(36px,3.4vw,48px);color:var(--accent);font-weight:500;line-height:1;letter-spacing:-0.01em}
+.ss-item .n em{font-style:italic;color:var(--text)}
+.ss-item .l{font-family:var(--sans);font-size:14px;color:var(--text-muted);margin-top:8px;line-height:1.45;max-width:220px}
+
+/* ============ Product (1C01) ============ */
+.product-slide{padding:5vh 5vw}
+.product-hero{display:grid;grid-template-columns:0.95fr 1.05fr;gap:4vw;align-items:center;margin-top:2vh}
+.product-img-wrap{aspect-ratio:4/3;border-radius:var(--rl);overflow:hidden;background:var(--accent-soft);box-shadow:0 12px 30px -8px rgba(31,53,90,0.18);max-height:65vh}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.product-features{display:grid;gap:1.4vh}
+.pf-item{display:grid;grid-template-columns:auto 1fr;gap:1vw;padding:1.4vh 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.pf-item:last-child{border-bottom:0}
+.pf-pill{font-family:var(--serif);font-size:13px;letter-spacing:0.14em;color:var(--accent);text-transform:uppercase;font-weight:600;background:var(--accent-soft);padding:5px 10px;border-radius:var(--rp);white-space:nowrap;align-self:flex-start;margin-top:2px}
+.pf-text{font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5}
+.pf-text b{font-family:var(--serif);font-weight:600}
+/* Product image cards with hover reveal */
+.prod-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;flex:1;min-height:0;margin-top:1.2vh;max-height:52vh}
+.prod-card{position:relative;border-radius:var(--rl);overflow:hidden;cursor:default;box-shadow:0 6px 18px rgba(31,53,90,0.12)}
+.prod-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease,filter 0.4s ease}
+.prod-card:hover img{transform:scale(1.04);filter:brightness(0.45)}
+.prod-card::after{content:'';position:absolute;inset:0;background:rgba(5,10,22,0);transition:background 0.4s ease;pointer-events:none}
+.prod-card:hover::after{background:rgba(5,10,22,0.35)}
+.prod-card-label{position:absolute;bottom:0;left:0;right:0;padding:1.4vh 1.4vw;background:linear-gradient(to top,rgba(5,10,22,0.9) 0%,transparent 100%);display:flex;flex-direction:column;gap:0}
+.prod-card-pill{font-family:var(--serif);font-size:13px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:6px}
+.prod-card-title{font-family:var(--serif);font-size:clamp(20px,2vw,30px);font-weight:600;color:#fff;line-height:1.15}
+.prod-card-desc{font-family:var(--sans);font-size:clamp(14px,1.2vw,17px);color:rgba(255,255,255,0.95);line-height:1.55;margin-top:0.6vh;max-height:0;overflow:hidden;opacity:0;transition:max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease}
+.prod-card:hover .prod-card-desc{max-height:160px;opacity:1;margin-top:1vh}
+
+/* ============ Pilot validation ============ */
+.pilot{padding:6vh 5vw}
+.pilot-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:3vh}
+.ps-card{padding:2.5vh 0 2.5vh 2vw;border-left:3px solid var(--accent);position:relative}
+.ps-card:nth-child(2){border-left-color:var(--accent-dark)}
+.ps-card:nth-child(3){border-left-color:#4a6a9a}
+.ps-card .ps-big{font-family:var(--serif);font-weight:500;font-size:clamp(48px,5.4vw,68px);color:var(--accent);line-height:0.95;letter-spacing:-0.02em}
+.ps-card:nth-child(2) .ps-big{color:var(--accent-dark)}
+.ps-card:nth-child(3) .ps-big{color:#4a6a9a}
+.ps-card .ps-big em{font-style:italic}
+.ps-card .ps-l{font-family:var(--sans);font-size:14px;color:var(--text-muted);margin-top:1.2em;line-height:1.5;max-width:280px}
+.ps-card .ps-cite{font-family:var(--serif);font-size:12px;letter-spacing:0.12em;color:var(--text-faint);text-transform:uppercase;margin-top:1.5em;padding-top:1.5em;border-top:1px solid var(--border);font-weight:500}
+
+.pilot-quote{margin-top:3vh;padding:2.4vh 2.6vw;background:var(--accent-tint);border-radius:var(--rm);border-left:4px solid var(--accent);max-width:1000px}
+.pilot-quote .pq-text{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:500;font-style:italic;line-height:1.45}
+.pilot-quote .pq-attr{font-family:var(--serif);font-size:12px;letter-spacing:0.14em;color:var(--text-faint);text-transform:uppercase;margin-top:1em;font-weight:600}
+
+/* ============ Validation roadmap ============ */
+.roadmap{padding:5vh 5vw;justify-content:flex-start}
+#vc-wrap{flex:1;min-height:0;position:relative;margin-top:2vh}
+#vc-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rm-track{margin-top:3.5vh;position:relative}
+.rm-stages{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
+/* connector line sits behind the dots */
+.rm-stages::before{content:'';position:absolute;top:10px;left:calc(100%/12);right:calc(100%/12);height:2px;background:var(--border);z-index:0}
+.rm-stage{position:relative;padding:0 1vw;opacity:0;transform:translateY(16px);transition:opacity 0.5s cubic-bezier(.2,.6,.1,1),transform 0.5s cubic-bezier(.2,.6,.1,1);z-index:1}
+.rm-stage.in{opacity:1;transform:none}
+/* dot */
+.rm-stage .dot{width:20px;height:20px;border-radius:50%;background:var(--bg);border:2.5px solid var(--border);margin-bottom:1.4vh;position:relative;z-index:2;transition:background 0.3s,border-color 0.3s}
+.rm-stage.done .dot{background:var(--accent);border-color:var(--accent)}
+.rm-stage.now .dot{background:var(--surface);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+/* year label */
+.rm-stage .yr{font-family:var(--serif);font-size:12px;letter-spacing:0.14em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.rm-stage.done .yr,.rm-stage.now .yr{color:var(--accent)}
+.rm-stage h4{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:600;margin-bottom:0.6vh;letter-spacing:-0.005em;line-height:1.2}
+.rm-stage.now h4{color:var(--accent)}
+.rm-stage .desc{font-family:var(--sans);font-size:13px;color:var(--text-muted);line-height:1.5}
+
+/* ============ PROFILE trial ============ */
+.trial{padding:0}
+.trial-grid{display:grid;grid-template-columns:1.1fr 0.9fr;height:100%}
+.trial-left{padding:8vh 4vw;display:flex;flex-direction:column;justify-content:center;background:var(--bg)}
+.trial-right{padding:8vh 4vw;background:var(--accent);color:var(--surface);display:flex;flex-direction:column;justify-content:center;position:relative}
+.trial-right::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.15), transparent 50%)}
+.trial-right > *{position:relative;z-index:1}
+.trial-id{display:inline-block;font-family:var(--serif);font-size:13px;letter-spacing:0.18em;color:var(--surface);background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:var(--rp);text-transform:uppercase;font-weight:600;margin-bottom:2em}
+.trial-num{font-family:var(--serif);font-weight:500;font-size:clamp(72px, 8vw, 140px);line-height:0.9;color:var(--surface);letter-spacing:-0.03em;margin-bottom:0.3em}
+.trial-num em{font-style:italic;color:var(--accent-soft);font-weight:500}
+.trial-label{font-family:var(--sans);font-size:17px;color:rgba(255,255,255,0.9);font-weight:300;max-width:380px;line-height:1.45}
+
+/* ============ De-risk ============ */
+.derisk{padding:5vh 5vw}
+.dr-row{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4vw;margin-top:3vh}
+.dr-col{background:var(--surface);border-radius:var(--rl);padding:3vh 2vw;border:1px solid var(--border);border-left:4px solid var(--accent)}
+.dr-col h3{font-family:var(--serif);font-size:22px;color:var(--text);font-weight:600;margin-bottom:0.5em;letter-spacing:-0.005em}
+.dr-col p{font-family:var(--sans);font-size:15px;color:var(--text-muted);line-height:1.6}
+.dr-quote{margin-top:3vh;padding:2.4vh 3vw;background:var(--ink);color:var(--surface);border-radius:var(--rm);display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:center}
+.dr-quote .lbl{font-family:var(--serif);font-size:12px;letter-spacing:0.22em;color:var(--accent-soft);text-transform:uppercase;font-weight:600}
+.dr-quote .txt{font-family:var(--serif);font-size:17px;color:rgba(255,255,255,0.92);font-style:italic;line-height:1.5;font-weight:500}
+
+/* ============ Moat ============ */
+.moat{padding:6vh 5vw}
+.moat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:3vh}
+.moat-card{padding:0 2vw 0 1.6vw;border-left:3px solid var(--accent)}
+.moat-card:nth-child(2){border-left-color:var(--accent-dark)}
+.moat-card:nth-child(3){border-left-color:var(--gold)}
+.moat-card .moat-num{font-family:var(--serif);font-size:40px;font-style:italic;color:var(--accent);font-weight:500;line-height:1;margin-bottom:0.3em}
+.moat-card:nth-child(2) .moat-num{color:var(--accent-dark)}
+.moat-card:nth-child(3) .moat-num{color:var(--gold)}
+.moat-card h3{font-family:var(--serif);font-size:22px;color:var(--text);font-weight:600;margin:0 0 0.5em;letter-spacing:-0.005em}
+.moat-card p{font-family:var(--sans);font-size:15px;color:var(--text-muted);line-height:1.6}
+.moat-card ul{font-family:var(--sans);font-size:15px;color:var(--text-muted);line-height:1.6;list-style:none;padding:0;margin:0}
+.moat-card ul li{padding-left:1em;position:relative;margin-bottom:0.45em}
+.moat-card ul li::before{content:"–";position:absolute;left:0;color:var(--text-faint)}
+
+/* ============ Competition ============ */
+.compete{padding:5vh 5vw;justify-content:flex-start}
+#cp-wrap{flex:1;min-height:0;position:relative;margin-top:2vh}
+#cp-wrap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+/* ============ Revenue model ============ */
+.revenue{padding:5vh 5vw}
+.rev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;margin-top:3vh}
+.rev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:3vh 1.6vw;border-top:4px solid var(--accent)}
+.rev-card:nth-child(2){border-top-color:var(--accent-dark)}
+.rev-card:nth-child(3){border-top-color:#4a6a9a}
+.rev-card:nth-child(4){border-top-color:var(--gold)}
+.rev-card .rev-channel{font-family:var(--serif);font-size:13px;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;font-weight:600;margin-bottom:1em}
+.rev-card:nth-child(2) .rev-channel{color:var(--accent-dark)}
+.rev-card:nth-child(3) .rev-channel{color:#3a5a8a}
+.rev-card:nth-child(4) .rev-channel{color:#9B7E3F}
+.rev-card .rev-mkt{font-family:var(--serif);font-size:14px;color:var(--text);font-weight:600;margin-bottom:0.5em;letter-spacing:-0.005em}
+.rev-card .rev-amt{font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500;font-style:italic;line-height:1;margin:0.5em 0;letter-spacing:-0.01em}
+.rev-card:nth-child(2) .rev-amt{color:var(--accent-dark)}
+.rev-card:nth-child(3) .rev-amt{color:#3a5a8a}
+.rev-card:nth-child(4) .rev-amt{color:#9B7E3F}
+.rev-card .rev-desc{font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin-top:0.8em}
+.rev-foot{display:flex;justify-content:space-between;margin-top:3vh;padding-top:3vh;border-top:1px solid var(--border);gap:2vw;flex-wrap:wrap}
+.rev-foot-item{flex:1}
+.rev-foot-item .l{font-family:var(--serif);font-size:12px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;font-weight:600}
+.rev-foot-item .v{font-family:var(--serif);font-size:24px;color:var(--text);font-weight:600;margin-top:6px;letter-spacing:-0.01em}
+.rev-foot-item .v em{font-style:italic;color:var(--accent)}
+
+/* ============ Use of funds ============ */
+.uof{padding:6vh 5vw}
+.uof-list{display:grid;gap:1vh;margin-top:3vh;max-width:1100px}
+.uof-row{display:grid;grid-template-columns:auto auto 1fr auto;gap:1.5vw;padding:1.6vh 0;border-bottom:1px solid var(--border);align-items:center}
+.uof-row .pct{font-family:var(--serif);font-size:32px;color:var(--accent);font-weight:500;font-style:italic;letter-spacing:-0.01em;min-width:80px}
+.uof-row .cat{font-family:var(--serif);font-size:16px;color:var(--text);font-weight:600;min-width:200px}
+.uof-row .desc{font-family:var(--sans);font-size:15px;color:var(--text-muted);line-height:1.5}
+.uof-row .amt{font-family:var(--serif);font-size:18px;color:var(--text);font-weight:600;text-align:right;min-width:100px}
+.uof-total{margin-top:1.5vh;padding-top:1.5vh;border-top:2px solid var(--accent);display:grid;grid-template-columns:1fr auto;align-items:center}
+.uof-total .l{font-family:var(--serif);font-size:14px;letter-spacing:0.14em;color:var(--text);text-transform:uppercase;font-weight:700}
+.uof-total .v{font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500;font-style:italic;letter-spacing:-0.01em}
+
+/* ============ Budget Sankey ============ */
+.budget{padding:4vh 4vw;background:#0E1521;color:#E2E8F0}
+.budget .eyebrow{color:#7BA8E3}
+.budget h1.headline{color:#FFFFFF}
+.budget h1.headline em{color:#7BA8E3}
+.budget .frame-mark{color:#FFFFFF}
+.budget .frame-mark .lg{color:#7BA8E3}
+.budget .frame-num{color:rgba(255,255,255,0.5)}
+.budget .frame-foot{color:rgba(255,255,255,0.45)}
+#sankey_chart{width:100%;height:62vh;max-height:680px;margin-top:1.5vh;background:transparent}
+.budget-legend{display:flex;gap:2.4vw;align-items:center;flex-wrap:wrap;margin-top:1.5vh;padding-top:1.5vh;border-top:1px solid rgba(255,255,255,0.08)}
+.bl-item{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;letter-spacing:0.04em}
+.bl-item .dot{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.bl-item .amt{color:rgba(255,255,255,0.55);font-family:var(--sans);font-size:13px;margin-left:6px;font-weight:400}
+.budget-total{margin-left:auto;font-family:var(--serif);font-size:18px;color:#FFFFFF;font-weight:600;letter-spacing:0.06em}
+.budget-total em{font-style:italic;color:#7BA8E3;font-size:24px;margin-left:6px}
+
+/* ============ Exit ============ */
+.exit{padding:6vh 5vw}
+.exit-row{display:grid;grid-template-columns:1fr 1fr;gap:3vw;margin-top:3vh}
+.exit-card{background:var(--surface);border-radius:var(--rl);padding:3vh 2.4vw;border:1px solid var(--border)}
+.exit-card h3{font-family:var(--serif);font-size:22px;color:var(--text);font-weight:600;margin-bottom:0.5em;letter-spacing:-0.005em}
+.exit-card p{font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55}
+.exit-card .exit-num{font-family:var(--serif);font-size:48px;color:var(--accent);font-weight:500;font-style:italic;letter-spacing:-0.01em;margin:0.5em 0}
+.exit-card.featured{background:var(--accent-tint);border-color:var(--accent-soft)}
+.exit-comps{margin-top:3vh;padding-top:2vh;border-top:1px solid var(--border)}
+.exit-comps .l{font-family:var(--serif);font-size:12px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:1em}
+.exit-comps .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw}
+.comp-item{padding:1.5vh 1.4vw;background:var(--surface);border-radius:var(--rm);border:1px solid var(--border)}
+.comp-item h5{font-family:var(--serif);font-size:15px;color:var(--text);font-weight:600;margin-bottom:0.3em}
+.comp-item .val{font-family:var(--serif);font-size:18px;color:var(--accent);font-weight:600;font-style:italic;margin-bottom:0.4em}
+.comp-item .note{font-family:var(--sans);font-size:13px;color:var(--text-muted);line-height:1.4}
+
+/* ============ Team ============ */
+.team-slide{padding:5vh 5vw;background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;margin-top:3vh}
+.tm-card{text-align:center}
+.tm-avatar{width:130px;height:130px;border-radius:50%;overflow:hidden;margin:0 auto 1.6vh;background:var(--bg-deep);border:3px solid var(--surface);box-shadow:0 6px 18px -6px rgba(0,0,0,0.12)}
+.tm-avatar img{width:100%;height:100%;object-fit:cover}
+.tm-card h4{font-family:var(--serif);font-size:19px;color:var(--text);font-weight:600;margin-bottom:0.3em;letter-spacing:-0.005em}
+.tm-card .role{font-family:var(--serif);font-size:13px;letter-spacing:0.14em;color:var(--accent);text-transform:uppercase;font-weight:600;margin-bottom:0.8em}
+.tm-card .bio{font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;max-width:260px;margin:0 auto}
+
+.advisor-strip{margin-top:4vh;padding-top:3vh;border-top:1px solid var(--border);display:grid;grid-template-columns:auto repeat(3,1fr);gap:2vw;align-items:center}
+.advisor-strip .av-label{font-family:var(--serif);font-size:13px;letter-spacing:0.18em;color:var(--text-faint);text-transform:uppercase;font-weight:600}
+.av-card{padding:1.4vh 0}
+.av-card h4{font-family:var(--serif);font-size:14px;color:var(--text);font-weight:600;letter-spacing:-0.005em;margin-bottom:0.2em}
+.av-card .role{font-family:var(--serif);font-size:12px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;font-weight:600;margin-bottom:0.4em}
+.av-card .bio{font-family:var(--sans);font-size:13.5px;color:var(--text-muted);line-height:1.5}
+
+/* ============ The Ask ============ */
+.ask{padding:0}
+.ask-grid{display:grid;grid-template-columns:1.2fr 0.8fr;height:100%}
+.ask-left{padding:8vh 4vw;background:var(--ink);color:var(--surface);display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.ask-left::before{content:'';position:absolute;right:-30%;top:-20%;width:80%;aspect-ratio:1;background:radial-gradient(circle, var(--accent) 0%, transparent 70%);opacity:0.25;filter:blur(60px)}
+.ask-left > *{position:relative;z-index:1}
+.ask-right{background:linear-gradient(160deg, var(--accent) 0%, var(--accent-dark) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vh 3vw;color:var(--surface);position:relative}
+.ask-right::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%, rgba(255,255,255,0.18), transparent 50%)}
+.ask-right > *{position:relative;z-index:1}
+.ask-amount{font-family:var(--serif);font-weight:500;font-size:clamp(100px, 13vw, 200px);line-height:0.9;letter-spacing:-0.03em;color:var(--surface);font-style:italic}
+.ask-amount .pre{font-style:normal;font-size:0.45em;vertical-align:top;color:var(--accent-soft);font-weight:500}
+.ask-amount .post{font-style:italic;color:var(--accent-soft);font-size:0.5em}
+.ask-cap{font-family:var(--serif);font-size:14px;letter-spacing:0.22em;color:var(--accent-soft);text-transform:uppercase;font-weight:600;margin-bottom:0.5em}
+.ask-desc{font-family:var(--sans);font-size:16px;color:rgba(255,255,255,0.88);line-height:1.45;max-width:340px;text-align:center;margin-top:1.5em}
+.ask-left h1{font-family:var(--serif);font-size:clamp(34px,3.6vw,48px);font-weight:500;color:var(--surface);line-height:1.1;letter-spacing:-0.015em;max-width:760px}
+.ask-left h1 em{font-style:normal;color:var(--accent-soft);font-weight:600}
+.ask-milestones{display:grid;gap:1vh;margin-top:3vh}
+.am-item{padding:1.2vh 0;border-bottom:1px solid rgba(255,255,255,0.12);font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.5;display:grid;grid-template-columns:auto 1fr;gap:1vw}
+.am-item .am-bullet{color:var(--accent-soft);font-family:var(--serif);font-weight:600;font-style:italic}
+.ask-contact{display:flex;gap:2vw;align-items:center;flex-wrap:wrap;font-family:var(--serif);font-size:13px;color:rgba(255,255,255,0.7);letter-spacing:0.06em;text-transform:uppercase;font-weight:500}
+.ask-contact a{color:var(--surface);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:2px;transition:border-color .2s}
+.ask-contact a:hover{border-color:var(--accent-soft)}
+
+/* Helpers */
+.kbd-hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:var(--text-faint);text-transform:uppercase;opacity:0.7;z-index:100;pointer-events:none;background:rgba(247,245,240,0.85);backdrop-filter:blur(8px);padding:8px 18px;border-radius:var(--rp);transition:opacity .8s ease;font-weight:600}
+.kbd-hint.fade{opacity:0}
+.kbd-hint kbd{display:inline-block;padding:2px 6px;margin:0 4px;background:var(--ink);color:var(--surface);border-radius:4px;font-size:9px;font-family:var(--serif)}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;transition:width .3s ease}
+.counter{display:inline-block}
+
+@media (max-width:700px){
+  .slide{padding:3vh 4vw}
+  .roadmap{padding:3vh 4vw}
+  .cover-grid,.opp-stats,.fw-cols,.pubs,.product-hero,.pilot-stats,.rm-stages,.trial-grid,.dr-row,.moat-grid,.rev-grid,.exit-row,.exit-comps .grid,.team-grid,.advisor-strip,.ask-grid{grid-template-columns:1fr !important}
+  h1.headline{font-size:28px}
+  .product-img-wrap{aspect-ratio:16/9 !important;max-height:35vh}
+  .cover-right{display:none !important}
+  .cover-grid{grid-template-columns:1fr !important}
+  .cover-left{padding:8vh 6vw !important}
+}
+
+/* recognition marquee — copied from style.css */
+.recognised-by-section {
+  padding: 22px 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+.recognised-by-logos {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  animation: logo-scroll 22s linear infinite;
+}
+.logo-set {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 0 32px;
+}
+@keyframes logo-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.recognised-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- Password gate -->
+<div id="pw-gate" style="position:fixed;inset:0;z-index:9999;background:#F7F5F0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;">
+  <div style="text-align:center;max-width:360px;width:100%;padding:0 2rem;">
+    <img src="assets/onecarbon_logo.png" alt="OneCarbon" style="height:36px;width:auto;margin-bottom:3.5rem;opacity:0.9;">
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:2rem;font-weight:500;">保密文件 · 投资人路演</p>
+    <input id="pw-input" type="password" placeholder="请输入密码"
+      style="width:100%;padding:14px 18px;border:1.5px solid rgba(0,0,0,0.15);border-radius:10px;font-family:'Outfit',sans-serif;font-size:16px;color:#1a1a18;background:#fff;outline:none;box-sizing:border-box;margin-bottom:12px;transition:border-color 0.2s;"
+      onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()"
+      style="width:100%;padding:14px;background:#1f355a;color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.2s;"
+      onmouseover="this.style.background='#162844'" onmouseout="this.style.background='#1f355a'">
+      进入文稿
+    </button>
+    <p id="pw-error" style="font-family:'Outfit',sans-serif;font-size:13px;color:#c0392b;margin-top:10px;min-height:18px;"></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var HASH = 'e8b0f73e7a268f25042f089c363a7d74af84ab55035ef78d60e1021a941421dd';
+  // Check session
+  if (sessionStorage.getItem('oc_auth') === HASH) {
+    document.getElementById('pw-gate').style.display = 'none';
+  }
+  window.checkPw = async function() {
+    var val = document.getElementById('pw-input').value;
+    var enc = new TextEncoder().encode(val);
+    var buf = await crypto.subtle.digest('SHA-256', enc);
+    var hex = Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    if (hex === HASH) {
+      sessionStorage.setItem('oc_auth', HASH);
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      var err = document.getElementById('pw-error');
+      err.textContent = '密码错误，请重试。';
+      document.getElementById('pw-input').style.borderColor = '#c0392b';
+      setTimeout(function(){ err.textContent=''; document.getElementById('pw-input').style.borderColor='rgba(0,0,0,0.15)'; }, 2000);
+    }
+  };
+})();
+</script>
+
+<div class="progress-bar" id="progress"></div>
+<div class="kbd-hint" id="hint">使用 <kbd>↓</kbd><kbd>↑</kbd> 或滚动 · <kbd>F</kbd> 全屏</div>
+
+<div class="deck" id="deck">
+
+  <!-- 1: COVER -->
+  <section class="slide cover">
+    <div class="cover-grid">
+      <div class="cover-left" style="justify-content:flex-start;">
+        <div class="brand reveal">
+          <div>
+            <img src="assets/onecarbon_logo.png" alt="OneCarbon" style="height:40px;width:auto;margin-bottom:1.5vh;">
+            <div class="brand-sub">剑桥 · 成立于2024年</div>
+          </div>
+        </div>
+        <div style="margin-top:14vh;">
+          <div class="cover-title">
+            <h1 class="reveal reveal-d1"><span class="accent">精准益生菌</span><br>用于阿尔茨海默病</h1>
+          </div>
+          <div class="cover-meta reveal reveal-d3" style="margin-top:9vh;">
+            <div class="name">投资人路演 · 2026（保密）</div>
+            <div>OneCarbon — trading name of Healthspan Biotics Ltd</div>
+            <a href="https://onecarbon.com">onecarbon.com</a>
+            <a href="mailto:yizhou@onecarbon.com">yizhou@onecarbon.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="cover-right">
+        <canvas id="cover-neuron-canvas" style="position:absolute;top:0;left:-20%;width:120%;height:100%;display:block;"></canvas>
+      </div>
+    </div>
+    <!-- Recognised by — scrolling marquee copied from index.html -->
+    <div class="reveal reveal-d4" style="position:absolute;bottom:0;left:0;right:0;z-index:10;">
+      <section class="recognised-by-section" style="border-top:1px solid rgba(0,0,0,0.07);">
+        <div class="recognised-by-logos">
+          <div class="logo-set">
+            <img src="../media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+            <img src="../media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+            <img src="assets/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo" style="filter:brightness(0);opacity:0.65;">
+            <img src="../media/innovate_uk_growth_logo.png" alt="Innovate UK" class="recognised-logo">
+            <img src="../media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+            <img src="../media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+            <img src="assets/csar.svg" alt="CSAR" class="recognised-logo">
+          </div>
+          <div class="logo-set" aria-hidden="true">
+            <img src="../media/logo-falling-walls.png" alt="" class="recognised-logo">
+            <img src="../media/logo-forbes.png" alt="" class="recognised-logo">
+            <img src="assets/forbes30u30.avif" alt="" class="recognised-logo" style="filter:brightness(0);opacity:0.65;">
+            <img src="../media/innovate_uk_growth_logo.png" alt="" class="recognised-logo">
+            <img src="../media/logo-launchpad.png" alt="" class="recognised-logo">
+            <img src="../media/logo-trinbrad.png" alt="" class="recognised-logo">
+            <img src="assets/csar.svg" alt="" class="recognised-logo">
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="frame-num">01 / 12</div>
+  </section>
+
+  <!-- 2: THE OPPORTUNITY -->
+  <section class="slide opp" style="padding:0;background:#0a0f1a;">
+    <!-- Full-bleed photo background -->
+    <div style="position:absolute;inset:0;background:url('assets/opp_bg.jpeg') center/cover no-repeat;opacity:0.55;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,15,26,0.65) 0%, rgba(31,53,90,0.45) 100%);"></div>
+
+    <div style="position:relative;z-index:1;padding:6vh 6vw;height:100%;display:flex;flex-direction:column;justify-content:center;">
+      <div class="frame-mark" style="position:absolute;top:3vh;right:3vw;"><span class="brand-name" style="color:#fff;">One<span style="color:var(--accent-soft);">Carbon</span></span></div>
+
+      <div class="eyebrow reveal" style="color:var(--accent-soft);">问题与使命</div>
+
+      <div class="reveal reveal-d1" style="margin:2.5vh 0 5vh;">
+        <div style="font-family:var(--serif);font-size:clamp(32px,3.8vw,62px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:#fff;max-width:900px;">
+          每<em style="font-style:normal;color:var(--accent-soft);">3</em>人，便有1人将罹患痴呆症
+        </div>
+      </div>
+
+      <div class="reveal reveal-d2" style="padding:3.5vh 3.5vw;border-left:4px solid #1E9A8D;background:rgba(30,154,141,0.15);border-radius:var(--rm);backdrop-filter:blur(8px);max-width:780px;">
+        <p style="font-family:var(--sans);font-size:clamp(18px,1.8vw,26px);color:rgba(255,255,255,0.95);line-height:1.6;margin:0;">我们正在打造一种针对阿尔茨海默病的<b>安全、早期、有效</b>干预方案。</p>
+      </div>
+    </div>
+
+    <div class="frame-num" style="color:rgba(255,255,255,0.4);">02 / 12</div>
+  </section>
+
+  <!-- 3: DISCOVERY -->
+  <section class="slide tint" id="innovation-main" style="padding:4vh 5vw 3vh;">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">科学发现</div>
+    <h1 class="headline reveal reveal-d1" style="font-size:clamp(26px,2.8vw,46px);margin-bottom:0.2em;"><em>阿尔茨海默病中的神经元抗性</em>机制</h1>
+    <p class="subhead reveal reveal-d2" style="font-size:13px;margin-bottom:2vh;visibility:hidden;height:0;margin:0;"></p>
+
+    <div class="reveal reveal-d3" style="flex:1;display:grid;grid-template-columns:220px 1fr;gap:3vw;align-items:center;min-height:0;">
+
+      <!-- Left: 3-step read guide -->
+      <div style="display:flex;flex-direction:column;gap:2.4vh;">
+        <div style="padding-left:1.2vw;border-left:3px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px;">研究方法</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">依托剑桥大学研究平台，对细胞、动物模型及逾50万人群队列开展AI/ML多组学分析，系统探究阿尔茨海默病中的神经元抗性机制。</div>
+        </div>
+        <div style="padding-left:1.2vw;border-left:3px solid #1E9A8D;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#1E9A8D;font-weight:700;margin-bottom:4px;">核心发现</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">单碳代谢是阿尔茨海默病中神经元抗性的关键驱动因素。</div>
+        </div>
+        <div style="padding-left:1.2vw;border-left:3px solid #7a5af8;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#7a5af8;font-weight:700;margin-bottom:4px;">实验验证</div>
+          <div style="font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.5;">在细胞模型、动物实验及人群数据中多层次验证了上述发现。</div>
+        </div>
+        <div style="margin-top:0.5vh;font-family:var(--serif);font-size:10px;color:var(--text-faint);line-height:1.9;">
+          PMID: 39582067<br>
+          PMID: 34172715<br>
+          PMID: 38928008
+        </div>
+      </div>
+
+      <!-- Right: figure -->
+      <div style="display:flex;align-items:center;justify-content:center;height:100%;">
+        <img src="assets/mechanism_1c.png" alt="1C pathway — neuronal resilience in Alzheimer's disease" style="max-width:100%;max-height:62vh;object-fit:contain;display:block;">
+      </div>
+
+    </div>
+
+    <!-- Supplementary hover panels -->
+    <div id="panel-discovery" class="supp-panel">
+      <button class="supp-panel-close">← 返回创新</button>
+      <div class="eyebrow" style="margin-bottom:0.8vh;">补充 · 发现</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(20px,2.2vw,32px);color:var(--text);font-weight:500;margin-bottom:0.4em;letter-spacing:-0.02em;"><em>1C通路</em>的发现</h2>
+      <p style="font-family:var(--sans);font-size:15px;color:var(--text-muted);margin-bottom:2vh;">AI多组学发现线粒体1C通路驱动神经元韧性。</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:start;">
+        <div style="padding:2.5vh 2vw;background:var(--accent-tint);border-radius:var(--rl);border-left:4px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:13px;color:var(--accent);font-weight:600;margin-bottom:0.8em;letter-spacing:0.04em;">机器学习方法</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.6;margin-bottom:0.6em;">ML方法分析了：</p>
+          <ul style="list-style:none;padding:0;font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.7;">
+            <li style="padding:3px 0 3px 18px;position:relative;"><span style="position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;"></span>Genomic data</li>
+            <li style="padding:3px 0 3px 18px;position:relative;"><span style="position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;"></span>Metabolomics</li>
+            <li style="padding:3px 0 3px 18px;position:relative;"><span style="position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;"></span>Proteomics</li>
+            <li style="padding:3px 0 3px 18px;position:relative;"><span style="position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;"></span>scRNA-seq</li>
+            <li style="padding:3px 0 3px 18px;position:relative;"><span style="position:absolute;left:0;top:10px;width:6px;height:6px;background:var(--accent);border-radius:50%;display:block;"></span>Epidemiology</li>
+          </ul>
+        </div>
+        <div style="padding:2.5vh 2vw;background:var(--bg-deep);border-radius:var(--rl);border:1px solid var(--border);">
+          <div style="font-family:var(--serif);font-size:13px;color:var(--accent-dark);font-weight:600;margin-bottom:0.8em;letter-spacing:0.04em;">关键发现</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.6;margin-bottom:1.2em;"><b>线粒体1C代谢</b>驱动阿尔茨海默病中的细胞韧性。</p>
+          <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--text-faint);text-transform:uppercase;margin-bottom:6px;font-weight:600;">关键发表论文</div>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);line-height:1.7;">
+            <div>Yu et al., 2024, PMID: 39582067</div>
+            <div>Yu et al., 2019, PMID: 34172715</div>
+            <div>Yu &amp; Martins, 2024, PMID: 38928008</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-validation" class="supp-panel">
+      <button class="supp-panel-close">← 返回创新</button>
+      <div class="eyebrow" style="margin-bottom:0.8vh;">补充 · 验证</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(20px,2.2vw,32px);color:var(--text);font-weight:500;margin-bottom:0.4em;letter-spacing:-0.02em;">该<em>神经保护</em>通路的实验室验证</h2>
+      <p style="font-family:var(--sans);font-size:15px;color:var(--text-muted);margin-bottom:2vh;">多种验证方法确认了该通路的神经保护作用。</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-bottom:2vh;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:2.5vh 1.5vw;border-top:4px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:13px;color:var(--accent);font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em;">培养神经元</div>
+          <p style="font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.6;">原代神经元培养在1C通路上调时显示出增强的存活率和线粒体功能。</p>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:2.5vh 1.5vw;border-top:4px solid var(--accent-dark);">
+          <div style="font-family:var(--serif);font-size:13px;color:var(--accent-dark);font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em;">动物模型</div>
+          <p style="font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.6;">阿尔茨海默病模型在通路激活后显示出延迟的病理进程和改善的线粒体健康状况。</p>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:2.5vh 1.5vw;border-top:4px solid #4a6a9a;">
+          <div style="font-family:var(--serif);font-size:13px;color:#3a5a8a;font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em;">流行病学</div>
+          <p style="font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.6;">流行病学方法验证了该通路在人类群体中具有神经保护作用。</p>
+        </div>
+      </div>
+      <div style="padding:2vh 2.4vw;background:var(--accent-tint);border-radius:var(--rm);border-left:4px solid var(--accent);">
+        <div style="font-family:var(--serif);font-size:16px;color:var(--text);font-weight:500;font-style:italic;line-height:1.45;">通过培养神经元、动物模型和流行病学方法，我们验证了上调该通路具有神经保护作用。</div>
+      </div>
+    </div>
+
+    <div id="panel-evolution" class="supp-panel">
+      <button class="supp-panel-close">← 返回创新</button>
+      <div class="eyebrow" style="margin-bottom:0.8vh;">补充 · 定向进化</div>
+      <h2 style="font-family:var(--serif);font-size:clamp(20px,2.2vw,32px);color:var(--text);font-weight:500;margin-bottom:0.4em;letter-spacing:-0.02em;">专有益生菌以<em>促进神经元健康</em></h2>
+      <p style="font-family:var(--sans);font-size:15px;color:var(--text-muted);margin-bottom:2vh;">定向进化创造了一株经验证具有疗效的高产菌株。</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:start;">
+        <div>
+          <div style="padding:2.5vh 2vw;background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);border-left:4px solid var(--accent);margin-bottom:1.8vh;">
+            <div style="font-family:var(--serif);font-size:13px;color:var(--accent);font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em;">定向进化平台</div>
+            <p style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.6;">我们进化了一株<b>益生菌菌株</b>以增强对细胞韧性至关重要的该通路。该菌株超量产生1C神经保护代谢物。</p>
+          </div>
+          <div style="padding:2.5vh 2vw;background:var(--surface);border-radius:var(--rl);border:1px solid var(--border);border-left:4px solid var(--accent-dark);">
+            <div style="font-family:var(--serif);font-size:13px;color:var(--accent-dark);font-weight:600;margin-bottom:0.8em;letter-spacing:0.06em;">保护</div>
+            <ul style="list-style:none;padding:0;font-family:var(--sans);font-size:13px;color:var(--text);line-height:1.7;margin:0;">
+              <li style="padding:4px 0 4px 18px;position:relative;"><span style="position:absolute;left:0;top:11px;width:6px;height:6px;background:var(--accent-dark);border-radius:50%;display:block;"></span><b>已申请专利</b>——进化菌株及治疗用途</li>
+              <li style="padding:4px 0 4px 18px;position:relative;"><span style="position:absolute;left:0;top:11px;width:6px;height:6px;background:var(--accent-dark);border-radius:50%;display:block;"></span><b>专有技术</b>——商业秘密培养方法</li>
+            </ul>
+          </div>
+        </div>
+        <div style="padding:3.5vh 2.5vw;background:var(--accent);color:var(--surface);border-radius:var(--rl);display:flex;flex-direction:column;justify-content:center;min-height:260px;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.12), transparent 50%);"></div>
+          <div style="position:relative;z-index:1;">
+            <div style="font-family:var(--serif);font-size:clamp(70px,8vw,110px);font-weight:500;line-height:0.95;color:var(--surface);letter-spacing:-0.03em;font-style:italic;margin-bottom:0.3em;">108<span style="font-size:0.5em;vertical-align:super;">%</span></div>
+            <div style="font-family:var(--sans);font-size:16px;color:rgba(255,255,255,0.9);line-height:1.4;">我们的补充剂在阿尔茨海默病动物模型中<b>改善了神经元健康</b>。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-num">03 / 12</div>
+  </section>
+
+  <!-- 4: EVOLUTION -->
+  <section class="slide" id="evolution" style="padding:0;background:#f8f7f4;overflow:hidden;">
+    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+
+    <!-- Figure: fills right ~65%, full height -->
+    <div class="reveal reveal-d2" style="position:absolute;right:0;top:0;bottom:0;width:66%;display:flex;align-items:center;justify-content:center;padding:4vh 3vw 4vh 0;box-sizing:border-box;">
+      <img src="assets/evolution_screen.png" alt="Directed evolution screening" style="width:100%;height:100%;object-fit:contain;display:block;">
+    </div>
+
+    <!-- Left panel -->
+    <div style="position:absolute;left:0;top:0;bottom:0;width:38%;display:flex;flex-direction:column;justify-content:center;padding:6vh 3vw 6vh 5vw;box-sizing:border-box;z-index:2;">
+      <div class="eyebrow reveal" style="margin-bottom:1.5vh;">定向进化</div>
+      <h1 class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(26px,2.6vw,42px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin:0 0 3.5vh;">肠道细菌天然分泌1C分子——<br><em>而我们筛选出了产量最高的菌株</em></h1>
+
+      <div style="display:flex;flex-direction:column;gap:2vh;">
+        <div class="reveal reveal-d2" style="padding-left:1vw;border-left:3px solid var(--accent);">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:4px;">核心洞见</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">肠道细菌天然分泌1C代谢物——但数量不足以保护神经元。</p>
+        </div>
+        <div class="reveal reveal-d3" style="padding-left:1vw;border-left:3px solid #1E9A8D;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#1E9A8D;font-weight:700;margin-bottom:4px;">方法</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">对数百株菌株进行定向进化，筛选神经元健康输出表现最优者。</p>
+        </div>
+        <div class="reveal reveal-d4" style="padding-left:1vw;border-left:3px solid #7a5af8;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#7a5af8;font-weight:700;margin-bottom:4px;">研究成果</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.55;margin:0;">1C-01——综合表现最优的菌株，食品级，已存入NCIMB菌种库。</p>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d5" style="margin-top:3vh;padding:1.2vh 1.2vw;background:var(--accent-tint);border-radius:8px;">
+        <div style="font-family:var(--serif);font-size:11px;color:var(--text-faint);line-height:1.8;">每个点 = 一株筛选菌株 · 红线 = 神经元健康目标值 · 最右侧点 = 1C-01</div>
+      </div>
+    </div>
+
+    <div class="frame-num">04 / 12</div>
+  </section>
+
+  <!-- 6: PRODUCT — 1C01 -->
+  <section class="slide product-slide surface" style="display:flex;flex-direction:column;">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">产品</div>
+    <h1 class="headline reveal reveal-d1" style="margin-bottom:0;"><em>1C-01</em> — 每日益生菌胶囊 + 生物标志物监测。</h1>
+
+    <div class="prod-cards reveal reveal-d2">
+
+      <!-- Card 1: Supplement -->
+      <div class="prod-card">
+        <img src="assets/product_capsules.jpg" alt="1C-01 capsules">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">补充剂</div>
+          <div class="prod-card-title">每日益生菌胶囊</div>
+          <div class="prod-card-desc">食品级细菌菌株，经进化以超量产生1C神经保护代谢物。GRAS认证 · FSA注册 · NCIMB存储。</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Blood biomarkers -->
+      <div class="prod-card">
+        <img src="assets/blood_draw.png" alt="Blood biomarker tracking">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">生物标志物</div>
+          <div class="prod-card-title">血液与粪便生物标志物</div>
+          <div class="prod-card-desc">血液：通过LC-MS质谱法检测1C神经保护代谢物。粪便：宏基因组测序以确认1C-01肠道定植。</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Digital tracking -->
+      <div class="prod-card">
+        <img src="assets/tracking_dashboard.png" alt="Digital tracking dashboard" style="object-position:top;">
+        <div class="prod-card-label">
+          <div class="prod-card-pill">追踪</div>
+          <div class="prod-card-title">脑健康追踪系统</div>
+          <div class="prod-card-desc">参与者通过数字追踪系统，全程监测认知评估、肠道微生物组及血液生物标志物变化。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="frame-num">05 / 12</div>
+  </section>
+
+  <!-- 7: PILOT VALIDATION -->
+  <section class="slide" style="padding:0;background:var(--bg);overflow:hidden;">
+    <div class="frame-mark" style="z-index:10;"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+
+    <!-- Two-column layout: text left, figures right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;height:100%;gap:0;">
+
+      <!-- Left: headline + meta -->
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:6vh 4vw 6vh 5vw;border-right:1px solid var(--border);">
+        <div class="eyebrow reveal">先导试验</div>
+        <h1 class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(30px,3.2vw,50px);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin:1.5vh 0 2.5vh;">我们的剑桥先导试验证实了<em style="color:#1E9A8D;">菌株定植</em>、安全性，以及血液中的生物信号。</h1>
+        <div style="display:flex;flex-direction:column;gap:1.6vh;" class="reveal reveal-d2">
+          <div style="display:flex;align-items:center;gap:1vw;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">15名健康志愿者</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1vw;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">1周补充剂干预</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1vw;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#1E9A8D;flex-shrink:0;"></div>
+            <span style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">零不良事件 · 食品级安全</span>
+          </div>
+        </div>
+        <div class="reveal reveal-d3" style="margin-top:3.5vh;padding:2vh 1.5vw;border-left:3px solid var(--accent);background:var(--accent-tint);border-radius:0 8px 8px 0;">
+          <div style="font-family:var(--serif);font-size:17px;font-style:italic;color:var(--text);line-height:1.5;">"我的拼写记忆缺口与整体记忆力均有了显著改善。"</div>
+          <div style="font-family:var(--serif);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-faint);margin-top:0.8vh;">— 试验参与者</div>
+        </div>
+      </div>
+
+      <!-- Right: two figures stacked, fill full height -->
+      <div style="display:grid;grid-template-rows:1fr 1fr;height:100%;gap:0;">
+
+        <!-- Figure 1: stool -->
+        <div class="reveal reveal-d2" style="position:relative;background:#fff;border-bottom:1px solid var(--border);cursor:default;overflow:hidden;">
+          <img src="assets/figure_stool.png" alt="Gut engraftment" style="width:100%;height:100%;object-fit:contain;padding:3vh 5vw;box-sizing:border-box;display:block;">
+          <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:var(--accent);display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
+            <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;">在<em>全部15名参与者</em>的粪便中检测到1C-01</div>
+            <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">通过宏基因组测序在1周后确认。P &lt; 0.00001。</div>
+          </div>
+        </div>
+
+        <!-- Figure 2: blood -->
+        <div class="reveal reveal-d3" style="position:relative;background:#f9faf8;cursor:default;overflow:hidden;">
+          <img src="assets/figure_blood.png" alt="Blood neuroprotective metabolites" style="width:100%;height:100%;object-fit:contain;padding:3vh 5vw;box-sizing:border-box;display:block;">
+          <div class="pilot-hover-overlay" style="position:absolute;inset:0;background:#1E9A8D;display:flex;flex-direction:column;justify-content:center;padding:2.5vh 2.5vw;opacity:0;transition:opacity 0.35s ease;">
+            <div style="font-family:var(--serif);font-size:clamp(18px,1.8vw,26px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:1vh;"><em>神经保护代谢物</em>在血液中显著升高</div>
+            <div style="font-family:var(--sans);font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">两种靶向1C代谢物在补充后增加（n=3，LC-MS）。***</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll('.pilot-hover-overlay').forEach(overlay => {
+        const card = overlay.parentElement;
+        card.addEventListener('mouseenter', () => overlay.style.opacity = '1');
+        card.addEventListener('mouseleave', () => overlay.style.opacity = '0');
+      });
+    </script>
+
+    <div class="frame-num">06 / 12</div>
+  </section>
+
+  <!-- 8: VALIDATION ROADMAP -->
+  <section class="slide roadmap">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">验证路径与估值</div>
+    <h1 class="headline reveal reveal-d1"><em>分阶段</em>降低风险——每一步验证都为下一步奠定基础。</h1>
+
+
+    <!-- Value creation chart: viewBox 800x500 (1.6:1) fills space on both desktop & mobile -->
+    <!-- x(yr)=75+(yr-2019)/13*715  y(v)=470-(log10(v)-0.301)/2.544*440 -->
+    <!-- Dots: Discovery(350,418) Optim(405,342) Pilot(460,290) PROFILE(515,221) RCT(625,165) Exit(790,72) -->
+    <div class="reveal reveal-d3" id="vc-wrap">
+      <div id="vc-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.55;pointer-events:auto;opacity:0;transition:opacity 0.15s ease;max-width:230px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
+      <svg id="vc-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+        <defs>
+          <linearGradient id="vcFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E9A8D" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#1E9A8D" stop-opacity="0.02"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <!-- Y-axis labels only (grid lines removed) -->
+        <text x="68" y="354" font-size="19" fill="#999" font-family="serif" text-anchor="end">£10M</text>
+        <text x="68" y="233" font-size="19" fill="#999" font-family="serif" text-anchor="end">£50M</text>
+        <text x="68" y="129" font-size="19" fill="#999" font-family="serif" text-anchor="end">£200M</text>
+
+        <!-- Axes -->
+        <line x1="75" y1="470" x2="792" y2="470" stroke="#888" stroke-width="2.5"/>
+        <line x1="75" y1="35" x2="75" y2="470" stroke="#888" stroke-width="2.5"/>
+
+        <!-- X-axis ticks: x=75+(yr-2019)/13*715 -->
+        <text x="75"  y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2019</text>
+        <text x="240" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2022</text>
+        <text x="405" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2025</text>
+        <text x="570" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2028</text>
+        <text x="735" y="494" font-size="19" fill="#888" font-family="serif" text-anchor="middle">2031</text>
+
+        <!-- Y-axis label -->
+        <text transform="rotate(-90,20,252)" x="20" y="252" font-size="16" fill="#bbb" font-family="serif" text-anchor="middle" letter-spacing="2">估值</text>
+
+        <!-- Fill area — dots at midpoint of each phase; x(yr)=75+(yr-2019)/13*715 -->
+        <!-- Discovery mid=2021.5→x=213  Optim mid=2024.5→x=378  Pilot mid=2025.5→x=433  PROFILE mid=2026.5→x=488  RCT mid=2028→x=570  Exit mid=2030.5→x=708 -->
+        <path d="M 75,470 C 130,470 175,435 213,418 C 270,405 325,355 378,342 C 400,328 415,308 433,290 C 451,272 468,242 488,221 C 512,202 545,178 570,165 C 610,148 660,95 708,72 C 735,65 765,58 790,55 L 790,470 L 75,470 Z" fill="url(#vcFill)"/>
+
+        <!-- Curve -->
+        <path d="M 75,470 C 130,470 175,435 213,418 C 270,405 325,355 378,342 C 400,328 415,308 433,290 C 451,272 468,242 488,221 C 512,202 545,178 570,165 C 610,148 660,95 708,72 C 735,65 765,58 790,55" fill="none" stroke="#1E9A8D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- NOW line — June 2026 x=488 -->
+        <line x1="488" y1="38" x2="488" y2="470" stroke="#1f355a" stroke-width="1.8" stroke-dasharray="7,5" opacity="0.3"/>
+        <text x="494" y="60" font-size="17" fill="#1f355a" font-family="serif" font-weight="700" opacity="0.55" letter-spacing="2">当前</text>
+
+        <!-- 1. Discovery mid 2021.5 (213, 418) -->
+        <g class="vc-dot" data-title="发现" data-years="2019–2024" data-val="£3–5M" data-status="done" data-detail="剑桥AI/ML多组学分析逾50万人群队列。5篇同行评审论文确认单碳代谢是阿尔茨海默病中神经元抗性的关键驱动因素。" style="cursor:default;">
+          <circle cx="213" cy="418" r="12" fill="#1f355a" opacity="0.12"/>
+          <circle cx="213" cy="418" r="8" fill="#1f355a" opacity="0.45"/>
+          <text x="213" y="397" font-size="19" fill="#888" font-family="serif" text-anchor="middle">发现</text>
+        </g>
+
+        <!-- 2. Optimization mid 2024.5 (378, 342) -->
+        <g class="vc-dot" data-title="优化" data-years="2024–2025" data-val="£8–15M" data-status="done" data-detail="对肠道细菌实施定向进化，最大化单碳分子产量。筛选并鉴定先导菌株1C-01。实验室落地剑桥Milner Institute。" style="cursor:default;">
+          <circle cx="378" cy="342" r="12" fill="#1f355a" opacity="0.12"/>
+          <circle cx="378" cy="342" r="8" fill="#1f355a" opacity="0.55"/>
+          <text x="378" y="320" font-size="19" fill="#888" font-family="serif" text-anchor="middle">优化</text>
+        </g>
+
+        <!-- 3. Human pilot mid 2025.5 (433, 290) -->
+        <g class="vc-dot" data-title="人体试验" data-years="2025–2026" data-val="£15–30M" data-status="done" data-detail="60名参与者开放标签先导试验。所有参与者粪便中均检出1C-01定植（p&lt;0.00001）。血液神经保护代谢物显著升高。" style="cursor:default;">
+          <circle cx="433" cy="290" r="12" fill="#1f355a" opacity="0.14"/>
+          <circle cx="433" cy="290" r="8" fill="#1f355a" opacity="0.7"/>
+          <text x="433" y="268" font-size="19" fill="#666" font-family="serif" text-anchor="middle">人体试验</text>
+        </g>
+
+        <!-- 4. PROFILE mid 2026.5 (488, 221) — teal, clickable, aligned with NOW line -->
+        <g class="vc-dot" id="vc-profile-dot" data-title="PROFILE trial" data-years="2026–2027" data-val="£40–80M" data-status="now" data-detail="Pre-post open-label cohort · 180 participants · full blood + stool biomarker suite. Led by Prof Underwood." data-link="https://clinicaltrials.gov/study/NCT07457242" data-link-label="NCT07457242 ↗" data-panel="profile-panel" style="cursor:pointer;" onclick="document.getElementById('profile-panel').classList.add('visible')">
+          <circle cx="488" cy="221" r="22" fill="#1E9A8D" opacity="0.12" filter="url(#glow)"/>
+          <circle cx="488" cy="221" r="11" fill="#1E9A8D"/>
+          <text x="488" y="195" font-size="20" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">PROFILE</text>
+        </g>
+
+        <!-- 5. RCT mid 2028 (570, 165) -->
+        <g class="vc-dot" data-title="阿尔茨海默病随机对照试验" data-years="2027–2029" data-val="£80–150M+" data-status="future" data-detail="针对早期阿尔茨海默病患者的随机对照试验。主要终点为神经保护生物标志物。为监管申报及合作谈判提供关键数据支撑。" style="cursor:default;">
+          <circle cx="570" cy="165" r="12" fill="#1f355a" opacity="0.08"/>
+          <circle cx="570" cy="165" r="8" fill="#1f355a" opacity="0.2"/>
+          <text x="570" y="143" font-size="19" fill="#bbb" font-family="serif" text-anchor="middle">RCT</text>
+        </g>
+
+        <!-- 6. Exit mid 2030.5 (708, 72) — orange -->
+        <g class="vc-dot" data-title="监管与退出" data-years="2029–2032" data-val="£200–600M+" data-status="exit" data-detail="获得MHRA/FDA功能性声明批准。与制药或营养健康合作方达成战略收购或授权协议。拓展阿尔茨海默病以外的新适应症。" style="cursor:default;">
+          <circle cx="708" cy="72" r="16" fill="#e05c3a" opacity="0.14"/>
+          <circle cx="708" cy="72" r="10" fill="#e05c3a" opacity="0.9"/>
+          <text x="701" y="49" font-size="20" fill="#e05c3a" font-family="serif" text-anchor="end" font-weight="700">退出 · £200–600M+</text>
+        </g>
+      </svg>
+
+      <script>(function(){
+        var tip = document.getElementById('vc-tip');
+        var wrap = document.getElementById('vc-wrap');
+        var hideTimer;
+        function showTip(d, e) {
+          clearTimeout(hideTimer);
+          var statusColor = d.status==='now' ? '#1E9A8D' : d.status==='exit' ? '#e05c3a' : 'rgba(255,255,255,0.45)';
+          var panel = d.panel ? '<div onclick="document.getElementById(\''+d.panel+'\').classList.add(\'visible\')" style="display:inline-block;margin-top:9px;padding:5px 10px;background:rgba(30,154,141,0.25);border-radius:6px;font-size:11px;color:#7ecfc7;cursor:pointer;font-weight:600;">→ 完整试验详情</div>' : '';
+          var link = d.link ? '<a href="'+d.link+'" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="display:inline-block;margin-top:6px;font-size:10.5px;color:rgba(255,255,255,0.5);text-decoration:none;">'+d.linkLabel+'</a>' : '';
+          tip.innerHTML = '<div style="font-weight:700;font-size:13px;margin-bottom:3px;">'+d.title+'</div>'
+            +'<div style="font-size:10px;opacity:0.6;margin-bottom:6px;">'+d.years+'</div>'
+            +'<div style="font-size:15px;font-weight:700;color:'+statusColor+';margin-bottom:6px;">'+d.val+'</div>'
+            +'<div style="font-size:11px;opacity:0.82;line-height:1.5;">'+d.detail+'</div>'
+            + panel + (panel && link ? '<br>' : '') + link;
+          moveTip(e);
+          tip.style.opacity='1';
+        }
+        function moveTip(e) {
+          var r = wrap.getBoundingClientRect();
+          var x = e.clientX - r.left + 14;
+          var y = e.clientY - r.top - 14;
+          if(x + 240 > r.width) x = e.clientX - r.left - 248;
+          tip.style.left = x+'px';
+          tip.style.top = y+'px';
+        }
+        function hideTip() { hideTimer = setTimeout(function(){ tip.style.opacity='0'; }, 120); }
+        tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+        tip.addEventListener('mouseleave', hideTip);
+        document.querySelectorAll('#vc-svg .vc-dot').forEach(function(g){
+          g.addEventListener('mouseenter', function(e){ showTip(g.dataset, e); });
+          g.addEventListener('mousemove', moveTip);
+          g.addEventListener('mouseleave', hideTip);
+        });
+      })();</script>
+    </div>
+
+    <!-- PROFILE detail panel (click to open) -->
+    <div id="profile-panel" class="supp-panel">
+      <button class="supp-panel-close" onclick="document.getElementById('profile-panel').classList.remove('visible')">← 返回路线图</button>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start;height:calc(100% - 60px);">
+
+        <!-- Left: title + meta + design facts -->
+        <div style="display:flex;flex-direction:column;gap:2.5vh;">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.6vh;">PROFILE Trial · <a href="https://clinicaltrials.gov/study/NCT07457242" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:700;">NCT07457242 ↗</a></div>
+            <h2 style="font-family:var(--serif);font-size:clamp(22px,2.4vw,36px);color:var(--text);font-weight:600;line-height:1.1;letter-spacing:-0.02em;margin:0.4em 0 0.2em;"><em>PROFILE</em> — 180名参与者，完整生物标志物套餐</h2>
+            <p style="font-family:var(--sans);font-size:13px;color:var(--text-faint);line-height:1.5;">由Underwood教授主导 · 居家远程参与 · 180名健康成年人 · 前后对照开放标签设计</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;">
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">设计</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">前后对照 · 开放标签 · 队列</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">采集</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">居家血液 + 粪便——无需到诊所</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">排除标准</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">近期使用抗生素 · 免疫抑制剂</div>
+            </div>
+            <div style="background:var(--accent-tint);border-radius:var(--rm);padding:1.8vh 1.5vw;border-left:3px solid var(--accent);">
+              <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;">监管</div>
+              <div style="font-family:var(--sans);font-size:14px;color:var(--text);line-height:1.5;">仅补充剂——无实验性药物</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 4-step flow -->
+        <div style="display:flex;flex-direction:column;gap:1.5vh;">
+          <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-faint);font-weight:600;margin-bottom:0.5vh;">试验流程</div>
+
+          <div style="display:flex;flex-direction:column;gap:1.2vh;">
+            <!-- Step 1 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">1</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">入组与基线</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">血液 · 粪便 · 认知任务（居家访视）</div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">2</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">补充——1C-01每日胶囊</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);"><b>A组</b> — 1个月 &nbsp;·&nbsp; <b>B组</b> — 6个月</div>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--surface);border:1px solid var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#fff;flex-shrink:0;">3</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">补充后数据采集</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">🧠 认知 &nbsp;·&nbsp; 🩸 血液代谢物 &nbsp;·&nbsp; 🦠 粪便宏基因组</div>
+              </div>
+            </div>
+            <!-- Step 4 -->
+            <div style="display:flex;align-items:center;gap:1.5vw;background:var(--bg-deep);border:1px dashed var(--border);border-radius:var(--rm);padding:1.6vh 1.5vw;opacity:0.6;">
+              <div style="width:36px;height:36px;border-radius:50%;border:2px dashed var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0;">4</div>
+              <div>
+                <div style="font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;">随访</div>
+                <div style="font-family:var(--sans);font-size:12px;color:var(--text-muted);">长期安全性 · 耐受性</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="frame-num">07 / 12</div>
+  </section>
+
+  <!-- 11: IP & MOAT -->
+  <section class="slide moat">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">竞争壁垒</div>
+    <h1 class="headline reveal reveal-d1"><em>三重</em>护城河：专利布局、核心技术与品牌势能。</h1>
+
+    <div class="moat-grid">
+      <div class="moat-card reveal reveal-d2">
+        <div class="moat-num">i.</div>
+        <h3>专利布局</h3>
+        <ul>
+          <li>专利申请准备中，覆盖进化菌株、其特异性遗传特征及用于神经退行性疾病治疗的用途。</li>
+          <li>NCIMB菌种库存储满足生物材料披露要求。</li>
+        </ul>
+      </div>
+      <div class="moat-card reveal reveal-d3">
+        <div class="moat-num">ii.</div>
+        <h3>核心技术壁垒</h3>
+        <ul>
+          <li>AI+实验室平台、定向进化筛选流程及培养工艺均以商业秘密形式持有。</li>
+          <li>早期用户积累的专属真实世界数据。</li>
+        </ul>
+      </div>
+      <div class="moat-card reveal reveal-d4">
+        <div class="moat-num">iii.</div>
+        <h3>品牌声誉与科学发表</h3>
+        <ul>
+          <li>5篇同行评审论文确立科学优先权。</li>
+          <li>Milner Therapeutics（剑桥）驻场机构。</li>
+          <li>Falling Walls · Forbes 30 Under 30 · 剑桥主导RCT · <a href="https://www.alzheimers.org.uk/news/2026-03-16/new-innovators-partner-alzheimers-society-transform-dementia" target="_blank" rel="noopener" style="color:inherit;text-underline-offset:2px;">Alzheimer’s Society Launchpad ↗</a>。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="frame-num">08 / 12</div>
+  </section>
+
+  <!-- 09: COMPETITIVE LANDSCAPE -->
+  <section class="slide compete">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">竞争格局</div>
+    <h1 class="headline reveal reveal-d1">没有任何竞争对手能同时兼具我们的<em>作用机制、安全性与临床数据支撑</em>。</h1>
+
+    <div id="cp-wrap" class="reveal reveal-d2">
+      <div id="cp-tip" style="position:absolute;z-index:200;background:#1f355a;color:#fff;border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity 0.15s ease;max-width:270px;box-shadow:0 6px 24px rgba(0,0,0,0.22);"></div>
+      <svg id="cp-svg" viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+        <!-- Quadrant shading — top-right is "ideal" -->
+        <rect x="370" y="40" width="290" height="190" fill="#1E9A8D" opacity="0.04" rx="4"/>
+        <!-- Axes -->
+        <line x1="80" y1="400" x2="660" y2="400" stroke="#888" stroke-width="2.5"/>
+        <line x1="80" y1="40" x2="80" y2="400" stroke="#888" stroke-width="2.5"/>
+        <!-- Axis arrow tips -->
+        <polygon points="660,396 668,400 660,404" fill="#888"/>
+        <polygon points="76,40 80,32 84,40" fill="#888"/>
+        <!-- Axis labels -->
+        <text x="370" y="418" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">有效性</text>
+        <text transform="rotate(-90,22,220)" x="22" y="220" font-size="17" fill="#888" font-family="serif" text-anchor="middle" letter-spacing="2">安全性</text>
+        <!-- Quadrant hint -->
+        <!-- <text x="652" y="62" font-size="13" fill="#1E9A8D" font-family="serif" text-anchor="end" opacity="0.7" font-style="italic">ideal zone</text> -->
+
+        <!-- Souvenaid: very low efficacy, high safety → (120, 100) -->
+        <g class="cp-dot" data-name="Souvenaid" data-val="高安全性 · 低有效性" data-desc="营养医疗食品（Nutricia）。安全性记录良好，但在阿尔茨海默病疾病改善方面临床证据有限。">
+          <circle cx="120" cy="100" r="15" fill="#aaa" opacity="0.15"/>
+          <circle cx="120" cy="100" r="9" fill="#aaa" opacity="0.65"/>
+          <text x="120" y="78" font-size="15" fill="#999" font-family="serif" text-anchor="middle">Souvenaid</text>
+        </g>
+
+        <!-- Bloom Science: low-mid efficacy (preclinical), mid safety → (270, 175) -->
+        <g class="cp-dot" data-name="Bloom Science" data-val="不确定 · 临床前" data-desc="美国肠道微生物组CNS研发平台。BL-002用于阿尔茨海默病目前处于临床前阶段，尚无人体安全性或有效性数据。">
+          <circle cx="270" cy="175" r="15" fill="#888" opacity="0.12"/>
+          <circle cx="270" cy="175" r="9" fill="#888" opacity="0.5"/>
+          <text x="270" y="153" font-size="15" fill="#aaa" font-family="serif" text-anchor="middle">Bloom Science</text>
+        </g>
+
+        <!-- Lecanemab: high efficacy, low safety → (590, 340) -->
+        <g class="cp-dot" data-name="Lecanemab" data-val="高有效性 · 安全风险" data-desc="抗淀粉样蛋白单抗（Eisai/Biogen）。可延缓认知衰退，但可引起脑水肿（ARIA）及微出血。需静脉输注，年费用约£25,000。">
+          <circle cx="590" cy="340" r="15" fill="#b05" opacity="0.12"/>
+          <circle cx="590" cy="340" r="9" fill="#b05" opacity="0.55"/>
+          <text x="590" y="318" font-size="15" fill="#b05" font-family="serif" text-anchor="middle" opacity="0.85">Lecanemab</text>
+        </g>
+
+        <!-- 1C-01: high efficacy, high safety → (560, 80) — teal, prominent -->
+        <g class="cp-dot" data-name="1C-01 (OneCarbon)" data-val="高有效性 · 高安全性" data-desc="60人先导试验中零不良事件。食品级益生菌每日胶囊。经5篇同行评审论文验证的作用机制。PROFILE RCT进行中。">
+          <circle cx="560" cy="80" r="26" fill="#1E9A8D" opacity="0.14"/>
+          <circle cx="560" cy="80" r="15" fill="#1E9A8D" opacity="0.9"/>
+          <text x="560" y="55" font-size="17" fill="#1E9A8D" font-family="serif" text-anchor="middle" font-weight="700">1C-01</text>
+        </g>
+      </svg>
+
+      <script>(function(){
+        var tip=document.getElementById('cp-tip');
+        var wrap=document.getElementById('cp-wrap');
+        function showTip(d,e){
+          tip.innerHTML='<div style="font-weight:700;font-size:17px;margin-bottom:4px;">'+d.name+'</div>'
+            +'<div style="font-size:13px;color:#1E9A8D;font-weight:600;margin-bottom:9px;">'+d.val+'</div>'
+            +'<div style="font-size:14px;opacity:0.88;line-height:1.55;">'+d.desc+'</div>';
+          moveTip(e); tip.style.opacity='1';
+        }
+        function moveTip(e){
+          var r=wrap.getBoundingClientRect();
+          var x=e.clientX-r.left+14, y=e.clientY-r.top-14;
+          if(x+240>r.width) x=e.clientX-r.left-248;
+          tip.style.left=x+'px'; tip.style.top=y+'px';
+        }
+        function hideTip(){tip.style.opacity='0';}
+        document.querySelectorAll('#cp-svg .cp-dot').forEach(function(g){
+          g.style.cursor='default';
+          g.addEventListener('mouseenter',function(e){showTip(g.dataset,e);});
+          g.addEventListener('mousemove',moveTip);
+          g.addEventListener('mouseleave',hideTip);
+        });
+      })();</script>
+    </div>
+    <div class="frame-num">09 / 12</div>
+  </section>
+
+  <!-- 10: REVENUE STRATEGY -->
+  <section class="slide surface" style="padding:5vh 5vw;display:flex;flex-direction:column;">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">商业化路径</div>
+    <h1 class="headline reveal reveal-d1"><em>D2C打开市场</em>——再以B2B2C构建长期可防御渠道。</h1>
+    <p class="subhead reveal reveal-d2">先向高风险人群直售安全益生菌，以疗效数据与竞争壁垒解锁机构渠道。悬停各区块以深入了解。</p>
+
+    <div class="reveal reveal-d3" style="display:flex;gap:5vw;align-items:center;justify-content:center;flex:1;overflow:hidden;">
+
+      <!-- Wheel — perfectly round, three equal 120° segments -->
+      <div id="rev-wheel" style="flex-shrink:0;width:clamp(280px,34vw,440px);height:clamp(280px,34vw,440px);">
+        <svg id="rev-svg" viewBox="0 0 200 200" style="width:100%;height:100%;display:block;">
+          <!-- Segment 1: Direct (top-right, -90° to 30°) — ENTRY WEDGE in teal -->
+          <path id="seg-direct" d="M100,100 L100,8 A92,92 0 0,1 179.67,146 Z"
+            fill="#1E9A8D" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Segment 2: Care homes (bottom, 30° to 150°) -->
+          <path id="seg-care" d="M100,100 L179.67,146 A92,92 0 0,1 20.33,146 Z"
+            fill="#162844" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Segment 3: Pharmacy (top-left, 150° to 270°) -->
+          <path id="seg-pharma" d="M100,100 L20.33,146 A92,92 0 0,1 100,8 Z"
+            fill="#4a6a9a" stroke="white" stroke-width="2.5"
+            style="cursor:pointer;transition:opacity 0.22s,transform 0.22s;transform-origin:center;transform-box:fill-box;" opacity="1"/>
+          <!-- Centre disc -->
+          <circle cx="100" cy="100" r="36" fill="white" filter="drop-shadow(0 1px 4px rgba(0,0,0,0.08))"/>
+          <text x="100" y="94" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1E9A8D" font-weight="700" letter-spacing="1">D2C</text>
+          <text x="100" y="103" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="#bbb">→</text>
+          <text x="100" y="113" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="8" fill="#1f355a" font-weight="700" letter-spacing="1">B2B2C</text>
+          <!-- Labels at centroid of each arc (r=60) -->
+          <!-- Direct: mid=-30° → (151.96, 70) -->
+          <text x="151.96" y="57" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">D2C</text>
+          <text x="151.96" y="68" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.9)">入市契机</text>
+          <text x="151.96" y="78" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.75)">2026+</text>
+          <!-- Care homes: mid=90° → (100, 160) -->
+          <text x="100" y="152" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">养老机构</text>
+          <text x="100" y="162" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)"></text>
+          <text x="100" y="172" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2028+</text>
+          <!-- Pharmacy: mid=210° → (48.04, 70) -->
+          <text x="48.04" y="62" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="white" font-weight="700">药房</text>
+          <text x="48.04" y="72" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7.5" fill="rgba(255,255,255,0.8)">与零售</text>
+          <text x="48.04" y="82" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="7" fill="rgba(255,255,255,0.65)">2029+</text>
+        </svg>
+      </div>
+
+      <!-- Detail panel -->
+      <div style="flex:1;min-width:0;position:relative;min-height:260px;">
+        <div id="rev-default" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;">
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-faint);line-height:1.7;">悬停各区块，深入了解每个渠道。</p>
+        </div>
+
+        <div id="panel-direct" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:12px;letter-spacing:0.16em;color:#1E9A8D;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">入市契机 · <em style="font-style:normal;">2026+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">直接面向消费者</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">新型安全益生菌直接销售给高危人群——APOE ε4携带者、有痴呆症家族史者。食品级，无需处方。通过PROFILE试验校友和口碑招募。</p>
+          <div style="font-family:var(--sans);font-size:13px;color:var(--text-faint);">线上 · £1,000/年 · 补充剂+生物标志物套件 · 构建解锁B2B2C的疗效证据基础</div>
+        </div>
+
+        <div id="panel-care" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#162844;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">机构渠道 · <em style="font-style:normal;">2028+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">养老机构</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">面向住宅养老机构的痴呆症预防方案。英国逾50万养老院居民。与集团运营商签订B2B合同，采用与结果挂钩的定价模式。</p>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">B2B合同 · 集团订阅 · 与结果挂钩</div>
+        </div>
+
+        <div id="panel-pharma" class="rev-panel" style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 0.2s;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:#4a6a9a;text-transform:uppercase;font-weight:700;margin-bottom:1vh;">零售 · <em style="font-style:normal;">2029+</em></div>
+          <div style="font-family:var(--serif);font-size:24px;font-weight:600;color:var(--text);margin-bottom:1.2vh;letter-spacing:-0.015em;">药房与专业零售</div>
+          <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.5vh;">药剂师推荐的高端补充剂——与现有药物互补。在专业脑健康渠道中与Souvenaid并列定位。</p>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--text-faint);">药房 · 专业零售 · 医疗保健提供者推荐</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Buyer personas -->
+    <div class="reveal reveal-d4" style="margin-top:2.5vh;padding-top:2vh;border-top:1px solid var(--border);">
+      <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:1.5vh;">目标客群 · 悬停查看</div>
+      <!-- personas font sizes bumped below -->
+      <div style="display:flex;gap:1.5vw;">
+
+        <!-- Persona 1 -->
+        <div id="persona-1" style="flex:1;position:relative;cursor:pointer;">
+          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--accent);background:var(--accent-tint);transition:background 0.2s;">
+            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:30px;">👩</div>
+            <div>
+              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--accent);">核心客群</div>
+              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">Sarah，55岁 · 有阿尔茨海默病家族史</div>
+            </div>
+          </div>
+          <div id="persona-detail-1" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(31,53,90,0.18);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
+            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--accent);margin-bottom:0.6vh;">核心客群</div>
+            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"我亲眼目睹了母亲的衰退。我想现在就采取行动。"</div>
+            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:0.8vh;">55岁女性。母亲患有阿尔茨海默病。她注意到一些找词困难和健忘——虽不严重，但足以让她担心。她积极研究、付诸行动。APOE ε4阳性或未检测但焦虑。希望在确诊前<em>现在</em>就开始一种可信赖、有科学依据的干预方案。</p>
+            <div style="display:flex;gap:1vw;flex-wrap:wrap;">
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">家族史</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">早期症状</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:3px 10px;font-family:var(--sans);font-size:11px;color:var(--accent);">主动积极</span>
+            </div>
+            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">我们如何触达她</div>
+            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;">
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">PROFILE试验校友</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">痴呆症研究社群</span>
+              <span style="background:var(--accent-tint);border:1px solid rgba(31,53,90,0.2);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--accent);">社交媒体——由Alzheimer’s Society转发</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persona 2 -->
+        <div id="persona-2" style="flex:1;position:relative;cursor:pointer;">
+          <div class="persona-card" style="display:flex;align-items:center;gap:1.4vw;padding:2.2vh 1.8vw;border-radius:var(--rm);border:1.5px solid var(--border);background:var(--bg-deep);transition:background 0.2s;">
+            <div style="flex-shrink:0;width:62px;height:62px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:30px;">🧑‍🤝‍🧑</div>
+            <div>
+              <div style="font-family:var(--serif);font-size:20px;font-weight:700;color:var(--text-muted);">延伸客群</div>
+              <div style="font-family:var(--sans);font-size:17px;color:var(--text-muted);">亲友代购 · 礼品场景</div>
+            </div>
+          </div>
+          <div id="persona-detail-2" style="position:absolute;bottom:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--rm);padding:1.8vh 1.6vw;box-shadow:0 8px 28px -4px rgba(0,0,0,0.1);opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;">
+            <div style="font-family:var(--serif);font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:0.6vh;">延伸客群</div>
+            <div style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--text);margin-bottom:0.8vh;">"她不会为自己买。我来买。"</div>
+            <p style="font-family:var(--sans);font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:1.2vh;">有痴呆症家族史者的成年子女或亲密朋友。作为礼物购买——或主动推荐。动机强烈，支付意愿高。推动口碑传播。往往比主要用户更关注科学内容。</p>
+            <div style="font-family:var(--serif);font-size:11px;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:0.6vh;">我们如何触达他们</div>
+            <div style="display:flex;gap:0.8vw;flex-wrap:wrap;margin-bottom:1vh;">
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">主要用户的口碑推荐</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">搜索与社交——礼品购买意图</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">痴呆症意识内容</span>
+              <span style="background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-family:var(--sans);font-size:12px;color:var(--text-muted);">社交媒体如播客——由Alzheimer’s Society转发</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="frame-num">10 / 12</div>
+  </section>
+
+  <script>
+  (function() {
+    var map = { 'seg-direct': 'direct', 'seg-care': 'care', 'seg-pharma': 'pharma' };
+    var segs = Object.keys(map);
+    function showPanel(key) {
+      document.getElementById('rev-default').style.opacity = key ? '0' : '1';
+      ['direct','care','pharma'].forEach(function(id) {
+        var p = document.getElementById('panel-' + id);
+        p.style.opacity = (id === key) ? '1' : '0';
+        p.style.pointerEvents = (id === key) ? 'auto' : 'none';
+      });
+      segs.forEach(function(sid) {
+        document.getElementById(sid).style.opacity = (!key || map[sid] === key) ? '1' : '0.35';
+      });
+    }
+    segs.forEach(function(sid) {
+      var el = document.getElementById(sid);
+      el.addEventListener('mouseenter', function() { showPanel(map[sid]); });
+      el.addEventListener('mouseleave', function() { showPanel(null); });
+    });
+
+    // Persona hover
+    [1, 2].forEach(function(n) {
+      var card = document.getElementById('persona-' + n);
+      var detail = document.getElementById('persona-detail-' + n);
+      card.addEventListener('mouseenter', function() {
+        detail.style.opacity = '1';
+        detail.style.pointerEvents = 'auto';
+      });
+      card.addEventListener('mouseleave', function() {
+        detail.style.opacity = '0';
+        detail.style.pointerEvents = 'none';
+      });
+    });
+  })();
+  </script>
+
+  <!-- 12: TEAM -->
+  <section class="slide team-slide">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow reveal">核心团队</div>
+    <h1 class="headline reveal reveal-d1"><em>科学、落地</em>与临床。</h1>
+
+    <div class="team-grid">
+      <div class="tm-card reveal reveal-d2">
+        <div class="tm-avatar"><img src="assets/team_yizhou_presenting.jpg" alt="Dr Yizhou Yu"></div>
+        <h4>Dr Yizhou Yu</h4>
+        <div class="role">首席执行官兼创始人</div>
+        <p class="bio">屡获殊荣的计算生物学家，核心知识产权发明人。专注脑衰老与AI驱动药物研发，剑桥大学博士。</p>
+      </div>
+      <div class="tm-card reveal reveal-d3">
+        <div class="tm-avatar"><img src="assets/team_civia.jpeg" alt="Dr Civia Chen"></div>
+        <h4>Dr Civia Chen</h4>
+        <div class="role">首席科学官</div>
+        <p class="bio">发表于Cell、Nature Aging、PNAS等顶刊，主导益生菌生物科学研究与临床前验证，剑桥大学博士。</p>
+      </div>
+      <div class="tm-card reveal reveal-d4">
+        <div class="tm-avatar"><img src="assets/team_suleyman.jpeg" alt="Dr Suleyman Noordeen"></div>
+        <h4>Dr Suleyman Noordeen</h4>
+        <div class="role">临床研究员</div>
+        <p class="bio">负责临床试验运营、研发及监管事务，神经科学研究员兼医学生，具备丰富研究经验，剑桥大学MBBS。</p>
+      </div>
+    </div>
+
+    <div class="advisor-strip reveal reveal-d5">
+      <div class="av-label">顾问<br>委员会</div>
+      <div class="av-card">
+        <h4>Dr Michelle Tempest</h4>
+        <div class="role">董事会成员</div>
+        <p class="bio">医学顾问，为董事会提供临床与医疗战略视角。</p>
+      </div>
+      <div class="av-card">
+        <h4>Prof. Ben Underwood</h4>
+        <div class="role">医学顾问 · 主要研究员</div>
+        <p class="bio">剑桥郡与彼得伯勒NHS基金会信托研发总监，我司临床研究项目首席研究员。</p>
+      </div>
+      <div class="av-card">
+        <h4>Dr L. Miguel Martins</h4>
+        <div class="role">科学顾问</div>
+        <p class="bio">线粒体生物学与神经退行性疾病领域资深PI，逾20年研究经验。</p>
+      </div>
+    </div>
+    <!-- Recognised by — smaller version for team slide -->
+    <div class="reveal reveal-d6" style="margin-top:3vh;padding-top:2vh;border-top:1px solid var(--border);">
+      <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.18em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:1.2vh;">荣誉认可</div>
+      <div style="display:flex;align-items:center;gap:4vw;flex-wrap:wrap;">
+        <img src="../media/logo-falling-walls.png" alt="Falling Walls" style="height:42px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="../media/logo-forbes.png" alt="Forbes" style="height:34px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="assets/forbes30u30.avif" alt="Forbes 30 Under 30" style="height:42px;width:auto;opacity:0.5;filter:brightness(0);">
+        <img src="../media/innovate_uk_growth_logo.png" alt="Innovate UK" style="height:34px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="../media/logo-launchpad.png" alt="Alzheimer's Society Launchpad" style="height:42px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="../media/logo-trinbrad.png" alt="Trinity Bradfield" style="height:38px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="../media/logo-milner.png" alt="Milner Therapeutics" style="height:38px;width:auto;opacity:0.5;filter:grayscale(1);">
+        <img src="assets/csar.svg" alt="CSAR" style="height:38px;width:auto;opacity:0.5;filter:grayscale(1);">
+      </div>
+    </div>
+
+    <div class="frame-num">11 / 12</div>
+  </section>
+
+  <!-- 18: THE ASK -->
+  <section class="slide ask">
+    <div class="ask-grid">
+      <div class="ask-left">
+        <div class="brand reveal" style="margin-bottom:0;">
+          <div style="font-family:var(--serif);font-weight:700;font-size:22px;color:var(--surface);letter-spacing:-0.01em;">One<span style="color:var(--accent-soft);">Carbon</span></div>
+        </div>
+        <div>
+          <div class="eyebrow reveal reveal-d1" style="color:var(--accent-soft);">携手共建</div>
+          <h1 class="reveal reveal-d2">资助临床研究，共同推动<em>下一个价值跃升</em>。</h1>
+          <div class="ask-milestones">
+            <div class="am-item reveal reveal-d3">
+              <span class="am-bullet">i.</span>
+              <span>直接资助<b>PROFILE</b>试验——180名参与者队列，在规模上复制微生物组+生物标志物终点（2026–2027），<a href="https://clinicaltrials.gov/study/NCT07457242?lastUpdPost=2020-10-10" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);text-underline-offset:2px;">NCT07457242</a></span>
+            </div>
+            <div class="am-item reveal reveal-d4">
+              <span class="am-bullet">ii.</span>
+              <span>推进<b>轻度认知障碍患者随机对照试验</b>（2027年起）</span>
+            </div>
+            <div class="am-item reveal reveal-d5">
+              <span class="am-bullet">iii.</span>
+              <span>PROFILE数据将驱动<b>第2年约£500K年度经常性收入</b>目标</span>
+            </div>
+            <div class="am-item reveal reveal-d6">
+              <span class="am-bullet">iv.</span>
+              <span>持续构建<b>专利体系</b>，积累早期用户真实数据</span>
+            </div>
+          </div>
+        </div>
+        <div class="ask-contact reveal reveal-d6">
+          <a href="mailto:yizhou@onecarbon.com">yizhou@onecarbon.com</a>
+          <a href="https://onecarbon.com">onecarbon.com</a>
+          <span>于艺洲博士，首席执行官兼创始人</span>
+        </div>
+      </div>
+      <div class="ask-right">
+        <div class="ask-cap reveal">本轮融资</div>
+        <div class="ask-amount reveal reveal-d2"><span class="pre">£</span><span class="counter" data-target="800">0</span><span class="post">K</span></div>
+        <div class="ask-desc reveal reveal-d3">覆盖两年运营至PROFILE完成，为商业化规模扩张及2028–2030年退出奠定基础。</div>
+      </div>
+    </div>
+    <div class="frame-num" style="color:rgba(255,255,255,0.5);">12 / 12</div>
+  </section>
+
+</div>
+
+<!-- BUDGET SLIDE — hidden, not in deck. Kept for reference / future use. -->
+<div style="display:none;" aria-hidden="true">
+  <section class="slide budget">
+    <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
+    <div class="eyebrow">资金用途</div>
+    <h1 class="headline">融资£800K以支持我们的<em>前后对照试验</em>。</h1>
+    <div id="sankey_chart"></div>
+  </section>
+</div>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const slideEls = document.querySelectorAll('.slide');
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      const counters = e.target.querySelectorAll('.counter');
+      counters.forEach(c => { if (!c.dataset.animated) animateCounter(c); });
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => io.observe(el));
+
+const slideIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const counters = e.target.querySelectorAll('.counter');
+      counters.forEach(c => { if (!c.dataset.animated) animateCounter(c); });
+    }
+  });
+}, { threshold: 0.4 });
+slideEls.forEach(s => slideIo.observe(s));
+
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target || '0');
+  el.dataset.animated = '1';
+  const dur = 1400;
+  const start = performance.now();
+  const isInt = target % 1 === 0;
+  function step(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const v = target * eased;
+    el.textContent = isInt ? Math.round(v) : v.toFixed(1);
+    if (t < 1) requestAnimationFrame(step);
+    else el.textContent = isInt ? target : target.toFixed(1);
+  }
+  requestAnimationFrame(step);
+}
+
+const deck = document.getElementById('deck');
+let currentSlide = 0;
+const slides = Array.from(slideEls);
+document.addEventListener('keydown', (e) => {
+  const prevent = ['ArrowDown','ArrowUp','PageDown','PageUp','Space',' ','f','F'];
+  if (prevent.includes(e.key)) e.preventDefault();
+  if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Space') {
+    currentSlide = Math.min(currentSlide + 1, slides.length - 1);
+    slides[currentSlide].scrollIntoView({behavior:'smooth'});
+  }
+  if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    currentSlide = Math.max(currentSlide - 1, 0);
+    slides[currentSlide].scrollIntoView({behavior:'smooth'});
+  }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+  if (e.key === 'Home') { currentSlide = 0; slides[0].scrollIntoView({behavior:'smooth'}); }
+  if (e.key === 'End') { currentSlide = slides.length-1; slides[currentSlide].scrollIntoView({behavior:'smooth'}); }
+});
+deck.addEventListener('scroll', () => {
+  const scrollY = deck.scrollTop;
+  let bestIdx = 0, bestDist = Infinity;
+  slides.forEach((s, i) => {
+    const dist = Math.abs(s.offsetTop - scrollY);
+    if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+  });
+  currentSlide = bestIdx;
+  const pct = (currentSlide / (slides.length - 1)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+setTimeout(() => document.getElementById('hint').classList.add('fade'), 5500);
+
+// ===== Budget Sankey =====
+let sankeyDrawn = false;
+function drawSankey(){
+  if (sankeyDrawn) return;
+  if (typeof google === 'undefined' || !google.visualization) return;
+  const el = document.getElementById('sankey_chart');
+  if (!el) return;
+  sankeyDrawn = true;
+
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'From');
+  data.addColumn('string', 'To');
+  data.addColumn('number', 'Amount (£K)');
+  data.addRows([
+    ['£800K Seed', 'Clinical trial ops', 430],
+    ['£800K Seed', 'Personnel', 220],
+    ['£800K Seed', 'Lab research', 90],
+    ['£800K Seed', 'BD & marketing', 35],
+    ['£800K Seed', 'IP & patent', 25],
+
+    ['Clinical trial ops', 'LC-MS & sample-prep capex', 170],
+    ['Clinical trial ops', 'Metabolomics reagents', 45],
+    ['Clinical trial ops', 'Metagenomics sequencing', 25],
+    ['Clinical trial ops', 'Recruitment & screening', 25],
+    ['Clinical trial ops', 'Sample collection kits', 20],
+    ['Clinical trial ops', 'Shipping & logistics', 15],
+    ['Clinical trial ops', 'EDC (data capture)', 10],
+    ['Clinical trial ops', 'Regulatory & IRAS', 5],
+    ['Clinical trial ops', 'NCIMB strain licensing', 5],
+    ['Clinical trial ops', 'Trial insurance', 10],
+    ['Clinical trial ops', 'Intervention production', 30],
+    ['Clinical trial ops', 'Clinical trials associate (0.4 FTE)', 30],
+    ['Clinical trial ops', 'PI fee (Prof. Underwood)', 25],
+    ['Clinical trial ops', 'Trial contingency', 15],
+
+    ['Personnel', 'Technical founders (Drs Yu & Chen · 2yr)', 220],
+
+    ['Lab research', 'Milner bench fee & lab access', 30],
+    ['Lab research', 'Office space', 10],
+    ['Lab research', 'Directed-evolution reagents', 20],
+    ['Lab research', 'Fruit-fly platform', 15],
+    ['Lab research', 'QC & consumables', 15],
+
+    ['BD & marketing', 'Market research', 15],
+    ['BD & marketing', 'BD collateral', 10],
+    ['BD & marketing', 'Partner conversations & travel', 5],
+    ['BD & marketing', 'Website & brand', 5],
+
+    ['IP & patent', 'Patent filing — priority application', 20],
+    ['IP & patent', 'Admin & contingency', 5],
+  ]);
+
+  const colors = ['#7BA8E3', '#5B7FC4', '#4FBFAE', '#E5D4A4', '#D4886A', '#9CB7D9'];
+  const options = {
+    backgroundColor: { fill: 'transparent' },
+    sankey: {
+      node: {
+        colors: colors,
+        label: {
+          fontName: 'DM Sans, system-ui, sans-serif',
+          fontSize: 11,
+          color: '#E2E8F0',
+          bold: true,
+        },
+        interactivity: true,
+        width: 14,
+        nodePadding: 14,
+      },
+      link: {
+        colorMode: 'gradient',
+        colors: colors,
+      },
+    },
+    tooltip: { textStyle: { color: '#1A1A18', fontName: 'DM Sans' } },
+  };
+  const chart = new google.visualization.Sankey(el);
+  chart.draw(data, options);
+}
+
+google.charts.load('current', { packages: ['sankey'] });
+google.charts.setOnLoadCallback(() => {
+  // observe the budget slide and draw when it enters the viewport
+  const budgetSlide = document.querySelector('.budget');
+  if (!budgetSlide) return;
+  const sankeyIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) drawSankey(); });
+  }, { threshold: 0.2 });
+  sankeyIo.observe(budgetSlide);
+  // Also redraw on resize so layout stays clean
+  window.addEventListener('resize', () => { if (sankeyDrawn) { sankeyDrawn = false; drawSankey(); } });
+});
+
+// Supplementary click panels
+(function() {
+  var section = document.getElementById('innovation-main');
+  if (!section) return;
+  var triggers = section.querySelectorAll('[data-supp]');
+  var panels = section.querySelectorAll('.supp-panel');
+
+  function showPanel(id) {
+    panels.forEach(function(p) { p.classList.remove('visible'); });
+    var panel = document.getElementById('panel-' + id);
+    if (panel) panel.classList.add('visible');
+  }
+
+  function hideAll() {
+    panels.forEach(function(p) { p.classList.remove('visible'); });
+  }
+
+  triggers.forEach(function(t) {
+    t.style.cursor = 'pointer';
+    t.addEventListener('click', function() {
+      var id = t.dataset.supp;
+      var panel = document.getElementById('panel-' + id);
+      if (panel && panel.classList.contains('visible')) {
+        hideAll();
+      } else {
+        showPanel(id);
+      }
+    });
+  });
+  panels.forEach(function(p) {
+    var btn = p.querySelector('.supp-panel-close');
+    if (btn) btn.addEventListener('click', function() { hideAll(); });
+  });
+})();
+</script>
+
+<script>
+(function() {
+const THREE = window.THREE;
+
+const canvas = document.getElementById('cover-neuron-canvas');
+if (!canvas) return;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 1000);
+camera.position.set(0, 2.8, 12);
+
+const neuronGroup = new THREE.Group();
+scene.add(neuronGroup);
+
+const CONFIG = { tilt: 0.28, shift: -1.2, speed: 0.005, count: 30000, size: 42,
+  shape: 'glyph', axonFade: 0.45,
+  colorOuter: '#1f355a', colorMid: '#162844', colorInner: '#4a6a9a', colorNucleus: '#C9A961' };
+
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = seed;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+const SOMA_Y = 2.8, AXON_START_Y = SOMA_Y - 1.4, AXON_END_Y = -14.0, TERM_BOTTOM_Y = AXON_END_Y - 1.8;
+const AXON_ALONG_START = 0.25, AXON_ALONG_END = 0.92;
+
+function generateNeuron(particleCount) {
+  const rand = mulberry32(11);
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  const sizes = new Float32Array(particleCount);
+  const seeds = new Float32Array(particleCount);
+  const parts = new Float32Array(particleCount);
+  const along = new Float32Array(particleCount);
+  const nucleusCount = Math.floor(particleCount * 0.03);
+  const somaCount = Math.floor(particleCount * 0.06);
+  const dendriteCount = Math.floor(particleCount * 0.30);
+  const spineCount = Math.floor(particleCount * 0.04);
+  const axonCount = Math.floor(particleCount * 0.45);
+  const terminalCount = particleCount - nucleusCount - somaCount - dendriteCount - spineCount - axonCount;
+  let idx = 0;
+  const tmp = new THREE.Vector3();
+  const nucPos = new THREE.Vector3(0, SOMA_Y, 0);
+  const nucTilt = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.3, -0.25, 0.15));
+  for (let i = 0; i < nucleusCount; i++) {
+    const u = rand(), v = rand(), theta = u * Math.PI * 2, phi = Math.acos(2 * v - 1), r = Math.cbrt(rand()) * 0.4;
+    tmp.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta) * 0.65, r * Math.cos(phi) * 0.75);
+    tmp.applyQuaternion(nucTilt); tmp.add(nucPos);
+    positions[idx*3]=tmp.x; positions[idx*3+1]=tmp.y; positions[idx*3+2]=tmp.z;
+    seeds[idx]=rand(); parts[idx]=2; along[idx]=0.10; sizes[idx]=0.35+rand()*0.25; idx++;
+  }
+  for (let i = 0; i < somaCount; i++) {
+    const u = rand(), v = rand(), theta = u*Math.PI*2, phi = Math.acos(2*v-1), r = 0.45 + Math.pow(rand(),0.6)*0.7;
+    tmp.set(r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta)*0.9, r*Math.cos(phi)*0.85);
+    tmp.add(nucPos);
+    positions[idx*3]=tmp.x; positions[idx*3+1]=tmp.y; positions[idx*3+2]=tmp.z;
+    seeds[idx]=rand(); parts[idx]=0; along[idx]=0.12; sizes[idx]=0.25+rand()*0.25; idx++;
+  }
+  const dendriteSegs = [], dendriteTipPoints = [];
+  function growBranch(origin, dir, length, thickness, depth, maxDepth) {
+    const steps = Math.max(8, Math.floor(length * 14));
+    let p = origin.clone(), d = dir.clone().normalize();
+    for (let s = 0; s < steps; s++) {
+      const curlAmt = 0.05 + (depth / maxDepth) * 0.18;
+      const curl = new THREE.Vector3((rand()-0.5)*curlAmt, (rand()-0.5)*curlAmt*0.6, (rand()-0.5)*curlAmt);
+      d.add(curl).normalize();
+      const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+      dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness*(1-s/steps*0.55)) });
+      p = next;
+    }
+    if (depth < maxDepth) {
+      const ratio = 0.45 + rand()*0.1, t1 = thickness*Math.pow(ratio,1/1.5)*0.95, t2 = thickness*Math.pow(1-ratio,1/1.5)*0.95;
+      const perp = Math.abs(d.y)<0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+      const axis = new THREE.Vector3().crossVectors(d, perp).normalize();
+      axis.applyQuaternion(new THREE.Quaternion().setFromAxisAngle(d, rand()*Math.PI*2));
+      const ang1 = (0.42+rand()*0.25)*(0.9+rand()*0.2), ang2 = -(0.42+rand()*0.25)*(0.9+rand()*0.2);
+      growBranch(p.clone(), d.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis, ang1)).normalize(), length*(0.55+rand()*0.3), t1, depth+1, maxDepth);
+      growBranch(p.clone(), d.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis, ang2)).normalize(), length*(0.55+rand()*0.3), t2, depth+1, maxDepth);
+    } else { dendriteTipPoints.push({ p: p.clone(), dir: d.clone(), thickness: thickness*0.6 }); }
+  }
+  function growTuft(origin, dir, length, thickness) {
+    const steps = Math.max(6, Math.floor(length * 20));
+    let p = origin.clone(), d = dir.clone().normalize();
+    for (let s = 0; s < steps; s++) {
+      const curl = new THREE.Vector3((rand()-0.5)*0.25, (rand()-0.5)*0.25, (rand()-0.5)*0.25);
+      d.add(curl).normalize();
+      const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+      dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.004, thickness*(1-s/steps*0.8)) });
+      p = next;
+    }
+  }
+  for (let i = 0; i < 9; i++) {
+    const angle = (i/9)*Math.PI*2 + rand()*0.4, elev = (rand()-0.2)*1.2;
+    const dir = new THREE.Vector3(Math.cos(angle)*Math.cos(elev*0.6), Math.sin(Math.max(elev,-0.2))*0.9+0.15, Math.sin(angle)*Math.cos(elev*0.6)).normalize();
+    growBranch(nucPos.clone().addScaledVector(dir, 0.75), dir, 1.0+rand()*0.5, 0.22+rand()*0.05, 0, 5);
+  }
+  for (const tip of dendriteTipPoints) {
+    const nTufts = 3 + Math.floor(rand()*4);
+    for (let j = 0; j < nTufts; j++) {
+      const offset = new THREE.Vector3((rand()-0.5)*1.6, (rand()-0.5)*1.6, (rand()-0.5)*1.6);
+      growTuft(tip.p, tip.dir.clone().multiplyScalar(0.4).add(offset).normalize(), 0.18+rand()*0.35, tip.thickness*0.5);
+    }
+  }
+  function distributeOnSegs(segs, count, partValue, alongOverride, isAxon) {
+    let totalW = 0;
+    for (const s of segs) { s.len = s.p0.distanceTo(s.p1); s.weight = s.thickness * s.len; totalW += s.weight; }
+    let placed = 0;
+    for (let si = 0; si < segs.length; si++) {
+      const s = segs[si];
+      const n = Math.max(1, Math.round((s.weight / totalW) * count));
+      for (let i = 0; i < n && placed < count; i++) {
+        const t = rand(), p = s.p0.clone().lerp(s.p1, t);
+        const dir = s.p1.clone().sub(s.p0).normalize();
+        const up = Math.abs(dir.y)<0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+        const u = new THREE.Vector3().crossVectors(dir, up).normalize();
+        const vVec = new THREE.Vector3().crossVectors(dir, u).normalize();
+        const scatter = s.thickness * (1 + rand()*0.6);
+        p.addScaledVector(u, (rand()+rand()+rand()-1.5)*0.7*scatter);
+        p.addScaledVector(vVec, (rand()+rand()+rand()-1.5)*0.7*scatter);
+        positions[idx*3]=p.x; positions[idx*3+1]=p.y; positions[idx*3+2]=p.z;
+        seeds[idx]=rand(); parts[idx]=partValue;
+        along[idx] = isAxon && s.alongOverride !== undefined ? s.alongOverride : (alongOverride||0.1) + (rand()-0.5)*0.02;
+        sizes[idx] = isAxon ? (0.22+rand()*0.28) : (0.20+rand()*0.30);
+        idx++; placed++;
+      }
+    }
+  }
+  distributeOnSegs(dendriteSegs, dendriteCount, 0, 0.08, false);
+  // spines
+  let spPlaced = 0;
+  while (spPlaced < spineCount && idx < particleCount) {
+    const si = Math.floor(rand()*dendriteSegs.length), s = dendriteSegs[si];
+    if (s.thickness < 0.02) continue;
+    const t = rand(), base = s.p0.clone().lerp(s.p1, t);
+    const dir = s.p1.clone().sub(s.p0).normalize();
+    const perpUp = Math.abs(dir.y)<0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+    const u = new THREE.Vector3().crossVectors(dir, perpUp).normalize();
+    const v = new THREE.Vector3().crossVectors(dir, u).normalize();
+    const theta = rand()*Math.PI*2, spineLen = s.thickness*(1.5+rand()*2.5);
+    const spine = base.clone().addScaledVector(u, Math.cos(theta)*spineLen).addScaledVector(v, Math.sin(theta)*spineLen);
+    positions[idx*3]=spine.x; positions[idx*3+1]=spine.y; positions[idx*3+2]=spine.z;
+    seeds[idx]=rand(); parts[idx]=0; along[idx]=0.09; sizes[idx]=0.14+rand()*0.12; idx++; spPlaced++;
+  }
+  const hillockSegs = [];
+  for (let i = 0; i < 14; i++) {
+    const t0=i/14, t1=(i+1)/14, y0=(SOMA_Y-0.55)+(AXON_START_Y-(SOMA_Y-0.55))*t0, y1=(SOMA_Y-0.55)+(AXON_START_Y-(SOMA_Y-0.55))*t1;
+    const r0=0.85+(0.14-0.85)*Math.pow(t0,0.7), r1=0.85+(0.14-0.85)*Math.pow(t1,0.7);
+    hillockSegs.push({ p0: new THREE.Vector3(0,y0,0), p1: new THREE.Vector3(0,y1,0), thickness: (r0+r1)*0.5, alongOverride: 0.14+t0*0.08 });
+  }
+  const axonCurvePoints = [];
+  for (let i = 0; i <= 220; i++) {
+    const t = i/220, y = AXON_START_Y + (AXON_END_Y-AXON_START_Y)*t, ramp = Math.min(1, t*5);
+    axonCurvePoints.push(new THREE.Vector3(Math.sin(t*Math.PI*3.0)*1.3*(0.3+t*0.7)*ramp, y, Math.sin(t*Math.PI*2.1+1.3)*0.6*ramp));
+  }
+  const hillockPC = Math.floor(axonCount*0.10);
+  distributeOnSegs(hillockSegs, hillockPC, 0, null, false);
+  const axonSegs = [];
+  for (let i = 0; i < axonCurvePoints.length-1; i++) {
+    const t = i/(axonCurvePoints.length-1), phase = (t*10)%1;
+    let mult = (phase<0.12||phase>0.88) ? 0.5 : 1.0+Math.cos(((phase-0.5)/0.38)*Math.PI)*0.35;
+    axonSegs.push({ p0: axonCurvePoints[i], p1: axonCurvePoints[i+1], thickness: (0.13-t*0.03)*mult, alongOverride: AXON_ALONG_START+t*(AXON_ALONG_END-AXON_ALONG_START) });
+  }
+  distributeOnSegs(axonSegs, axonCount-hillockPC, 0.5, null, true);
+  const termSegs = [], termOrigin = axonCurvePoints[axonCurvePoints.length-1].clone();
+  function growTerm(origin, dir, length, thickness, depth, maxDepth, collect) {
+    const steps = Math.max(8, Math.floor(length*14));
+    let p = origin.clone(), d = dir.clone().normalize();
+    for (let s = 0; s < steps; s++) {
+      const curl = new THREE.Vector3((rand()-0.5)*0.18, (rand()-0.5)*0.10, (rand()-0.5)*0.18);
+      d.add(curl).normalize();
+      const next = p.clone().add(d.clone().multiplyScalar(length/steps));
+      collect.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness*(1-s/steps*0.85)) });
+      p = next;
+    }
+  }
+  for (let i = 0; i < 8; i++) {
+    const angle = (i/8)*Math.PI*2 + rand()*0.4;
+    growTerm(termOrigin.clone(), new THREE.Vector3(Math.cos(angle)*0.7, -0.55-rand()*0.4, Math.sin(angle)*0.7).normalize(), 1.2+rand()*0.9, 0.08, 0, 2, termSegs);
+  }
+  distributeOnSegs(termSegs, terminalCount, 1, 0.96, false);
+  while (idx < particleCount) { positions[idx*3]=0; positions[idx*3+1]=SOMA_Y; positions[idx*3+2]=0; seeds[idx]=rand(); parts[idx]=0; along[idx]=0.1; sizes[idx]=0.25; idx++; }
+  return { positions, colors, sizes, seeds, parts, along };
+}
+
+function hexToRgb(h) { const v = parseInt(h.slice(1),16); return [((v>>16)&255)/255,((v>>8)&255)/255,(v&255)/255]; }
+function lerp3(a,b,t) { return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
+
+const data = generateNeuron(CONFIG.count);
+const { colors, along, parts, seeds } = data;
+const topC = hexToRgb(CONFIG.colorOuter), midC = hexToRgb(CONFIG.colorMid), botC = hexToRgb(CONFIG.colorInner), nucC = hexToRgb(CONFIG.colorNucleus);
+for (let i = 0; i < along.length; i++) {
+  const a = along[i], part = parts[i];
+  let c = part > 1.5 ? lerp3(nucC, lerp3(nucC, topC, 0.25), seeds[i]*0.3)
+    : a < 0.5 ? lerp3(topC, midC, a*2) : lerp3(midC, botC, (a-0.5)*2);
+  const j = (seeds[i]-0.5)*0.16;
+  c = [Math.max(0,Math.min(1,c[0]+j)), Math.max(0,Math.min(1,c[1]+j*0.5)), Math.max(0,Math.min(1,c[2]-j*0.5))];
+  colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
+}
+
+function makeGlyphAtlas() {
+  const size=128, atlas = document.createElement('canvas');
+  atlas.width=size*2; atlas.height=size;
+  const ctx = atlas.getContext('2d');
+  ctx.clearRect(0,0,size*2,size); ctx.fillStyle='#fff';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.font = `900 ${size*0.9}px "Helvetica Neue", Arial, sans-serif`;
+  ctx.fillText('1', size*0.5, size*0.5); ctx.fillText('C', size*1.5, size*0.5);
+  const tex = new THREE.CanvasTexture(atlas);
+  tex.minFilter=THREE.LinearMipmapLinearFilter; tex.magFilter=THREE.LinearFilter;
+  tex.generateMipmaps=true; tex.anisotropy=4;
+  return tex;
+}
+const glyphTex = makeGlyphAtlas();
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute('position', new THREE.BufferAttribute(data.positions, 3));
+geometry.setAttribute('color', new THREE.BufferAttribute(data.colors, 3));
+geometry.setAttribute('aSize', new THREE.BufferAttribute(data.sizes, 1));
+geometry.setAttribute('aSeed', new THREE.BufferAttribute(data.seeds, 1));
+geometry.setAttribute('aAlong', new THREE.BufferAttribute(data.along, 1));
+geometry.setAttribute('aPart', new THREE.BufferAttribute(data.parts, 1));
+
+const vertexShader = `
+  attribute float aSize; attribute float aSeed; attribute float aAlong; attribute float aPart;
+  uniform float uTime; uniform float uSizeScale; uniform float uPixelRatio; uniform float uAxonFade;
+  varying vec3 vColor; varying float vAlpha; varying float vSeed;
+  void main() {
+    vColor = color; vSeed = aSeed;
+    vec3 displaced = position;
+    if (aPart > 0.25 && aPart < 0.75) {
+      float t = uTime * (0.5 + aSeed * 0.6);
+      displaced += vec3(sin(t + aSeed*6.28)*0.006, 0.0, cos(t*0.8 + aSeed*3.14)*0.006);
+    }
+    vec4 mv = modelViewMatrix * vec4(displaced, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = aSize * uSizeScale * uPixelRatio * (300.0 / -mv.z);
+    float depthFade = smoothstep(60.0, 6.0, -mv.z) * 0.85 + 0.15;
+    float hillockFade = 1.0;
+    {
+      float isLowPart = 1.0 - step(0.1, aPart);
+      float maskLo = smoothstep(0.115, 0.148, aAlong), maskHi = 1.0 - smoothstep(0.215, 0.235, aAlong);
+      float mask = maskLo * maskHi * isLowPart;
+      float t2 = smoothstep(0.128, 0.220, aAlong);
+      hillockFade = mix(1.0, 0.40 + 0.60 * t2, mask);
+    }
+    float axonFade = 1.0;
+    if (aPart > 0.25 && aPart < 1.5 && uAxonFade != 0.0) {
+      float strength = abs(uAxonFade);
+      float fade = uAxonFade > 0.0 ? smoothstep(0.24, 0.88, aAlong) : 1.0 - smoothstep(0.32, 0.97, aAlong);
+      axonFade = mix(1.0, fade, strength);
+    }
+    vAlpha = depthFade * hillockFade * axonFade;
+  }
+`;
+const fragmentShader = `
+  precision highp float;
+  varying vec3 vColor; varying float vAlpha; varying float vSeed;
+  uniform sampler2D uGlyph;
+  void main() {
+    if (vAlpha < 0.01) discard;
+    vec2 uv = gl_PointCoord - 0.5; float d = length(uv);
+    float pick = step(0.5, vSeed);
+    vec2 local = vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y);
+    vec4 s = texture2D(uGlyph, vec2(pick*0.5 + local.x*0.5, local.y));
+    if (s.a < 0.4) discard;
+    gl_FragColor = vec4(vColor, vAlpha * s.a);
+  }
+`;
+
+const material = new THREE.ShaderMaterial({
+  vertexShader, fragmentShader, vertexColors: true, transparent: true, depthWrite: false,
+  blending: THREE.NormalBlending,
+  uniforms: {
+    uTime: { value: 0 }, uSizeScale: { value: CONFIG.size / 100 },
+    uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+    uGlyph: { value: glyphTex }, uAxonFade: { value: CONFIG.axonFade }
+  }
+});
+
+const points = new THREE.Points(geometry, material);
+neuronGroup.add(points);
+neuronGroup.scale.setScalar(1.10);
+
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (w === 0 || h === 0) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  material.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+}
+window.addEventListener('resize', resize);
+resize();
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const elapsed = clock.getElapsedTime();
+  neuronGroup.rotation.y = elapsed * CONFIG.speed;
+  neuronGroup.rotation.z = CONFIG.tilt;
+  neuronGroup.position.x = CONFIG.shift;
+  camera.lookAt(CONFIG.shift, SOMA_Y, 0);
+  material.uniforms.uTime.value = elapsed;
+  renderer.render(scene, camera);
+}
+animate();
+setTimeout(resize, 100);
+})();
+
+// Roadmap stagger animation
+(function() {
+  var stages = document.querySelectorAll('#rm-stages .rm-stage');
+  if (!stages.length) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        stages.forEach(function(s, i) {
+          setTimeout(function() { s.classList.add('in'); }, i * 110);
+        });
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  io.observe(document.querySelector('.roadmap'));
+})();
+</script>
+</body>
+</html>
