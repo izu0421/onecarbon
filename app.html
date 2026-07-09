@@ -698,7 +698,11 @@
       align-items: center;
       gap: 16px;
     }
-    .refer-card .refer-btn { white-space: nowrap; flex-shrink: 0; margin-top: 0; }
+    .refer-card .refer-btns { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+    .refer-share-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius-pill); font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: background .15s, border-color .15s; text-decoration: none; }
+    .refer-share-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(31,53,90,0.04); }
+    .refer-share-btn.wa { border-color: #25d366; color: #25d366; }
+    .refer-share-btn.wa:hover { background: rgba(37,211,102,0.07); }
     @media (max-width: 520px) { .refer-card { flex-direction: column; align-items: flex-start; } }
     .shop-discount-badge {
       display: inline-block;
@@ -1222,7 +1226,11 @@
                 <div class="shop-card-sub" style="margin-bottom:0;">Share your link and they get 10% off their first order.</div>
               </div>
             </div>
-            <button class="shop-card-btn secondary refer-btn" id="refer-btn" onclick="shareReferral()">Share →</button>
+            <div class="refer-btns">
+              <a class="refer-share-btn wa" id="refer-wa" href="#" onclick="return referWA()"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a class="refer-share-btn" id="refer-email" href="#" onclick="return referEmail()"><i class="fas fa-envelope"></i> Email</a>
+              <button class="refer-share-btn" id="refer-copy" onclick="referCopy()"><i class="fas fa-link"></i> <span id="refer-copy-label">Copy link</span></button>
+            </div>
           </div>
 
         </div>
@@ -2426,21 +2434,22 @@
       };
 
       // Refer a friend
-      window.shareReferral = function() {
-        const url = 'https://onecarbon.com/purchase.html';
-        const text = "I've been tracking my brain health with OneCarbon — thought you might be interested. Get 10% off your first order of 1C-01:";
-        if (navigator.share) {
-          navigator.share({ title: 'OneCarbon — 10% off for a friend', text, url }).catch(() => {});
-        } else {
-          const btn = document.getElementById('refer-btn');
-          navigator.clipboard.writeText(url).then(() => {
-            const orig = btn.textContent;
-            btn.textContent = '✓ Link copied!';
-            setTimeout(() => { btn.textContent = orig; }, 2500);
-          }).catch(() => {
-            window.open('mailto:?subject=Try%201C-01%20by%20OneCarbon&body=' + encodeURIComponent(text + '\n' + url));
-          });
-        }
+      const REFER_URL = 'https://onecarbon.com/purchase.html';
+      const REFER_TEXT = "I've been tracking my brain health with OneCarbon — thought you might be interested. Get 10% off your first order of 1C-01: " + REFER_URL;
+      window.referWA = function() {
+        window.open('https://wa.me/?text=' + encodeURIComponent(REFER_TEXT), '_blank');
+        return false;
+      };
+      window.referEmail = function() {
+        window.open('mailto:?subject=' + encodeURIComponent('Try 1C-01 by OneCarbon') + '&body=' + encodeURIComponent(REFER_TEXT));
+        return false;
+      };
+      window.referCopy = function() {
+        const lbl = document.getElementById('refer-copy-label');
+        navigator.clipboard.writeText(REFER_URL).then(() => {
+          lbl.textContent = '✓ Copied!';
+          setTimeout(() => { lbl.textContent = 'Copy link'; }, 2500);
+        }).catch(() => {});
       };
 
       // Feedback form
