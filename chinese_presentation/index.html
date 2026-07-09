@@ -541,27 +541,48 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
     <h1 class="headline reveal reveal-d1" style="font-size:clamp(26px,2.8vw,46px);margin-bottom:0.2em;"><em>阿尔茨海默病中的神经元抗性</em>机制</h1>
     <p class="subhead reveal reveal-d2" style="font-size:13px;margin-bottom:2vh;visibility:hidden;height:0;margin:0;"></p>
 
-    <div class="reveal reveal-d3" style="flex:1;display:grid;grid-template-columns:220px 1fr;gap:3vw;align-items:center;min-height:0;">
-
-      <!-- Left: 3-step read guide -->
-      <div style="display:flex;flex-direction:column;gap:2.4vh;">
-        <div style="padding-left:1.2vw;border-left:3px solid var(--accent);">
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:700;">研究方法</div>
-        </div>
-        <div style="padding-left:1.2vw;border-left:3px solid #1E9A8D;">
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#1E9A8D;font-weight:700;">核心发现</div>
-        </div>
-        <div style="padding-left:1.2vw;border-left:3px solid #7a5af8;">
-          <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#7a5af8;font-weight:700;">实验验证</div>
-        </div>
-      </div>
-
-      <!-- Right: figure -->
-      <div style="display:flex;align-items:center;justify-content:center;height:100%;">
-        <img src="assets/mechanism_1c.png" alt="1C pathway — neuronal resilience in Alzheimer's disease" style="max-width:100%;max-height:62vh;object-fit:contain;display:block;">
-      </div>
-
+    <!-- Figure: centered, reveal left-to-right -->
+    <div class="reveal reveal-d3" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden;">
+      <img src="assets/mechanism_1c.png" alt="1C pathway — neuronal resilience in Alzheimer's disease"
+           style="max-width:100%;max-height:56vh;object-fit:contain;display:block;
+                  animation:slide-in-ltr 0.7s cubic-bezier(0.22,1,0.36,1) both 0.35s;">
     </div>
+
+    <!-- Paper links strip -->
+    <div class="reveal reveal-d4" style="display:flex;flex-wrap:wrap;gap:0.8vh 1.5vw;padding-top:1.2vh;border-top:1px solid rgba(0,0,0,0.08);">
+      <a href="https://www.nature.com/articles/s41419-024-07179-3" target="_blank" rel="noopener"
+         style="font-family:var(--serif);font-size:12px;color:var(--accent);text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        Yu et al., 2024 — Enhancing mitochondrial 1C metabolism is neuroprotective ↗
+      </a>
+      <a href="https://scholar.google.co.uk/citations?view_op=view_citation&hl=en&user=9yOR7aYAAAAJ&citation_for_view=9yOR7aYAAAAJ:1sJd4Hv_s6UC" target="_blank" rel="noopener"
+         style="font-family:var(--serif);font-size:12px;color:var(--accent);text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        Yu &amp; Martins, 2024 — Mitochondrial 1C metabolism and Alzheimer's disease ↗
+      </a>
+      <a href="https://www.nature.com/articles/s41419-025-08066-1" target="_blank" rel="noopener"
+         style="font-family:var(--serif);font-size:12px;color:var(--accent);text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        Yu et al., 2025 — Increased nucleotide metabolism alleviates AD pathology ↗
+      </a>
+      <a href="https://www.nature.com/articles/s41419-021-03926-y" target="_blank" rel="noopener"
+         style="font-family:var(--serif);font-size:12px;color:var(--accent);text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        Yu et al., 2021 — Parp mutations protect from mitochondrial toxicity in AD ↗
+      </a>
+      <a href="https://www.biorxiv.org/content/10.1101/2025.02.26.640405v1" target="_blank" rel="noopener"
+         style="font-family:var(--serif);font-size:12px;color:var(--accent);text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        Yu et al., 2025 — Amyloid-β modulates sleep through NAD⁺-linked redox metabolism ↗
+      </a>
+    </div>
+
+    <style>
+      @keyframes slide-in-ltr {
+        from { transform: translateX(-40px); opacity: 0; }
+        to   { transform: translateX(0);     opacity: 1; }
+      }
+    </style>
 
     <!-- Supplementary hover panels -->
     <div id="panel-discovery" class="supp-panel">
