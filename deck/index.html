@@ -368,6 +368,24 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
   .cover-grid{grid-template-columns:1fr !important}
   .cover-left{padding:8vh 6vw !important}
 }
+
+/* deck recognition marquee */
+.deck-logo-scroll {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: deck-logo-scroll 30s linear infinite;
+}
+.deck-logo-set {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding: 0 28px;
+}
+@keyframes deck-logo-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 </style>
 </head>
 <body>
@@ -445,18 +463,32 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <canvas id="cover-neuron-canvas" style="position:absolute;top:0;left:-20%;width:120%;height:100%;display:block;"></canvas>
       </div>
     </div>
-    <!-- Recognised by — anchored bottom-right of slide -->
-    <div class="reveal reveal-d4" style="position:absolute;bottom:5vh;right:4vw;z-index:10;text-align:right;">
-      <div style="font-family:var(--serif);font-size:10px;letter-spacing:0.18em;color:var(--text-faint);text-transform:uppercase;font-weight:600;margin-bottom:1.2vh;">Recognised by</div>
-      <div style="display:flex;align-items:center;gap:2vw;justify-content:flex-end;">
-        <img src="../media/logo-falling-walls.png" alt="Falling Walls" style="height:48px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="../media/logo-forbes.png" alt="Forbes" style="height:38px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="assets/forbes30u30.avif" alt="Forbes 30 Under 30" style="height:48px;width:auto;opacity:0.6;filter:brightness(0);">
-        <img src="../media/innovate_uk_growth_logo.png" alt="Innovate UK Business Connect" style="height:38px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="../media/logo-launchpad.png" alt="Alzheimer's Society Launchpad" style="height:48px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="../media/logo-trinbrad.png" alt="Trinity Bradfield" style="height:44px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="../media/logo-milner.png" alt="Milner Therapeutics" style="height:44px;width:auto;opacity:0.6;filter:grayscale(1);">
-        <img src="assets/csar.svg" alt="CSAR" style="height:44px;width:auto;opacity:0.6;filter:grayscale(1);">
+    <!-- Recognised by — full-width scrolling marquee at bottom of slide -->
+    <div class="reveal reveal-d4" style="position:absolute;bottom:0;left:0;right:0;z-index:10;padding-bottom:3vh;">
+      <div style="font-family:var(--serif);font-size:9px;letter-spacing:0.18em;color:var(--text-faint);text-transform:uppercase;font-weight:600;text-align:center;margin-bottom:1.2vh;">Recognised by</div>
+      <div style="overflow:hidden;width:100%;">
+        <div class="deck-logo-scroll">
+          <div class="deck-logo-set">
+            <img src="../media/logo-falling-walls.png" alt="Falling Walls" style="height:40px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-forbes.png" alt="Forbes" style="height:32px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="assets/forbes30u30.avif" alt="Forbes 30 Under 30" style="height:40px;width:auto;opacity:0.55;filter:brightness(0) invert(1);">
+            <img src="../media/innovate_uk_growth_logo.png" alt="Innovate UK Business Connect" style="height:32px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-launchpad.png" alt="Alzheimer's Society Launchpad" style="height:40px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-trinbrad.png" alt="Trinity Bradfield" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-milner.png" alt="Milner Therapeutics" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="assets/csar.svg" alt="CSAR" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+          </div>
+          <div class="deck-logo-set" aria-hidden="true">
+            <img src="../media/logo-falling-walls.png" alt="" style="height:40px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-forbes.png" alt="" style="height:32px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="assets/forbes30u30.avif" alt="" style="height:40px;width:auto;opacity:0.55;filter:brightness(0) invert(1);">
+            <img src="../media/innovate_uk_growth_logo.png" alt="" style="height:32px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-launchpad.png" alt="" style="height:40px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-trinbrad.png" alt="" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="../media/logo-milner.png" alt="" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+            <img src="assets/csar.svg" alt="" style="height:36px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);">
+          </div>
+        </div>
       </div>
     </div>
     <div class="frame-num">01 / 12</div>
