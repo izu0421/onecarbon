@@ -127,8 +127,24 @@
     .auth-card .auth-sub {
       font-size: 16px;
       color: var(--text-muted);
-      margin-bottom: 28px;
+      margin-bottom: 12px;
     }
+    .auth-card .auth-about {
+      font-size: 14px;
+      color: var(--text-faint);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .auth-card .auth-about a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .auth-card .auth-about a:hover { text-decoration: underline; }
 
     /* Google button */
     .btn-google {
@@ -931,6 +947,7 @@
       <div class="auth-card">
         <h1 data-i18n="auth.h1">Track your cognition</h1>
         <p class="auth-sub" data-i18n="auth.sub">Sign in to access your longitudinal cognitive assessment dashboard.</p>
+        <p class="auth-about" data-i18n="auth.about">The companion app for 1C-01 — quantifying your brain health and wellbeing over time. <a href="https://onecarbon.com/index.html#how-it-works" target="_blank" data-i18n-href="">Learn how it works →</a></p>
 
         <div class="auth-error" id="auth-error"></div>
 
@@ -1419,6 +1436,7 @@
         'nav.signout': 'Sign out',
         'auth.h1': 'Track your cognition',
         'auth.sub': 'Sign in to access your longitudinal cognitive assessment dashboard.',
+        'auth.about': 'The companion app for 1C-01 — quantifying your brain health and wellbeing over time. <a href="https://onecarbon.com/index.html#how-it-works" target="_blank">Learn how it works →</a>',
         'auth.google': 'Continue with Google',
         'auth.or': 'or',
         'auth.email': 'Email',
@@ -1620,6 +1638,7 @@
         'nav.signout': '退出登录',
         'auth.h1': '追踪您的认知能力',
         'auth.sub': '登录以访问您的纵向认知评估仪表板。',
+        'auth.about': '1C-01配套应用程序 — 持续量化您的大脑健康与整体健康状况。<a href="https://onecarbon.com/index.html#how-it-works" target="_blank">了解使用方式 →</a>',
         'auth.google': '使用 Google 账号登录',
         'auth.or': '或',
         'auth.email': '电子邮件',
