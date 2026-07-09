@@ -1289,6 +1289,7 @@
             <button class="tile-btn" data-value="never" data-i18n="sleep.dt_never">Never</button>
             <button class="tile-btn" data-value="sometimes" data-i18n="sleep.dt_sometimes">Sometimes</button>
             <button class="tile-btn" data-value="often" data-i18n="sleep.dt_often">Often</button>
+            <button class="tile-btn" data-value="always" data-i18n="sleep.dt_always">Always</button>
           </div>
         </div>
 
@@ -1298,6 +1299,7 @@
             <button class="tile-btn" data-value="no" data-i18n="sleep.tr_no">No</button>
             <button class="tile-btn" data-value="occasionally" data-i18n="sleep.tr_occ">Occasionally</button>
             <button class="tile-btn" data-value="yes" data-i18n="sleep.tr_yes">Yes, often</button>
+            <button class="tile-btn" data-value="every_night" data-i18n="sleep.tr_every">Every night</button>
           </div>
         </div>
 
@@ -1307,6 +1309,7 @@
             <button class="tile-btn" data-value="no" data-i18n="sleep.tr_no">No</button>
             <button class="tile-btn" data-value="occasionally" data-i18n="sleep.tr_occ">Occasionally</button>
             <button class="tile-btn" data-value="yes" data-i18n="sleep.tr_yes">Yes, often</button>
+            <button class="tile-btn" data-value="every_night" data-i18n="sleep.tr_every">Every night</button>
           </div>
         </div>
 
@@ -1501,11 +1504,13 @@
         'sleep.dt_never': 'Never',
         'sleep.dt_sometimes': 'Sometimes',
         'sleep.dt_often': 'Often',
+        'sleep.dt_always': 'Always',
         'sleep.trouble_fall': 'Trouble falling asleep?',
         'sleep.trouble_stay': 'Trouble staying asleep?',
         'sleep.tr_no': 'No',
         'sleep.tr_occ': 'Occasionally',
         'sleep.tr_yes': 'Yes, often',
+        'sleep.tr_every': 'Every night',
         'sleep.onset': 'Time to fall asleep',
         'sleep.on_u15': '<15 min',
         'sleep.on_1530': '15–30 min',
@@ -1700,11 +1705,13 @@
         'sleep.dt_never': '从不',
         'sleep.dt_sometimes': '偶尔',
         'sleep.dt_often': '经常',
+        'sleep.dt_always': '总是',
         'sleep.trouble_fall': '是否有入睡困难？',
         'sleep.trouble_stay': '是否有睡眠中断的情况？',
         'sleep.tr_no': '没有',
         'sleep.tr_occ': '偶尔',
         'sleep.tr_yes': '是的，经常',
+        'sleep.tr_every': '每晚都有',
         'sleep.onset': '入睡时间',
         'sleep.on_u15': '＜15 分钟',
         'sleep.on_1530': '15–30 分钟',
@@ -2515,11 +2522,11 @@
       if (s.quality != null) { max += 25; pts += quality[s.quality] ?? 0; }
 
       // Daytime sleepiness (15 pts)
-      const daytime = { never: 15, sometimes: 8, often: 0 };
+      const daytime = { never: 15, sometimes: 10, often: 4, always: 0 };
       if (s.daytime_sleepiness != null) { max += 15; pts += daytime[s.daytime_sleepiness] ?? 0; }
 
       // Trouble sleeping (15 pts)
-      const trouble = { no: 8, occasionally: 4, yes: 0 };
+      const trouble = { no: 8, occasionally: 5, yes: 2, every_night: 0 };
       if (s.trouble_fall != null) { max += 8; pts += trouble[s.trouble_fall] ?? 0; }
       if (s.trouble_stay != null) { max += 7; pts += Math.round((trouble[s.trouble_stay] ?? 0) * 7/8); }
 
@@ -2568,7 +2575,7 @@
       add('🕐', T('sleep.chip_sleep'), lastSleep?.hours != null ? lastSleep.hours + ' hrs' : null);
       const qMap = { very_good: T('sleep.q_very_good'), good: T('sleep.q_g'), average: T('sleep.q_average'), poor: T('sleep.q_p'), very_poor: T('sleep.q_very_poor') };
       add('⭐', T('sleep.chip_quality'), qMap[lastSleep?.quality] || null);
-      const dMap = { never: T('sleep.dt_no'), sometimes: T('sleep.dt_some'), often: T('sleep.dt_often') };
+      const dMap = { never: T('sleep.dt_no'), sometimes: T('sleep.dt_some'), often: T('sleep.dt_often'), always: T('sleep.dt_always') };
       add('☀️', T('sleep.chip_daytime'), dMap[lastSleep?.daytime_sleepiness] || null);
       const oMap = { under_15: T('sleep.on_u15'), '15_to_30': T('sleep.on_1530'), '30_to_60': T('sleep.on_3060'), over_60: T('sleep.on_o60') };
       add('💤', T('sleep.chip_onset'), oMap[lastSleep?.onset] || null);
