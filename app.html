@@ -692,6 +692,14 @@
       border: 1px solid var(--accent);
     }
     .shop-card-btn.secondary:hover { background: rgba(31,53,90,0.06); }
+    .refer-card {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    .refer-card .refer-btn { white-space: nowrap; flex-shrink: 0; margin-top: 0; }
+    @media (max-width: 520px) { .refer-card { flex-direction: column; align-items: flex-start; } }
     .shop-discount-badge {
       display: inline-block;
       background: #dcfce7;
@@ -1203,6 +1211,18 @@
             <div class="shop-card-price">£888</div>
             <div class="shop-card-sub">Comprehensive blood + microbiome panel · reviewed by our team</div>
             <a class="shop-card-btn secondary" href="https://buy.stripe.com/28EcN59ZLdaagqNdymcjS02" target="_blank">Book now →</a>
+          </div>
+
+          <div class="shop-card refer-card">
+            <div style="display:flex;align-items:center;gap:12px;flex:1;">
+              <div style="font-size:1.6rem;line-height:1;">🤝</div>
+              <div>
+                <div class="shop-card-label" style="margin-bottom:3px;">Refer a friend</div>
+                <div class="shop-card-name">Give 10% off to someone you care about</div>
+                <div class="shop-card-sub" style="margin-bottom:0;">Share your link and they get 10% off their first order.</div>
+              </div>
+            </div>
+            <button class="shop-card-btn secondary refer-btn" id="refer-btn" onclick="shareReferral()">Share →</button>
           </div>
 
         </div>
@@ -2402,6 +2422,24 @@
         if (!open) {
           drawDomainCharts(sessions);
           setTimeout(() => domainPanel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+      };
+
+      // Refer a friend
+      window.shareReferral = function() {
+        const url = 'https://onecarbon.com/purchase.html';
+        const text = "I've been tracking my brain health with OneCarbon — thought you might be interested. Get 10% off your first order of 1C-01:";
+        if (navigator.share) {
+          navigator.share({ title: 'OneCarbon — 10% off for a friend', text, url }).catch(() => {});
+        } else {
+          const btn = document.getElementById('refer-btn');
+          navigator.clipboard.writeText(url).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = '✓ Link copied!';
+            setTimeout(() => { btn.textContent = orig; }, 2500);
+          }).catch(() => {
+            window.open('mailto:?subject=Try%201C-01%20by%20OneCarbon&body=' + encodeURIComponent(text + '\n' + url));
+          });
         }
       };
 
