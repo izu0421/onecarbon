@@ -53,7 +53,20 @@
       "WebFetch(domain:idp.nature.com)",
       "WebFetch(domain:www.biorxiv.org)",
       "Bash(ls \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/media/logo/\")",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(firebase login *)",
+      "Bash(firebase projects:list)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(node --check \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/js/cognitive-tests.js\")",
+      "Bash(awk '/en: \\\\{/,/zh: \\\\{/' \"/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/app.html\")",
+      "WebFetch(domain:doi.org)",
+      "WebFetch(domain:www.academia.edu)",
+      "WebFetch(domain:link.springer.com)",
+      "WebFetch(domain:www.nature.com)",
+      "WebFetch(domain:api.semanticscholar.org)",
+      "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/media/sub_pictures_webpage-01.png'\\); print\\(img.size\\)\")",
+      "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/chinese_presentation/assets/evolution_screen.png'\\); print\\(img.size\\)\")"
     ]
   }
 }
