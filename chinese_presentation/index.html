@@ -1366,62 +1366,75 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
   </section>
 
   <!-- 14: PPTX ROADMAP REPRODUCTION -->
-  <section class="slide surface" style="padding:5vh 6vw;display:flex;flex-direction:column;background:#fff;">
+  <section class="slide surface" style="padding:4vh 5vw 3vh;display:flex;flex-direction:column;background:#fff;">
     <div class="frame-mark"><span class="brand-name">One<span class="lg">Carbon</span></span></div>
 
     <!-- Header -->
-    <div class="eyebrow reveal" style="color:#456BB7;letter-spacing:0.2em;font-size:12px;margin-bottom:0.5vh;">ROADMAP</div>
-    <div class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(18px,2vw,28px);color:#1a2340;font-weight:500;margin-bottom:3vh;line-height:1.2;">Towards a safe, effective, early intervention for Alzheimer's</div>
+    <div style="display:flex;align-items:center;gap:1vw;margin-bottom:0.6vh;">
+      <div class="eyebrow reveal" style="color:#456BB7;letter-spacing:0.2em;font-size:12px;">ROADMAP</div>
+    </div>
+    <div class="reveal reveal-d1" style="font-family:var(--serif);font-size:clamp(16px,1.8vw,26px);color:#1a2340;font-weight:500;margin-bottom:2.5vh;line-height:1.2;">Towards a safe, effective, early intervention for Alzheimer's</div>
 
     <!-- Timeline -->
-    <div class="reveal reveal-d2" style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;">
+    <div class="reveal reveal-d2" style="flex:1;display:flex;flex-direction:column;min-height:0;">
 
       <!-- Timeline bar row -->
-      <div style="position:relative;display:flex;align-items:center;margin-bottom:2.5vh;">
-        <!-- Horizontal line -->
+      <div style="position:relative;display:flex;align-items:center;margin-bottom:1.8vh;">
         <div style="position:absolute;left:0;right:0;top:50%;height:3px;background:#456BB7;z-index:0;"></div>
-        <!-- 5 dots at proportional positions: 0%, 28%, 50%, 68%, 88% -->
-        <div style="position:absolute;left:0%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
-        <div style="position:absolute;left:28%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
-        <div style="position:absolute;left:68%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#E2E9F4;border:3px solid #456BB7;z-index:1;"></div>
-        <div style="position:absolute;left:88%;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #456BB7;z-index:1;"></div>
-        <!-- Spacer so the div has height -->
-        <div style="height:24px;width:100%;"></div>
+        <div style="position:absolute;left:0%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
+        <div style="position:absolute;left:28%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#456BB7;border:3px solid #456BB7;z-index:1;"></div>
+        <div style="position:absolute;left:69%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#E2E9F4;border:3px solid #456BB7;z-index:1;"></div>
+        <div style="position:absolute;left:88%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #456BB7;z-index:1;"></div>
+        <div style="height:20px;width:100%;"></div>
       </div>
 
-      <!-- Phase labels row -->
-      <div style="display:flex;gap:0;margin-bottom:3vh;">
-        <!-- Phase 1: 0% to ~30% width -->
-        <div style="flex:3.5;padding-right:1vw;">
-          <div style="font-size:clamp(11px,1vw,15px);color:#888;font-family:var(--sans);margin-bottom:0.3vh;">2019–2024</div>
-          <div style="font-family:var(--serif);font-size:clamp(16px,1.5vw,22px);font-weight:600;color:#1a2340;">Discovery</div>
+      <!-- Phase labels + images: one column per phase -->
+      <div style="display:flex;gap:0;flex:1;min-height:0;align-items:flex-start;">
+
+        <!-- Phase 1: Discovery -->
+        <div style="flex:3.2;padding-right:1.2vw;display:flex;flex-direction:column;gap:0.6vh;">
+          <div style="font-size:clamp(10px,0.9vw,13px);color:#888;font-family:var(--sans);">2019–2024</div>
+          <div style="font-family:var(--serif);font-size:clamp(14px,1.3vw,20px);font-weight:600;color:#1a2340;margin-bottom:0.8vh;">Discovery</div>
+          <img src="assets/roadmap/paper1.png" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-bottom:0.5vh;">
+          <img src="assets/roadmap/paper2.png" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
         </div>
-        <!-- Phase 2: 28–50% -->
-        <div style="flex:2.5;padding-right:1vw;">
-          <div style="font-size:clamp(11px,1vw,15px);color:#888;font-family:var(--sans);margin-bottom:0.3vh;">2024–2025</div>
-          <div style="font-family:var(--serif);font-size:clamp(16px,1.5vw,22px);font-weight:600;color:#1a2340;">Strain evolution</div>
+
+        <!-- Phase 2: Strain evolution -->
+        <div style="flex:2.2;padding-right:1.2vw;display:flex;flex-direction:column;gap:0.6vh;">
+          <div style="font-size:clamp(10px,0.9vw,13px);color:#888;font-family:var(--sans);">2024–2025</div>
+          <div style="font-family:var(--serif);font-size:clamp(14px,1.3vw,20px);font-weight:600;color:#1a2340;margin-bottom:0.8vh;">Strain evolution</div>
+          <img src="assets/roadmap/lab.jpg" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.12);object-fit:cover;flex:1;">
         </div>
-        <!-- Phase 3: 50–68% — current -->
-        <div style="flex:2;padding-right:1vw;">
-          <div style="font-size:clamp(11px,1vw,15px);color:#888;font-family:var(--sans);margin-bottom:0.3vh;">2025–2026</div>
-          <div style="font-family:var(--serif);font-size:clamp(16px,1.5vw,22px);font-weight:600;color:#456BB7;">Human pilot</div>
-          <div style="display:inline-block;background:#456BB7;color:#fff;font-size:10px;border-radius:3px;padding:1px 6px;margin-top:3px;font-family:var(--sans);letter-spacing:0.05em;">NOW</div>
+
+        <!-- Phase 3: Human pilot (NOW) -->
+        <div style="flex:1.9;padding-right:1.2vw;display:flex;flex-direction:column;gap:0.6vh;">
+          <div style="font-size:clamp(10px,0.9vw,13px);color:#888;font-family:var(--sans);">2025–2026</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:0.8vh;">
+            <div style="font-family:var(--serif);font-size:clamp(14px,1.3vw,20px);font-weight:600;color:#456BB7;">Human pilot</div>
+            <div style="background:#456BB7;color:#fff;font-size:9px;border-radius:3px;padding:1px 5px;font-family:var(--sans);letter-spacing:0.06em;white-space:nowrap;">NOW</div>
+          </div>
+          <img src="assets/roadmap/product.png" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.12);object-fit:cover;flex:1;">
         </div>
-        <!-- Phase 4: 68–88% -->
-        <div style="flex:2.2;padding-right:1vw;">
-          <div style="font-size:clamp(11px,1vw,15px);color:#aaa;font-family:var(--sans);margin-bottom:0.3vh;">2026–2027</div>
-          <div style="font-family:var(--serif);font-size:clamp(16px,1.5vw,22px);font-weight:600;color:#7a8fa8;">Large trial</div>
+
+        <!-- Phase 4: Large trial -->
+        <div style="flex:2;padding-right:1.2vw;display:flex;flex-direction:column;gap:0.6vh;">
+          <div style="font-size:clamp(10px,0.9vw,13px);color:#aaa;font-family:var(--sans);">2026–2027</div>
+          <div style="font-family:var(--serif);font-size:clamp(14px,1.3vw,20px);font-weight:600;color:#7a8fa8;margin-bottom:0.8vh;">Large trial</div>
+          <img src="assets/roadmap/profile_trial.png" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);opacity:0.85;flex:1;object-fit:cover;">
         </div>
-        <!-- Phase 5: 88–100% -->
-        <div style="flex:1.5;">
-          <div style="font-size:clamp(11px,1vw,15px);color:#aaa;font-family:var(--sans);margin-bottom:0.3vh;">2027–2029</div>
-          <div style="font-family:var(--serif);font-size:clamp(16px,1.5vw,22px);font-weight:600;color:#9aabb8;line-height:1.2;">RCT in Alzheimer's<br>+ Marketing</div>
+
+        <!-- Phase 5: RCT -->
+        <div style="flex:1.5;display:flex;flex-direction:column;gap:0.6vh;">
+          <div style="font-size:clamp(10px,0.9vw,13px);color:#aaa;font-family:var(--sans);">2027–2029</div>
+          <div style="font-family:var(--serif);font-size:clamp(14px,1.3vw,20px);font-weight:600;color:#9aabb8;line-height:1.2;margin-bottom:0.8vh;">RCT in Alzheimer's<br>+ Marketing</div>
+          <img src="assets/roadmap/family.jpg" alt="" style="width:100%;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.1);opacity:0.7;flex:1;object-fit:cover;">
         </div>
-      </div>
+
+      </div><!-- end phase columns -->
 
       <!-- Publications strip -->
-      <div class="reveal reveal-d3" style="border-top:1px solid #e0e6f0;padding-top:2vh;font-family:var(--sans);font-size:clamp(10px,0.9vw,13px);color:#888;line-height:1.8;column-count:2;column-gap:4vw;">
+      <div class="reveal reveal-d3" style="border-top:1px solid #e0e6f0;padding-top:1.5vh;margin-top:1.5vh;font-family:var(--sans);font-size:clamp(9px,0.75vw,11px);color:#999;line-height:1.7;column-count:2;column-gap:4vw;">
         <span>Yu et al., 2025, PMID: 41102145</span><br>
         <span>Yu et al., 2026, In revision</span><br>
         <span>Yu et al., 2024, PMID: 39582067</span><br>
@@ -1430,7 +1443,7 @@ h1.headline{font-size:clamp(34px, 3.4vw, 56px);line-height:1.05;letter-spacing:-
         <span>Yu &amp; Popovic et al., 2023, PMID: 37083954</span><br>
         <span>Wilson, Yu et al., 2024, PMID: 38467609</span><br>
         <span>Yu, 2023, PMID: 37754354</span><br>
-        <span style="color:#aaa;">And 10 other papers</span>
+        <span style="color:#bbb;">And 10 other papers</span>
       </div>
     </div>
 
