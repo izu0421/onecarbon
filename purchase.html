@@ -73,6 +73,7 @@
   .buybox .pg-btn{width:100%;text-align:center;margin:16px 0 12px;}
   .buybox .micro{font-size:12px;color:var(--slate);line-height:1.7;}
   .hero-figure{position:relative;display:flex;justify-content:center;}
+  .hero-photo{width:100%;max-width:440px;height:auto;border-radius:4px;box-shadow:0 20px 60px -20px rgba(22,35,58,0.28);}
 
   /* SECTIONS */
   section{padding:64px 0;border-top:1px solid var(--line);}
@@ -191,51 +192,7 @@
       </div>
     </div>
     <div class="hero-figure">
-      <!-- packaging mock: white box matching the real artwork -->
-      <svg width="360" height="390" viewBox="0 0 360 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1C-01 packaging">
-        <defs>
-          <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#16233A" flood-opacity="0.14"/>
-          </filter>
-        </defs>
-        <!-- capsule behind, lower right -->
-        <g transform="translate(250,300) rotate(32)">
-          <rect x="0" y="0" width="74" height="24" rx="12" fill="#F2EFE8" stroke="#D9D5CA" stroke-width="1"/>
-          <rect x="0" y="0" width="37" height="24" rx="12" fill="#16233A"/>
-        </g>
-        <!-- box face -->
-        <rect x="80" y="30" width="200" height="330" rx="3" fill="#FFFFFF" stroke="#E1E6EC" stroke-width="1" filter="url(#soft)"/>
-        <!-- logo lockup: waveform mark + wordmark -->
-        <g fill="#16233A">
-          <ellipse cx="110" cy="70" rx="2.2" ry="6"/>
-          <ellipse cx="116" cy="70" rx="2.2" ry="10"/>
-          <ellipse cx="122" cy="70" rx="2.2" ry="15"/>
-          <ellipse cx="128" cy="70" rx="2.2" ry="20"/>
-          <ellipse cx="134" cy="70" rx="2.2" ry="24"/>
-          <ellipse cx="140" cy="70" rx="2.2" ry="27"/>
-          <ellipse cx="146" cy="70" rx="2.2" ry="24"/>
-          <ellipse cx="152" cy="70" rx="2.2" ry="20"/>
-          <ellipse cx="158" cy="70" rx="2.2" ry="15"/>
-          <ellipse cx="164" cy="70" rx="2.2" ry="10"/>
-          <ellipse cx="170" cy="70" rx="2.2" ry="6"/>
-        </g>
-        <text x="184" y="66" fill="#16233A" font-family="Inter,sans-serif" font-weight="700" font-size="17">One</text>
-        <text x="184" y="84" fill="#16233A" font-family="Inter,sans-serif" font-weight="700" font-size="17">Carbon</text>
-        <!-- product name -->
-        <text x="180" y="158" text-anchor="middle" fill="#16233A" font-family="Inter,sans-serif" font-weight="700" font-size="52" letter-spacing="1">1C-01</text>
-        <!-- tagline -->
-        <text x="180" y="184" text-anchor="middle" fill="#33465F" font-family="Inter,sans-serif" font-size="10.5">A probiotic strain evolved</text>
-        <text x="180" y="200" text-anchor="middle" fill="#33465F" font-family="Inter,sans-serif" font-size="10.5">to secrete one-carbon metabolites</text>
-        <!-- cambridge pill -->
-        <rect x="98" y="216" width="164" height="27" rx="13.5" fill="none" stroke="#16233A" stroke-width="1"/>
-        <text x="180" y="234" text-anchor="middle" fill="#16233A" font-family="Inter,sans-serif" font-weight="600" font-size="11">Built on Cambridge science</text>
-        <!-- attributes -->
-        <text x="180" y="300" text-anchor="middle" fill="#16233A" font-family="Inter,sans-serif" font-weight="600" font-size="11" letter-spacing="0.5">Non-GMO · Food Grade · Vegan</text>
-        <!-- base band -->
-        <rect x="80" y="326" width="200" height="34" rx="0" fill="#16233A"/>
-        <path d="M80 358 h200 v-30 a3 3 0 0 1 0 0 v27 a3 3 0 0 1 -3 3 h-194 a3 3 0 0 1 -3 -3 z" fill="none"/>
-        <text x="180" y="347" text-anchor="middle" fill="#FFFFFF" font-family="Inter,sans-serif" font-weight="600" font-size="11" letter-spacing="0.5">onecarbon.com</text>
-      </svg>
+      <img src="media/1c01-hero-flatlay.png" alt="1C-01 packaging styled with yoghurt bowls, berries, and honey" class="hero-photo">
     </div>
   </div>
 </div>
