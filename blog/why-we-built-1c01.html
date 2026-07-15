@@ -1,17 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why We Built 1C-01 — OneCarbon</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why We Built 1C-01 — OneCarbon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ---- page-specific styles for this post; brand tokens (fonts, colours,
+     radius) come from css/style.css :root — this block only lays out the
+     hero / card / panel / chart content unique to this article. ---- */
+  .post-wrap{max-width:900px;margin:0 auto;padding:0 clamp(20px,5vw,24px);}
+
+  .hero{padding:56px 0 44px;}
+  .hero h1{font-size:clamp(2.3rem, 5.2vw, 3.4rem);margin:0 0 22px;}
+  .hero-lede{font-size:1.15rem;color:var(--text-muted);max-width:60ch;}
+  .hero-lede strong{color:var(--text);font-weight:600;}
+  .hero-question{
+    font-family:'DM Sans', sans-serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.4rem;
+    color:var(--text);
+    margin-top:10px;
+  }
+
+  .post-section{padding:56px 0;}
+  .post-section.tint{background:var(--bg);}
+  .post-section h2{font-size:clamp(1.5rem, 3vw, 2rem);margin:0 0 16px;}
+  .section-copy{color:var(--text-muted);max-width:64ch;margin:0 0 28px;font-size:1.0625rem;line-height:1.7;}
+  .section-copy strong{color:var(--text);}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+
+  .card-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:20px;}
+  @media (max-width:640px){.card-grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--surface);
+    border-radius:var(--radius-lg);
+    padding:26px 26px 28px;
+    border:1px solid var(--border);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+  .icon-badge{
+    width:48px;height:48px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+    background:var(--bg-alt);
+  }
+  .card h3{font-family:'DM Sans', sans-serif;font-size:1.08rem;font-weight:600;margin:0 0 8px;letter-spacing:-0.01em;}
+  .card p{margin:0;color:var(--text-muted);font-size:0.98rem;line-height:1.65;}
+
+  .panel-list{display:flex;flex-direction:column;gap:16px;margin-bottom:26px;}
+  .panel{
+    display:flex;gap:18px;align-items:flex-start;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:22px 24px;
+  }
+  .panel-icon{
+    flex-shrink:0;width:48px;height:48px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--bg-alt);
+  }
+  .panel h3{font-family:'DM Sans', sans-serif;font-size:1.05rem;font-weight:600;margin:0 0 4px;letter-spacing:-0.01em;}
+  .panel p{margin:0;color:var(--text-muted);font-size:0.98rem;line-height:1.65;}
+
+  .callback{
+    font-family:'DM Sans', sans-serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.2rem;
+    color:var(--text);
+    border-left:2px solid var(--accent);
+    padding-left:18px;
+    margin:28px 0 0;
+  }
+
+  .factory-highlight{font-family:'DM Sans', sans-serif;font-size:1.5rem;font-weight:600;color:var(--text);margin:0 0 8px;letter-spacing:-0.01em;}
+  .factory-sub{font-family:'DM Sans', sans-serif;font-weight:600;font-size:1.05rem;color:var(--text);margin:26px 0 6px;letter-spacing:-0.01em;}
+
+  .chart-block{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0 8px;}
+  @media (max-width:640px){.chart-block{grid-template-columns:1fr;}}
+  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 20px 10px;}
+  .chart-label{
+    font-family:'Outfit', sans-serif;font-size:11.5px;font-weight:600;
+    letter-spacing:0.05em;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:10px;color:var(--text-muted);
+  }
+  .chart-label .tag{padding:3px 10px;border-radius:var(--radius-pill);font-size:10.5px;font-weight:600;}
+  .chart-label .tag.pill{color:var(--accent);background:rgba(31,53,90,0.10);}
+  .chart-label .tag.flow{color:var(--accent-dark);background:var(--bg-alt);}
+  .chart-caption{font-size:0.87rem;color:var(--text-muted);margin:8px 0 16px;}
+  svg.chart-svg{width:100%;height:auto;display:block;}
+
+  .spike-path{
+    fill:none;stroke:var(--accent);stroke-width:3;
+    stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:520;stroke-dashoffset:520;
+    transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.3,1);
+  }
+  .is-visible .spike-path{stroke-dashoffset:0;}
+
+  .flow-wrap{overflow:hidden;width:100%;}
+  .flow-track{display:flex;width:200%;animation:flowScroll 5.5s linear infinite;}
+  @keyframes flowScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .flow-path{fill:none;stroke:var(--accent-dark);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+</style>
 </head>
 <body>
 
-  <!-- ── NAVIGATION ── -->
+  <!-- ── NAVIGATION (shared with rest of site) ── -->
   <nav class="site-nav">
     <a href="../index.html" class="nav-logo"><img src="../media/logo-full.png" alt="OneCarbon" style="height:56px;width:auto;"></a>
     <ul class="nav-links">
@@ -25,72 +130,120 @@
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- ── BLOG POST ── -->
-  <section class="blog-post-section">
-    <a href="../blog/" style="color:var(--accent);">← Blog</a>
-    <h1>Why We Built <em>1C-01</em></h1>
-    <p class="blog-post-meta">March 2026 · Product</p>
+  <div class="post-wrap">
+    <div class="hero reveal">
+      <div class="eyebrow">Product · Why We Built 1C-01</div>
+      <h1>Do you actually need another supplement?</h1>
+      <p class="hero-lede"><strong>Food is the foundation. Can we do more for our pathways?</strong> A reasonable thing to ask of any supplement is whether you actually need it at all.</p>
+      <p class="hero-question">Here's how we think about it — including where the science is settled, and where it isn't.</p>
+    </div>
+  </div>
 
-<nav style="background:#EEF3FB;border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;margin:1.5rem 0 2rem;font-size:0.95rem;line-height:1.9;">
-  <p style="font-weight:600;margin:0 0 0.5rem;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">In this article</p>
-  <ol style="margin:0;padding-left:1.25rem;">
-    <li><a href="#the-finding" style="color:var(--accent);">The finding</a></li>
-    <li><a href="#why-a-probiotic" style="color:var(--accent);">Why a probiotic?</a></li>
-    <li><a href="#where-we-are-now" style="color:var(--accent);">Where we are now</a></li>
-  </ol>
-</nav>
+  <section class="post-section reveal">
+    <div class="post-wrap">
+      <div class="eyebrow">Diet vs. supplementation</div>
+      <h2>Why not simply eat well?</h2>
+      <p class="section-copy">Food is the foundation of health, and nothing we make is intended to replace a nutrient-dense diet. But relying on diet alone is a blunt way to target a highly specific biochemical pathway — for two reasons.</p>
 
-    <img class="blog-post-hero" src="../media/pills-blue.jpeg" alt="1C-01 probiotic capsules">
-
-    <p>
-      The question that started everything was deceptively simple: how do neurons protect themselves from Alzheimer's disease?
-      Our co-founder Dr Yizhou Yu spent years at the University of Cambridge trying to answer it — and what he found pointed
-      to a part of cellular biology that had been largely overlooked in the context of neurodegeneration.
-    </p>
-
-    <h2 id="the-finding">The finding</h2>
-<div style="background:#EEF3FB;border-left:3px solid var(--accent);padding:0.9rem 1.2rem;margin:0.5rem 0 1.5rem;border-radius:0 6px 6px 0;font-size:0.92rem;color:var(--text-muted);line-height:1.7;">
-  <strong style="color:var(--text);">In brief:</strong> Research from Cambridge showed that neurons naturally upregulate the one-carbon metabolic cycle under stress — and that this same cycle is severely impaired in Alzheimer's brains, pointing to a promising target for neuroprotection.
-</div>
-    <p>
-      Neurons under stress upregulate the one-carbon metabolic cycle. This cycle, responsible for producing key
-      methyl donors and supporting mitochondrial function, appears to be a natural protective response. In Alzheimer's
-      brains, this same cycle is severely impaired.
-    </p>
-    <p>
-      The implication was clear: if you could support one-carbon metabolism consistently and safely, you might be able
-      to slow the biological processes that lead to neurodegeneration. The challenge was how to do it in a way that
-      was practical, affordable, and could be taken every day.
-    </p>
-
-    <h2 id="why-a-probiotic">Why a probiotic?</h2>
-<div style="background:#EEF3FB;border-left:3px solid var(--accent);padding:0.9rem 1.2rem;margin:0.5rem 0 1.5rem;border-radius:0 6px 6px 0;font-size:0.92rem;color:var(--text-muted);line-height:1.7;">
-  <strong style="color:var(--text);">In brief:</strong> Direct supplementation of one-carbon metabolites has absorption limitations, so OneCarbon instead took a probiotic approach — developing 1C-01 to support the one-carbon pathway in the gut in a sustained, accessible way.
-</div>
-    <p>
-      Supplementing directly with one-carbon metabolites is possible, but absorption is limited and dosing is imprecise.
-      We took a probiotic approach: the gut is a natural site of metabolite production, and molecules produced there
-      can enter systemic circulation.
-    </p>
-    <p>
-      We developed 1C-01 as a probiotic designed to support one-carbon metabolism in the gut continuously and
-      sustainably. The details of how 1C-01 works are subject to ongoing scientific and intellectual property
-      development.
-    </p>
-
-    <h2 id="where-we-are-now">Where we are now</h2>
-<div style="background:#EEF3FB;border-left:3px solid var(--accent);padding:0.9rem 1.2rem;margin:0.5rem 0 1.5rem;border-radius:0 6px 6px 0;font-size:0.92rem;color:var(--text-muted);line-height:1.7;">
-  <strong style="color:var(--text);">In brief:</strong> 1C-01 is currently being evaluated for safety and biomarker effects in the PROFILE Phase I trial in healthy adults — the published science behind the approach is available on the Research page.
-</div>
-    <p>
-      1C-01 is not yet proven to prevent or treat any disease. We are currently investigating its safety and biomarker
-      effects in healthy adults through our <a href="../draft/trials-v3.html" style="color:var(--accent);font-weight:600;">PROFILE Phase I trial</a>.
-      The published science underpinning our approach is available on the <a href="../research.html" style="color:var(--accent);font-weight:600;">Research page</a>.
-    </p>
+      <div class="card-grid">
+        <div class="card">
+          <div class="icon-badge">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M7 3v6a4 4 0 0 0 8 0V3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/><path d="M7 3h8" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/><path d="M11 9v10" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/><path d="M7 19h8" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>The age decline</h3>
+          <p>Folate, one of the vital raw materials for your one-carbon pathway, tends to decline as we age — even on a sensible diet. Lower folate has been linked to faster brain ageing, so keeping levels steady matters.</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 5h16l-6 8v6l-4 2v-8L3 5z" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>The raw-material bottleneck</h3>
+          <p>Eating more folate doesn't guarantee your body can use it where it's needed most. Cooking destroys a good portion of it, and your body still has to process and convert what remains.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- ── FOOTER ── -->
-  <!-- ── RECOGNISED BY ── -->
+  <section class="post-section tint reveal">
+    <div class="post-wrap">
+      <div class="eyebrow">The better question</div>
+      <h2>Why not just take a folate pill?</h2>
+      <p class="section-copy">This is the <strong>better</strong> question — and it's the problem that shaped our company. Walk into any shop and you'll find pills containing folic acid, the synthetic form of folate. Standard pills present a few challenges.</p>
+
+      <div class="panel-list">
+        <div class="panel">
+          <div class="panel-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 17l5-2 3-9 3 12 3-8 2 4 4-1" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <h3>Spike-and-crash delivery</h3>
+            <p>A pill delivers a single dose that peaks quickly in the bloodstream, then clears out. It's a one-off drop, rather than the slow, steady supply your cells rely on.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2v18M11 2c-3.5 2.6-3.5 6 0 8.6s3.5 6 0 8.6M11 2c3.5 2.6 3.5 6 0 8.6s-3.5 6 0 8.6" stroke="var(--accent-dark)" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>The conversion difference</h3>
+            <p>A meaningful share of people carry a variation in the MTHFR gene that means their bodies convert synthetic folic acid less efficiently into the active form the brain uses. For them, a standard pill may be a less efficient route than a preformed, active metabolite.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="4" r="2" stroke="var(--accent)" stroke-width="1.6"/><path d="M11 6v4M11 10H6v4M11 10h5v4M6 14v3M16 14v3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>The downstream problem</h3>
+            <p>Folate is only the starting input. Your one-carbon pathway relies on a cascade of downstream metabolites to keep energy, cellular repair and other processes running.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="callback">Your gut, meanwhile, is already one of the body's primary natural producers of these active molecules. So rather than flooding your system from outside with a synthetic, hard-to-convert ingredient — we asked a simple question. Can we support the production line your body already runs?</p>
+    </div>
+  </section>
+
+  <section class="post-section reveal">
+    <div class="post-wrap">
+      <div class="eyebrow">The 1C-01 approach</div>
+      <h2>Why a probiotic is different</h2>
+      <p class="section-copy">This is where 1C-01 comes in. Instead of a passive, synthetic chemical, 1C-01 is a living, active probiotic strain. Once it settles in your gut, it acts as a microscopic, continuous factory.</p>
+
+      <div class="chart-block">
+        <div class="chart-card">
+          <div class="chart-label"><span>Standard folate pill</span><span class="tag pill">spike &amp; crash</span></div>
+          <svg class="chart-svg" viewBox="0 0 300 110" preserveAspectRatio="none">
+            <line x1="0" y1="95" x2="300" y2="95" stroke="var(--border)" stroke-width="1"/>
+            <path class="spike-path" d="M0,95 L55,95 L85,12 L120,95 L300,95"/>
+          </svg>
+          <p class="chart-caption">One dose. One peak. Then it clears — and your cells wait for the next.</p>
+        </div>
+        <div class="chart-card">
+          <div class="chart-label"><span>1C-01 probiotic</span><span class="tag flow">continuous flow</span></div>
+          <div class="flow-wrap">
+            <div class="flow-track">
+              <svg class="chart-svg" viewBox="0 0 300 110" width="300" preserveAspectRatio="none">
+                <path class="flow-path" d="M0,55 C 25,30 50,80 75,55 C 100,30 125,80 150,55 C175,30 200,80 225,55 C250,30 275,80 300,55"/>
+              </svg>
+              <svg class="chart-svg" viewBox="0 0 300 110" width="300" preserveAspectRatio="none">
+                <path class="flow-path" d="M0,55 C 25,30 50,80 75,55 C 100,30 125,80 150,55 C175,30 200,80 225,55 C250,30 275,80 300,55"/>
+              </svg>
+            </div>
+          </div>
+          <p class="chart-caption">A steady stream of active metabolites, produced day after day.</p>
+        </div>
+      </div>
+
+      <p class="factory-highlight">No spikes, just flow.</p>
+      <p class="section-copy" style="margin-bottom:0;">It produces active, ready-to-use one-carbon metabolites inside your body, day after day.</p>
+
+      <p class="factory-sub">Working with your biology</p>
+      <p class="section-copy" style="margin-bottom:0;">Rather than a sudden chemical spike from a pill, the aim is a gentle, continuous supply from within — a route that doesn't depend on converting synthetic folic acid.</p>
+    </div>
+  </section>
+
+  <!-- ── RECOGNISED BY (shared with rest of site) ── -->
   <section class="recognised-by-section">
     <div class="recognised-by-logos">
       <div class="logo-set">
@@ -114,6 +267,7 @@
     </div>
   </section>
 
+  <!-- ── FOOTER (shared with rest of site) ── -->
   <footer class="site-footer">
     <div class="footer-logo">One<span>Carbon</span></div>
     <nav class="footer-links">
@@ -141,5 +295,18 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+    document.querySelector('.hero').classList.add('is-visible');
+  </script>
 </body>
 </html>
