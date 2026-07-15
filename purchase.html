@@ -101,6 +101,33 @@
   .listline:last-child{border-bottom:0;}
   .listline .mk{color:var(--navy-2);flex:none;width:14px;}
 
+  /* QUICK-FACT BADGES */
+  .batch-code{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:-8px 0 20px;}
+  .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+  .badge{background:var(--card);border:1px solid var(--line);padding:18px;display:flex;gap:14px;align-items:center;}
+  .badge .ic{width:40px;height:40px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .badge .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);font-weight:500;margin-bottom:3px;}
+  .badge .v{font-size:15px;color:var(--navy);font-weight:500;line-height:1.3;}
+  @media(max-width:760px){.badges{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:460px){.badges{grid-template-columns:1fr;}}
+
+  /* INSIDE / NOT INSIDE tinted panels */
+  .io-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .io-panel{border-radius:5px;padding:26px;border:1px solid transparent;}
+  .io-panel.in{background:rgba(22,35,58,0.05);border-color:rgba(22,35,58,0.12);}
+  .io-panel.out{background:#F0F2F5;border-color:#E1E5EB;}
+  .io-panel h3{display:inline-block;font-family:'DM Sans',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin:0 0 16px;}
+  .io-panel.in h3{background:var(--navy);color:#fff;}
+  .io-panel.out h3{background:#D3D8DF;color:#566072;}
+  .io-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;font-size:14.5px;line-height:1.5;border-top:1px solid;}
+  .io-panel.in .io-row{border-top-color:rgba(22,35,58,0.12);}
+  .io-panel.out .io-row{border-top-color:#E1E5EB;}
+  .io-row:first-of-type{border-top:0;}
+  .io-chip{width:24px;height:24px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .io-chip.in{background:#DCEBE2;}
+  .io-chip.out{background:#E4E8EE;}
+  @media(max-width:640px){.io-panels{grid-template-columns:1fr;}}
+
   /* STEPS + TIMELINE */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line-strong);}
   .steps.four{grid-template-columns:repeat(4,1fr);}
@@ -216,36 +243,83 @@
       <h2>What is inside, and what is not</h2>
     </div>
 
-    <div class="plate" style="margin-bottom:14px;">
-      <div class="plate-head">
-        <span class="t">Specification</span>
-        <span class="code">1C-01 · NCIMB 44467 / 44468 / 44469</span>
+    <p class="batch-code">1C-01 · NCIMB 44467 / 44468 / 44469</p>
+
+    <div class="badges">
+      <div class="badge">
+        <div class="ic" style="background:#E9F0F8;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A6EA5" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="9" width="18" height="6" rx="3"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+        </div>
+        <div><div class="k">Format</div><div class="v">Vegan capsule (HPMC)</div></div>
       </div>
-      <div class="spec-grid">
-        <div><div class="spec-k">Format</div><div class="spec-v">Vegetarian and vegan capsule (HPMC)</div></div>
-        <div><div class="spec-k">Servings</div><div class="spec-v">36 per container</div></div>
-        <div><div class="spec-k">Dose</div><div class="spec-v">One capsule daily, preferably in the morning</div></div>
-        <div><div class="spec-k">Potency</div><div class="spec-v">Around 90 billion CFU per capsule</div></div>
-        <div><div class="spec-k">Suitable for</div><div class="spec-v">Vegetarians and vegans</div></div>
-        <div><div class="spec-k">Storage</div><div class="spec-v">Below 25°C, away from sunlight. Refrigerate after opening.</div></div>
+      <div class="badge">
+        <div class="ic" style="background:#E3F0F0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8E8E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="1"/><path d="M4 11 H20"/><path d="M10 8 V5 H14 V8"/></svg>
+        </div>
+        <div><div class="k">Servings</div><div class="v">36 per container</div></div>
+      </div>
+      <div class="badge">
+        <div class="ic" style="background:#ECE9F4;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6A5B9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 L5 13 H11 L10 21 L18 10 H12 Z"/></svg>
+        </div>
+        <div><div class="k">Potency</div><div class="v">~90 billion CFU</div></div>
+      </div>
+      <div class="badge">
+        <div class="ic" style="background:#F6EEDB;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1912F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18 H21"/><path d="M6.5 18 A5.5 5.5 0 0 1 17.5 18"/><path d="M12 6 V3"/><path d="M5 9 L3.5 7.5"/><path d="M19 9 L20.5 7.5"/></svg>
+        </div>
+        <div><div class="k">When to take</div><div class="v">1 capsule, morning</div></div>
+      </div>
+      <div class="badge">
+        <div class="ic" style="background:#E7F0EA;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4E8C6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 V11"/><path d="M12 12 C12 7 8 6 5 6 C5 10 8 12 12 12"/><path d="M12 12 C12 8 15 7 18 7 C18 10 15 12 12 12"/></svg>
+        </div>
+        <div><div class="k">Suitable for</div><div class="v">Vegans &amp; vegetarians</div></div>
+      </div>
+      <div class="badge">
+        <div class="ic" style="background:#E6F1F8;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3E86B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><line x1="4" y1="7.5" x2="20" y2="16.5"/><line x1="20" y1="7.5" x2="4" y2="16.5"/></svg>
+        </div>
+        <div><div class="k">Storage</div><div class="v">Below 25°C, refrigerate</div></div>
       </div>
     </div>
 
-    <p style="font-size:13px;color:var(--slate);margin:0 0 24px;">Each capsule provides 1000 IU of Vitamin D3. Vitamin D contributes to the normal function of the immune system.</p>
+    <p style="font-size:13px;color:var(--slate);margin:0 0 32px;">Each capsule provides 1000 IU of Vitamin D3. Vitamin D contributes to the normal function of the immune system.</p>
 
-    <div class="two-col">
-      <div class="col">
+    <div class="io-panels">
+      <div class="io-panel in">
         <h3>Inside</h3>
-        <div class="listline"><span class="mk">+</span><span>1C-01 proprietary strain (Lactobacillus plantarum), 0.15 g, around 90 billion CFU</span></div>
-        <div class="listline"><span class="mk">+</span><span>Isomaltooligosaccharide 0.093 g and yeast extract 0.03 g</span></div>
-        <div class="listline"><span class="mk">+</span><span>Vitamin D3 (cholecalciferol) 1000 IU, 500% of the daily reference intake</span></div>
-        <div class="listline"><span class="mk">+</span><span>Capsule shell (HPMC)</span></div>
+        <div class="io-row">
+          <span class="io-chip in"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <span>1C-01 proprietary strain (Lactobacillus plantarum), 0.15 g, around 90 billion CFU</span>
+        </div>
+        <div class="io-row">
+          <span class="io-chip in"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <span>Isomaltooligosaccharide 0.093 g and yeast extract 0.03 g</span>
+        </div>
+        <div class="io-row">
+          <span class="io-chip in"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <span>Vitamin D3 (cholecalciferol) 1000 IU, 500% of the daily reference intake</span>
+        </div>
+        <div class="io-row">
+          <span class="io-chip in"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <span>Capsule shell (HPMC)</span>
+        </div>
       </div>
-      <div class="col">
+      <div class="io-panel out">
         <h3>Not inside</h3>
-        <div class="listline"><span class="mk">–</span><span>No genetic modification. The strain is refined through directed evolution, not engineering.</span></div>
-        <div class="listline"><span class="mk">–</span><span>No allergens, and gluten free.</span></div>
-        <div class="listline"><span class="mk">–</span><span>Not a drug. 1C-01 is a food supplement.</span></div>
+        <div class="io-row">
+          <span class="io-chip out"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8B95A3" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>
+          <span>No genetic modification. 1C-01 is a naturally occurring probiotic strain, refined under our own scientific and IP protocols.</span>
+        </div>
+        <div class="io-row">
+          <span class="io-chip out"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8B95A3" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>
+          <span>No allergens, and gluten free.</span>
+        </div>
+        <div class="io-row">
+          <span class="io-chip out"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8B95A3" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></span>
+          <span>Not a drug. 1C-01 is a food supplement.</span>
+        </div>
       </div>
     </div>
   </div>
