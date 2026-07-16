@@ -79,8 +79,12 @@
   .buybox .format{font-size:13px;color:var(--slate);letter-spacing:.02em;margin-bottom:2px;}
   .buybox .price{font-family:'DM Sans',sans-serif;font-weight:500;font-size:30px;margin-bottom:2px;}
   .buybox .price small{font-family:'Outfit';font-size:13px;color:var(--slate);font-weight:300;}
-  .buybox .pg-btn{width:100%;text-align:center;margin:16px 0 12px;}
+  .buybox .pg-btn{width:100%;text-align:center;margin:16px 0 12px;border:none;cursor:pointer;}
   .buybox .micro{font-size:12px;color:var(--slate);line-height:1.7;}
+  .buy-toggle{display:flex;border:1px solid var(--line-strong);border-radius:999px;padding:3px;margin-bottom:16px;background:var(--card-2);}
+  .buy-tab{flex:1;border:none;background:transparent;padding:9px 10px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--slate);border-radius:999px;cursor:pointer;transition:background .2s,color .2s;}
+  .buy-tab.active{background:var(--navy);color:#fff;}
+  .buy-save{font-size:11px;color:#4E8C6A;font-weight:500;margin-left:6px;}
   .hero-figure{position:relative;display:flex;justify-content:center;}
   .hero-photo{width:100%;max-width:440px;height:100%;object-fit:cover;border-radius:4px;box-shadow:0 20px 60px -20px rgba(22,35,58,0.28);}
 
@@ -220,10 +224,14 @@
         <span class="chip">Gluten free</span>
       </div>
       <div class="buybox" id="buy">
+        <div class="buy-toggle" role="tablist">
+          <button type="button" class="buy-tab active" data-plan="sub" onclick="setPlan('sub')">Subscribe &amp; save</button>
+          <button type="button" class="buy-tab" data-plan="onetime" onclick="setPlan('onetime')">One-time</button>
+        </div>
         <div class="format">One box, 36 capsules · one a day · a month's supply, plus a few extra days</div>
-        <div class="price">£30</div>
-        <div class="format">Free UK delivery over £25 · 30-day money-back guarantee</div>
-        <a class="pg-btn" href="https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00">Buy now →</a>
+        <div class="price" id="buy-price">£25.50<small>/month</small></div>
+        <div class="format" id="buy-subline">Free UK delivery over £25 · Cancel anytime · 30-day money-back guarantee</div>
+        <a class="pg-btn" id="buy-btn" href="https://buy.stripe.com/bJebJ06PB6VWcbP63e1VK00">Subscribe &amp; save →</a>
         <div class="micro">
           Secure checkout via Stripe
         </div>
@@ -432,7 +440,7 @@
       </details>
       <details>
         <summary>How is it shipped and stored? <span class="plus">+</span></summary>
-        <div class="a">UK orders over £25, including the £30 kit, ship free by Royal Mail Tracked 48, which aims to arrive within two to three working days. Order before 7pm and we dispatch the same day, Sunday to Friday. Orders after 7pm on Friday are dispatched Sunday for Monday delivery. Store below 25°C, away from sunlight, and refrigerate after opening.</div>
+        <div class="a">UK orders over £25, including both the £25.50/month subscription and the £30 one-time order, ship free by Royal Mail Tracked 48, which aims to arrive within two to three working days. Order before 7pm and we dispatch the same day, Sunday to Friday. Orders after 7pm on Friday are dispatched Sunday for Monday delivery. Store below 25°C, away from sunlight, and refrigerate after opening.</div>
       </details>
       <details>
         <summary>What if it doesn't work for me? <span class="plus">+</span></summary>
@@ -446,8 +454,8 @@
 <section class="final">
   <div class="wrap">
     <h2>Ready to try 1C-01?</h2>
-    <p>A month of daily support for your one-carbon pathway, plus a few extra days. £30, with free UK delivery over £25 and a 30-day money-back guarantee.</p>
-    <a class="pg-btn" href="https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00">Buy now →</a>
+    <p>A month of daily support for your one-carbon pathway, plus a few extra days. From £25.50/month, subscribe &amp; save, or £30 one-time — both with free UK delivery over £25 and a 30-day money-back guarantee.</p>
+    <a class="pg-btn" href="#buy">Choose your plan →</a>
     <p class="disclaimer">1C-01 is a food supplement and should not replace a varied, balanced diet and a healthy lifestyle. It has not been approved to treat, cure or prevent any disease. Not suitable for children. If you are pregnant, breastfeeding or taking medication, consult your doctor before starting.</p>
   </div>
 </section>
@@ -479,5 +487,30 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+  const PLANS = {
+    sub: {
+      price: '£25.50<small>/month</small>',
+      subline: 'Free UK delivery over £25 · Cancel anytime · 30-day money-back guarantee',
+      btn: 'Subscribe &amp; save →',
+      href: 'https://buy.stripe.com/bJebJ06PB6VWcbP63e1VK00'
+    },
+    onetime: {
+      price: '£30',
+      subline: 'Free UK delivery over £25 · 30-day money-back guarantee',
+      btn: 'Buy now →',
+      href: 'https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00'
+    }
+  };
+  function setPlan(plan) {
+    const p = PLANS[plan];
+    document.getElementById('buy-price').innerHTML = p.price;
+    document.getElementById('buy-subline').textContent = p.subline;
+    const btn = document.getElementById('buy-btn');
+    btn.innerHTML = p.btn;
+    btn.href = p.href;
+    document.querySelectorAll('.buy-tab').forEach(t => t.classList.toggle('active', t.dataset.plan === plan));
+  }
+</script>
 </body>
 </html>
