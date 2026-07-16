@@ -253,14 +253,28 @@
 
     .auth-toggle {
       text-align: center;
-      margin-top: 18px;
-      font-size: 15px;
-      color: var(--text-muted);
+      margin-top: 12px;
     }
     .auth-toggle a {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: 1.5px solid var(--accent);
+      border-radius: 10px;
       color: var(--accent);
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      text-decoration: underline;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      box-sizing: border-box;
+    }
+    .auth-toggle a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .auth-toggle span {
+      display: none;
     }
 
     .auth-error {
@@ -983,7 +997,7 @@
 
         <div class="auth-toggle">
           <span id="auth-toggle-text" data-i18n="auth.no_account">Don't have an account?</span>
-          <a id="auth-mode-toggle" data-i18n="auth.create"> Create one</a>
+          <a id="auth-mode-toggle" data-i18n="auth.create">Create an account</a>
         </div>
       </div>
     </div>
@@ -1446,7 +1460,7 @@
         'auth.signin': 'Sign in',
         'auth.signup': 'Create account',
         'auth.no_account': "Don't have an account?",
-        'auth.create': ' Create one',
+        'auth.create': 'Create an account',
         'auth.have_account': 'Already have an account?',
         'auth.signin_link': ' Sign in',
         'onboard.h1': 'Tell us about yourself — just once',
