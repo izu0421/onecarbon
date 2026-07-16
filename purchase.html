@@ -84,7 +84,7 @@
   .buy-toggle{display:flex;border:1px solid var(--line-strong);border-radius:999px;padding:3px;margin-bottom:16px;background:var(--card-2);}
   .buy-tab{flex:1;border:none;background:transparent;padding:9px 10px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--slate);border-radius:999px;cursor:pointer;transition:background .2s,color .2s;}
   .buy-tab.active{background:var(--navy);color:#fff;}
-  .buy-save{font-size:11px;color:#4E8C6A;font-weight:500;margin-left:6px;}
+  .buy-save{font-size:13px;color:#4E8C6A;font-weight:500;margin-bottom:8px;}
   .hero-figure{position:relative;display:flex;justify-content:center;}
   .hero-photo{width:100%;max-width:440px;height:100%;object-fit:cover;border-radius:4px;box-shadow:0 20px 60px -20px rgba(22,35,58,0.28);}
 
@@ -230,6 +230,7 @@
         </div>
         <div class="format">One box, 36 capsules · one a day · a month's supply, plus a few extra days</div>
         <div class="price" id="buy-price">£25.50<small>/month</small></div>
+        <div class="buy-save" id="buy-save">Save 15% · 71p a day</div>
         <div class="format" id="buy-subline">Free UK delivery over £25 · Cancel anytime · 30-day money-back guarantee</div>
         <a class="pg-btn" id="buy-btn" href="https://buy.stripe.com/bJebJ06PB6VWcbP63e1VK00">Subscribe &amp; save →</a>
         <div class="micro">
@@ -491,12 +492,14 @@
   const PLANS = {
     sub: {
       price: '£25.50<small>/month</small>',
+      save: 'Save 15% · 71p a day',
       subline: 'Free UK delivery over £25 · Cancel anytime · 30-day money-back guarantee',
       btn: 'Subscribe &amp; save →',
       href: 'https://buy.stripe.com/bJebJ06PB6VWcbP63e1VK00'
     },
     onetime: {
       price: '£30',
+      save: '83p a day',
       subline: 'Free UK delivery over £25 · 30-day money-back guarantee',
       btn: 'Buy now →',
       href: 'https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00'
@@ -505,6 +508,7 @@
   function setPlan(plan) {
     const p = PLANS[plan];
     document.getElementById('buy-price').innerHTML = p.price;
+    document.getElementById('buy-save').textContent = p.save;
     document.getElementById('buy-subline').textContent = p.subline;
     const btn = document.getElementById('buy-btn');
     btn.innerHTML = p.btn;
