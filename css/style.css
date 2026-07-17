@@ -559,6 +559,16 @@ p {
   margin-bottom: 36px;
 }
 
+.hero-text p.hero-subhead {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(1.3rem, 2.3vw, 1.6875rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--text);
+  max-width: 520px;
+  margin-bottom: 20px;
+}
+
 /* Photo slot — bottom-right, bleeds to page edge */
 .hero-media-slot {
   position: relative;
