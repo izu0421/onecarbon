@@ -562,7 +562,7 @@ p {
 .hero-text p.hero-subhead {
   font-family: 'DM Sans', sans-serif;
   font-size: clamp(1.3rem, 2.3vw, 1.6875rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.35;
   color: var(--text);
   max-width: 520px;
