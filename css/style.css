@@ -547,9 +547,9 @@ p {
 }
 
 .hero-text h1 {
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(2.4rem, 4.8vw, 4.2rem);
   font-weight: 700;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
 }
