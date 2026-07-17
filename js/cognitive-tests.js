@@ -78,16 +78,16 @@
       '.cog-instructions h3{font-family:"DM Sans",sans-serif;font-weight:500;font-size:1.2rem;margin-bottom:10px;color:var(--text);}' +
       '.cog-instructions p{font-size:0.95rem;color:var(--text-muted);margin-bottom:10px;line-height:1.6;}' +
       '.cog-instructions .cog-eg{font-size:0.85rem;color:var(--text-faint);}' +
-      '.cog-stage{background:var(--surface);border:1px solid var(--border);padding:32px 24px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;}' +
+      '.cog-stage{background:var(--surface);border:1px solid var(--border);padding:32px 16px;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;box-sizing:border-box;}' +
       '.cog-prompt{font-size:0.9rem;color:var(--text-faint);margin-bottom:18px;}' +
-      '.cog-bignum{font-family:"DM Sans",sans-serif;font-weight:600;font-size:3rem;letter-spacing:0.15em;color:var(--text);}' +
+      '.cog-bignum{font-family:"DM Sans",sans-serif;font-weight:600;font-size:clamp(1.4rem,8vw,3rem);letter-spacing:0.1em;color:var(--text);word-break:break-all;overflow-wrap:anywhere;max-width:100%;padding:0 8px;}' +
       '.cog-btn{background:var(--accent);border:none;padding:13px 34px;font-family:"Outfit",sans-serif;font-size:0.95rem;color:#fff;cursor:pointer;border-radius:var(--radius-pill);transition:background .2s;}' +
       '.cog-btn:hover{background:var(--accent-dark);}' +
       '.cog-btn:disabled{opacity:.4;cursor:not-allowed;}' +
       '.cog-btn-ghost{background:none;border:1px solid var(--border);color:var(--text-muted);}' +
       '.cog-btn-ghost:hover{border-color:var(--text-muted);background:none;}' +
       '.cog-actions{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:18px;}' +
-      '.cog-input{font-family:"DM Sans",sans-serif;font-size:1.6rem;text-align:center;letter-spacing:0.15em;padding:10px 16px;border:1px solid var(--border);width:220px;color:var(--text);background:var(--surface);}' +
+      '.cog-input{font-family:"DM Sans",sans-serif;font-size:1.6rem;text-align:center;letter-spacing:0.15em;padding:10px 16px;border:1px solid var(--border);width:min(220px,90%);max-width:100%;color:var(--text);background:var(--surface);box-sizing:border-box;}' +
       '.cog-progress{font-size:0.8rem;color:var(--text-faint);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.08em;}' +
       '.cog-cards{display:flex;gap:24px;justify-content:center;margin-bottom:8px;}' +
       '.cog-card{width:96px;height:120px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:2.6rem;}' +
