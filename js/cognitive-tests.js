@@ -311,7 +311,10 @@
       }, 200);
     }
     function newTarget() {
-      target = key[Math.floor(Math.random() * key.length)];
+      var prev = target;
+      do {
+        target = key[Math.floor(Math.random() * key.length)];
+      } while (key.length > 1 && prev && target.sym === prev.sym);
       targetShownAt = now();
       var t = stage.querySelector('.cog-target-sym');
       if (t) t.textContent = target.sym;
