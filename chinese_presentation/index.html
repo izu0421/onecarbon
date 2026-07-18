@@ -1576,8 +1576,26 @@ const io = new IntersectionObserver((entries) => {
       counters.forEach(c => { if (!c.dataset.animated) animateCounter(c); });
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0 });
 revealEls.forEach(el => io.observe(el));
+
+// Fallback for scroll-snap: IO can miss instantaneous snaps, so also trigger on scroll
+(function() {
+  var deck = document.querySelector('.deck');
+  if (!deck) return;
+  function activateVisible() {
+    var h = deck.clientHeight;
+    slideEls.forEach(function(slide) {
+      if (Math.abs(slide.offsetTop - deck.scrollTop) < h * 0.5) {
+        slide.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('in'); });
+        slide.querySelectorAll('.counter').forEach(function(c) { if (!c.dataset.animated) animateCounter(c); });
+      }
+    });
+  }
+  deck.addEventListener('scroll', activateVisible, { passive: true });
+  // Run once on load to catch the first slide
+  setTimeout(activateVisible, 100);
+})();
 
 const slideIo = new IntersectionObserver((entries) => {
   entries.forEach(e => {
