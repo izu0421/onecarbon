@@ -329,7 +329,7 @@
           .hero-quiz-btn:hover{background:#0c1524 !important;}
         </style>
         <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;max-width:420px;">
-          <button class="hero-quiz-btn" onclick="var q=document.getElementById('qz-page');q.style.display='flex';setTimeout(function(){q.scrollIntoView({behavior:'smooth'});},50);" style="padding:16px 30px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s;">Take our 2-min quiz for 10% off</button>
+          <button class="hero-quiz-btn" onclick="qzOpen()" style="padding:16px 30px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s;">Take our 2-min quiz for 10% off</button>
         </div>
       </div>
     </div>
@@ -366,9 +366,18 @@
   <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
   <div style="background:#F7F5F0;">
   <style>
-  #qz-page{display:flex;align-items:flex-start;justify-content:center;padding:0;}
+  #qz-page{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;position:fixed;inset:0;z-index:9999;background:#EEEBE2;overflow-y:auto;}
+  #qz-topbar{width:100%;max-width:480px;margin:0 auto;padding:1.75rem 1.5rem 0;display:flex;align-items:center;justify-content:space-between;}
+  #qz-topbar img{height:32px;width:auto;}
+  #qz-close{background:none;border:none;cursor:pointer;padding:6px;color:#1a1a1a;line-height:0;}
   #qz *{box-sizing:border-box;}
-  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:transparent;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:none;}
+  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:transparent;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:none;margin:0 auto 2rem;}
+  #qz-intro-card{background:#F8F6EF;border-radius:20px;padding:2.5rem 2rem;box-shadow:0 12px 40px -12px rgba(26,26,26,0.12);text-align:left;}
+  #qz-intro-card h2{font-family:'DM Sans','Lora',serif;font-size:34px;line-height:1.2;font-weight:500;color:#1a1a1a;margin-bottom:1.25rem;}
+  #qz-intro-card p{font-size:16px;line-height:1.6;color:#333;margin-bottom:.5rem;}
+  #qz-intro-card .qz-intro-meta{font-size:14px;color:#8a8a8a;margin-bottom:1.75rem;}
+  #qz-intro-card .cont-btn{margin-top:0;}
+  #qz-intro-legal{font-size:13px;color:#999;text-align:center;max-width:480px;margin:1.25rem auto 0;line-height:1.6;padding:0 1.5rem;}
   #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
   @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
   #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
@@ -451,10 +460,28 @@
   #qz .circle-divider-label{flex-basis:100%;text-align:center;font-size:13px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin:4px 0;}
   </style>
 
-  <div id="qz-page" style="display:none;"><div id="qz">
+  <div id="qz-page" style="display:none;">
+  <div id="qz-topbar">
+    <img src="media/logo-full.png" alt="OneCarbon">
+    <button id="qz-close" aria-label="Close quiz" onclick="qzClose()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="qz">
+
+  <!-- INTRO -->
+  <div class="screen active" id="qz-intro">
+    <div id="qz-intro-card">
+      <h2>Take the free quiz</h2>
+      <p>A few quick questions to point you to the right information for you.</p>
+      <p class="qz-intro-meta">2 minutes · for you or someone you care about</p>
+      <button type="button" class="cont-btn" onclick="qzGoTo('qz-s1')">Begin</button>
+    </div>
+    <p id="qz-intro-legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease.</p>
+  </div>
 
   <!-- Q1 -->
-  <div class="screen active" id="qz-s1">
+  <div class="screen" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
     <p class="eyebrow">Question 1 of 5</p>
@@ -604,9 +631,11 @@
 
   <script>
   const qzA={};const qzTOTAL=5;
+  function qzOpen(){document.getElementById('qz-page').style.display='flex';document.body.style.overflow='hidden';}
+  function qzClose(){document.getElementById('qz-page').style.display='none';document.body.style.overflow='';}
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
   const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':2,'qz-sci2':2,'qz-s7':3,'qz-sex':4,'qz-s5':5,'qz-s-email':5};
-  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz').scrollIntoView({behavior:'smooth',block:'start'});}
+  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz-page').scrollTo({top:0,behavior:'smooth'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
     const map={
