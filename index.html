@@ -411,7 +411,7 @@
   #qz .sci-disclaimer{font-size:15px;color:#aaa;line-height:1.65;margin-top:1.25rem;font-style:italic;}
   #qz .safe-banner{background:#E1E9F7;border:1px solid #B0C4E2;border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:15px;color:#1E3A6F;line-height:1.6;}
   #qz .safe-banner strong{font-weight:500;}
-  #qz .offer-card{background:#1f355a;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
+  #qz .offer-card{background:#3F7D59;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
   #qz .offer-pct{font-family:'DM Sans','Lora',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:.25rem;font-weight:600;}
   #qz .offer-label{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:.35rem;}
   #qz .offer-sub{font-size:14px;color:rgba(255,255,255,.55);}
@@ -484,13 +484,13 @@
   <div class="screen" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 1 of 5</p>
-    <h2 class="q-title">Who are you exploring 1C-01 for?</h2>
-    <div class="tiles-grid">
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="myself"><span class="tile-emoji">🙋</span>Myself</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="parent"><span class="tile-emoji">👵</span>A Parent</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="partner"><span class="tile-emoji">💑</span>A Partner</button>
-      <button type="button" class="tile-grid-item" onclick="qzPick(this,'s1')" data-val="other"><span class="tile-emoji">🤝</span>Someone Else</button>
+    <p class="eyebrow">Question 1 of 7</p>
+    <h2 class="q-title">Who are you looking to support?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="myself"><span class="t-mark"><span class="t-chk">✓</span></span>Myself</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="parent"><span class="t-mark"><span class="t-chk">✓</span></span>A parent</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="partner"><span class="t-mark"><span class="t-chk">✓</span></span>A partner</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="other"><span class="t-mark"><span class="t-chk">✓</span></span>Someone else</button>
     </div>
     <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-s2')">Continue</button>
   </div>
@@ -499,16 +499,16 @@
   <div class="screen" id="qz-s2">
     <div class="steps" id="qz-sd3"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 2 of 5</p>
+    <p class="eyebrow">Question 2 of 7</p>
     <h2 class="q-title">What's prompting your interest?</h2>
-    <p class="hint">Select all that apply.</p>
-    <div class="circle-grid">
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="memory"><span class="circle-em">💭</span><span class="circle-lbl">Memory</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="focus"><span class="circle-em">🎯</span><span class="circle-lbl">Focus &amp; concentration</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="family"><span class="circle-em">🧬</span><span class="circle-lbl">Family history</span></button>
-      <button type="button" class="circle-btn" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="circle-em">🌱</span><span class="circle-lbl">Just being proactive</span></button>
+    <p class="hint">Select any that apply. This isn't a medical assessment or medical advice.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="memory"><span class="t-mark"><span class="t-chk">✓</span></span>Memory and recall</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="focus"><span class="t-mark"><span class="t-chk">✓</span></span>Focus and thinking</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="balance"><span class="t-mark"><span class="t-chk">✓</span></span>Balance and coordination</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="family"><span class="t-mark"><span class="t-chk">✓</span></span>A family history</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="t-mark"><span class="t-chk">✓</span></span>Nothing specific — just being proactive</button>
     </div>
-    <p class="sci-disclaimer" style="margin-top:0.5rem;">We ask to understand who's interested — this isn't a health assessment or diagnosis.</p>
     <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
     <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
   </div>
@@ -517,11 +517,11 @@
   <div class="screen" id="qz-sci1">
     <div class="steps" id="qz-sd5"></div>
     <p class="sci-eyebrow">Did you know</p>
-    <h2 class="q-title">The gut and brain are closely connected</h2>
+    <h2 class="q-title">Your gut and your brain are in constant conversation</h2>
     <div class="sci-bullets">
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain communicate through the <strong>gut-brain axis</strong>.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce <strong>metabolites</strong> that enter the bloodstream.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>1C-01 takes a probiotic approach to producing one-carbon metabolites.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain are connected by a two-way network called the <strong>gut–brain axis</strong> — what happens in your gut can influence what happens in your brain.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce molecules called <strong>metabolites</strong> that travel to the brain and play an active role in how neurons function.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Different gut bacteria make different metabolites — and that's what our research focuses on.</span></div>
     </div>
     <p class="sci-disclaimer">For educational purposes only. 1C-01 is a food supplement and does not claim to treat or prevent any disease.</p>
     <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
@@ -532,55 +532,44 @@
   <div class="screen" id="qz-sci2">
     <div class="steps" id="qz-sd6"></div>
     <p class="sci-eyebrow">The OneCarbon story</p>
-    <h2 class="q-title">A Cambridge discovery — now in a probiotic</h2>
+    <h2 class="q-title">A Cambridge discovery — now in a daily capsule</h2>
     <div class="sci-bullets">
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>At <strong>Cambridge</strong>, Dr Yizhou Yu studied the <strong>one-carbon pathway</strong> in the context of brain ageing.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>He identified a probiotic that produces one-carbon metabolites.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result: a food-grade, non-GMO probiotic working from inside your gut.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Dr Yizhou Yu's research at the <strong>University of Cambridge</strong> studied the one-carbon metabolic pathway — a process involved in how cells maintain themselves.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Using advanced techniques, he identified live cultures capable of producing the metabolites that support this pathway — winning multiple awards, including <strong>2nd place at the global Falling Walls Lab finale</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result — developed over two years into food-grade, non-GMO live cultures that produce one-carbon metabolites from inside the gut.</span></div>
     </div>
     <div class="usp-strip">
       <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
     </div>
-    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s7')">Continue →</button>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s-email')">Continue →</button>
     <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
   </div>
 
-  <!-- Q3 Age -->
-  <div class="screen" id="qz-s7">
-    <div class="steps" id="qz-sd10"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 3 of 5</p>
-    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="under60"><span class="t-mark"><span class="t-chk">✓</span></span>Under 60</button>
-      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="60-69"><span class="t-mark"><span class="t-chk">✓</span></span>60–69</button>
-      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="70-79"><span class="t-mark"><span class="t-chk">✓</span></span>70–79</button>
-      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="80+"><span class="t-mark"><span class="t-chk">✓</span></span>80+</button>
+  <!-- Email gate -->
+  <div class="screen" id="qz-s-email">
+    <h2 class="q-title">Would you like 10% off your first month?</h2>
+    <div class="offer-card">
+      <div class="offer-pct">10% off</div>
+      <div class="offer-label">your first month of 1C-01</div>
+      <div class="offer-sub">Discount applied automatically at checkout</div>
     </div>
-    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <label class="inp-label" for="qz-ef">Your email address</label>
+    <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
+    <p class="privacy">We'll only use this to send your code and where to start.</p>
+    <div class="gdpr-row">
+      <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
+      <label class="gdpr-label" for="qz-gdpr">Also send me updates about the research and product. Optional — unsubscribe any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+    </div>
+    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
+    <button class="skip" onclick="qzGoTo('qz-s5')">Skip for now</button>
     <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
-  </div>
-
-  <!-- Q4 Gender at birth -->
-  <div class="screen" id="qz-sex">
-    <div class="steps" id="qz-sd2"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 4 of 5</p>
-    <h2 class="q-title" id="qz-sex-title">What's your gender at birth? (optional)</h2>
-    <div class="tiles">
-      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="female"><span class="t-mark"><span class="t-chk">✓</span></span>Female</button>
-      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="male"><span class="t-mark"><span class="t-chk">✓</span></span>Male</button>
-      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="na"><span class="t-mark"><span class="t-chk">✓</span></span>Prefer not to say</button>
-    </div>
-    <button class="cont-btn" id="qz-next-sex" onclick="qzGoTo('qz-s5')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-s7')">← Back</button>
   </div>
 
   <!-- Q5 Supplements -->
   <div class="screen" id="qz-s5">
     <div class="steps" id="qz-sd7"></div>
     <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
-    <p class="eyebrow">Question 5 of 5</p>
+    <p class="eyebrow">Question 5 of 7</p>
     <h2 class="q-title" id="qz-s5-title">Are you taking any supplements?</h2>
     <p class="hint">Select all that apply.</p>
     <div class="tiles">
@@ -591,29 +580,39 @@
       <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="livecultures"><span class="t-mark"><span class="t-chk">✓</span></span>Live cultures</button>
       <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><span class="t-chk">✓</span></span>None right now</button>
     </div>
-    <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-s-email')">Continue</button>
-    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
+    <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
   </div>
 
-  <!-- Email gate -->
-  <div class="screen" id="qz-s-email">
-    <div class="steps" id="qz-sd8"></div>
-    <h2 class="q-title">Would you like 10% off your first month?</h2>
-    <p class="q-sub" style="margin-bottom:1.25rem;">Enter your email to claim your discount.</p>
-    <div class="offer-card">
-      <div class="offer-pct">10% off</div>
-      <div class="offer-label">your first month of 1C-01</div>
-      <div class="offer-sub">Discount applied automatically at checkout</div>
+  <!-- Q6 Gender at birth -->
+  <div class="screen" id="qz-sex">
+    <div class="steps" id="qz-sd2"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 6 of 7</p>
+    <h2 class="q-title" id="qz-sex-title">What's your gender at birth? (optional)</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="female"><span class="t-mark"><span class="t-chk">✓</span></span>Female</button>
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="male"><span class="t-mark"><span class="t-chk">✓</span></span>Male</button>
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="na"><span class="t-mark"><span class="t-chk">✓</span></span>Prefer not to say</button>
     </div>
-    <label class="inp-label" for="qz-ef">Your email address</label>
-    <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
-    <p class="privacy">Used only to send your results and discount code.</p>
-    <div class="gdpr-row">
-      <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
-      <label class="gdpr-label" for="qz-gdpr">I agree to receive marketing communications and information materials from OneCarbon. You can opt out at any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+    <button class="cont-btn" id="qz-next-sex" onclick="qzGoTo('qz-s7')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s5')">← Back</button>
+  </div>
+
+  <!-- Q7 Age -->
+  <div class="screen" id="qz-s7">
+    <div class="steps" id="qz-sd10"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 7 of 7</p>
+    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="under60"><span class="t-mark"><span class="t-chk">✓</span></span>Under 60</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="60-69"><span class="t-mark"><span class="t-chk">✓</span></span>60–69</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="70-79"><span class="t-mark"><span class="t-chk">✓</span></span>70–79</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="80+"><span class="t-mark"><span class="t-chk">✓</span></span>80+</button>
     </div>
-    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
-    <button class="skip" onclick="qzShowResult()">Skip for now</button>
+    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
   </div>
 
   <!-- Result -->
@@ -632,11 +631,11 @@
   </div></div>
 
   <script>
-  const qzA={};const qzTOTAL=5;
+  const qzA={};const qzTOTAL=7;
   function qzOpen(){document.getElementById('qz-page').style.display='flex';document.body.style.overflow='hidden';}
   function qzClose(){document.getElementById('qz-page').style.display='none';document.body.style.overflow='';}
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
-  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':2,'qz-sci2':2,'qz-s7':3,'qz-sex':4,'qz-s5':5,'qz-s-email':5};
+  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':3,'qz-sci2':4,'qz-s5':5,'qz-sex':6,'qz-s7':7};
   function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz-page').scrollTo({top:0,behavior:'smooth'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
@@ -661,14 +660,14 @@
       q2_sex:(qzA['sex']||[]).join(','),
       q4_concerns:(qzA['s2']||[]).join(','),
       q5_age:(qzA['s7']||[]).join(','),
-      q8_medication:(qzA['s5']||[]).join(','),
+      q8_supplements:(qzA['s5']||[]).join(','),
     };
     fetch('https://formspree.io/f/xykvdvoy',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(payload),
     }).catch(()=>{}); // fire-and-forget; don't block UX
-    qzShowResult();
+    qzGoTo('qz-s5');
   }
   function qzShowResult(){
     const email=document.getElementById('qz-ef').value||'(not provided)';
