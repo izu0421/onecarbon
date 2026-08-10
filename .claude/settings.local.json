@@ -66,7 +66,10 @@
       "WebFetch(domain:www.nature.com)",
       "WebFetch(domain:api.semanticscholar.org)",
       "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/media/sub_pictures_webpage-01.png'\\); print\\(img.size\\)\")",
-      "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/chinese_presentation/assets/evolution_screen.png'\\); print\\(img.size\\)\")"
+      "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/chinese_presentation/assets/evolution_screen.png'\\); print\\(img.size\\)\")",
+      "Bash(git fetch *)",
+      "Bash(git merge *)",
+      "Bash(ls -lt /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/65a1e0d6-5549-4422-aad2-8d8a8cdcf09d/ 2>/dev/null; echo \"---\"; ls -lt ~/Downloads 2>/dev/null | head -10; echo \"--- pastes ---\"; find /private/tmp/claude-501 -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" 2>/dev/null | head)"
     ]
   }
 }
