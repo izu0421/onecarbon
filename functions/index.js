@@ -13,13 +13,12 @@ const RESEND_API_KEY = defineSecret('RESEND_API_KEY');
 // POST { form: "<id>", data: { ... } } → Firestore + Resend email
 // ══════════════════════════════════════════════════════════
 
-// STOPGAP: pinned to the Resend account owner's address because the shared
-// test sender below can only deliver there. Switch to team@onecarbon.com
-// once onecarbon.com is verified at resend.com/domains.
+// TARGET: both of these should be team@onecarbon.com. Blocked until
+// onecarbon.com is verified at resend.com/domains — until then Resend rejects
+// the domain as a sender, and its shared test sender below will only deliver
+// to the account owner's own address. Flip both to team@onecarbon.com the
+// moment verification goes through (that also fixes sendReminders).
 const NOTIFY_TO = 'yizhou0421@gmail.com';
-// STOPGAP: onecarbon.com is not yet verified in Resend, so we send from their
-// shared test address. It only delivers to the Resend account owner's own
-// address. Switch to team@onecarbon.com once the domain verifies.
 const NOTIFY_FROM = 'OneCarbon Forms <onboarding@resend.dev>';
 
 // Only these form ids are accepted. `subject` is the notification subject line;
