@@ -1,6 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Form submissions are written only by the submitForm Cloud Function,
+    // which uses the Admin SDK and bypasses these rules. No client access.
+    match /submissions/{formId}/entries/{entryId} {
+      allow read, write: if false;
+    }
+
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
       match /sessions/{sessionId} {

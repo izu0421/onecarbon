@@ -69,7 +69,20 @@
       "Bash(python3 -c \"from PIL import Image; img = Image.open\\('/Users/yizhouyu/Library/CloudStorage/GoogleDrive-yizhou0421@gmail.com/My Drive/healthspanbiotics/files/onecarbon/chinese_presentation/assets/evolution_screen.png'\\); print\\(img.size\\)\")",
       "Bash(git fetch *)",
       "Bash(git merge *)",
-      "Bash(ls -lt /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/65a1e0d6-5549-4422-aad2-8d8a8cdcf09d/ 2>/dev/null; echo \"---\"; ls -lt ~/Downloads 2>/dev/null | head -10; echo \"--- pastes ---\"; find /private/tmp/claude-501 -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" 2>/dev/null | head)"
+      "Bash(ls -lt /private/tmp/claude-501/-Users-yizhouyu-Library-CloudStorage-GoogleDrive-yizhou0421-gmail-com-My-Drive-healthspanbiotics-files-onecarbon/65a1e0d6-5549-4422-aad2-8d8a8cdcf09d/ 2>/dev/null; echo \"---\"; ls -lt ~/Downloads 2>/dev/null | head -10; echo \"--- pastes ---\"; find /private/tmp/claude-501 -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" 2>/dev/null | head)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"name\":\"TEST — deploy check\",\"email\":\"test@onecarbon.com\",\"message\":\"Automated test submission verifying the submitForm endpoint. Safe to delete.\"}}')",
+      "Bash(curl -s -w \" HTTP %{http_code}\\\\n\" -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"notreal\",\"data\":{\"x\":1}}')",
+      "Bash(curl -s -w \" HTTP %{http_code}\\\\n\" -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"_gotcha\":\"bot\",\"message\":\"spam\"}}')",
+      "Bash(curl -s -w \" HTTP %{http_code}\\\\n\" https://us-central1-onecarbon-app.cloudfunctions.net/submitForm)",
+      "Bash(firebase functions:log --only submitForm --project onecarbon-app)",
+      "Bash(node -e ' *)",
+      "Bash(firebase firestore:databases:list --project onecarbon-app)",
+      "Bash(gcloud firestore *)",
+      "Bash(curl -s -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"newsletter\",\"data\":{\"email\":\"test2@onecarbon.com\",\"source\":\"deploy verification\"}}' -w \" HTTP %{http_code}\\\\n\")",
+      "Bash(firebase functions:log --only sendReminders --project onecarbon-app)",
+      "Bash(curl -s -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"name\":\"TEST — domain verification retry\",\"email\":\"test@onecarbon.com\",\"message\":\"Checking whether Resend now accepts onecarbon.com as a sender. Safe to delete.\"}}' -w \" HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s -o /dev/null -w \"8766: HTTP %{http_code}\\\\n\" http://localhost:8766/contact.html)",
+      "Bash(lsof -nP -iTCP -sTCP:LISTEN)"
     ]
   }
 }

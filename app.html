@@ -13,6 +13,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/forms.js"></script>
 
   <style>
     /* ── Design tokens ── */
@@ -1270,10 +1271,8 @@
         <div class="feedback-nudge-text" data-i18n="feedback.title">💬 Tell us how you feel!</div>
         <p class="feedback-nudge-sub" data-i18n="feedback.sub">Any thoughts, bugs, or suggestions — we read every message.</p>
         <button class="feedback-toggle-btn" id="feedback-toggle-btn" data-i18n="feedback.open">Leave feedback →</button>
-        <form class="feedback-form" id="feedback-form" style="display:none;" action="https://formspree.io/f/xqejdjwr" method="POST">
-          <input type="hidden" name="_subject" value="App feedback — OneCarbon">
-          <input type="hidden" name="_replyto" id="feedback-email-hidden">
-          <input type="hidden" name="_cc" value="yizhou@onecarbon.com">
+        <form class="feedback-form" id="feedback-form" style="display:none;">
+          <input type="hidden" name="email" id="feedback-email-hidden">
           <textarea class="feedback-textarea" name="message" data-i18n-ph="feedback.placeholder" placeholder="How was your experience? Any issues or ideas?" rows="4" required></textarea>
           <div class="feedback-actions">
             <button class="cog-btn" type="submit">Send →</button>
@@ -2517,12 +2516,13 @@
       }, { once: false });
       feedbackForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const data = new FormData(feedbackForm);
-        data.append('_replyto', user.email || '');
-        data.append('user', user.displayName || user.email || 'unknown');
-        data.append('sessions', sessions.length);
         try {
-          await fetch(feedbackForm.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+          await OCForms.submit('feedback', {
+            message: feedbackForm.querySelector('[name="message"]').value,
+            email: user.email || '',
+            user: user.displayName || user.email || 'unknown',
+            sessions: sessions.length,
+          });
         } catch(_) {}
         feedbackForm.style.display = 'none';
         feedbackSent.style.display = 'block';

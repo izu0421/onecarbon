@@ -714,6 +714,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/forms.js"></script>
   <script src="js/cognitive-tests.js"></script>
   <script>
   (function() {
@@ -723,8 +724,7 @@
     var ASSESSMENT_ENABLED = true;
     // ══════════════════════════════════════════════════════
 
-    // Formspree endpoint — replace with your actual form ID
-    var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mjgqkgka';
+    // Submissions go to the submitForm Cloud Function — see js/forms.js
 
     var mainEl = document.getElementById('assessmentMain');
     var disabledEl = document.getElementById('assessmentDisabled');
@@ -968,18 +968,10 @@
       buttons.forEach(function(b) { b.disabled = true; });
       if (primary) primary.textContent = 'Submitting...';
 
-      fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(function(resp) {
-        if (resp.ok) {
-          showStep('done');
-          document.getElementById('progressFill').style.width = '100%';
-        } else {
-          throw new Error('Submission failed');
-        }
+      OCForms.submit('quiz', data)
+      .then(function() {
+        showStep('done');
+        document.getElementById('progressFill').style.width = '100%';
       })
       .catch(function() {
         buttons.forEach(function(b) { b.disabled = false; });

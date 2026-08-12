@@ -652,8 +652,7 @@
   function qzSubmitE(){
     const email=document.getElementById('qz-ef').value;
     const payload={
-      _subject:'1C-01 Quiz — Email Capture',
-      _gotcha:'',
+      source:'homepage quiz — email capture',
       email:email,
       gdpr_consent:'yes',
       q1_who:(qzA['s1']||[]).join(','),
@@ -662,18 +661,13 @@
       q5_age:(qzA['s7']||[]).join(','),
       q8_supplements:(qzA['s5']||[]).join(','),
     };
-    fetch('https://formspree.io/f/xykvdvoy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(payload),
-    }).catch(()=>{}); // fire-and-forget; don't block UX
+    OCForms.submit('newsletter',payload).catch(()=>{}); // fire-and-forget; don't block UX
     qzGoTo('qz-s5');
   }
   function qzShowResult(){
     const email=document.getElementById('qz-ef').value||'(not provided)';
     const finalPayload={
-      _subject:'1C-01 Quiz — Completed',
-      _gotcha:'',
+      source:'homepage quiz — completed',
       email:email,
       q1_who:(qzA['s1']||[]).join(','),
       q2_sex:(qzA['sex']||[]).join(','),
@@ -681,11 +675,7 @@
       q5_supplements:(qzA['s5']||[]).join(','),
       q5_age:(qzA['s7']||[]).join(','),
     };
-    fetch('https://formspree.io/f/xykvdvoy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(finalPayload),
-    }).catch(()=>{});
+    OCForms.submit('newsletter',finalPayload).catch(()=>{});
 
     const items=['1C-01 is a once-daily capsule of live cultures — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.','It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.'];
     const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
@@ -757,9 +747,8 @@
         <a href="draft/trials-v3.html" class="profile-cta-link">Learn more about PROFILE →</a>
       </div>
       <div>
-        <form class="profile-form" action="https://formspree.io/f/xqejdjwr" method="POST" target="_blank">
-          <input type="hidden" name="_subject" value="FORM RESPONSE">
-          <input type="text" name="_gotcha" style="display:none">
+        <form class="profile-form" data-oc-form="profile" data-oc-sent="✓ Thanks — we'll be in touch about PROFILE soon.">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
           <div class="form-row">
             <div><input class="form-control" type="text" name="name" placeholder="Full Name" required></div>
             <div><input class="form-control" type="email" name="email" placeholder="Email Address" required></div>
@@ -890,9 +879,9 @@
         <h3 style="margin:0 0 4px;color:#fff;font-size:1.3rem;">Stay up to date</h3>
         <p style="margin:0;color:rgba(255,255,255,0.8);font-size:14px;">Join our mailing list for research updates and news from OneCarbon.</p>
       </div>
-      <form action="https://formspree.io/f/xykvdvoy" method="POST" target="_blank" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <form data-oc-form="newsletter" data-oc-sent="✓ You're on the list." data-oc-sent-style="color:#fff;margin:0;" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
         <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
-        <input type="hidden" name="_subject" value="Mailing List Sign-Up">
+        <input type="hidden" name="source" value="footer mailing list banner">
         <input type="email" name="email" placeholder="Your email address" required class="mailing-input"
           style="padding:11px 16px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;min-width:240px;">
         <button type="submit" style="padding:11px 24px;background:#fff;color:#1f355a;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:0;">Join mailing list</button>
@@ -928,6 +917,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/forms.js"></script>
 
 
   <!-- ── TWEAKS PANEL ── -->

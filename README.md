@@ -23,7 +23,7 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
 
 - **Frontend:** Static HTML/CSS/JS. No framework, no build step.
 - **Backend:** None. All dynamic behaviour is third-party:
-  - Forms → Formspree (see form IDs below)
+  - Forms → Firebase Cloud Function `submitForm` → Firestore + Resend (see form ids below)
   - Payments → Stripe hosted checkout (buy.stripe.com payment link)
   - Geo-currency → ipapi.co (free tier, fetch on purchase page load)
 - **Hosting:** GitHub Pages via `github.com/izu0421/onecarbon`, branch `main`, CNAME `onecarbon.com`
@@ -45,7 +45,7 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
 ├── trials-v3.html        PROFILE trial page (Three.js neuron animation, live)
 ├── trials.html           Legacy trial page (not linked)
 ├── trials-v2.html        Legacy trial page (not linked)
-├── quiz.html             Brain health quiz + cognitive battery (Formspree)
+├── quiz.html             Brain health quiz + cognitive battery (submitForm)
 ├── blog/                 Blog posts (index.html + individual posts)
 ├── legal/                privacy.html, tos.html, cookie.html, refund-policy.html
 ├── css/style.css         Single stylesheet. All CSS custom properties at top.
@@ -85,20 +85,23 @@ All CTAs on `index.html` and `app.html` link directly to Stripe — no intermedi
 
 ## Forms
 
-All forms use **Formspree** with honeypot (`name="_gotcha"`).
+All forms POST to the **`submitForm` Cloud Function** (`functions/index.js`), which writes to
+Firestore `submissions/<form>/entries` and emails a notification via Resend. Honeypot
+(`name="_gotcha"`) is checked server-side. Client helper: `js/forms.js`.
 
-| Form | File | Formspree ID |
-|------|------|-------------|
-| PROFILE sign-up | index.html + trials/index.html | `xqejdjwr` |
-| App feedback | app.html | `xqejdjwr` |
-| Mailing list | index.html | `xykvdvoy` |
-| Quiz (email gate + completion) | index.html (fetch) | `xykvdvoy` |
-| Contact | contact.html | `xeedldne` |
-| App cognitive quiz | quiz.html | `mjgqkgka` |
+| Form | File | Form id |
+|------|------|---------|
+| PROFILE sign-up | index.html + trials/index.html | `profile` |
+| App feedback | app.html | `feedback` |
+| Mailing list | index.html | `newsletter` |
+| Quiz (email gate + completion) | index.html (fetch) | `newsletter` |
+| Contact | contact.html | `contact` |
+| App cognitive quiz | quiz.html | `quiz` |
 
-All submissions delivered to **yizhou@onecarbon.com**.
+Notifications delivered to **team@onecarbon.com** (`NOTIFY_TO` in `functions/index.js`);
+full records live in Firestore.
 
-> ⚠️ Enable reCAPTCHA + domain allowlist (`onecarbon.com`) in Formspree dashboard for each form.
+> ⚠️ Consider enabling Firebase App Check on `submitForm` — the endpoint is public by design.
 
 ---
 
@@ -228,7 +231,7 @@ users/{uid}/sessions/{timestamp}     # {
 - **Sleep health panel** — scored 0–100 from hours/quality/daytime/onset/trouble
 - **1C-01 probiotic tracker** — log start date, per-session compliance tiles (dynamic interval)
 - **Shop panel** — direct Stripe links for reorder (10% off) and biomarker testing
-- **Feedback form** — Formspree, CC'd to yizhou@onecarbon.com
+- **Feedback form** — `submitForm` Cloud Function (`feedback` id), notifies team@onecarbon.com
 - **Bilingual** — full EN / ZH toggle (window.currentLang shared with cognitive-tests.js)
 - **Practice round** — guided interactive practice for first-time users (session 1 only)
 - **Post-test results screen** — composite score + 7 domain bars before saving

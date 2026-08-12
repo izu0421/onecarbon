@@ -32,10 +32,25 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - Stripe Payment Link still to be created; purchase.html CTA currently points to `#`
 
 ## Forms
-All forms use Formspree (data visible at formspree.io dashboard):
-- index.html PROFILE sign-up: `https://formspree.io/f/xqejdjwr`
-- index.html email capture footer: `https://formspree.io/f/xykvdvoy`
-- quiz.html cognitive quiz: `https://formspree.io/f/mjgqkgka`
+All forms POST to the `submitForm` Cloud Function (`functions/index.js`), which writes to
+Firestore `submissions/<form>/entries` and emails a notification via Resend. Formspree is gone.
+
+Client helper: `js/forms.js` — include it after `js/main.js`. Two usages:
+- Declarative: `<form data-oc-form="<id>">` — auto-intercepted; `data-oc-sent` sets the success text,
+  `data-oc-success` names an element to reveal instead, `data-oc-sent-style` appends inline CSS.
+- Programmatic: `OCForms.submit('<id>', {...})` → promise. Used where the page owns the flow.
+
+Form ids (allowlisted in `functions/index.js` → `FORMS`; anything else is rejected):
+| id | Used by |
+|---|---|
+| `profile` | index.html PROFILE sign-up, trials/index.html |
+| `newsletter` | index.html footer banner + homepage quiz email capture |
+| `contact` | contact.html |
+| `quiz` | quiz.html (incl. cognitive battery payload) |
+| `feedback` | app.html in-app feedback |
+
+Keep the `_gotcha` honeypot input on declarative forms — the function checks it and silently
+drops bot submissions. Notification recipient is `NOTIFY_TO` in `functions/index.js`.
 
 ## Quiz (quiz.html)
 - Step-based form, `totalSteps = 5`
