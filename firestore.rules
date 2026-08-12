@@ -7,11 +7,13 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /users/{userId} {
+    // Recursive wildcard: rules do NOT cascade into subcollections on their
+    // own, and the app stores data under users/{uid}/profile/data and
+    // users/{uid}/sessions/{id}. Matching {document=**} covers the user doc
+    // and every subcollection under it — a user still only ever reaches
+    // their own tree.
+    match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      match /sessions/{sessionId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
-      }
     }
   }
 }

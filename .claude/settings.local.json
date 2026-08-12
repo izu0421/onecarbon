@@ -82,7 +82,8 @@
       "Bash(firebase functions:log --only sendReminders --project onecarbon-app)",
       "Bash(curl -s -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"name\":\"TEST — domain verification retry\",\"email\":\"test@onecarbon.com\",\"message\":\"Checking whether Resend now accepts onecarbon.com as a sender. Safe to delete.\"}}' -w \" HTTP %{http_code}\\\\n\")",
       "Bash(curl -s -o /dev/null -w \"8766: HTTP %{http_code}\\\\n\" http://localhost:8766/contact.html)",
-      "Bash(lsof -nP -iTCP -sTCP:LISTEN)"
+      "Bash(lsof -nP -iTCP -sTCP:LISTEN)",
+      "Bash(firebase deploy *)"
     ]
   }
 }
