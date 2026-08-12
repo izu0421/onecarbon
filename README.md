@@ -45,7 +45,6 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
 ├── trials-v3.html        PROFILE trial page (Three.js neuron animation, live)
 ├── trials.html           Legacy trial page (not linked)
 ├── trials-v2.html        Legacy trial page (not linked)
-├── quiz.html             Brain health quiz + cognitive battery (submitForm)
 ├── blog/                 Blog posts (index.html + individual posts)
 ├── legal/                privacy.html, tos.html, cookie.html, refund-policy.html
 ├── css/style.css         Single stylesheet. All CSS custom properties at top.
@@ -96,7 +95,7 @@ Firestore `submissions/<form>/entries` and emails a notification via Resend. Hon
 | Mailing list | index.html | `newsletter` |
 | Quiz (email gate + completion) | index.html (fetch) | `newsletter` |
 | Contact | contact.html | `contact` |
-| App cognitive quiz | quiz.html | `quiz` |
+| App cognitive quiz | *(quiz.html removed)* | `quiz` |
 
 Notifications delivered to **team@onecarbon.com** (`NOTIFY_TO` in `functions/index.js`);
 full records live in Firestore.

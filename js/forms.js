@@ -10,7 +10,7 @@
 
    2. Programmatic — OCForms.submit('<id>', { ...fields }) returns a
       promise. Use this where the page already owns the submit flow
-      (quiz.html, the index quiz email capture).
+      (the index.html quiz email capture, app.html feedback).
 
    Valid ids: profile · newsletter · contact · quiz · feedback
    ══════════════════════════════════════════════════════════ */

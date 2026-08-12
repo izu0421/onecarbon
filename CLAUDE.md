@@ -16,7 +16,8 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - our_story.html — company story + team grid (migrated from team.html)
 - research.html — publications table with hover summaries, footnotes
 - trials-v3.html — LIVE clinical trials page (full-header Three.js neuron animation); trials.html and trials-v2.html kept in folder but not linked
-- quiz.html — brain health quiz + cognitive battery (step-based form → Formspree)
+- quiz.html — REMOVED (was: brain health quiz + cognitive battery). The homepage
+  `qz-*` quiz in index.html is unrelated and still live.
 - team.html — legacy page, team content now lives in our_story.html
 - purchase.html — £30 early-access kit sign-up (Stripe link pending)
 - contact.html
@@ -46,25 +47,17 @@ Form ids (allowlisted in `functions/index.js` → `FORMS`; anything else is reje
 | `profile` | index.html PROFILE sign-up, trials/index.html |
 | `newsletter` | index.html footer banner + homepage quiz email capture |
 | `contact` | contact.html |
-| `quiz` | quiz.html (incl. cognitive battery payload) |
+| `quiz` | retired with quiz.html — kept in the allowlist so any cached page still submits |
 | `feedback` | app.html in-app feedback |
 
 Keep the `_gotcha` honeypot input on declarative forms — the function checks it and silently
 drops bot submissions. Notification recipient is `NOTIFY_TO` in `functions/index.js`.
 
-## Quiz (quiz.html)
-- Step-based form, `totalSteps = 5`
-- Step 1: About you + email (Google Sign-In pre-fill, Client ID: `1066518482231-0sg31l19mjl8qto2a73u6t3fs2raicb5.apps.googleusercontent.com`)
-- Step 2: Supplement use — gates the rest; if user hasn't started 1C-01, Step 5 is skipped
-- Step 3: Sleep questions (merged)
-- Step 4: More sleep / habits (merged)
-- Step 5: 1C-01 experience (only shown if user has started taking it)
-- After final step → cognitive battery (`js/cognitive-tests.js`)
-
 ## Cognitive battery (js/cognitive-tests.js)
+Now used only by app.html (quiz.html, its other consumer, was removed).
 7 tasks (shuffled order): reaction time, numeric memory, symbol-digit, word-pair memory, pattern puzzles, trail making A & B.
 Each task shows instructions + a "Start" button (no auto-countdown).
-Results submitted to Formspree include:
+Results submitted include:
 - `cog_<field>` — summary score
 - `cog_<field>_start` — ISO timestamp when Start was clicked
 - `cog_<field>_duration_ms` — total task duration
