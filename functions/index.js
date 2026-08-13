@@ -102,7 +102,20 @@ exports.submitForm = onRequest(
 );
 
 async function sendSubmissionEmail(formId, config, data, apiKey) {
+  // Campaign fields ride along on every form (see js/utm.js), so append them
+  // to whatever that form's own summary already lists.
+  const ATTRIBUTION = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+    'referrer_host',
+    'landing_page',
+  ];
+
   const rows = config.summary
+    .concat(ATTRIBUTION)
     .filter((field) => data[field] !== undefined && data[field] !== '')
     .map(
       (field) =>

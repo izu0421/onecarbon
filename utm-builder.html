@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Campaign link builder — OneCarbon (internal)</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #1f355a;
+      --accent-dark: #162844;
+      --bg: #F7F5F0;
+      --surface: #fff;
+      --text: #1a1a18;
+      --text-muted: #555;
+      --text-faint: #888;
+      --border: #e4e1da;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: 'Outfit', sans-serif; font-size: 16px; line-height: 1.6;
+      padding: 48px 20px 80px;
+    }
+    .wrap { max-width: 780px; margin: 0 auto; }
+    h1 {
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      font-size: 2rem; margin: 0 0 6px; letter-spacing: -0.01em;
+    }
+    .sub { color: var(--text-muted); margin: 0 0 8px; }
+    .internal {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); background: rgba(31,53,90,0.09);
+      padding: 4px 10px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 26px; margin-bottom: 22px;
+    }
+    label {
+      display: block; font-size: 13px; font-weight: 600;
+      margin-bottom: 5px; color: var(--text);
+    }
+    label .req { color: #b3261e; }
+    .hint { font-size: 12.5px; color: var(--text-faint); margin: 3px 0 0; }
+    input, select {
+      width: 100%; padding: 10px 12px; font-family: 'Outfit', sans-serif;
+      font-size: 14.5px; border: 1px solid var(--border); border-radius: 8px;
+      background: #fff; color: var(--text); outline: none;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    .field { margin-bottom: 18px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+    .out {
+      background: var(--accent); color: #fff; border-radius: 12px;
+      padding: 22px 24px;
+    }
+    .out-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; opacity: 0.75; margin: 0 0 10px;
+    }
+    #result {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px; word-break: break-all; line-height: 1.55;
+      background: rgba(255,255,255,0.12); padding: 14px 16px;
+      border-radius: 8px; margin-bottom: 16px; min-height: 20px;
+    }
+    button {
+      font-family: 'Outfit', sans-serif; font-size: 14.5px; font-weight: 600;
+      padding: 11px 22px; border-radius: 100px; border: none;
+      cursor: pointer; background: #fff; color: var(--accent);
+    }
+    button.ghost {
+      background: transparent; color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.5);
+    }
+    .warn {
+      background: #FFF7E6; border: 1px solid #F0DCB0; color: #6b5420;
+      border-radius: 10px; padding: 14px 18px; font-size: 14px;
+      margin-bottom: 22px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td {
+      text-align: left; padding: 8px 12px 8px 0;
+      border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    th { font-weight: 600; font-size: 12.5px; color: var(--text-faint);
+         text-transform: uppercase; letter-spacing: 0.06em; }
+    td code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px; background: rgba(31,53,90,0.07);
+      padding: 1px 6px; border-radius: 4px;
+    }
+    h2 {
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      font-size: 1.15rem; margin: 0 0 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="internal">Internal tool</span>
+  <h1>Campaign link builder</h1>
+  <p class="sub">Builds tagged URLs so you can tell which campaign produced each sign-up. Values are lowercased and spaces become hyphens — consistency is the whole point, since <code>LinkedIn</code> and <code>linkedin</code> would otherwise report as two separate sources.</p>
+
+  <div class="warn">
+    <strong>Attribution is captured into form submissions</strong>, not an analytics dashboard. A tagged visit shows up when that person submits a form — you'll see <code>utm_source</code> and friends alongside their answers in Firestore.
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label for="base">Destination page <span class="req">*</span></label>
+      <select id="base">
+        <option value="https://onecarbon.com/">Home</option>
+        <option value="https://onecarbon.com/purchase.html">Purchase — 1C-01 kit</option>
+        <option value="https://onecarbon.com/trials/">PROFILE trial sign-up</option>
+        <option value="https://onecarbon.com/blog/">Blog &amp; press</option>
+        <option value="https://onecarbon.com/research.html">Research</option>
+        <option value="https://onecarbon.com/our_story.html">Our story</option>
+        <option value="https://onecarbon.com/contact.html">Contact</option>
+        <option value="custom">Other — type it below</option>
+      </select>
+      <input id="baseCustom" type="url" placeholder="https://onecarbon.com/..." style="margin-top:10px;display:none;">
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="source">Source <span class="req">*</span></label>
+        <input id="source" list="sources" placeholder="linkedin" autocomplete="off">
+        <datalist id="sources">
+          <option value="linkedin"><option value="twitter"><option value="instagram">
+          <option value="facebook"><option value="newsletter"><option value="email">
+          <option value="google"><option value="cambridge-independent"><option value="qr-code">
+          <option value="press"><option value="partner">
+        </datalist>
+        <p class="hint">Where the click comes from — the site or platform.</p>
+      </div>
+      <div class="field">
+        <label for="medium">Medium <span class="req">*</span></label>
+        <input id="medium" list="mediums" placeholder="social" autocomplete="off">
+        <datalist id="mediums">
+          <option value="social"><option value="email"><option value="cpc">
+          <option value="organic"><option value="referral"><option value="print">
+          <option value="qr"><option value="banner">
+        </datalist>
+        <p class="hint">The kind of channel — social, email, cpc, print.</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="campaign">Campaign <span class="req">*</span></label>
+      <input id="campaign" placeholder="rebrand-launch" autocomplete="off">
+      <p class="hint">The specific push. Include a date if you'll repeat it — <code>profile-recruitment-2026-08</code>.</p>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="content">Content <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
+        <input id="content" placeholder="hero-button" autocomplete="off">
+        <p class="hint">Distinguishes two links in the same campaign.</p>
+      </div>
+      <div class="field">
+        <label for="term">Term <span style="font-weight:400;color:var(--text-faint);">(optional)</span></label>
+        <input id="term" placeholder="alzheimers-probiotic" autocomplete="off">
+        <p class="hint">Paid keyword. Leave blank for organic posts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="out">
+    <p class="out-label">Your tagged link</p>
+    <div id="result">Fill in source, medium and campaign…</div>
+    <button id="copy" type="button">Copy link</button>
+    <button id="reset" type="button" class="ghost">Reset</button>
+  </div>
+
+  <div class="card" style="margin-top:22px;">
+    <h2>Conventions worth keeping</h2>
+    <table>
+      <tr><th>Field</th><th>Use</th><th>Example</th></tr>
+      <tr><td><code>utm_source</code></td><td>The platform</td><td><code>linkedin</code></td></tr>
+      <tr><td><code>utm_medium</code></td><td>The channel type</td><td><code>social</code></td></tr>
+      <tr><td><code>utm_campaign</code></td><td>The push</td><td><code>rebrand-launch</code></td></tr>
+      <tr><td><code>utm_content</code></td><td>Which link</td><td><code>hero-button</code></td></tr>
+      <tr><td><code>utm_term</code></td><td>Paid keyword</td><td><code>brain-health</code></td></tr>
+    </table>
+    <p class="hint" style="margin-top:14px;">
+      Never tag internal links between your own pages — it restarts attribution and credits
+      OneCarbon for a visit someone else earned. Tag only links that live somewhere else.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var ids = ['source', 'medium', 'campaign', 'content', 'term'];
+  var baseSel = document.getElementById('base');
+  var baseCustom = document.getElementById('baseCustom');
+  var result = document.getElementById('result');
+
+  // Lowercase, trim, collapse whitespace to hyphens. Analytics tools treat
+  // values case-sensitively, so "LinkedIn" and "linkedin" would split one
+  // source into two rows.
+  function clean(value) {
+    return value.trim().toLowerCase().replace(/\s+/g, '-');
+  }
+
+  function base() {
+    return baseSel.value === 'custom' ? baseCustom.value.trim() : baseSel.value;
+  }
+
+  function build() {
+    var target = base();
+    var source = clean(document.getElementById('source').value);
+    var medium = clean(document.getElementById('medium').value);
+    var campaign = clean(document.getElementById('campaign').value);
+
+    if (!target || !source || !medium || !campaign) {
+      result.textContent = 'Fill in source, medium and campaign…';
+      return '';
+    }
+
+    var url;
+    try {
+      url = new URL(target);
+    } catch (e) {
+      result.textContent = 'That destination is not a valid URL.';
+      return '';
+    }
+
+    url.searchParams.set('utm_source', source);
+    url.searchParams.set('utm_medium', medium);
+    url.searchParams.set('utm_campaign', campaign);
+
+    ['content', 'term'].forEach(function (field) {
+      var value = clean(document.getElementById(field).value);
+      if (value) url.searchParams.set('utm_' + field, value);
+    });
+
+    result.textContent = url.toString();
+    return url.toString();
+  }
+
+  ids.forEach(function (id) {
+    document.getElementById(id).addEventListener('input', build);
+  });
+  baseCustom.addEventListener('input', build);
+  baseSel.addEventListener('change', function () {
+    baseCustom.style.display = baseSel.value === 'custom' ? 'block' : 'none';
+    build();
+  });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var link = build();
+    if (!link) return;
+    var btn = this;
+    navigator.clipboard.writeText(link).then(function () {
+      btn.textContent = 'Copied ✓';
+      setTimeout(function () { btn.textContent = 'Copy link'; }, 1600);
+    }).catch(function () {
+      btn.textContent = 'Press ⌘C';
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    ids.forEach(function (id) { document.getElementById(id).value = ''; });
+    baseSel.selectedIndex = 0;
+    baseCustom.value = '';
+    baseCustom.style.display = 'none';
+    build();
+  });
+})();
+</script>
+</body>
+</html>

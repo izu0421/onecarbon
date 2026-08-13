@@ -102,6 +102,12 @@ full records live in Firestore.
 
 > ⚠️ Consider enabling Firebase App Check on `submitForm` — the endpoint is public by design.
 
+### Campaign attribution
+
+`js/utm.js` captures `utm_*` parameters on landing into sessionStorage; `js/forms.js` merges
+them into every submission, so each Firestore entry records the campaign that produced it.
+First-touch within a session. Build tagged links with `utm-builder.html` (internal, unlinked).
+
 ---
 
 ## Brain Health Assessment Quiz (index.html)

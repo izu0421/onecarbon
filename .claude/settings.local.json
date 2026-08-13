@@ -83,7 +83,8 @@
       "Bash(curl -s -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"name\":\"TEST — domain verification retry\",\"email\":\"test@onecarbon.com\",\"message\":\"Checking whether Resend now accepts onecarbon.com as a sender. Safe to delete.\"}}' -w \" HTTP %{http_code}\\\\n\")",
       "Bash(curl -s -o /dev/null -w \"8766: HTTP %{http_code}\\\\n\" http://localhost:8766/contact.html)",
       "Bash(lsof -nP -iTCP -sTCP:LISTEN)",
-      "Bash(firebase deploy *)"
+      "Bash(firebase deploy *)",
+      "Bash(curl -s -X POST https://us-central1-onecarbon-app.cloudfunctions.net/submitForm -H \"Content-Type: application/json\" -d '{\"form\":\"contact\",\"data\":{\"name\":\"TEST — attribution\",\"email\":\"test@onecarbon.com\",\"message\":\"Checking UTM fields land in Firestore. Safe to delete.\",\"utm_source\":\"linkedin\",\"utm_medium\":\"social\",\"utm_campaign\":\"rebrand-launch\",\"landing_page\":\"/blog/what-is-alzheimers.html\"}}' -w \" HTTP %{http_code}\\\\n\")"
     ]
   }
 }

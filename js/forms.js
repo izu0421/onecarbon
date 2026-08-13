@@ -20,10 +20,25 @@
   var ENDPOINT = 'https://us-central1-onecarbon-app.cloudfunctions.net/submitForm';
 
   function submit(formId, data) {
+    var payload = {};
+    var fields = data || {};
+
+    // Campaign attribution, if js/utm.js is on the page. Merged first so a
+    // real form field of the same name always wins.
+    if (global.OCAttribution) {
+      var attribution = global.OCAttribution.get();
+      Object.keys(attribution).forEach(function (k) {
+        payload[k] = attribution[k];
+      });
+    }
+    Object.keys(fields).forEach(function (k) {
+      payload[k] = fields[k];
+    });
+
     return fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ form: formId, data: data || {} }),
+      body: JSON.stringify({ form: formId, data: payload }),
     }).then(function (resp) {
       if (!resp.ok) throw new Error('Submission failed (' + resp.status + ')');
       return resp.json();

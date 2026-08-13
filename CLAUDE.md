@@ -53,6 +53,19 @@ Form ids (allowlisted in `functions/index.js` → `FORMS`; anything else is reje
 Keep the `_gotcha` honeypot input on declarative forms — the function checks it and silently
 drops bot submissions. Notification recipient is `NOTIFY_TO` in `functions/index.js`.
 
+## Campaign attribution (UTM)
+`js/utm.js` captures `utm_*` (plus gclid/fbclid/li_fat_id/msclkid) on landing, holds them in
+sessionStorage, and `js/forms.js` merges them into every submission. So a tagged visit shows up
+as `utm_source` etc. on the Firestore entry, and in the notification email.
+
+- **First-touch** — the first campaign in a session wins. Flip `WIN` to `'last'` in `js/utm.js`.
+- **sessionStorage, not a cookie** — tab-scoped, cleared on close, no persistent identifier.
+- Load order matters: `js/utm.js` BEFORE `js/forms.js`. It's on every public page (all pages
+  that load `js/main.js`), because a campaign link can land anywhere.
+- `utm-builder.html` — internal link builder, unlinked and robots-disallowed. Lowercases and
+  hyphenates values so `LinkedIn` and `linkedin` don't split into two sources.
+- Never tag internal links between our own pages — it restarts attribution.
+
 ## Cognitive battery (js/cognitive-tests.js)
 Now used only by app.html (quiz.html, its other consumer, was removed).
 7 tasks (shuffled order): reaction time, numeric memory, symbol-digit, word-pair memory, pattern puzzles, trail making A & B.
