@@ -26,6 +26,7 @@ Convert visitors via a personalised Brain Health Assessment quiz → early-acces
   - Forms → Firebase Cloud Function `submitForm` → Firestore + Resend (see form ids below)
   - Payments → Stripe hosted checkout (buy.stripe.com payment link)
   - Geo-currency → ipapi.co (free tier, fetch on purchase page load)
+  - Analytics → GA4, loaded only after cookie consent (`js/consent.js`)
 - **Hosting:** GitHub Pages via `github.com/izu0421/onecarbon`, branch `main`, CNAME `onecarbon.com`
 - **CDN / media:** Cloudflare R2 — videos and self-hosted fonts
 
@@ -107,6 +108,12 @@ full records live in Firestore.
 `js/utm.js` captures `utm_*` parameters on landing into sessionStorage; `js/forms.js` merges
 them into every submission, so each Firestore entry records the campaign that produced it.
 First-touch within a session. Build tagged links with `utm-builder.html` (internal, unlinked).
+
+### Cookie consent
+
+`js/consent.js` shows the consent banner and loads GA4 **only** after opt-in — nothing Google
+is requested before that. Choice lives in a `cookie_consent` cookie; withdrawing deletes the
+`_ga*` cookies. `legal/cookie.html` lists every cookie by name and must be kept in step.
 
 ---
 

@@ -276,7 +276,7 @@
                 <td>cookie_consent</td>
                 <td>onecarbon.com</td>
                 <td>Stores your cookie preference so you are not asked again</td>
-                <td>12 months</td>
+                <td>6 months</td>
               </tr>
             </tbody>
           </table>
@@ -317,7 +317,39 @@
           <p>These cookies are set automatically when the YouTube video on our <a href="../research.html">Research page</a> loads. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for details.</p>
 
           <h3>Analytics cookies</h3>
-          <p>We do not currently use any analytics or tracking cookies. Should we introduce analytics in the future, this policy will be updated and your consent will be sought before any such cookies are set.</p>
+          <p>We use Google Analytics 4 to understand how visitors find and use this website — which pages are read, how people arrive, and where they leave. This helps us improve the site.</p>
+          <p><strong>These cookies are only set if you accept them.</strong> No analytics cookies are placed on your device unless you choose "Accept analytics" on the banner shown on your first visit. If you reject, or simply ignore the banner, Google Analytics is never loaded at all — we do not merely place it in a restricted mode.</p>
+          <p>Google Analytics 4 does not store full IP addresses. We do not use it for advertising, and we do not share this data with third parties for marketing purposes.</p>
+
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie name</th>
+                <th>Provider</th>
+                <th>Purpose</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>_ga</td>
+                <td>Google Analytics</td>
+                <td>Distinguishes one visitor from another</td>
+                <td>2 years</td>
+              </tr>
+              <tr>
+                <td>_ga_&lt;container-id&gt;</td>
+                <td>Google Analytics</td>
+                <td>Maintains the state of your visit (session)</td>
+                <td>2 years</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>You can change your mind at any time — see <a href="#managing-cookies">Managing your cookies</a> below. Withdrawing consent removes the analytics cookies already set.</p>
+
+          <h3>Campaign attribution</h3>
+          <p>When you arrive from a link we have tagged for a campaign (for example from a newsletter or a social post), we record which campaign it was, so that if you later submit one of our forms we can tell which campaign led you to us. This is stored in your browser's <em>session storage</em>, not in a cookie: it is limited to that browser tab, is cleared when you close it, is never sent to any other website, and does not identify you. It is not used to track you across sites or to build a profile.</p>
 
           <h3>Marketing cookies</h3>
           <p>We do not currently set any marketing or advertising cookies on this website.</p>
@@ -345,6 +377,37 @@
         <div class="policy-block" id="managing-cookies">
           <h2>Managing your cookies</h2>
           <p>You have the right to decide whether to accept or reject non-essential cookies. You can exercise your cookie preferences at any time using the following methods:</p>
+
+          <div style="background:#EEF3FB;border-radius:10px;padding:22px 24px;margin:20px 0 26px;">
+            <p style="margin:0 0 6px;font-weight:600;">Your current choice</p>
+            <p style="margin:0 0 14px;color:#555;font-size:15px;" id="consent-state">Loading…</p>
+            <button type="button" id="consent-change"
+              style="font-family:'Outfit',sans-serif;font-size:14.5px;font-weight:600;padding:11px 24px;border-radius:100px;cursor:pointer;border:1.5px solid var(--accent);background:var(--accent);color:#fff;">
+              Change my choice
+            </button>
+          </div>
+
+          <script>
+            (function () {
+              var label = document.getElementById('consent-state');
+              var button = document.getElementById('consent-change');
+              function render() {
+                var state = window.OCConsent && window.OCConsent.get();
+                label.textContent =
+                  state === 'accepted' ? 'You have accepted analytics cookies.' :
+                  state === 'rejected' ? 'You have rejected analytics cookies. None are set.' :
+                  'You have not made a choice yet. No analytics cookies are set.';
+              }
+              button.addEventListener('click', function () {
+                if (window.OCConsent) window.OCConsent.reopen();
+              });
+              render();
+              // The banner writes the cookie on click, so re-read when the
+              // page regains focus after a choice is made.
+              window.addEventListener('focus', render);
+              document.addEventListener('click', function () { setTimeout(render, 50); });
+            })();
+          </script>
 
           <h3>Browser settings</h3>
           <p>Most web browsers allow you to manage cookies through their settings. You can typically find these settings in the "Options", "Preferences", or "Settings" menu of your browser. Instructions for common browsers:</p>
@@ -458,6 +521,7 @@
     </div>
   </footer>
 
+  <script src="../js/consent.js"></script>
   <script src="../js/utm.js"></script>
   <script src="../js/main.js"></script>
   <script>

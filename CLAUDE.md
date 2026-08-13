@@ -66,6 +66,22 @@ as `utm_source` etc. on the Firestore entry, and in the notification email.
   hyphenates values so `LinkedIn` and `linkedin` don't split into two sources.
 - Never tag internal links between our own pages — it restarts attribution.
 
+## Cookie consent + GA4 (js/consent.js)
+GA4 is gated behind consent — `gtag` is NOT loaded at all until someone accepts. This is not
+Consent Mode in a denied state; nothing Google-related is requested until opt-in, because PECR
+requires consent BEFORE analytics cookies are set.
+
+- `GA_ID` in `js/consent.js` — currently `G-MT11J77CNR`, the SAME property as app.html's Firebase
+  config, so site and app traffic mix. Create a second GA4 property and swap the ID to separate them.
+- Choice stored in a `cookie_consent` first-party cookie (`accepted` / `rejected`), 6 months.
+- Reject is as prominent as Accept (ICO requires this); ignoring the banner sets nothing.
+- `OCConsent.revoke()` deletes the `_ga*` cookies, it doesn't just flip the flag.
+- The cookie policy has a live "Change my choice" control wired to `OCConsent.reopen()`.
+- On every public page, same 22 as `js/utm.js`.
+
+If you add analytics, ad pixels or embeds that set cookies, they must go through this gate too —
+and `legal/cookie.html` must be updated, since it enumerates every cookie by name.
+
 ## Cognitive battery (js/cognitive-tests.js)
 Now used only by app.html (quiz.html, its other consumer, was removed).
 7 tasks (shuffled order): reaction time, numeric memory, symbol-digit, word-pair memory, pattern puzzles, trail making A & B.
