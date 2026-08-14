@@ -1,10 +1,11 @@
 /* ══════════════════════════════════════════════════════════
-   Cookie consent + gated GA4
+   Cookie consent + gated GA4 / Meta Pixel
 
-   Under PECR and UK GDPR, analytics cookies need consent BEFORE they are
-   set. So nothing Google-related is requested until someone opts in —
-   this doesn't use Consent Mode to load gtag in a denied state, it
-   simply doesn't load gtag at all until there is a stored 'accepted'.
+   Under PECR and UK GDPR, analytics and advertising cookies need consent
+   BEFORE they are set. So nothing Google- or Meta-related is requested
+   until someone opts in — this doesn't use Consent Mode to load gtag in
+   a denied state, it simply doesn't load gtag/fbq at all until there is
+   a stored 'accepted'.
 
    ICO guidance the banner is built around:
    - Reject must be as easy as accept (same prominence, one click, no
@@ -27,6 +28,12 @@
   // ══════════════════════════════════════════════════════════
   var GA_ID = 'G-MT11J77CNR';
 
+  // ══════════════════════════════════════════════════════════
+  // Meta (Facebook) Pixel ID, for ad measurement. Same consent gate as
+  // GA4 — nothing Meta-related loads until someone accepts.
+  // ══════════════════════════════════════════════════════════
+  var META_PIXEL_ID = '2146673852953684';
+
   var COOKIE = 'cookie_consent';
   var MAX_AGE = 60 * 60 * 24 * 182; // ~6 months, then we ask again
 
@@ -44,12 +51,12 @@
 
   function clearAnalyticsCookies() {
     // Withdrawing consent has to actually remove what was set, otherwise
-    // the _ga cookie keeps identifying the visitor for two years.
+    // the _ga/_fbp cookies keep identifying the visitor for months or years.
     var host = global.location.hostname;
     var domains = ['', '; Domain=' + host, '; Domain=.' + host];
     document.cookie.split(';').forEach(function (entry) {
       var name = entry.split('=')[0].trim();
-      if (name.indexOf('_ga') !== 0) return;
+      if (name.indexOf('_ga') !== 0 && name.indexOf('_fb') !== 0) return;
       domains.forEach(function (domain) {
         document.cookie = name + '=; Path=/; Max-Age=0' + domain;
       });
@@ -73,6 +80,29 @@
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
     document.head.appendChild(s);
+  }
+
+  var metaPixelLoaded = false;
+
+  function loadMetaPixel() {
+    if (metaPixelLoaded || !META_PIXEL_ID) return;
+    metaPixelLoaded = true;
+
+    /* eslint-disable */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(global,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    /* eslint-enable */
+
+    global.fbq('init', META_PIXEL_ID);
+    global.fbq('track', 'PageView');
+  }
+
+  function loadAnalytics() {
+    loadGA();
+    loadMetaPixel();
   }
 
   // ── Banner ──
@@ -128,9 +158,10 @@
     banner.setAttribute('aria-label', 'Cookie choices');
     banner.innerHTML =
       '<div class="oc-consent-inner">' +
-        '<p class="oc-consent-text">We\'d like to set analytics cookies to understand how ' +
-        'people use this site. They are optional — the site works either way, and we won\'t ' +
-        'set them unless you agree. See our <a href="' + policyHref() + '">Cookie Policy</a>.</p>' +
+        '<p class="oc-consent-text">We\'d like to set analytics and advertising cookies to ' +
+        'understand how people use this site and measure our ads. They are optional — the site ' +
+        'works either way, and we won\'t set them unless you agree. See our ' +
+        '<a href="' + policyHref() + '">Cookie Policy</a>.</p>' +
         '<div class="oc-consent-actions">' +
           '<button type="button" class="oc-reject">Reject</button>' +
           '<button type="button" class="oc-accept">Accept analytics</button>' +
@@ -140,7 +171,7 @@
     banner.querySelector('.oc-accept').addEventListener('click', function () {
       writeConsent('accepted');
       hide();
-      loadGA();
+      loadAnalytics();
     });
 
     banner.querySelector('.oc-reject').addEventListener('click', function () {
@@ -154,7 +185,7 @@
 
   function init() {
     var stored = readConsent();
-    if (stored === 'accepted') loadGA();
+    if (stored === 'accepted') loadAnalytics();
     else if (stored !== 'rejected') show(); // no choice recorded yet
   }
 

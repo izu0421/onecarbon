@@ -561,7 +561,7 @@
       <label class="gdpr-label" for="qz-gdpr">Also send me updates about the research and product. Optional — unsubscribe any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
     </div>
     <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
-    <button class="skip" onclick="qzGoTo('qz-s5')">Skip for now</button>
+    <button class="skip" onclick="qzTrack('quiz_email_skipped',{});qzGoTo('qz-s5')">Skip for now</button>
     <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
   </div>
 
@@ -623,8 +623,8 @@
       <p class="res-body" id="qz-res-body">Here's where we'd suggest starting.</p>
     </div>
     <div class="fit-list" id="qz-fit-list"></div>
-    <button class="cta-primary" onclick="window.open('purchase.html','_blank')">Claim your 10% off</button>
-    <button class="cta-secondary" onclick="window.open('blog/one-carbon-metabolism.html','_blank')">Learn about the science</button>
+    <button class="cta-primary" onclick="qzTrack('quiz_cta_click',{qz_cta:'claim_discount',fbq:'Lead'});window.open('purchase.html','_blank')">Claim your 10% off</button>
+    <button class="cta-secondary" onclick="qzTrack('quiz_cta_click',{qz_cta:'learn_science'});window.open('blog/one-carbon-metabolism.html','_blank')">Learn about the science</button>
     <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
   </div>
 
@@ -632,11 +632,20 @@
 
   <script>
   const qzA={};const qzTOTAL=7;
-  function qzOpen(){document.getElementById('qz-page').style.display='flex';document.body.style.overflow='hidden';}
-  function qzClose(){document.getElementById('qz-page').style.display='none';document.body.style.overflow='';}
+  let qzCurrentScreen='qz-intro';
+  // Fires only if analytics were actually loaded (i.e. consent given) — see js/consent.js.
+  // GA4 events let us build a drop-off funnel in Explore > Funnel exploration by qz_screen.
+  function qzTrack(event,params){
+    try{
+      if(typeof gtag==='function')gtag('event',event,params||{});
+      if(typeof fbq==='function'&&params&&params.fbq)fbq('track',params.fbq);
+    }catch(e){}
+  }
+  function qzOpen(){document.getElementById('qz-page').style.display='flex';document.body.style.overflow='hidden';qzTrack('quiz_start',{});}
+  function qzClose(){document.getElementById('qz-page').style.display='none';document.body.style.overflow='';qzTrack('quiz_close',{qz_screen:qzCurrentScreen});}
   function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
   const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':3,'qz-sci2':4,'qz-s5':5,'qz-sex':6,'qz-s7':7};
-  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz-page').scrollTo({top:0,behavior:'smooth'});}
+  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz-page').scrollTo({top:0,behavior:'smooth'});qzCurrentScreen=id;qzTrack('quiz_step',{qz_screen:id,qz_step_number:n||0});if(id==='qz-s-result')qzTrack('quiz_complete',{fbq:'CompleteRegistration'});}
   function qzPersonalise(){
     const who=(qzA['s1']||['myself'])[0],s=who==='myself';
     const map={
@@ -662,6 +671,7 @@
       q8_supplements:(qzA['s5']||[]).join(','),
     };
     OCForms.submit('newsletter',payload).catch(()=>{}); // fire-and-forget; don't block UX
+    qzTrack('quiz_email_submitted',{fbq:'Lead'});
     qzGoTo('qz-s5');
   }
   function qzShowResult(){
