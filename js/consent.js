@@ -22,9 +22,8 @@
 
   // ══════════════════════════════════════════════════════════
   // GA4 measurement ID. This is the ID already present in app.html's
-  // Firebase config — the marketing site and the app will therefore
-  // report into the SAME GA4 property. If you'd rather keep them apart,
-  // create a second property and swap the ID here.
+  // Firebase config — the marketing site and the app report into the
+  // SAME GA4 property, by design.
   // ══════════════════════════════════════════════════════════
   var GA_ID = 'G-MT11J77CNR';
 

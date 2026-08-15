@@ -514,7 +514,9 @@
       href: 'https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00'
     }
   };
+  let currentPlan = 'sub';
   function setPlan(plan) {
+    currentPlan = plan;
     const p = PLANS[plan];
     document.getElementById('buy-price').innerHTML = p.price;
     document.getElementById('buy-save').textContent = p.save;
@@ -524,6 +526,13 @@
     btn.href = p.href;
     document.querySelectorAll('.buy-tab').forEach(t => t.classList.toggle('active', t.dataset.plan === plan));
   }
+  // Fires only if analytics were actually loaded (i.e. consent given) — see js/consent.js.
+  document.getElementById('buy-btn').addEventListener('click', function () {
+    try {
+      if (typeof gtag === 'function') gtag('event', 'begin_checkout', { plan: currentPlan });
+      if (typeof fbq === 'function') fbq('track', 'InitiateCheckout', { plan: currentPlan });
+    } catch (e) {}
+  });
 </script>
 </body>
 </html>
