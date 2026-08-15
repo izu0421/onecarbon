@@ -51,7 +51,20 @@ Form ids (allowlisted in `functions/index.js` → `FORMS`; anything else is reje
 | `feedback` | app.html in-app feedback |
 
 Keep the `_gotcha` honeypot input on declarative forms — the function checks it and silently
-drops bot submissions. Notification recipient is `NOTIFY_TO` in `functions/index.js`.
+drops bot submissions. Notification recipient is `NOTIFY_TO` in `functions/index.js` —
+now `team@onecarbon.com`.
+
+### Resend sending domain — do not change to the root domain
+All outbound mail sends from **`send.onecarbon.com`**, never `onecarbon.com`:
+- The root MX belongs to **Microsoft 365** (`onecarbon-com.mail.protection.outlook.com`).
+  Adding Resend's inbound MX at `@` would divert real inbound mail. Never do this.
+- Root SPF is `v=spf1 include:secureserver.net -all` and does not include Resend, with
+  DMARC at `p=quarantine` — so a `from` on the root domain fails authentication.
+- Verified records live on the subdomain: MX → `feedback-smtp.eu-west-1.amazonses.com`,
+  SPF, and DKIM at `resend._domainkey.send.onecarbon.com`.
+
+Every `from` address in `functions/index.js` must therefore stay `@send.onecarbon.com`
+(`forms@` for submissions, `reminders@` for the daily job).
 
 ## Campaign attribution (UTM)
 `js/utm.js` captures `utm_*` (plus gclid/fbclid/li_fat_id/msclkid) on landing, holds them in

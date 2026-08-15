@@ -13,13 +13,12 @@ const RESEND_API_KEY = defineSecret('RESEND_API_KEY');
 // POST { form: "<id>", data: { ... } } → Firestore + Resend email
 // ══════════════════════════════════════════════════════════
 
-// TARGET: both of these should be team@onecarbon.com. Blocked until
-// onecarbon.com is verified at resend.com/domains — until then Resend rejects
-// the domain as a sender, and its shared test sender below will only deliver
-// to the account owner's own address. Flip both to team@onecarbon.com the
-// moment verification goes through (that also fixes sendReminders).
-const NOTIFY_TO = 'yizhou0421@gmail.com';
-const NOTIFY_FROM = 'OneCarbon Forms <onboarding@resend.dev>';
+// Sending is authenticated on the send.onecarbon.com subdomain, NOT the root
+// domain — the root MX belongs to Microsoft 365 and must not be touched, and
+// root SPF is `-all` without Resend. Every `from` address here has to stay
+// @send.onecarbon.com or it will fail DMARC (p=quarantine).
+const NOTIFY_TO = 'team@onecarbon.com';
+const NOTIFY_FROM = 'OneCarbon Forms <forms@send.onecarbon.com>';
 
 // Only these form ids are accepted. `subject` is the notification subject line;
 // `summary` picks the fields worth putting in the email body (the full record
@@ -211,7 +210,7 @@ async function sendReminderEmail(to, firstName, apiKey) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'OneCarbon <reminders@onecarbon.com>',
+      from: 'OneCarbon <reminders@send.onecarbon.com>',
       to,
       subject: "Time for your cognitive check-in",
       html: `
