@@ -18,3 +18,11 @@ js/graphify-out/
 
 # Local scratch / old format files
 old formatOur Story.html
+
+# Firestore exports — real people's contact details, keep them out of git
+exports/
+
+# Service account keys — full admin access to the Firebase project
+*serviceaccount*.json
+*-key.json
+onecarbon-app-*.json
