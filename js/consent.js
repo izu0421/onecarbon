@@ -125,6 +125,14 @@
     '.oc-consent .oc-reject:hover{background:rgba(31,53,90,0.07);}',
     '@media(max-width:560px){.oc-consent{padding:18px 18px 22px;}',
     '.oc-consent-actions{width:100%;}.oc-consent-actions button{flex:1;}}',
+    // The banner is fixed to the bottom, so on a short screen it sits on top
+    // of whatever is down there — including the homepage quiz's Continue
+    // button, which made the quiz impossible to complete on a phone. Reserve
+    // its height at the bottom of anything scrollable so nothing is ever
+    // covered. #qz-page is its own fixed, scrolling layer, so padding body
+    // alone does not reach it.
+    'html.oc-consent-open body{padding-bottom:var(--oc-consent-h,0px);}',
+    'html.oc-consent-open #qz-page{padding-bottom:var(--oc-consent-h,0px);}',
   ].join('');
 
   function policyHref() {
@@ -136,9 +144,26 @@
 
   var banner = null;
 
+  // Publish the banner's height so the page can reserve space for it. Re-run
+  // on resize and orientation change, where the banner reflows to a different
+  // height and a stale value would leave content covered again.
+  function reserveSpace() {
+    if (!banner) return;
+    var height = banner.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--oc-consent-h', Math.ceil(height) + 'px');
+  }
+
+  function releaseSpace() {
+    document.documentElement.classList.remove('oc-consent-open');
+    document.documentElement.style.removeProperty('--oc-consent-h');
+  }
+
   function hide() {
     if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
     banner = null;
+    releaseSpace();
+    global.removeEventListener('resize', reserveSpace);
+    global.removeEventListener('orientationchange', reserveSpace);
   }
 
   function show() {
@@ -180,6 +205,11 @@
     });
 
     document.body.appendChild(banner);
+
+    document.documentElement.classList.add('oc-consent-open');
+    reserveSpace();
+    global.addEventListener('resize', reserveSpace);
+    global.addEventListener('orientationchange', reserveSpace);
   }
 
   function init() {
