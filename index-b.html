@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta Business Manager domain verification. Must stay in <head>, statically —
+       Meta re-checks periodically and un-verifies if it disappears. -->
+  <meta name="facebook-domain-verification" content="y7erzr6duwv5e2fduyywovqpjgasci" />
+  <title>OneCarbon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="media/neuron-portrait.webp" imagesrcset="media/neuron-portrait.webp" media="(max-width: 600px)">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+  <style>
+    /* ── HERO WRAPPER ── */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── MOBILE HERO STILL — pre-rendered neuron, phones only ── */
+    .hero-still { display: none; }
+    .hero-eyebrow, .hero-microline { display: none; }
+
+    /* ── NEURON STAGE — full-bleed behind content ── */
+    .neuron-stage {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 20%; right: -10%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    #neuron-canvas {
+      width: 100%; height: 100%; display: block;
+    }
+    .vignette {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        /* Left text area: stronger fade for readability */
+        linear-gradient(to right,
+          rgba(247,245,240,0.94) 0%,
+          rgba(247,245,240,0.80) 22%,
+          rgba(247,245,240,0.45) 38%,
+          rgba(247,245,240,0.08) 52%,
+          transparent 65%
+        ),
+        /* Top fade (nav) */
+        linear-gradient(to bottom,
+          rgba(247,245,240,0.95) 0%,
+          transparent 10%,
+          transparent 85%,
+          rgba(247,245,240,0.60) 100%
+        );
+    }
+
+    /* ── HERO COLUMNS ── */
+    .hero-left {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      justify-content: flex-start; align-items: flex-start;
+      padding: 0;
+    }
+    .hero-right {
+      position: relative; z-index: 2;
+      border-left: none;
+    }
+
+    /* ── SECTION KICKER (consistent section-header label) ── */
+    .section-kicker {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #1f355a; font-weight: 700; margin: 0 0 1.5rem;
+    }
+    .section-kicker::before {
+      content: ""; display: inline-block; width: 20px; height: 2px;
+      background: #1f355a; flex-shrink: 0;
+    }
+
+    /* ── LEFT: TEXT ── */
+    .hero-text h1 em {
+      color: #1f355a;
+    }
+    .hero-text p {
+      font-size: 16px; line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 400px;
+      margin-bottom: 28px;
+    }
+    .hero-text p a {
+      color: var(--accent); font-weight: 600; text-decoration: none;
+    }
+    .btn-ghost {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px; font-weight: 500;
+      color: var(--text); text-decoration: underline;
+      text-underline-offset: 3px; text-decoration-color: rgba(10,15,26,0.3);
+      transition: text-decoration-color 0.15s;
+    }
+    .btn-ghost:hover { text-decoration-color: var(--text); }
+
+    /* ── RIGHT: CARDS ── */
+    .hero-bubble-stack {
+      position: absolute;
+      top: 80px;
+      left: 40px;
+      right: 60px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .stat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 32px;
+      text-decoration: none;
+      display: block;
+    }
+    .hero-what-heading {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500; font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+      color: var(--text);
+      line-height: 1.1; margin-bottom: 14px;
+    }
+    .hero-what-body {
+      font-size: 15px; line-height: 1.70;
+      color: var(--text-muted);
+    }
+    .hero-research-bubble {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      background: var(--accent); color: #fff !important;
+      border: none; padding: 14px 24px;
+      transition: opacity 0.2s;
+    }
+    .hero-research-bubble:hover {
+      opacity: 0.85;
+    }
+
+    /* ── TWEAKS PANEL ── */
+    #tweaks-panel {
+      display: none;
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      width: 260px;
+      font-family: 'DM Sans', sans-serif;
+      box-shadow: 0 8px 40px -8px rgba(10,15,26,0.18);
+    }
+    #tweaks-panel h4 {
+      font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 16px;
+    }
+    .tweak-row { margin-bottom: 14px; }
+    .tweak-row label {
+      display: flex; justify-content: space-between;
+      font-size: 14px; color: var(--text-muted); margin-bottom: 5px;
+    }
+    .tweak-row label span { color: var(--text); font-variant-numeric: tabular-nums; }
+    .tweak-row input[type=range] { width: 100%; accent-color: var(--accent); }
+    .tweak-row select {
+      width: 100%; padding: 5px 8px; font-size: 14px;
+      border: 1px solid var(--border); background: transparent;
+      font-family: 'DM Sans', sans-serif; color: var(--text);
+    }
+
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; overflow: hidden; min-height: auto; }
+      .hero-right { display: block; padding: 24px 20px 80px; background: rgba(232, 230, 224, 0.6); }
+      .hero-right #qz { margin: 0 auto; }
+
+      /* Mobile What We Do section */
+      .mobile-what-section {
+        display: block !important;
+        padding: 48px 28px 40px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .mobile-what-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      .mobile-what-section p {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 24px;
+      }
+      .mobile-what-section a {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* Confine neuron to right half so text is clean on the left */
+      .neuron-stage { left: 46%; }
+      .vignette {
+        background:
+          linear-gradient(to right,
+            rgba(247,245,240,0.96) 0%,
+            rgba(247,245,240,0.70) 35%,
+            rgba(247,245,240,0.18) 70%,
+            transparent 100%
+          ),
+          linear-gradient(to bottom,
+            rgba(247,245,240,0.92) 0%,
+            transparent 12%,
+            transparent 85%,
+            rgba(247,245,240,0.65) 100%
+          );
+      }
+
+      /* Text confined to left ~half — no more doubling up of hero-left + hero-text padding */
+      .hero-left { padding: 0; }
+      .hero-text {
+        padding: 16px 12px 36px 28px;
+        max-width: 52%;
+      }
+      .hero-text h1 { font-size: clamp(1.8rem, 7.5vw, 2.4rem); line-height: 1.1; }
+      .hero-text p  { font-size: 14px; max-width: none; margin-bottom: 20px; }
+      .hero-what-detail { display: none; }
+
+      /* Let hero shrink to content height so What We Do is visible on first load */
+      .hero { min-height: 0 !important; padding-bottom: 80px; }
+
+    }
+  .mailing-input::placeholder { color: rgba(255,255,255,0.75); }
+
+  @media (max-width: 760px) {
+    /* Hero text: full width, not 52% */
+    .hero-text {
+      padding: 28px 24px 40px !important;
+      max-width: 100% !important;
+    }
+    .hero-text h1 { font-size: clamp(2rem, 8vw, 2.6rem) !important; }
+    .hero-what-detail { display: none; }
+
+    /* Science section: stack to single column */
+    .hero { min-height: 0 !important; padding-bottom: 0; }
+
+    /* All inline 2-col grids → single column */
+    section > div[style*="grid-template-columns:1fr 1fr"],
+    section > div > div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns:1fr 1fr"],
+    div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+
+    /* 4-col how-it-works steps → 2 col */
+    div[style*="grid-template-columns:repeat(4,1fr)"],
+    div[style*="grid-template-columns: repeat(4, 1fr)"] {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0 !important;
+    }
+
+    /* Science images: shorter on mobile */
+    div[style*="min-height:400px"] {
+      min-height: 200px !important;
+    }
+
+    /* Timeline image: don't show on mobile */
+    div[style*="water-and-pill"] { display: none !important; }
+
+    /* Section padding */
+    section[style*="padding:5rem 2rem"] {
+      padding: 3rem 1.25rem !important;
+    }
+
+    /* Mailing list banner */
+    section[style*="background:#1f355a"] {
+      padding: 36px 24px !important;
+    }
+    section[style*="background:#1f355a"] form {
+      width: 100%;
+      flex-direction: column !important;
+    }
+    section[style*="background:#1f355a"] input[type="email"] {
+      min-width: 0 !important;
+      width: 100% !important;
+    }
+    section[style*="background:#1f355a"] button {
+      width: 100% !important;
+    }
+
+    /* Hide the live neuron on mobile — the pre-rendered still replaces it */
+    .neuron-stage { display: none !important; }
+    .hide-mobile { display: none !important; }
+
+    /* ── MOBILE HERO (option 3a) ── */
+    .hero { display: block !important; min-height: 0 !important; padding: 0 !important; }
+
+    .hero-still {
+      display: block;
+      position: relative;
+      height: min(620px, 72vh);
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .hero-still img {
+      position: absolute;
+      left: 50%;
+      top: -22%;
+      transform: translateX(-50%);
+      width: min(145%, 560px);
+      max-width: none;
+      height: auto;
+    }
+    .hero-still-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(247,245,240,0.60) 0%,
+        rgba(247,245,240,0) 18%,
+        rgba(247,245,240,0) 42%,
+        rgba(247,245,240,0.72) 62%,
+        var(--bg) 84%);
+    }
+
+    .hero-left { margin-top: -300px; padding: 0; position: relative; z-index: 2; }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px 30px !important;
+      max-width: 100% !important;
+    }
+    .hero-eyebrow {
+      display: block;
+      order: 0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .hero-text h1 {
+      order: 1;
+      font-size: clamp(2.1rem, 10vw, 2.6rem) !important;
+      line-height: 1 !important;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+    .hero-text p.hero-subhead {
+      order: 2;
+      font-size: 18px !important;
+      line-height: 1.4 !important;
+      color: var(--text) !important;
+      margin-bottom: 18px !important;
+    }
+    .hero-text > div { order: 3; margin-top: 0 !important; max-width: none !important; }
+    .hero-quiz-btn { width: 100%; padding: 18px 30px !important; }
+    .hero-microline {
+      display: flex;
+      order: 4;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .hero-microline span.dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(0,0,0,0.25); }
+    /* Long explainer drops below the first screen */
+    .hero-text > p:not(.hero-subhead) {
+      order: 5;
+      margin: 24px 0 0 !important;
+      font-size: 15px !important;
+      line-height: 1.75 !important;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="site-nav">
+    <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:6px;"><img src="media/logo-full.png" alt="OneCarbon" style="height:56px;width:auto;"></a>
+    <ul class="nav-links">
+      <li><a href="our_story.html">Our Story</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="index.html#how-it-works">How it works</a></li>
+      <li><a href="app.html">Track</a></li>
+      <li><a href="blog/">Blog &amp; Press</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="purchase.html" class="nav-cta">Buy now</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+
+    <!-- Neuron canvas — behind everything (desktop only) -->
+    <div class="neuron-stage">
+      <canvas id="neuron-canvas"></canvas>
+      <div class="vignette"></div>
+    </div>
+
+    <!-- Pre-rendered neuron still — mobile only, no WebGL -->
+    <div class="hero-still" aria-hidden="true">
+      <picture>
+        <source srcset="media/neuron-portrait.webp" type="image/webp">
+        <img src="media/neuron-portrait.png" alt="" width="820" height="1180" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="hero-still-scrim"></div>
+    </div>
+
+    <!-- Left: Text -->
+    <div class="hero-left">
+      <div class="hero-text">
+        <span class="hero-eyebrow">Cambridge neuroscience</span>
+        <h1>Science you can take <em>daily</em></h1>
+        <p class="hero-subhead">A supplement built from years of neuroscience research at the University of Cambridge.</p>
+        <p>1C-01 is a living bacterial strain that supports <span style="color:#1f355a;">one-carbon metabolism</span> — the pathway that is important for healthy brain ageing.</p>
+        <style>
+          .hero-quiz-btn:hover{background:#0c1524 !important;}
+        </style>
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;max-width:420px;">
+          <button class="hero-quiz-btn" onclick="qzOpen()" style="padding:16px 30px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s;">Take the 2-min quiz</button>
+        </div>
+        <div class="hero-microline"><span>7 questions</span><span class="dot"></span><span>10% off at the end</span></div>
+      </div>
+    </div>
+
+    <!-- Right: Neuron visual -->
+    <div class="hero-right">
+    </div>
+
+  </section>
+
+  <!-- Recognised by -->
+  <section class="recognised-by-section">
+    <div class="recognised-by-logos">
+      <div class="logo-set">
+        <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+        <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+        <img src="media/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo" style="filter:brightness(0);opacity:0.65;">
+        <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK" class="recognised-logo">
+        <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+        <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+        <img src="media/csar.svg" alt="CSAR" class="recognised-logo">
+      </div>
+      <div class="logo-set" aria-hidden="true">
+        <img src="media/logo-falling-walls.png" alt="Falling Walls Foundation" class="recognised-logo">
+        <img src="media/logo-forbes.png" alt="Forbes" class="recognised-logo">
+        <img src="media/forbes30u30.avif" alt="Forbes 30 Under 30" class="recognised-logo" style="filter:brightness(0);opacity:0.65;">
+        <img src="media/innovate_uk_growth_logo.png" alt="Innovate UK" class="recognised-logo">
+        <img src="media/logo-launchpad.png" alt="Launchpad" class="recognised-logo">
+        <img src="media/logo-trinbrad.png" alt="Trinity Bradfield" class="recognised-logo">
+        <img src="media/csar.svg" alt="CSAR" class="recognised-logo">
+      </div>
+    </div>
+  </section>
+  <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
+  <div style="background:#F7F5F0;">
+  <style>
+  #qz-page{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;position:fixed;inset:0;z-index:9999;background:#EEEBE2;overflow-y:auto;}
+  #qz-topbar{width:100%;max-width:480px;margin:0 auto;padding:1.75rem 1.5rem 0;display:flex;align-items:center;justify-content:space-between;}
+  #qz-topbar img{height:32px;width:auto;}
+  #qz-close{background:none;border:none;cursor:pointer;padding:6px;color:#1a1a1a;line-height:0;}
+  #qz *{box-sizing:border-box;}
+  #qz{font-family:'Outfit','Inter',sans-serif;color:#1a1a1a;background:transparent;width:100%;max-width:480px;border-radius:20px;padding:1.75rem 1.5rem 2rem;box-shadow:none;margin:0 auto 2rem;}
+  #qz-intro-card{background:#F8F6EF;border-radius:20px;padding:2.5rem 2rem;box-shadow:0 12px 40px -12px rgba(26,26,26,0.12);text-align:left;}
+  #qz-intro-card h2{font-family:'DM Sans','Lora',serif;font-size:34px;line-height:1.2;font-weight:500;color:#1a1a1a;margin-bottom:1.25rem;}
+  #qz-intro-card p{font-size:16px;line-height:1.6;color:#333;margin-bottom:.5rem;}
+  #qz-intro-card .qz-intro-meta{font-size:14px;color:#8a8a8a;margin-bottom:1.75rem;}
+  #qz-intro-card .cont-btn{margin-top:0;}
+  #qz-intro-legal{font-size:13px;color:#999;text-align:center;max-width:480px;margin:1.25rem auto 0;line-height:1.6;padding:0 1.5rem;}
+  #qz .screen{display:none;animation:qz-fu .3s ease;}#qz .screen.active{display:block;}
+  @keyframes qz-fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  #qz .steps{display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem;}
+  #qz .step-dot{width:26px;height:26px;border-radius:50%;background:#D8D6D0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#999;flex-shrink:0;transition:background .3s;}
+  #qz .step-dot.active,#qz .step-dot.done{background:#1f355a;color:#fff;}
+  #qz .step-line{flex:1;height:1.5px;background:#D8D6D0;max-width:50px;}#qz .step-line.done{background:#1f355a;}
+  #qz .logo{font-family:'DM Sans','Lora',serif;font-size:14px;letter-spacing:.04em;color:#1f355a;margin-bottom:2.5rem;display:block;}
+  #qz .eyebrow,#qz .sci-eyebrow{font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#1f355a;margin-bottom:.6rem;}
+  #qz .q-title{font-family:'DM Sans','Lora',serif;font-size:24px;line-height:1.35;color:#1a1a1a;margin-bottom:.5rem;font-weight:500;}
+  #qz .q-sub{font-size:14px;color:#666;margin-bottom:1.75rem;line-height:1.65;}
+  #qz .hint{font-size:14px;color:#999;margin-bottom:1rem;}
+  #qz .tiles{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .tile{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid #D8D6D0;border-radius:12px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;font-size:14px;color:#1a1a1a;text-align:left;font-family:inherit;line-height:1.4;font-weight:400;width:100%;}
+  #qz .tile:hover{border-color:#1f355a;background:#EEF2FA;}
+  #qz .tile.sel{border-color:#1f355a;background:#E1E9F7;font-weight:500;}
+  #qz .t-mark{width:20px;height:20px;border-radius:50%;border:1.5px solid #D8D6D0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  #qz .tile.sel .t-mark{background:#1f355a;border-color:#1f355a;}
+  #qz .t-chk{display:none;}#qz .tile.sel .t-chk{display:block;}
+  #qz .tile-divider{height:1px;background:#E8E6E0;margin:4px 0;}
+  #qz .cont-btn{width:100%;padding:15px;background:#1a1a1a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s;margin-top:.5rem;}
+  #qz .cont-btn:disabled{opacity:.3;cursor:default;}
+  #qz .cont-btn:not(:disabled):hover{background:#1f355a;}
+  #qz .back{display:block;text-align:center;margin-top:1rem;font-size:15px;color:#999;cursor:pointer;border:none;background:none;font-family:inherit;padding:0;}
+  #qz .back:hover{color:#555;}
+  #qz .sci-bullets{display:flex;flex-direction:column;gap:10px;margin:1.25rem 0 1.5rem;}
+  #qz .sci-bullet{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #E8E6E0;font-size:14px;color:#444;line-height:1.6;}
+  #qz .sci-bullet-dot{width:8px;height:8px;border-radius:50%;background:#1f355a;flex-shrink:0;margin-top:6px;}
+  #qz .sci-bullet strong{color:#1a1a1a;font-weight:500;}
+  #qz .usp-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.25rem;}
+  #qz .usp-pill{font-size:14px;color:#1f355a;background:#E1E9F7;border:1px solid #B0C4E2;border-radius:99px;padding:5px 12px;font-weight:500;}
+  #qz .sci-disclaimer{font-size:15px;color:#aaa;line-height:1.65;margin-top:1.25rem;font-style:italic;}
+  #qz .safe-banner{background:#E1E9F7;border:1px solid #B0C4E2;border-radius:10px;padding:12px 16px;margin-bottom:1.5rem;font-size:15px;color:#1E3A6F;line-height:1.6;}
+  #qz .safe-banner strong{font-weight:500;}
+  #qz .offer-card{background:#3F7D59;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center;}
+  #qz .offer-pct{font-family:'DM Sans','Lora',serif;font-size:48px;color:#fff;line-height:1;margin-bottom:.25rem;font-weight:600;}
+  #qz .offer-label{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:.35rem;}
+  #qz .offer-sub{font-size:14px;color:rgba(255,255,255,.55);}
+  #qz .inp-label{font-size:14px;color:#555;margin-bottom:.4rem;display:block;}
+  #qz .email-inp{width:100%;padding:13px 16px;border:1.5px solid #D8D6D0;border-radius:12px;font-family:inherit;font-size:15px;color:#1a1a1a;background:#fff;outline:none;transition:border-color .15s;margin-bottom:.5rem;}
+  #qz .email-inp:focus{border-color:#1f355a;}
+  #qz .privacy{font-size:15px;color:#aaa;margin-bottom:1rem;}
+  #qz .gdpr-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:1.5rem;}
+  #qz .gdpr-row input[type=checkbox]{margin-top:2px;accent-color:#1f355a;flex-shrink:0;width:15px;height:15px;cursor:pointer;}
+  #qz .gdpr-label{font-size:15px;color:#888;line-height:1.65;}
+  #qz .gdpr-label a{color:#1f355a;text-decoration:underline;}
+  #qz .skip{display:block;text-align:center;font-size:14px;color:#aaa;cursor:pointer;border:none;background:none;font-family:inherit;margin-top:1rem;padding:0;}
+  #qz .skip:hover{color:#666;}
+  #qz .result-hero{background:#fff;border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;border:1px solid #D8D6D0;}
+  #qz .fit-badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3F7D59;margin-bottom:.75rem;}
+  #qz .fit-badge .dot{width:6px;height:6px;border-radius:50%;background:#1f355a;}
+  #qz .res-title{font-family:'DM Sans','Lora',serif;font-size:22px;line-height:1.3;color:#1a1a1a;margin-bottom:.75rem;font-weight:500;}
+  #qz .res-body{font-size:14px;line-height:1.8;color:#555;}
+  #qz .fit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+  #qz .fit-item{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#444;line-height:1.55;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #E8E6E0;}
+  #qz .fit-icon{width:20px;height:20px;border-radius:50%;background:#DCEBE2;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  #qz .cta-primary{width:100%;padding:15px;background:#1a1a1a;color:#fff;border:none;border-radius:99px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;margin-bottom:10px;transition:background .15s;}
+  #qz .cta-primary:hover{background:#1f355a;}
+  #qz .cta-secondary{width:100%;padding:13px;background:#fff;color:#1a1a1a;border:1.5px solid #D8D6D0;border-radius:99px;font-family:inherit;font-size:14px;cursor:pointer;transition:border-color .15s;}
+  #qz .cta-secondary:hover{border-color:#1f355a;}
+  #qz .legal{font-size:15px;color:#aaa;text-align:center;margin-top:1.25rem;line-height:1.7;}
+  #qz .offer-eyebrow{display:inline-block;background:#1f355a;color:#fff;font-size:15px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:99px;margin-bottom:14px;text-transform:uppercase;}
+  #qz .offer-eyebrow strong{color:#FFD84D;font-weight:800;}
+  #qz .tiles-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+  #qz .tile-grid-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 10px;border:1.5px solid #D8D6D0;border-radius:14px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s,transform .15s;font-size:15px;color:#1a1a1a;text-align:center;font-family:inherit;line-height:1.3;font-weight:500;gap:8px;}
+  #qz .tile-grid-item:hover{border-color:#1f355a;background:#EEF2FA;transform:translateY(-2px);}
+  #qz .tile-grid-item.sel{border-color:#1f355a;background:#E1E9F7;}
+  #qz .tile-emoji{font-size:32px;line-height:1;}
+  #qz .tile .tile-inline-emoji{font-size:18px;margin-right:2px;}
+  #qz .circle-grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:1.5rem;}
+  #qz .circle-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:96px;height:96px;border-radius:50%;border:1.5px solid #D8D6D0;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;font-family:inherit;}
+  #qz .circle-btn:hover{border-color:#1f355a;background:#EEF2FA;}
+  #qz .circle-btn.sel{border-color:#1f355a;background:#E1E9F7;}
+  #qz .circle-em{font-size:26px;line-height:1;}
+  #qz .circle-em-sm{font-size:17px;line-height:1.4;text-align:center;}
+  #qz .circle-lbl{font-size:13px;font-weight:500;color:#666;text-align:center;line-height:1.2;}
+  #qz .circle-btn.sel .circle-lbl{color:#1a3f80;}
+  #qz .circle-muted{border-style:dashed;background:#fafaf8;}
+  #qz .circle-muted .circle-lbl{color:#999;}
+  #qz .circle-muted.sel{border-color:#1f355a;background:#E1E9F7;}
+  #qz .circle-divider-label{flex-basis:100%;text-align:center;font-size:13px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin:4px 0;}
+  </style>
+
+  <div id="qz-page" style="display:none;">
+  <div id="qz-topbar">
+    <img src="media/logo-full.png" alt="OneCarbon">
+    <button id="qz-close" aria-label="Close quiz" onclick="qzClose()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="qz">
+
+  <!-- INTRO -->
+  <div class="screen active" id="qz-intro">
+    <div id="qz-intro-card">
+      <h2>Take the free quiz</h2>
+      <p>A few quick questions to point you to the right information for you.</p>
+      <p class="qz-intro-meta">2 minutes · for you or someone you care about</p>
+      <button type="button" class="cont-btn" onclick="qzGoTo('qz-s1')">Begin</button>
+    </div>
+    <p id="qz-intro-legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease.</p>
+  </div>
+
+  <!-- Q1 -->
+  <div class="screen" id="qz-s1">
+    <div class="steps" id="qz-sd1"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 1 of 7</p>
+    <h2 class="q-title">Who are you looking to support?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="myself"><span class="t-mark"><span class="t-chk">✓</span></span>Myself</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="parent"><span class="t-mark"><span class="t-chk">✓</span></span>A parent</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="partner"><span class="t-mark"><span class="t-chk">✓</span></span>A partner</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s1')" data-val="other"><span class="t-mark"><span class="t-chk">✓</span></span>Someone else</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s1" disabled onclick="qzGoTo('qz-s2')">Continue</button>
+  </div>
+
+  <!-- Q2 What's prompting interest -->
+  <div class="screen" id="qz-s2">
+    <div class="steps" id="qz-sd3"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 2 of 7</p>
+    <h2 class="q-title">What's prompting your interest?</h2>
+    <p class="hint">Select any that apply. This isn't a medical assessment or medical advice.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="memory"><span class="t-mark"><span class="t-chk">✓</span></span>Memory and recall</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="focus"><span class="t-mark"><span class="t-chk">✓</span></span>Focus and thinking</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="balance"><span class="t-mark"><span class="t-chk">✓</span></span>Balance and coordination</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="family"><span class="t-mark"><span class="t-chk">✓</span></span>A family history</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s2')" data-val="proactive"><span class="t-mark"><span class="t-chk">✓</span></span>Nothing specific — just being proactive</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s2" disabled onclick="qzGoTo('qz-sci1')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s1')">← Back</button>
+  </div>
+
+  <!-- Sci 1 -->
+  <div class="screen" id="qz-sci1">
+    <div class="steps" id="qz-sd5"></div>
+    <p class="sci-eyebrow">Did you know</p>
+    <h2 class="q-title">Your gut and your brain are in constant conversation</h2>
+    <div class="sci-bullets">
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>The gut and brain are connected by a two-way network called the <strong>gut–brain axis</strong> — what happens in your gut can influence what happens in your brain.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Gut bacteria produce molecules called <strong>metabolites</strong> that travel to the brain and play an active role in how neurons function.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Different gut bacteria make different metabolites — and that's what our research focuses on.</span></div>
+    </div>
+    <p class="sci-disclaimer">For educational purposes only. 1C-01 is a food supplement and does not claim to treat or prevent any disease.</p>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-sci2')">Continue →</button>
+    <button class="back" onclick="qzGoTo('qz-s2')">← Back</button>
+  </div>
+
+  <!-- Sci 2 -->
+  <div class="screen" id="qz-sci2">
+    <div class="steps" id="qz-sd6"></div>
+    <p class="sci-eyebrow">The OneCarbon story</p>
+    <h2 class="q-title">A Cambridge discovery — now in a daily capsule</h2>
+    <div class="sci-bullets">
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Dr Yizhou Yu's research at the <strong>University of Cambridge</strong> studied the one-carbon metabolic pathway — a process involved in how cells maintain themselves.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Using advanced techniques, he identified live cultures capable of producing the metabolites that support this pathway — winning multiple awards, including <strong>2nd place at the global Falling Walls Lab finale</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result — developed over two years into food-grade, non-GMO live cultures that produce one-carbon metabolites from inside the gut.</span></div>
+    </div>
+    <div class="usp-strip">
+      <span class="usp-pill">Food-grade</span><span class="usp-pill">Non-GMO</span><span class="usp-pill">Drug-free</span><span class="usp-pill">Cambridge research</span><span class="usp-pill">Falling Walls finalist</span>
+    </div>
+    <button class="cont-btn" style="opacity:1;margin-top:1.25rem;" onclick="qzGoTo('qz-s-email')">Continue →</button>
+    <button class="back" onclick="qzGoTo('qz-sci1')">← Back</button>
+  </div>
+
+  <!-- Email gate -->
+  <div class="screen" id="qz-s-email">
+    <h2 class="q-title">Would you like 10% off your first month?</h2>
+    <div class="offer-card">
+      <div class="offer-pct">10% off</div>
+      <div class="offer-label">your first month of 1C-01</div>
+      <div class="offer-sub">Discount applied automatically at checkout</div>
+    </div>
+    <label class="inp-label" for="qz-ef">Your email address</label>
+    <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
+    <p class="privacy">We'll only use this to send your code and where to start.</p>
+    <div class="gdpr-row">
+      <input type="checkbox" id="qz-gdpr" onchange="qzCheckE()"/>
+      <label class="gdpr-label" for="qz-gdpr">Also send me updates about the research and product. Optional — unsubscribe any time. See our <a href="legal/privacy.html" target="_blank">Privacy Policy</a>.</label>
+    </div>
+    <button class="cont-btn" id="qz-ebtn" disabled onclick="qzSubmitE()">Continue</button>
+    <button class="skip" onclick="qzTrack('quiz_email_skipped',{});qzGoTo('qz-s5')">Skip for now</button>
+    <button class="back" onclick="qzGoTo('qz-sci2')">← Back</button>
+  </div>
+
+  <!-- Q5 Supplements -->
+  <div class="screen" id="qz-s5">
+    <div class="steps" id="qz-sd7"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 5 of 7</p>
+    <h2 class="q-title" id="qz-s5-title">Are you taking any supplements?</h2>
+    <p class="hint">Select all that apply.</p>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="vitamind"><span class="t-mark"><span class="t-chk">✓</span></span>Vitamin D</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="omega3"><span class="t-mark"><span class="t-chk">✓</span></span>Omega 3</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="creatine"><span class="t-mark"><span class="t-chk">✓</span></span>Creatine</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="multivitamin"><span class="t-mark"><span class="t-chk">✓</span></span>A multivitamin</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="livecultures"><span class="t-mark"><span class="t-chk">✓</span></span>Live cultures</button>
+      <button type="button" class="tile" onclick="qzMulti(this,'s5')" data-val="none"><span class="t-mark"><span class="t-chk">✓</span></span>None right now</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s5" disabled onclick="qzGoTo('qz-sex')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s-email')">← Back</button>
+  </div>
+
+  <!-- Q6 Gender at birth -->
+  <div class="screen" id="qz-sex">
+    <div class="steps" id="qz-sd2"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 6 of 7</p>
+    <h2 class="q-title" id="qz-sex-title">What's your gender at birth? (optional)</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="female"><span class="t-mark"><span class="t-chk">✓</span></span>Female</button>
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="male"><span class="t-mark"><span class="t-chk">✓</span></span>Male</button>
+      <button type="button" class="tile" onclick="qzPick(this,'sex')" data-val="na"><span class="t-mark"><span class="t-chk">✓</span></span>Prefer not to say</button>
+    </div>
+    <button class="cont-btn" id="qz-next-sex" onclick="qzGoTo('qz-s7')">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-s5')">← Back</button>
+  </div>
+
+  <!-- Q7 Age -->
+  <div class="screen" id="qz-s7">
+    <div class="steps" id="qz-sd10"></div>
+    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <p class="eyebrow">Question 7 of 7</p>
+    <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
+    <div class="tiles">
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="under60"><span class="t-mark"><span class="t-chk">✓</span></span>Under 60</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="60-69"><span class="t-mark"><span class="t-chk">✓</span></span>60–69</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="70-79"><span class="t-mark"><span class="t-chk">✓</span></span>70–79</button>
+      <button type="button" class="tile" onclick="qzPick(this,'s7')" data-val="80+"><span class="t-mark"><span class="t-chk">✓</span></span>80+</button>
+    </div>
+    <button class="cont-btn" id="qz-next-s7" disabled onclick="qzShowResult()">Continue</button>
+    <button class="back" onclick="qzGoTo('qz-sex')">← Back</button>
+  </div>
+
+  <!-- Result -->
+  <div class="screen" id="qz-s-result">
+    <div class="result-hero">
+      <div class="fit-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L19 6"/></svg><span id="qz-badge-txt">10% off unlocked</span></div>
+      <h2 class="res-title">Thanks — here's your 10% off.</h2>
+      <p class="res-body" id="qz-res-body">Here's where we'd suggest starting.</p>
+    </div>
+    <div class="fit-list" id="qz-fit-list"></div>
+    <button class="cta-primary" onclick="qzTrack('quiz_cta_click',{qz_cta:'claim_discount',fbq:'Lead'});window.open('purchase.html','_blank')">Claim your 10% off</button>
+    <button class="cta-secondary" onclick="qzTrack('quiz_cta_click',{qz_cta:'learn_science'});window.open('blog/one-carbon-metabolism.html','_blank')">Learn about the science</button>
+    <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
+  </div>
+
+  </div></div>
+
+  <script>
+  const qzA={};const qzTOTAL=7;
+  let qzCurrentScreen='qz-intro';
+  // Fires only if analytics were actually loaded (i.e. consent given) — see js/consent.js.
+  // GA4 events let us build a drop-off funnel in Explore > Funnel exploration by qz_screen.
+  function qzTrack(event,params){
+    try{
+      if(typeof gtag==='function')gtag('event',event,params||{});
+      if(typeof fbq==='function'&&params&&params.fbq)fbq('track',params.fbq);
+    }catch(e){}
+  }
+  function qzOpen(){document.getElementById('qz-page').style.display='flex';document.body.style.overflow='hidden';qzTrack('quiz_start',{});}
+  function qzClose(){document.getElementById('qz-page').style.display='none';document.body.style.overflow='';qzTrack('quiz_close',{qz_screen:qzCurrentScreen});}
+  function qzDots(id,cur){const el=document.getElementById(id);if(!el)return;let h='';for(let i=1;i<=qzTOTAL;i++){if(i>1)h+=`<div class="step-line${i<=cur?' done':''}"></div>`;const c='step-dot'+(i<cur?' done':i===cur?' active':'');h+=`<div class="${c}"><span>${i<cur?'✓':i}</span></div>`;}el.innerHTML=h;}
+  const qzSdMap={'qz-s1':1,'qz-s2':2,'qz-sci1':3,'qz-sci2':4,'qz-s5':5,'qz-sex':6,'qz-s7':7};
+  function qzGoTo(id){document.querySelectorAll('#qz .screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');qzPersonalise();const n=qzSdMap[id];if(n)for(let i=1;i<=10;i++)qzDots('qz-sd'+i,n);document.getElementById('qz-page').scrollTo({top:0,behavior:'smooth'});qzCurrentScreen=id;qzTrack('quiz_step',{qz_screen:id,qz_step_number:n||0});if(id==='qz-s-result')qzTrack('quiz_complete',{fbq:'CompleteRegistration'});}
+  function qzPersonalise(){
+    const who=(qzA['s1']||['myself'])[0],s=who==='myself';
+    const map={
+      'qz-s5-title':s?'Are you taking any supplements?':'Are they taking any supplements?',
+      'qz-s7-title':s?'How old are you?':'How old are they?',
+      'qz-sex-title':s?"What's your gender at birth? (optional)":"What's their gender at birth? (optional)",
+    };
+    Object.entries(map).forEach(([id,txt])=>{const e=document.getElementById(id);if(e)e.textContent=txt;});
+  }
+  function qzPick(btn,sid){const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');wrap.querySelectorAll('.tile,.tile-grid-item,.circle-btn').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');qzA[sid]=[btn.dataset.val];const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=false;}
+  function qzMulti(btn,sid){btn.classList.toggle('sel');const wrap=btn.closest('.tiles,.tiles-grid,.circle-grid');const sel=Array.from(wrap.querySelectorAll('.tile.sel,.tile-grid-item.sel,.circle-btn.sel')).map(b=>b.dataset.val);qzA[sid]=sel;const n=document.getElementById('qz-next-'+sid);if(n)n.disabled=sel.length===0;}
+  function qzCheckE(){const email=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('qz-ef').value);const gdpr=document.getElementById('qz-gdpr').checked;document.getElementById('qz-ebtn').disabled=!(email&&gdpr);}
+  function qzSubmitE(){
+    const email=document.getElementById('qz-ef').value;
+    const payload={
+      source:'homepage quiz — email capture',
+      email:email,
+      gdpr_consent:'yes',
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q4_concerns:(qzA['s2']||[]).join(','),
+      q5_age:(qzA['s7']||[]).join(','),
+      q8_supplements:(qzA['s5']||[]).join(','),
+    };
+    OCForms.submit('newsletter',payload).catch(()=>{}); // fire-and-forget; don't block UX
+    qzTrack('quiz_email_submitted',{fbq:'Lead'});
+    qzGoTo('qz-s5');
+  }
+  function qzShowResult(){
+    const email=document.getElementById('qz-ef').value||'(not provided)';
+    const finalPayload={
+      source:'homepage quiz — completed',
+      email:email,
+      q1_who:(qzA['s1']||[]).join(','),
+      q2_sex:(qzA['sex']||[]).join(','),
+      q4_concerns:(qzA['s2']||[]).join(','),
+      q5_supplements:(qzA['s5']||[]).join(','),
+      q5_age:(qzA['s7']||[]).join(','),
+    };
+    OCForms.submit('newsletter',finalPayload).catch(()=>{});
+
+    const items=['1C-01 is a once-daily capsule of live cultures — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.','It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.'];
+    const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
+    items.forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#3F7D59" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
+    qzGoTo('qz-s-result');
+  }
+  qzDots('qz-sd1',1);
+  </script>
+
+  </div><!-- /.bg-alt quiz -->
+
+  <!-- ── SCIENCE-LED SECTION ── -->
+  <div style="background:#fff;">
+  <section style="max-width:1000px;margin:0 auto;padding:5rem 2rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:stretch;">
+      <div style="border-radius:12px;overflow:hidden;min-height:400px;align-self:stretch;">
+        <img src="media/hand-with-pill.png" alt="1C-01 probiotic capsule" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;">
+      </div>
+      <div>
+        <p class="section-kicker">A Cambridge discovery</p>
+        <h2 style="font-size:1.75rem;font-weight:500;line-height:1.25;margin:0 0 1rem;">We found that boosting one-carbon metabolism protects the ageing brain.</h2>
+        <p style="font-size:16px;color:var(--text-muted);line-height:1.8;margin:0 0 1.75rem;">Our journey started at Cambridge with a fundamental biological breakthrough. One-carbon metabolism is a critical pathway involved in protecting mitochondrial function and sustaining long-term brain health. This discovery was so central to redefining cognitive care that it became our name: OneCarbon.</p>
+        <p style="font-size:16px;color:var(--text-muted);line-height:1.8;margin:0 0 1.75rem;">To harness this power, we engineered a living biological solution. We isolated a naturally occurring gut strain and refined it in our laboratory to continuously produce these essential one-carbon metabolites from within your own body.</p>
+        <div style="border-top:0.5px solid var(--border);margin-bottom:1.5rem;">
+          <div style="display:flex;align-items:center;gap:16px;padding:1.25rem 0;border-bottom:0.5px solid var(--border);">
+            <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid #1f355a;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 10 8" fill="none" width="13" height="13"><polyline points="1,4 4,7 9,1" stroke="#1f355a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p style="font-size:16px;font-weight:500;line-height:1.4;margin:0;">83% boost in neuronal health in pre-clinical cell and animal models</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:1.25rem 0;border-bottom:0.5px solid var(--border);">
+            <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid #1f355a;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 10 8" fill="none" width="13" height="13"><polyline points="1,4 4,7 9,1" stroke="#1f355a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p style="font-size:16px;font-weight:500;line-height:1.4;margin:0;">Grounded in 5 peer-reviewed Cambridge studies</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:1.25rem 0;border-bottom:0.5px solid var(--border);">
+            <div style="width:28px;height:28px;border-radius:50%;border:1.5px solid #1f355a;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 10 8" fill="none" width="13" height="13"><polyline points="1,4 4,7 9,1" stroke="#1f355a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p style="font-size:16px;font-weight:500;line-height:1.4;margin:0;">Piloted in a small human study (15 participants, ages 50–65) — early-stage evidence, not conclusive</p>
+          </div>
+        </div>
+<a href="blog/one-carbon-metabolism.html" style="display:inline-block;color:#1f355a;font-size:15px;font-weight:600;text-decoration:underline;text-underline-offset:3px;">Find out more about the 1C pathway →</a>
+      </div>
+    </div>
+  </section>
+  </div><!-- /.science white -->
+
+  <!-- ── MOBILE ONLY: What We Do ── -->
+  <section class="mobile-what-section" style="display:none;">
+    <h2>What we <span style="color:#1a73e8;">do</span></h2>
+    <br>
+    <h3>We research how neurons protect themselves.</h3>
+    <p>One-carbon metabolism is a pathway our team studied at the University of Cambridge in the context of brain ageing. We found that certain gut bacteria naturally produce one-carbon metabolites, and developed 1C-01 to deliver them daily.</p>
+    <a href="research.html">Learn more about our research →</a>
+  </section>
+
+  <!-- ── PROFILE SIGN-UP ── -->
+  <section class="profile-cta-section" style="display:none">
+    <div class="profile-cta-inner">
+      <div class="profile-cta-text">
+        <h2>Join our clinical trials</h2>
+        <p>
+          See if you are eligible to join our <strong>PROFILE</strong> study, our phase one clinical trial.
+          Alongside the opportunity to try 1C-01 and receive personalised biomarker
+          monitoring, you will be contributing to groundbreaking research.
+        </p>
+        <a href="draft/trials-v3.html" class="profile-cta-link">Learn more about PROFILE →</a>
+      </div>
+      <div>
+        <form class="profile-form" data-oc-form="profile" data-oc-sent="✓ Thanks — we'll be in touch about PROFILE soon.">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="form-row">
+            <div><input class="form-control" type="text" name="name" placeholder="Full Name" required></div>
+            <div><input class="form-control" type="email" name="email" placeholder="Email Address" required></div>
+          </div>
+          <div class="form-row">
+            <div><input class="form-control" type="text" name="location" placeholder="Location"></div>
+            <div><input class="form-control" type="number" name="age" placeholder="Age" min="18" max="120"></div>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="questions" placeholder="Any questions for us?" rows="4"></textarea>
+          </div>
+          <button class="submit-btn" type="submit">Apply for PROFILE →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <div id="how-it-works" style="background:#F7F5F0;">
+  <section style="max-width:900px;margin:0 auto;padding:5rem 2rem;">
+
+    <p class="section-kicker">Objectively measure your brain health &amp; wellbeing</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:4rem;">
+      <div style="border-top:1.5px solid var(--text);padding:1.25rem 1.5rem 0 0;">
+        <span style="display:block;font-size:2.5rem;font-weight:300;color:rgba(26,26,24,0.18);line-height:1;margin-bottom:1rem;font-family:'DM Sans',sans-serif;">01</span>
+        <p style="font-size:17px;font-weight:500;line-height:1.4;margin:0 0 8px;color:var(--text);">Brain health check</p>
+        <p style="font-size:16px;color:var(--text-muted);margin:0;line-height:1.6;">Complete a baseline cognitive assessment in the app — reaction time, memory, focus, and more. Takes about 15 minutes.</p>
+      </div>
+      <div style="border-top:1.5px solid var(--text);padding:1.25rem 1.5rem 0;">
+        <span style="display:block;font-size:2.5rem;font-weight:300;color:rgba(26,26,24,0.18);line-height:1;margin-bottom:1rem;font-family:'DM Sans',sans-serif;">02</span>
+        <p style="font-size:17px;font-weight:500;line-height:1.4;margin:0 0 8px;color:var(--text);">Take 1C-01 daily</p>
+        <p style="font-size:16px;color:var(--text-muted);margin:0;line-height:1.6;">One capsule each morning with a glass of water, consistently. Morning is best — the probiotic is most active in the AM.</p>
+      </div>
+      <div style="border-top:1.5px solid var(--text);padding:1.25rem 0 0 1.5rem;">
+        <span style="display:block;font-size:2.5rem;font-weight:300;color:rgba(26,26,24,0.18);line-height:1;margin-bottom:1rem;font-family:'DM Sans',sans-serif;">03</span>
+        <p style="font-size:17px;font-weight:500;line-height:1.4;margin:0 0 8px;color:var(--text);">Retest and compare</p>
+        <p style="font-size:16px;color:var(--text-muted);margin:0;line-height:1.6;">Repeat the assessment after 4–8 weeks. Your score over time chart shows exactly what's changed.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:4rem;align-items:stretch;">
+      <div style="padding:0;">
+        <p class="section-kicker">What to expect</p>
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.25rem 0;border-top:0.5px solid rgba(0,0,0,0.12);">
+          <span style="font-size:13px;font-weight:600;color:#1f355a;font-family:'DM Sans',sans-serif;flex-shrink:0;padding-top:2px;min-width:56px;">Days 1–7</span>
+          <div>
+            <p style="font-size:17px;color:var(--text);line-height:1.4;margin:0 0 4px;font-weight:500;">1C-01 starts establishing</p>
+            <p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.6;">Some people notice early changes — everyone is different</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.25rem 0;border-top:0.5px solid rgba(0,0,0,0.12);">
+          <span style="font-size:13px;font-weight:600;color:#1f355a;font-family:'DM Sans',sans-serif;flex-shrink:0;padding-top:2px;min-width:56px;">Wks 4–8</span>
+          <div>
+            <p style="font-size:17px;color:var(--text);line-height:1.4;margin:0 0 4px;font-weight:500;">Many report more noticeable effects</p>
+            <p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.6;">Common areas include cognitive clarity, memory, general wellbeing</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;padding:1.25rem 0;border-top:0.5px solid rgba(0,0,0,0.12);border-bottom:0.5px solid rgba(0,0,0,0.12);">
+          <span style="font-size:13px;font-weight:600;color:var(--text-faint);font-family:'DM Sans',sans-serif;flex-shrink:0;padding-top:2px;min-width:56px;">3 mos</span>
+          <div>
+            <p style="font-size:17px;color:var(--text-muted);line-height:1.4;margin:0 0 4px;font-weight:500;">Sustained support</p>
+            <p style="font-size:15px;color:var(--text-faint);margin:0;line-height:1.6;">Like any live bacterial strain, it takes time</p>
+          </div>
+        </div>
+      </div>
+      <div style="overflow:hidden;">
+        <img src="media/water-and-pill.png" alt="1C-01 capsule with glass of water" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+
+  </section>
+  </div><!-- /.how-it-works -->
+
+  <!-- ── WHY A PROBIOTIC (panel) ── -->
+  <div style="background:#fff;">
+  <section style="max-width:1000px;margin:0 auto;padding:5rem 2rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:stretch;">
+      <div style="background:#F7F5F0;border-radius:12px;padding:1.5rem;">
+        <img src="media/probiotic-food-sources.png" alt="A 1C-01 capsule surrounded by natural one-carbon-pathway food sources: edamame, blueberries, spinach, lentils and walnuts." style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+      </div>
+      <div>
+        <p class="section-kicker">Why a probiotic</p>
+        <h2 style="font-size:1.75rem;font-weight:500;line-height:1.25;margin:0 0 1rem;">We don't think you need another supplement. Here's why this one is different</h2>
+        <p style="font-size:16px;color:var(--text-muted);line-height:1.8;margin:0 0 1.5rem;">How we think about supplements, and why we built a living one rather than a pill.</p>
+        <div style="border-top:0.5px solid var(--border);margin-bottom:1.5rem;">
+          <div style="display:flex;gap:16px;padding:1.1rem 0;border-bottom:0.5px solid var(--border);">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-muted);flex-shrink:0;width:20px;">01</span>
+            <p style="font-size:15px;line-height:1.6;margin:0;color:var(--text);"><strong style="font-weight:600;">Diet is the foundation,</strong> but it is a blunt way to reach the one-carbon pathway, and folate levels tends to fall with age.</p>
+          </div>
+          <div style="display:flex;gap:16px;padding:1.1rem 0;border-bottom:0.5px solid var(--border);">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-muted);flex-shrink:0;width:20px;">02</span>
+            <p style="font-size:15px;line-height:1.6;margin:0;color:var(--text);"><strong style="font-weight:600;">A pill spikes, then clears,</strong> and some people convert the synthetic form less efficiently.</p>
+          </div>
+          <div style="display:flex;gap:16px;padding:1.1rem 0;">
+            <span style="font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-muted);flex-shrink:0;width:20px;">03</span>
+            <p style="font-size:15px;line-height:1.6;margin:0;color:var(--text);"><strong style="font-weight:600;">1C-01 is a living strain</strong> that makes one-carbon metabolites in your gut, steadily, from within.</p>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin:0;line-height:1.6;">This is our rationale, not a proven claim. 1C-01 is a food supplement.</p>
+      </div>
+    </div>
+  </section>
+  </div><!-- /.why-a-probiotic-panel -->
+
+  <!-- ── CONFIDENCE / CONTACT CARDS ── -->
+  <section style="background:#fff;padding:5rem 2rem;">
+    <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--surface,#F7F9FC);border:1px solid var(--border,#E3E8F0);border-radius:12px;padding:2.25rem;">
+        <p style="font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;color:#1f355a;font-weight:700;margin:0 0 10px;">Try it with confidence</p>
+        <h3 style="font-size:1.4rem;font-weight:600;margin:0 0 12px;color:var(--text);">A money-back guarantee, and a way to track for yourself</h3>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.6;margin:0 0 20px;">Baseline your own brain-health check in the app and track it over time. Not satisfied? See our <a href="legal/refund-policy.html" style="color:#1f355a;text-decoration:underline;">refund terms</a>.</p>
+        <button onclick="var q=document.getElementById('qz-page');if(q){qzOpen();}" style="padding:14px 28px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;">Take the 2-min quiz</button>
+        <p style="font-size:12.5px;color:var(--text-muted);margin:16px 0 0;line-height:1.6;">30-day money-back guarantee — no questions asked.</p>
+      </div>
+      <div style="background:var(--surface,#F7F9FC);border:1px solid var(--border,#E3E8F0);border-radius:12px;padding:2.25rem;">
+        <p style="font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;color:#1f355a;font-weight:700;margin:0 0 10px;">Questions first?</p>
+        <h3 style="font-size:1.4rem;font-weight:600;margin:0 0 12px;color:var(--text);">Talk to our team</h3>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.6;margin:0 0 20px;">Send us a message and we'll get back to you personally — no bots, no forms to chase.</p>
+        <a href="contact.html" style="display:inline-block;padding:14px 28px;background:transparent;color:#1f355a;border:1.5px solid #1f355a;border-radius:100px;font-size:15px;font-weight:600;text-decoration:none;">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAILING LIST BANNER ── -->
+  <section style="background:#1f355a;padding:48px 60px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+      <div>
+        <h3 style="margin:0 0 4px;color:#fff;font-size:1.3rem;">Stay up to date</h3>
+        <p style="margin:0;color:rgba(255,255,255,0.8);font-size:14px;">Join our mailing list for research updates and news from OneCarbon.</p>
+      </div>
+      <form data-oc-form="newsletter" data-oc-sent="✓ You're on the list." data-oc-sent-style="color:#fff;margin:0;" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="source" value="footer mailing list banner">
+        <input type="email" name="email" placeholder="Your email address" required class="mailing-input"
+          style="padding:11px 16px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;outline:none;border-radius:0;min-width:240px;">
+        <button type="submit" style="padding:11px 24px;background:#fff;color:#1f355a;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:0;">Join mailing list</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-logo">OneCarbon</div>
+    <nav class="footer-links">
+      <a href="research.html">Research</a>
+      <a href="purchase.html">Buy now</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal/refund-policy.html">Refund Policy</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/company/healthspan-biotics/posts/?feedView=all" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-company">
+        <p>One Carbon is a trading name of Healthspan Biotics Ltd</p>
+        <p>Registered in England and Wales | Company No. 15224752</p>
+        <p>Registered Office: Unit 5 Avenue Business Park, Brockley Road, Elsworth, Cambridgeshire, United Kingdom, CB23 4EY</p>
+      </div>
+      <nav class="footer-legal">
+        <a href="legal/tos.html">Terms of Service</a>
+        <a href="legal/privacy.html">Privacy Policy</a>
+        <a href="legal/cookie.html">Cookie Policy</a>
+      </nav>
+      <p class="footer-copy">© 2026 OneCarbon. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/consent.js"></script>
+  <script src="js/utm.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/forms.js"></script>
+
+
+  <!-- ── TWEAKS PANEL ── -->
+  <div id="tweaks-panel">
+    <h4>Tweaks</h4>
+    <div class="tweak-row">
+      <label>Tilt (Z rotation) <span id="v-tilt">0.28</span></label>
+      <input type="range" id="t-tilt" min="0" max="0.8" step="0.01" value="0.28">
+    </div>
+    <div class="tweak-row">
+      <label>Horizontal shift <span id="v-shift">-1.6</span></label>
+      <input type="range" id="t-shift" min="-4" max="0" step="0.1" value="-1.6">
+    </div>
+    <div class="tweak-row">
+      <label>Rotation speed <span id="v-speed">0.06</span></label>
+      <input type="range" id="t-speed" min="0" max="0.3" step="0.005" value="0.06">
+    </div>
+    <div class="tweak-row">
+      <label>Particle count <span id="v-count">40000</span></label>
+      <input type="range" id="t-count" min="8000" max="60000" step="2000" value="40000">
+    </div>
+    <div class="tweak-row">
+      <label>Particle size <span id="v-size">45</span></label>
+      <input type="range" id="t-size" min="20" max="80" step="1" value="45">
+    </div>
+    <div class="tweak-row">
+      <label>Axon fade direction <span id="v-axonfade">0</span></label>
+      <input type="range" id="t-axonfade" min="-1" max="1" step="0.05" value="0">
+      <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-faint);margin-top:2px"><span>← dense at top</span><span>dense at bottom →</span></div>
+    </div>
+    <div class="tweak-row">
+      <label>Shape</label>
+      <select id="t-shape">
+        <option value="glyph" selected>Glyph (1/C)</option>
+        <option value="circle">Circle</option>
+        <option value="diamond">Diamond</option>
+        <option value="ring">Ring</option>
+        <option value="cross">Cross</option>
+      </select>
+    </div>
+  </div>
+
+  <script type="module">
+  // Phones use the pre-rendered still (.hero-still): three.js is never fetched,
+  // no WebGL context is created. Everything below is desktop-only.
+  if (window.matchMedia('(min-width: 601px)').matches) {
+  const THREE = await import('three');
+
+  // ── CONFIG ──
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "tilt": 0.28,
+    "shift": -1.6,
+    "speed": 0.005,
+    "count": 40000,
+    "size": 45,
+    "shape": "glyph",
+    "axonFade": 0.45,
+    "colorOuter": "#1f355a",
+    "colorMid": "#162844",
+    "colorInner": "#a8ccf8",
+    "colorNucleus": "#ff6600"
+  }/*EDITMODE-END*/;
+
+  const state = { ...TWEAK_DEFAULTS };
+
+  // ── RENDERER ──
+  const canvas = document.getElementById('neuron-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 1000);
+  camera.position.set(0, 2.8, 12);
+
+  const neuronGroup = new THREE.Group();
+  scene.add(neuronGroup);
+
+  // ── PRNG ──
+  function mulberry32(seed) {
+    return function() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = seed;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  const SOMA_Y = 2.8;
+  const AXON_START_Y = SOMA_Y - 1.4;
+  const AXON_END_Y = -14.0;
+  const TERM_BOTTOM_Y = AXON_END_Y - 1.8;
+  const AXON_ALONG_START = 0.25;
+  const AXON_ALONG_END = 0.92;
+
+  function generateNeuron(particleCount) {
+    const rand = mulberry32(11);
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
+    const seeds = new Float32Array(particleCount);
+    const parts = new Float32Array(particleCount);
+    const along = new Float32Array(particleCount);
+
+    const nucleusCount  = Math.floor(particleCount * 0.03);
+    const somaCount     = Math.floor(particleCount * 0.06);
+    const dendriteCount = Math.floor(particleCount * 0.30);
+    const spineCount    = Math.floor(particleCount * 0.04);
+    const axonCount     = Math.floor(particleCount * 0.45);
+    const terminalCount = particleCount - nucleusCount - somaCount - dendriteCount - spineCount - axonCount;
+
+    let idx = 0;
+    const tmp = new THREE.Vector3();
+    const nucPos = new THREE.Vector3(0, SOMA_Y, 0);
+    const nucTilt = new THREE.Quaternion().setFromEuler(new THREE.Euler(0.3, -0.25, 0.15));
+
+    for (let i = 0; i < nucleusCount; i++) {
+      const u = rand(), v = rand();
+      const theta = u * Math.PI * 2;
+      const phi = Math.acos(2 * v - 1);
+      const r = Math.cbrt(rand()) * 0.4;
+      tmp.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta) * 0.65, r * Math.cos(phi) * 0.75);
+      tmp.applyQuaternion(nucTilt); tmp.add(nucPos);
+      positions[idx*3] = tmp.x; positions[idx*3+1] = tmp.y; positions[idx*3+2] = tmp.z;
+      seeds[idx] = rand(); parts[idx] = 2; along[idx] = 0.10; sizes[idx] = 0.35 + rand() * 0.25; idx++;
+    }
+
+    for (let i = 0; i < somaCount; i++) {
+      const u = rand(), v = rand();
+      const theta = u * Math.PI * 2;
+      const phi = Math.acos(2 * v - 1);
+      const r = 0.45 + Math.pow(rand(), 0.6) * 0.7;
+      tmp.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta) * 0.9, r * Math.cos(phi) * 0.85);
+      tmp.add(nucPos);
+      positions[idx*3] = tmp.x; positions[idx*3+1] = tmp.y; positions[idx*3+2] = tmp.z;
+      seeds[idx] = rand(); parts[idx] = 0; along[idx] = 0.12; sizes[idx] = 0.25 + rand() * 0.25; idx++;
+    }
+
+    const dendriteSegs = [];
+    const dendriteTipPoints = [];
+
+    function growBranch(origin, dir, length, thickness, depth, maxDepth) {
+      const steps = Math.max(8, Math.floor(length * 14));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        const curlAmt = 0.05 + (depth / maxDepth) * 0.18;
+        const curl = new THREE.Vector3((rand()-0.5)*curlAmt, (rand()-0.5)*curlAmt*0.6, (rand()-0.5)*curlAmt);
+        d.add(curl).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+        const t = s / steps;
+        dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness * (1 - t * 0.55)) });
+        p = next;
+      }
+      if (depth < maxDepth) {
+        const ratio = 0.45 + rand() * 0.1;
+        const t1 = thickness * Math.pow(ratio, 1/1.5) * 0.95;
+        const t2 = thickness * Math.pow(1 - ratio, 1/1.5) * 0.95;
+        const perp = Math.abs(d.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+        const axis = new THREE.Vector3().crossVectors(d, perp).normalize();
+        axis.applyQuaternion(new THREE.Quaternion().setFromAxisAngle(d, rand() * Math.PI * 2));
+        const ang1 = (0.42 + rand() * 0.25) * (0.9 + rand()*0.2);
+        const ang2 = -(0.42 + rand() * 0.25) * (0.9 + rand()*0.2);
+        growBranch(p.clone(), d.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis, ang1)).normalize(), length * (0.55 + rand() * 0.3), t1, depth + 1, maxDepth);
+        growBranch(p.clone(), d.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis, ang2)).normalize(), length * (0.55 + rand() * 0.3), t2, depth + 1, maxDepth);
+        if (rand() < 0.15) growBranch(p.clone(), d.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(axis.clone().applyQuaternion(new THREE.Quaternion().setFromAxisAngle(d, Math.PI/2)), 0.3 + rand()*0.3)).normalize(), length * 0.4, thickness * 0.35, depth + 1, maxDepth);
+      } else {
+        dendriteTipPoints.push({ p: p.clone(), dir: d.clone(), thickness: thickness * 0.6 });
+      }
+    }
+
+    function growTuft(origin, dir, length, thickness) {
+      const steps = Math.max(6, Math.floor(length * 20));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        const curl = new THREE.Vector3((rand()-0.5)*0.25, (rand()-0.5)*0.25, (rand()-0.5)*0.25);
+        d.add(curl).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+        const t = s / steps;
+        dendriteSegs.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.004, thickness * (1 - t * 0.8)) });
+        p = next;
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const angle = (i / 9) * Math.PI * 2 + rand() * 0.4;
+      const elev = (rand() - 0.2) * 1.2;
+      const dir = new THREE.Vector3(Math.cos(angle)*Math.cos(elev*0.6), Math.sin(Math.max(elev,-0.2))*0.9+0.15, Math.sin(angle)*Math.cos(elev*0.6)).normalize();
+      growBranch(nucPos.clone().addScaledVector(dir, 0.75), dir, 1.0 + rand()*0.5, 0.22 + rand()*0.05, 0, 5);
+    }
+    for (const tip of dendriteTipPoints) {
+      const nTufts = 3 + Math.floor(rand() * 4);
+      for (let j = 0; j < nTufts; j++) {
+        const offset = new THREE.Vector3((rand()-0.5)*1.6, (rand()-0.5)*1.6, (rand()-0.5)*1.6);
+        growTuft(tip.p, tip.dir.clone().multiplyScalar(0.4).add(offset).normalize(), 0.18 + rand()*0.35, tip.thickness*0.5);
+      }
+    }
+
+    distributeOnSegs(dendriteSegs, dendriteCount, 0, 0.08, false);
+
+    (function placeSpines() {
+      let total = 0; const weights = [];
+      for (const s of dendriteSegs) { const w = s.thickness > 0.02 ? s.thickness * s.p0.distanceTo(s.p1) : 0; weights.push(w); total += w; }
+      if (total < 1e-6) return;
+      let placed = 0;
+      while (placed < spineCount) {
+        const r = rand() * total; let acc = 0, segIdx = 0;
+        for (let i = 0; i < weights.length; i++) { acc += weights[i]; if (acc >= r) { segIdx = i; break; } }
+        const s = dendriteSegs[segIdx]; const t = rand();
+        const base = s.p0.clone().lerp(s.p1, t);
+        const dir = s.p1.clone().sub(s.p0).normalize();
+        const perpUp = Math.abs(dir.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+        const u = new THREE.Vector3().crossVectors(dir, perpUp).normalize();
+        const v = new THREE.Vector3().crossVectors(dir, u).normalize();
+        const theta = rand() * Math.PI * 2;
+        const spineLen = s.thickness * (1.5 + rand() * 2.5);
+        const spine = base.clone().addScaledVector(u, Math.cos(theta)*spineLen).addScaledVector(v, Math.sin(theta)*spineLen);
+        if (idx >= particleCount) return;
+        positions[idx*3] = spine.x; positions[idx*3+1] = spine.y; positions[idx*3+2] = spine.z;
+        seeds[idx] = rand(); parts[idx] = 0; along[idx] = 0.09; sizes[idx] = 0.14 + rand()*0.12; idx++; placed++;
+      }
+    })();
+
+    const hillockSegs = [];
+    for (let i = 0; i < 14; i++) {
+      const t0 = i / 14, t1 = (i+1) / 14;
+      const y0 = (SOMA_Y-0.55) + (AXON_START_Y-(SOMA_Y-0.55)) * t0;
+      const y1 = (SOMA_Y-0.55) + (AXON_START_Y-(SOMA_Y-0.55)) * t1;
+      const r0 = 0.85 + (0.14 - 0.85) * Math.pow(t0, 0.7);
+      const r1 = 0.85 + (0.14 - 0.85) * Math.pow(t1, 0.7);
+      hillockSegs.push({ p0: new THREE.Vector3(0,y0,0), p1: new THREE.Vector3(0,y1,0), thickness: (r0+r1)*0.5, alongOverride: 0.14 + t0*0.08 });
+    }
+
+    const axonCurvePoints = [];
+    for (let i = 0; i <= 220; i++) {
+      const t = i / 220;
+      const y = AXON_START_Y + (AXON_END_Y - AXON_START_Y) * t;
+      const ramp = Math.min(1, t * 5);
+      axonCurvePoints.push(new THREE.Vector3(Math.sin(t*Math.PI*3.0)*1.3*(0.3+t*0.7)*ramp, y, Math.sin(t*Math.PI*2.1+1.3)*0.6*ramp));
+    }
+
+    const hillockParticleCount = Math.floor(axonCount * 0.10);
+    distributeOnSegs(hillockSegs, hillockParticleCount, 0, null, false);
+
+    const axonSegs = [];
+    for (let i = 0; i < axonCurvePoints.length - 1; i++) {
+      const t = i / (axonCurvePoints.length - 1);
+      const phase = (t * 10) % 1;
+      let mult = (phase < 0.12 || phase > 0.88) ? 0.5 : 1.0 + Math.cos(((phase-0.5)/0.38)*Math.PI)*0.35;
+      axonSegs.push({ p0: axonCurvePoints[i], p1: axonCurvePoints[i+1], thickness: (0.13 - t*0.03)*mult, along: t, alongOverride: AXON_ALONG_START + t*(AXON_ALONG_END-AXON_ALONG_START) });
+    }
+    distributeOnSegs(axonSegs, axonCount - hillockParticleCount, 0.5, null, true);
+
+    const termSegs = [];
+    const termOrigin = axonCurvePoints[axonCurvePoints.length - 1].clone();
+    function growTerm(origin, dir, length, thickness, depth, maxDepth, collect) {
+      const steps = Math.max(8, Math.floor(length * 14));
+      let p = origin.clone(), d = dir.clone().normalize();
+      for (let s = 0; s < steps; s++) {
+        const curl = new THREE.Vector3((rand()-0.5)*0.18, (rand()-0.5)*0.10, (rand()-0.5)*0.18);
+        d.add(curl).normalize();
+        const next = p.clone().add(d.clone().multiplyScalar(length / steps));
+        collect.push({ p0: p.clone(), p1: next.clone(), thickness: Math.max(0.006, thickness*(1-s/steps*0.85)) });
+        p = next;
+        if (depth < maxDepth && s > 2 && s < steps-2 && rand() < 0.14) {
+          const perp = new THREE.Vector3(-d.y, d.x, d.z).normalize();
+          const branchDir = d.clone().add(perp.multiplyScalar((rand()-0.5)*1.5 + (rand()<0.5?0.8:-0.8)));
+          branchDir.y -= rand() * 0.3; branchDir.normalize();
+          growTerm(p.clone(), branchDir, length*(0.45+rand()*0.35), thickness*0.55, depth+1, maxDepth, collect);
+        }
+      }
+    }
+    for (let i = 0; i < 8; i++) {
+      const angle = (i / 8) * Math.PI * 2 + rand() * 0.4;
+      growTerm(termOrigin.clone(), new THREE.Vector3(Math.cos(angle)*0.7, -0.55-rand()*0.4, Math.sin(angle)*0.7).normalize(), 1.2+rand()*0.9, 0.08, 0, 2, termSegs);
+    }
+    distributeOnSegs(termSegs, terminalCount, 1, 0.96, false);
+
+    function distributeOnSegs(segs, count, partValue, alongOverride, isAxon) {
+      let totalW = 0;
+      for (const s of segs) { s.len = s.p0.distanceTo(s.p1); s.weight = s.thickness * s.len; totalW += s.weight; }
+      let placed = 0;
+      for (let si = 0; si < segs.length; si++) {
+        const s = segs[si];
+        const n = Math.max(1, Math.round((s.weight / totalW) * count));
+        for (let i = 0; i < n && placed < count; i++) {
+          const t = rand();
+          const p = s.p0.clone().lerp(s.p1, t);
+          const dir = s.p1.clone().sub(s.p0).normalize();
+          const up = Math.abs(dir.y) < 0.9 ? new THREE.Vector3(0,1,0) : new THREE.Vector3(1,0,0);
+          const u = new THREE.Vector3().crossVectors(dir, up).normalize();
+          const vVec = new THREE.Vector3().crossVectors(dir, u).normalize();
+          const scatter = s.thickness * (1 + rand() * 0.6);
+          p.addScaledVector(u, (rand()+rand()+rand()-1.5)*0.7*scatter);
+          p.addScaledVector(vVec, (rand()+rand()+rand()-1.5)*0.7*scatter);
+          if (rand() < 0.035) { p.addScaledVector(u, (rand()-0.5)*scatter*4); p.addScaledVector(vVec, (rand()-0.5)*scatter*4); }
+          positions[idx*3] = p.x; positions[idx*3+1] = p.y; positions[idx*3+2] = p.z;
+          seeds[idx] = rand(); parts[idx] = partValue;
+          along[idx] = isAxon && s.alongOverride !== undefined ? s.alongOverride : (alongOverride || 0.1) + (rand()-0.5)*0.02;
+          sizes[idx] = isAxon ? (0.22+rand()*0.28) : (0.20+rand()*0.30);
+          idx++; placed++;
+        }
+      }
+    }
+
+    while (idx < particleCount) {
+      positions[idx*3] = 0; positions[idx*3+1] = SOMA_Y; positions[idx*3+2] = 0;
+      seeds[idx] = rand(); parts[idx] = 0; along[idx] = 0.1; sizes[idx] = 0.25; idx++;
+    }
+
+    return { positions, colors, sizes, seeds, parts, along };
+  }
+
+  function hexToRgb(h) { const v = parseInt(h.slice(1),16); return [((v>>16)&255)/255,((v>>8)&255)/255,(v&255)/255]; }
+  function lerp3(a,b,t) { return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
+
+  function applyColors(data) {
+    const topC = hexToRgb(state.colorOuter), midC = hexToRgb(state.colorMid);
+    const botC = hexToRgb(state.colorInner), nucC = hexToRgb(state.colorNucleus);
+    const { colors, along, parts, seeds } = data;
+    for (let i = 0; i < along.length; i++) {
+      const a = along[i], part = parts[i]; let c;
+      if (part > 1.5) {
+        // nucleus
+        c = lerp3(nucC, lerp3(nucC, topC, 0.25), seeds[i] * 0.3);
+      } else {
+        c = a < 0.5 ? lerp3(topC, midC, a*2) : lerp3(midC, botC, (a-0.5)*2);
+        const j = (seeds[i]-0.5)*0.16;
+        c = [Math.max(0,Math.min(1,c[0]+j)), Math.max(0,Math.min(1,c[1]+j*0.5)), Math.max(0,Math.min(1,c[2]-j*0.5))];
+      }
+      colors[i*3]=c[0]; colors[i*3+1]=c[1]; colors[i*3+2]=c[2];
+    }
+  }
+
+  function makeGlyphAtlas() {
+    const size = 128, atlas = document.createElement('canvas');
+    atlas.width = size*2; atlas.height = size;
+    const ctx = atlas.getContext('2d');
+    ctx.clearRect(0,0,size*2,size); ctx.fillStyle='#fff';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font = `900 ${size*0.9}px "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('1', size*0.5, size*0.5); ctx.fillText('C', size*1.5, size*0.5);
+    const tex = new THREE.CanvasTexture(atlas);
+    tex.minFilter = THREE.LinearMipmapLinearFilter; tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = true; tex.anisotropy = 4;
+    return tex;
+  }
+  const glyphTex = makeGlyphAtlas();
+
+  let points = null, geometry = null, material = null, data = null;
+  const SHAPE_MAP = { circle:0, square:1, diamond:2, ring:3, cross:4, glyph:5 };
+
+  const vertexShader = `
+    attribute float aSize;
+    attribute float aSeed;
+    attribute float aAlong;
+    attribute float aPart;
+    uniform float uTime;
+    uniform float uSizeScale;
+    uniform float uPixelRatio;
+    uniform float uAxonFade;
+    varying vec3 vColor;
+    varying float vAlpha;
+    varying float vSeed;
+    void main() {
+      vColor = color; vSeed = aSeed;
+      vec3 displaced = position;
+      if (aPart > 0.25 && aPart < 0.75) {
+        float t = uTime * (0.5 + aSeed * 0.6);
+        displaced += vec3(sin(t + aSeed*6.28)*0.006, 0.0, cos(t*0.8 + aSeed*3.14)*0.006);
+      }
+      vec4 mv = modelViewMatrix * vec4(displaced, 1.0);
+      gl_Position = projectionMatrix * mv;
+      gl_PointSize = aSize * uSizeScale * uPixelRatio * (300.0 / -mv.z);
+      float depthFade = smoothstep(60.0, 6.0, -mv.z) * 0.85 + 0.15;
+      // Hillock density fade: soft boundaries, never drops below 40% alpha
+      float hillockFade = 1.0;
+      {
+        float isLowPart = 1.0 - step(0.1, aPart);
+        // Soft mask: smoothly enters and exits the hillock along range
+        float maskLo = smoothstep(0.115, 0.148, aAlong);
+        float maskHi = 1.0 - smoothstep(0.215, 0.235, aAlong);
+        float mask = maskLo * maskHi * isLowPart;
+        // Ramp from 0.4 at soma end to 1.0 at axon end
+        float t = smoothstep(0.128, 0.220, aAlong);
+        hillockFade = mix(1.0, 0.40 + 0.60 * t, mask);
+      }
+      float axonFade = 1.0;
+      if (aPart > 0.25 && aPart < 1.5 && uAxonFade != 0.0) {
+        float strength = abs(uAxonFade);
+        float fade;
+        if (uAxonFade > 0.0) {
+          // Positive: sparse near soma, denser going down
+          fade = smoothstep(0.24, 0.88, aAlong);
+        } else {
+          // Negative: dense near soma, fades toward terminals
+          fade = 1.0 - smoothstep(0.32, 0.97, aAlong);
+        }
+        axonFade = mix(1.0, fade, strength);
+      }
+      vAlpha = depthFade * hillockFade * axonFade;
+    }
+  `;
+
+  const fragmentShader = `
+    precision highp float;
+    varying vec3 vColor; varying float vAlpha; varying float vSeed;
+    uniform int uShape; uniform sampler2D uGlyph;
+    void main() {
+      if (vAlpha < 0.01) discard;
+      vec2 uv = gl_PointCoord - 0.5; float d = length(uv); float a = 1.0;
+      if (uShape == 0) { if (d > 0.5) discard; }
+      else if (uShape == 1) { if (max(abs(uv.x),abs(uv.y)) > 0.45) discard; }
+      else if (uShape == 2) { if (abs(uv.x)+abs(uv.y) > 0.5) discard; }
+      else if (uShape == 3) { if (d > 0.5 || d < 0.28) discard; }
+      else if (uShape == 4) { float k=0.14; if (!(abs(uv.y)<k&&abs(uv.x)<0.48) && !(abs(uv.x)<k&&abs(uv.y)<0.48)) discard; }
+      else if (uShape == 5) {
+        float pick = step(0.5, vSeed);
+        vec2 local = vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y);
+        vec4 s = texture2D(uGlyph, vec2(pick*0.5 + local.x*0.5, local.y));
+        if (s.a < 0.4) discard; a = s.a;
+      }
+      gl_FragColor = vec4(vColor, vAlpha * a);
+    }
+  `;
+
+  function buildNeuron() {
+    if (points) { geometry.dispose(); material.dispose(); neuronGroup.remove(points); }
+    data = generateNeuron(state.count);
+    applyColors(data);
+    geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(data.positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(data.colors, 3));
+    geometry.setAttribute('aSize', new THREE.BufferAttribute(data.sizes, 1));
+    geometry.setAttribute('aSeed', new THREE.BufferAttribute(data.seeds, 1));
+    geometry.setAttribute('aAlong', new THREE.BufferAttribute(data.along, 1));
+    geometry.setAttribute('aPart', new THREE.BufferAttribute(data.parts, 1));
+    material = new THREE.ShaderMaterial({
+      vertexShader, fragmentShader,
+      vertexColors: true, transparent: true, depthWrite: false,
+      blending: THREE.NormalBlending,
+      uniforms: {
+        uTime: { value: 0 },
+        uSizeScale: { value: state.size / 100 },
+        uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+        uShape: { value: SHAPE_MAP[state.shape] || 0 },
+        uGlyph: { value: glyphTex },
+        uAxonFade: { value: state.axonFade || 0 }
+      }
+    });
+    points = new THREE.Points(geometry, material);
+    neuronGroup.add(points);
+    neuronGroup.scale.setScalar(1.10);
+  }
+
+  function resize() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    if (material) material.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+    // On mobile, flip the Z tilt so the neuron leans toward the text on the left
+    const mobile = window.innerWidth <= 760;
+    state.tilt = mobile ? -TWEAK_DEFAULTS.tilt : TWEAK_DEFAULTS.tilt;
+    neuronGroup.scale.setScalar(1.10);
+  }
+  window.addEventListener('resize', resize);
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const elapsed = clock.getElapsedTime();
+    // Idle rotation on Y; fixed Z tilt to sweep axon rightward
+    neuronGroup.rotation.y = elapsed * state.speed;
+    neuronGroup.rotation.z = state.tilt;
+    neuronGroup.position.x = state.shift;
+    // Camera looks at shifted soma position
+    camera.lookAt(state.shift, SOMA_Y, 0);
+    if (material) material.uniforms.uTime.value = elapsed;
+    renderer.render(scene, camera);
+  }
+
+  buildNeuron();
+  resize();
+  setTimeout(resize, 50);
+  animate();
+
+  // ── TWEAKS ──
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode')   document.getElementById('tweaks-panel').style.display = 'block';
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  function bindSlider(id, valId, key, rebuild) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      const v = parseFloat(el.value);
+      state[key] = v;
+      document.getElementById(valId).textContent = v;
+      if (rebuild) buildNeuron();
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: v } }, '*');
+    });
+  }
+  bindSlider('t-tilt', 'v-tilt', 'tilt', false);
+  bindSlider('t-shift', 'v-shift', 'shift', false);
+  bindSlider('t-speed', 'v-speed', 'speed', false);
+  bindSlider('t-count', 'v-count', 'count', true);
+  bindSlider('t-size', 'v-size', 'size', false);
+  document.getElementById('t-size').addEventListener('input', () => {
+    if (material) material.uniforms.uSizeScale.value = state.size / 100;
+  });
+  const axonFadeEl = document.getElementById('t-axonfade');
+  axonFadeEl.addEventListener('input', () => {
+    const v = parseFloat(axonFadeEl.value);
+    state.axonFade = v;
+    document.getElementById('v-axonfade').textContent = v;
+    if (material) material.uniforms.uAxonFade.value = v;
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { axonFade: v } }, '*');
+  });
+
+  document.getElementById('t-shape').addEventListener('change', e => {
+    state.shape = e.target.value;
+    if (material) material.uniforms.uShape.value = SHAPE_MAP[state.shape] || 0;
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { shape: state.shape } }, '*');
+  });
+  } // end desktop-only neuron
+
+  </script>
+</body>
+</html>
