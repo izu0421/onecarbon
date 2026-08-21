@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" as="image" href="media/neuron-portrait.webp" imagesrcset="media/neuron-portrait.webp" media="(max-width: 600px)">
   <script type="importmap">
   {
     "imports": {
@@ -27,6 +28,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
+
+    /* ── MOBILE HERO STILL — pre-rendered neuron, phones only ── */
+    .hero-still { display: none; }
+    .hero-eyebrow, .hero-microline { display: none; }
 
     /* ── NEURON STAGE — full-bleed behind content ── */
     .neuron-stage {
@@ -290,9 +295,91 @@
       width: 100% !important;
     }
 
-    /* Hide neuron on mobile — too heavy */
-    .neuron-stage { display: none; }
+    /* Hide the live neuron on mobile — the pre-rendered still replaces it */
+    .neuron-stage { display: none !important; }
     .hide-mobile { display: none !important; }
+
+    /* ── MOBILE HERO (option 3a) ── */
+    .hero { display: block !important; min-height: 0 !important; padding: 0 !important; }
+
+    .hero-still {
+      display: block;
+      position: relative;
+      height: min(620px, 72vh);
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .hero-still img {
+      position: absolute;
+      left: 50%;
+      top: -22%;
+      transform: translateX(-50%);
+      width: min(145%, 560px);
+      max-width: none;
+      height: auto;
+    }
+    .hero-still-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(247,245,240,0.60) 0%,
+        rgba(247,245,240,0) 18%,
+        rgba(247,245,240,0) 42%,
+        rgba(247,245,240,0.72) 62%,
+        var(--bg) 84%);
+    }
+
+    .hero-left { margin-top: -300px; padding: 0; position: relative; z-index: 2; }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px 30px !important;
+      max-width: 100% !important;
+    }
+    .hero-eyebrow {
+      display: block;
+      order: 0;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .hero-text h1 {
+      order: 1;
+      font-size: clamp(2.1rem, 10vw, 2.6rem) !important;
+      line-height: 1 !important;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+    .hero-text p.hero-subhead {
+      order: 2;
+      font-size: 18px !important;
+      line-height: 1.4 !important;
+      color: var(--text) !important;
+      margin-bottom: 18px !important;
+    }
+    .hero-text > div { order: 3; margin-top: 0 !important; max-width: none !important; }
+    .hero-quiz-btn { width: 100%; padding: 18px 30px !important; }
+    .hero-microline {
+      display: flex;
+      order: 4;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .hero-microline span.dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(0,0,0,0.25); }
+    /* Long explainer drops below the first screen */
+    .hero-text > p:not(.hero-subhead) {
+      order: 5;
+      margin: 24px 0 0 !important;
+      font-size: 15px !important;
+      line-height: 1.75 !important;
+    }
   }
   </style>
 </head>
@@ -316,10 +403,19 @@
   <!-- ── HERO ── -->
   <section class="hero">
 
-    <!-- Neuron canvas — behind everything -->
+    <!-- Neuron canvas — behind everything (desktop only) -->
     <div class="neuron-stage">
       <canvas id="neuron-canvas"></canvas>
       <div class="vignette"></div>
+    </div>
+
+    <!-- Pre-rendered neuron still — mobile only, no WebGL -->
+    <div class="hero-still" aria-hidden="true">
+      <picture>
+        <source srcset="media/neuron-portrait.webp" type="image/webp">
+        <img src="media/neuron-portrait.png" alt="" width="820" height="1180" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="hero-still-scrim"></div>
     </div>
 
     <!-- Left: Text -->
@@ -332,7 +428,7 @@
           .hero-quiz-btn:hover{background:#0c1524 !important;}
         </style>
         <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;max-width:420px;">
-          <button class="hero-quiz-btn" onclick="qzOpen()" style="padding:16px 30px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s;">Get started</button>
+          <button class="hero-quiz-btn" onclick="qzOpen()" style="padding:16px 30px;background:#1f355a;color:#fff;border:none;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s;">Take the 2-min quiz</button>
         </div>
       </div>
     </div>
@@ -976,7 +1072,10 @@
   </div>
 
   <script type="module">
-  import * as THREE from 'three';
+  // Phones use the pre-rendered still (.hero-still): three.js is never fetched,
+  // no WebGL context is created. Everything below is desktop-only.
+  if (window.matchMedia('(min-width: 601px)').matches) {
+  const THREE = await import('three');
 
   // ── CONFIG ──
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -1457,6 +1556,7 @@
     if (material) material.uniforms.uShape.value = SHAPE_MAP[state.shape] || 0;
     window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { shape: state.shape } }, '*');
   });
+  } // end desktop-only neuron
 
   </script>
 </body>
