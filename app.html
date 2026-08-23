@@ -1997,18 +1997,45 @@
       return (Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
     }
 
-    // ── Google sign-in (popup) ──
+    // ── Google sign-in (popup, falling back to redirect) ──
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
+    // Mobile Safari and in-app browsers (Instagram, LinkedIn, Facebook) block
+    // the popup outright, which locked every Google-only account out on a
+    // phone. When that happens, fall back to a full-page redirect.
+    const POPUP_UNAVAILABLE = [
+      'auth/popup-blocked',
+      'auth/popup-closed-by-user',
+      'auth/cancelled-popup-request',
+      'auth/operation-not-supported-in-this-environment',
+      'auth/web-storage-unsupported',
+    ];
+
     document.getElementById('btn-google-signin').addEventListener('click', async () => {
-      console.log('🔵 Google sign-in clicked');
       try {
         const result = await auth.signInWithPopup(googleProvider);
         console.log('✅ Popup sign-in success:', result.user.email);
       } catch(e) {
         console.error('❌ Popup error:', e.code, e.message);
+        if (POPUP_UNAVAILABLE.includes(e.code)) {
+          try {
+            await auth.signInWithRedirect(googleProvider);
+            return; // page navigates away; onAuthStateChanged picks it up on return
+          } catch(redirectErr) {
+            console.error('❌ Redirect error:', redirectErr.code, redirectErr.message);
+            showAuthError(friendlyError(redirectErr));
+            return;
+          }
+        }
         showAuthError(friendlyError(e));
       }
+    });
+
+    // Surface an error from a redirect sign-in that failed. The success case
+    // needs no handling — onAuthStateChanged fires on return.
+    auth.getRedirectResult().catch((e) => {
+      console.error('❌ Redirect result error:', e.code, e.message);
+      showAuthError(friendlyError(e));
     });
 
     // ── Email auth ──
@@ -2048,7 +2075,15 @@
       } else {
         try {
           await auth.signInWithEmailAndPassword(email, password);
-        } catch (e) { showAuthError(friendlyError(e)); }
+        } catch (e) {
+          // An account created through Google has no password, so signing in
+          // here always fails with invalid-credential. We cannot tell that
+          // apart from a mistyped password: fetchSignInMethodsForEmail returns
+          // an empty array because email-enumeration protection is enabled on
+          // this project (deliberately — it stops attackers discovering which
+          // addresses have accounts). Hence the message covers both cases.
+          showAuthError(friendlyError(e));
+        }
       }
     });
 
@@ -2075,6 +2110,9 @@
         'auth/weak-password': 'Password is too weak.',
         'auth/popup-closed-by-user': 'Sign-in popup was closed.',
         'auth/network-request-failed': 'Network error. Please check your connection.',
+        'auth/invalid-credential': 'Incorrect email or password. If you signed up with Google, use "Continue with Google".',
+        'auth/too-many-requests': 'Too many attempts. Please wait a few minutes and try again.',
+        'auth/user-disabled': 'This account has been disabled. Please contact us.',
       };
       return map[e.code] || e.message || 'Something went wrong. Please try again.';
     }
