@@ -116,6 +116,9 @@ Safe language: "1C-01 takes a live culture approach to supporting this pathway. 
 The term is not permitted for our product. Use **live cultures** (or *active cultures*) instead —
 "a live culture supplement", "a live culture approach", "Food-grade live cultures".
 
+**Chinese is exempt** — the app's `zh` strings keep 益生菌, which is standard and permitted there.
+The restriction is a UK/EU one.
+
 Do NOT rename these, they are not outward-facing copy and changing them breaks things:
 - Firestore fields written into real session documents — `probiotic_start_date`, `probiotic_active`,
   `probiotic_stopped_date`, `probiotic_compliance_*`, and the `probiotic` map in `users/<uid>/sessions`
