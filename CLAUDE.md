@@ -110,7 +110,25 @@ Blog posts must NOT disclose:
 1. Directed evolution or strain selection methods
 2. Gut→circulation delivery mechanism details
 3. Specific metabolites produced (SAM, folate-cycle intermediates, etc.) as mechanism of action
-Safe language: "1C-01 takes a probiotic approach to supporting this pathway. The details of how it works are subject to ongoing scientific and intellectual property development."
+Safe language: "1C-01 takes a live culture approach to supporting this pathway. The details of how it works are subject to ongoing scientific and intellectual property development."
+
+## Never say "probiotic" in outward-facing copy
+The term is not permitted for our product. Use **live cultures** (or *active cultures*) instead —
+"a live culture supplement", "a live culture approach", "Food-grade live cultures".
+
+Do NOT rename these, they are not outward-facing copy and changing them breaks things:
+- Firestore fields written into real session documents — `probiotic_start_date`, `probiotic_active`,
+  `probiotic_stopped_date`, `probiotic_compliance_*`, and the `probiotic` map in `users/<uid>/sessions`
+- CSS classes, element ids and JS identifiers in `app.html` (`probiotic-card`, `probioticStart`, …)
+- The i18n *keys* (`prob.panel_title`) — only their values changed
+
+Deliberately left as-is because rewording them would misrepresent someone else:
+- **PROFILE** = *Probiotic Research: Open-label Functional Intervention and Longitudinal Evaluation* —
+  the acronym breaks if this word changes; the trial name is used externally
+- The cited paper title on `research.html` ("Effect of Probiotic Supplementation in Older Individuals…")
+  and the sentence describing what that third-party trial tested
+- The Innovate UK press headline quoted on `blog/index.html`
+- `probiotic_testing_report_EN.html` — a supplier's lab report reproduced verbatim
 
 ## Conventions
 - Use Edit tool for all file changes (no sed/bash edits)
