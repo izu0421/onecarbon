@@ -4,6 +4,34 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
+## [latest] — homepage quiz: 15% off via COGNITION15, straight to Stripe
+
+- `index.html`: quiz discount 10% → 15% throughout — the five "Answer for 10% OFF!"
+  eyebrows, the email-gate heading and offer card, the result badge and title.
+- `index.html`: result screen gained a promo block showing **COGNITION15** with a
+  click-to-copy button (`qzCopyPromo()`, with an `execCommand` fallback for older
+  Safari / non-secure contexts). Fires a `quiz_promo_copied` GA event.
+- `index.html`: result CTA now opens the Stripe payment link
+  `https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00` directly instead of `purchase.html`.
+- Copy that said the discount "is applied automatically at checkout" was wrong once it
+  became a promo code — now reads "Enter code COGNITION15 at checkout", both in the
+  offer card and in the result checklist.
+
+NOT touched: the separate 10% member/referral discount in `app.html` (`shop-discount-badge`,
+`REFER_TEXT`) — different offer. `purchase.html`'s CTA still points at `#`.
+
+Also, dropped the Falling Walls placement claim — leading with a ranking read oddly:
+
+- `index.html`: "2nd place at the global Falling Walls Lab finale" → "at the global Falling
+  Walls Lab finale".
+- `our_story.html`: "2nd out of 100 at global Falling Walls Lab finale" → "a finalist at the
+  global Falling Walls Lab finale". Also fixed "receieves" → "receives" in the same sentence.
+
+The "Falling Walls finalist" USP pill and the Falling Walls press tiles on `blog/index.html`
+are unchanged.
+
+---
+
 ## [in progress] — de-genericising the design
 
 Goal: the site currently reads as "competent AI-generated startup page". Working through

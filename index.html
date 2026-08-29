@@ -525,6 +525,11 @@
   #qz .fit-badge .dot{width:6px;height:6px;border-radius:50%;background:#1f355a;}
   #qz .res-title{font-family:'DM Sans','Lora',serif;font-size:22px;line-height:1.3;color:#1a1a1a;margin-bottom:.75rem;font-weight:500;}
   #qz .res-body{font-size:14px;line-height:1.8;color:#555;}
+  #qz .promo{margin-top:1rem;border:1px dashed #3F7D59;border-radius:10px;background:#F2F8F4;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  #qz .promo-code{font-family:'DM Sans',sans-serif;font-size:19px;font-weight:600;letter-spacing:.08em;color:#2C5C41;}
+  #qz .promo-hint{font-size:12.5px;color:#5A7A67;margin-top:2px;}
+  #qz .promo-copy{border:1px solid #3F7D59;background:#fff;color:#3F7D59;border-radius:99px;font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;cursor:pointer;flex-shrink:0;}
+  #qz .promo-copy:hover{background:#3F7D59;color:#fff;}
   #qz .fit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
   #qz .fit-item{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#444;line-height:1.55;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #E8E6E0;}
   #qz .fit-icon{width:20px;height:20px;border-radius:50%;background:#DCEBE2;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
@@ -578,7 +583,7 @@
   <!-- Q1 -->
   <div class="screen" id="qz-s1">
     <div class="steps" id="qz-sd1"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <span class="offer-eyebrow">Answer for <strong>15% OFF!</strong></span>
     <p class="eyebrow">Question 1 of 7</p>
     <h2 class="q-title">Who are you looking to support?</h2>
     <div class="tiles">
@@ -593,7 +598,7 @@
   <!-- Q2 What's prompting interest -->
   <div class="screen" id="qz-s2">
     <div class="steps" id="qz-sd3"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <span class="offer-eyebrow">Answer for <strong>15% OFF!</strong></span>
     <p class="eyebrow">Question 2 of 7</p>
     <h2 class="q-title">What's prompting your interest?</h2>
     <p class="hint">Select any that apply. This isn't a medical assessment or medical advice.</p>
@@ -630,7 +635,7 @@
     <h2 class="q-title">A Cambridge discovery — now in a daily capsule</h2>
     <div class="sci-bullets">
       <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Dr Yizhou Yu's research at the <strong>University of Cambridge</strong> studied the one-carbon metabolic pathway — a process involved in how cells maintain themselves.</span></div>
-      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Using advanced techniques, he identified live cultures capable of producing the metabolites that support this pathway — winning multiple awards, including <strong>2nd place at the global Falling Walls Lab finale</strong>.</span></div>
+      <div class="sci-bullet"><span class="sci-bullet-dot"></span><span>Using advanced techniques, he identified live cultures capable of producing the metabolites that support this pathway — winning multiple awards, including at the <strong>global Falling Walls Lab finale</strong>.</span></div>
       <div class="sci-bullet"><span class="sci-bullet-dot"></span><span><strong>1C-01</strong> is the result — developed over two years into food-grade, non-GMO live cultures that produce one-carbon metabolites from inside the gut.</span></div>
     </div>
     <div class="usp-strip">
@@ -642,11 +647,11 @@
 
   <!-- Email gate -->
   <div class="screen" id="qz-s-email">
-    <h2 class="q-title">Would you like 10% off your first month?</h2>
+    <h2 class="q-title">Would you like 15% off your first month?</h2>
     <div class="offer-card">
-      <div class="offer-pct">10% off</div>
+      <div class="offer-pct">15% off</div>
       <div class="offer-label">your first month of 1C-01</div>
-      <div class="offer-sub">Discount applied automatically at checkout</div>
+      <div class="offer-sub">With code COGNITION15 at checkout</div>
     </div>
     <label class="inp-label" for="qz-ef">Your email address</label>
     <input type="email" class="email-inp" id="qz-ef" placeholder="you@example.com" oninput="qzCheckE()"/>
@@ -663,7 +668,7 @@
   <!-- Q5 Supplements -->
   <div class="screen" id="qz-s5">
     <div class="steps" id="qz-sd7"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <span class="offer-eyebrow">Answer for <strong>15% OFF!</strong></span>
     <p class="eyebrow">Question 5 of 7</p>
     <h2 class="q-title" id="qz-s5-title">Are you taking any supplements?</h2>
     <p class="hint">Select all that apply.</p>
@@ -682,7 +687,7 @@
   <!-- Q6 Gender at birth -->
   <div class="screen" id="qz-sex">
     <div class="steps" id="qz-sd2"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <span class="offer-eyebrow">Answer for <strong>15% OFF!</strong></span>
     <p class="eyebrow">Question 6 of 7</p>
     <h2 class="q-title" id="qz-sex-title">What's your gender at birth? (optional)</h2>
     <div class="tiles">
@@ -697,7 +702,7 @@
   <!-- Q7 Age -->
   <div class="screen" id="qz-s7">
     <div class="steps" id="qz-sd10"></div>
-    <span class="offer-eyebrow">Answer for <strong>10% OFF!</strong></span>
+    <span class="offer-eyebrow">Answer for <strong>15% OFF!</strong></span>
     <p class="eyebrow">Question 7 of 7</p>
     <h2 class="q-title" id="qz-s7-title">How old are you?</h2>
     <div class="tiles">
@@ -713,12 +718,19 @@
   <!-- Result -->
   <div class="screen" id="qz-s-result">
     <div class="result-hero">
-      <div class="fit-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L19 6"/></svg><span id="qz-badge-txt">10% off unlocked</span></div>
-      <h2 class="res-title">Thanks — here's your 10% off.</h2>
+      <div class="fit-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3F7D59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13 L10 18 L19 6"/></svg><span id="qz-badge-txt">15% off unlocked</span></div>
+      <h2 class="res-title">Thanks — here's your 15% off.</h2>
       <p class="res-body" id="qz-res-body">Here's where we'd suggest starting.</p>
+      <div class="promo">
+        <div>
+          <div class="promo-code">COGNITION15</div>
+          <div class="promo-hint">Enter this code at checkout for 15% off</div>
+        </div>
+        <button class="promo-copy" id="qz-promo-btn" onclick="qzCopyPromo()">Copy</button>
+      </div>
     </div>
     <div class="fit-list" id="qz-fit-list"></div>
-    <button class="cta-primary" onclick="qzTrack('quiz_cta_click',{qz_cta:'claim_discount',fbq:'Lead'});window.open('purchase.html','_blank')">Claim your 10% off</button>
+    <button class="cta-primary" onclick="qzTrack('quiz_cta_click',{qz_cta:'claim_discount',fbq:'Lead'});window.open('https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00','_blank')">Claim your 15% off</button>
     <button class="cta-secondary" onclick="qzTrack('quiz_cta_click',{qz_cta:'learn_science'});window.open('blog/one-carbon-metabolism.html','_blank')">Learn about the science</button>
     <p class="legal">1C-01 is a food supplement. It has not been MHRA-approved to diagnose, treat, or prevent any disease. Always consult your doctor before starting, especially if on prescription medication.</p>
   </div>
@@ -782,10 +794,25 @@
     };
     OCForms.submit('newsletter',finalPayload).catch(()=>{});
 
-    const items=['1C-01 is a once-daily capsule of live cultures — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Your 10% discount is applied automatically at checkout.','It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.'];
+    const items=['1C-01 is a once-daily capsule of live cultures — food-grade and non-GMO.','Built on peer-reviewed research from the University of Cambridge.','Enter code COGNITION15 at checkout to take 15% off your first month.','It\'s a food supplement, not a medicine — check with your doctor if you take prescription medication.'];
     const fl=document.getElementById('qz-fit-list');fl.innerHTML='';
     items.forEach(txt=>{fl.innerHTML+=`<div class="fit-item"><div class="fit-icon"><svg viewBox="0 0 10 8" fill="none" width="9" height="9"><polyline points="1,4 4,7 9,1" stroke="#3F7D59" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>${txt}</span></div>`;});
     qzGoTo('qz-s-result');
+  }
+
+  function qzCopyPromo(){
+    const btn=document.getElementById('qz-promo-btn');
+    const done=()=>{btn.textContent='Copied';setTimeout(()=>{btn.textContent='Copy';},2000);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText('COGNITION15').then(done).catch(()=>{});
+    }else{
+      // older Safari / non-secure context
+      const t=document.createElement('textarea');t.value='COGNITION15';
+      t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);
+      t.select();try{document.execCommand('copy');done();}catch(e){}
+      document.body.removeChild(t);
+    }
+    qzTrack('quiz_promo_copied',{qz_code:'COGNITION15'});
   }
   qzDots('qz-sd1',1);
   </script>
