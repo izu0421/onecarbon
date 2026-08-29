@@ -29,8 +29,15 @@ Videos: hosted on Cloudflare R2 — not in git (mp4s are in .gitignore).
 - Blog posts all have an "In this article" TOC nav box and "In brief" summary box per section (background: #EEF3FB, not --surface which is white-on-white)
 
 ## Product / Stripe
-- Single offer: **1C-01 Early Access Kit — £30** (60-day early-access programme), on purchase.html
-- Stripe Payment Link still to be created; purchase.html CTA currently points to `#`
+- **1C-01 Early Access Kit — £30** (60-day early-access programme), on purchase.html
+- Two live Stripe Payment Links, switched by the tabs on purchase.html (`setPlan()`):
+  - Subscribe & save (default tab) — `https://buy.stripe.com/bJebJ06PB6VWcbP63e1VK00`
+  - One-time — `https://buy.stripe.com/3cI7sL5JvfiieiF9i6cjS00`
+- **COGNITION15** — 15% off, entered by the customer at checkout. Given out at the end of the
+  homepage quiz; the payment links have "allow promotion codes" enabled.
+- The homepage quiz CTA goes straight to the **one-time** link, so quiz finishers skip the
+  plan chooser and never see Subscribe & save. Known, parked — revisit when we look at
+  quiz→purchase conversion.
 
 ## Forms
 All forms POST to the `submitForm` Cloud Function (`functions/index.js`), which writes to
