@@ -4,6 +4,50 @@ Record specific code changes after each commit. Most recent first.
 
 ---
 
+## [in progress] — de-genericising the design
+
+Goal: the site currently reads as "competent AI-generated startup page". Working through
+the tells below, one at a time. Status: `[ ]` not started, `[~]` in progress, `[x]` done.
+
+Audit, 29 Aug 2026 (counts = occurrences across public pages + `css/style.css`):
+
+| # | Generic pattern | Where it bites us | Status |
+|---|---|---|---|
+| 1 | Uppercase letter-spaced eyebrow above every heading | 15 `.eyebrow` + `offer-eyebrow`; 28 `text-transform: uppercase` | WONTFIX — caps are wanted |
+| 2 | Everything is a tile/card on a white surface with a soft shadow | 96 `tile*`, 12 `box-shadow`, `blog-card`, `team-card`, `shop-card`, `tl-card` | [~] shadows done |
+| 3 | Equal-column grids (`repeat(3,1fr)` / `1fr 1fr`) as the default layout | 9 symmetric grid declarations, blog index 4-per-row | [ ] |
+| 4 | Centred stack: eyebrow → h2 → one-line sub → CTA, repeated per section | `index.html` (9 centred rules), `purchase.html` | [ ] |
+| 5 | Pill everything — buttons, chips, badges, USP pills | `--radius-pill`, 5 `usp-pill`, 6 `io-chip`, `badge`, `stat-chip` | [ ] |
+| 6 | Two-font Google stack (DM Sans + Outfit) = default 2024 SaaS voice | site-wide | [ ] |
+| 7 | Hero = full-bleed video/animation + centred headline + two buttons | `index.html`, `trials/index.html` | [ ] |
+| 8 | Section rhythm is uniform — same padding, same max-width 1200, no contrast | `css/style.css` | [ ] |
+| 9 | Sentence-y "benefit" microcopy with em-dashes | headings across `index.html` | [ ] |
+| 10 | Off-white + single navy accent, no second colour, no texture | `:root` tokens | [ ] |
+
+Already NOT generic (keep): square corners on the `--radius-*` tokens, no gradients in
+`style.css`, no `auto-fit/minmax` grids, no glassmorphism/`backdrop-filter`.
+
+**Direction chosen: scientific document**, applied as small stylistic edits to the existing
+site — NOT a redesign. Fonts stay DM Sans + Outfit.
+
+Changes made:
+
+- `index.html` — `.section-kicker`: removed the 20×2px `::before` accent rule. Caps kept.
+- `css/style.css` — `.eyebrow`: unchanged in the end. Sentence case was tried and rejected —
+  **the uppercase labels are a deliberate choice, leave them alone.** Tell #1 stays open by
+  decision, not by oversight.
+- `css/style.css` — `--shadow-sm/md/lg`: big soft drops → tight shallow ones. Only 4 uses
+  (`.site-nav.scrolled`, `.stat-card`, `.profile-cta-form-wrap`, one mobile rule), no modals
+  affected. Old values are in a comment beside the tokens.
+
+- `draft/design-scientific.html`: NEW prototype, not linked, `noindex`. Real index.html copy
+  re-set as a document — attacks all 10 tells at once so we can judge the direction before
+  touching `css/style.css`. Type is Source Serif 4 + IBM Plex Mono via Google Fonts (the
+  R2-hosted DM Sans / Outfit woff2 files stay untouched; if we adopt this, the new faces need
+  uploading to R2 the same way, or we accept the font flash).
+
+---
+
 ## [latest] — fixed fillout forms. hid 1c pathway blog post.
 
 - `contact.html`: switched to Formspree endpoint mqejkwkb (Contact Us form)

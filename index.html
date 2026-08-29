@@ -77,14 +77,10 @@
     }
 
     /* ── SECTION KICKER (consistent section-header label) ── */
+    /* Caps kept; the ::before rule was dropped. */
     .section-kicker {
-      display: flex; align-items: center; gap: 10px;
       font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
       color: #1f355a; font-weight: 700; margin: 0 0 1.5rem;
-    }
-    .section-kicker::before {
-      content: ""; display: inline-block; width: 20px; height: 2px;
-      background: #1f355a; flex-shrink: 0;
     }
 
     /* ── LEFT: TEXT ── */
