@@ -1,6 +1,11 @@
 # Local dev notes — not for repo
 NOTES.md
 
+# The React Native app is its own git repo (onecarbon_app/.git) — this repo is
+# the website and is served by GitHub Pages, so app source and node_modules
+# must not land in it. Push the app from inside onecarbon_app/.
+onecarbon_app/
+
 # Large video files — hosted on Cloudflare R2, not in git
 media/*.mp4
 media/*.webm
