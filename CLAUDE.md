@@ -71,7 +71,25 @@ All outbound mail sends from **`send.onecarbon.com`**, never `onecarbon.com`:
   SPF, and DKIM at `resend._domainkey.send.onecarbon.com`.
 
 Every `from` address in `functions/index.js` must therefore stay `@send.onecarbon.com`
-(`forms@` for submissions, `reminders@` for the daily job).
+(`forms@` for submissions, `reminders@` for the daily job, `auth@` for app sign-in codes).
+
+## Cloud Functions
+| Function | Trigger | What it does |
+|---|---|---|
+| `submitForm` | HTTPS | Form submissions → Firestore + Resend notification |
+| `sendReminders` | daily 09:00 UTC | Emails users 14 days after their last session |
+| `loginCode` | HTTPS | Passwordless sign-in for the OneCarbot app |
+
+`loginCode` takes `{action:'request'|'verify', email, code}`. It emails a six-digit code,
+hashes it into `loginCodes/<email>` (SHA-256 with the `LOGIN_CODE_PEPPER` secret, never
+plaintext), and on success returns a custom token for `signInWithCustomToken`. Codes expire
+in 10 minutes, allow 5 attempts, and are capped at 5 sends per address per hour.
+
+It looks the account up by email and only creates one if absent, so a participant who
+started on `app.html` keeps the same uid and their whole session history.
+
+`loginCodes/` is `allow read, write: if false` in `firestore.rules` — a client that could
+read it could brute-force the hashes offline.
 
 ## Campaign attribution (UTM)
 `js/utm.js` captures `utm_*` (plus gclid/fbclid/li_fat_id/msclkid) on landing, holds them in

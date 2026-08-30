@@ -2,6 +2,7 @@ const { onSchedule } = require('firebase-functions/v2/scheduler');
 const { onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
 const admin = require('firebase-admin');
+const crypto = require('node:crypto');
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -239,5 +240,171 @@ async function sendReminderEmail(to, firstName, apiKey) {
   if (!res.ok) {
     const err = await res.text();
     throw new Error(`Resend error: ${err}`);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// PASSWORDLESS SIGN-IN — six-digit email codes (OneCarbot app)
+// POST { action: "request", email }        → emails a code
+// POST { action: "verify", email, code }   → { token } for signInWithCustomToken
+//
+// Firebase's own email-link sign-in would need Universal Links and App Links
+// wired to a Hosting domain. A typed code needs none of that, works when the
+// email is read on a different device, and sends from send.onecarbon.com,
+// which is already SPF/DKIM verified — see the Resend note in CLAUDE.md.
+// ══════════════════════════════════════════════════════════
+
+const AUTH_FROM = 'OneCarbot <auth@send.onecarbon.com>';
+const CODE_TTL_MS = 10 * 60 * 1000;   // 10 minutes
+const MAX_ATTEMPTS = 5;               // per issued code
+const MAX_SENDS_PER_HOUR = 5;         // per email address
+
+// Codes are hashed before storage, so a leaked database snapshot is not a pile
+// of live login credentials. The pepper is the project's own secret.
+const LOGIN_CODE_PEPPER = defineSecret('LOGIN_CODE_PEPPER');
+
+function hashCode(email, code, pepper) {
+  return crypto
+    .createHash('sha256')
+    .update(`${email.toLowerCase()}::${code}::${pepper}`)
+    .digest('hex');
+}
+
+function normaliseEmail(raw) {
+  if (typeof raw !== 'string') return null;
+  const e = raw.trim().toLowerCase();
+  // Deliberately loose — real addresses are stranger than most regexes allow.
+  if (e.length < 5 || e.length > 254 || !e.includes('@') || /\s/.test(e)) return null;
+  return e;
+}
+
+exports.loginCode = onRequest(
+  { cors: true, secrets: [RESEND_API_KEY, LOGIN_CODE_PEPPER], maxInstances: 10 },
+  async (req, res) => {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'method_not_allowed' });
+    }
+
+    const body = req.body || {};
+    const email = normaliseEmail(body.email);
+    if (!email) return res.status(400).json({ error: 'bad_email' });
+
+    const ref = db.collection('loginCodes').doc(email);
+
+    // ── Send a code ──
+    if (body.action === 'request') {
+      const now = Date.now();
+      const snap = await ref.get();
+      const prev = snap.exists ? snap.data() : {};
+
+      // Rate limit per address. Window resets an hour after the first send.
+      const windowStart = prev.windowStart || 0;
+      const sends = now - windowStart < 3600000 ? (prev.sends || 0) : 0;
+      if (sends >= MAX_SENDS_PER_HOUR) {
+        // Same shape as success — never tell a caller how far they have got.
+        return res.json({ ok: true });
+      }
+
+      const code = String(crypto.randomInt(0, 1000000)).padStart(6, '0');
+
+      await ref.set({
+        hash: hashCode(email, code, LOGIN_CODE_PEPPER.value()),
+        expiresAt: now + CODE_TTL_MS,
+        attempts: 0,
+        sends: sends + 1,
+        windowStart: sends === 0 ? now : windowStart,
+        updatedAt: new Date().toISOString(),
+      });
+
+      await sendLoginCodeEmail(email, code, RESEND_API_KEY.value());
+      return res.json({ ok: true });
+    }
+
+    // ── Check a code ──
+    if (body.action === 'verify') {
+      const code = typeof body.code === 'string' ? body.code.replace(/\D/g, '') : '';
+      if (code.length !== 6) return res.status(400).json({ error: 'bad_code' });
+
+      const snap = await ref.get();
+      if (!snap.exists) return res.status(400).json({ error: 'invalid_code' });
+
+      const rec = snap.data();
+      if (Date.now() > (rec.expiresAt || 0)) {
+        await ref.delete();
+        return res.status(400).json({ error: 'expired' });
+      }
+      if ((rec.attempts || 0) >= MAX_ATTEMPTS) {
+        await ref.delete();
+        return res.status(429).json({ error: 'too_many_attempts' });
+      }
+
+      const expected = rec.hash || '';
+      const given = hashCode(email, code, LOGIN_CODE_PEPPER.value());
+      // Both are fixed-length hex digests, so timingSafeEqual is safe to call.
+      const match =
+        expected.length === given.length &&
+        crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(given));
+
+      if (!match) {
+        await ref.update({ attempts: (rec.attempts || 0) + 1 });
+        return res.status(400).json({ error: 'invalid_code' });
+      }
+
+      // Correct — burn the code so it cannot be replayed.
+      await ref.delete();
+
+      // Reuse the existing account when there is one, so a participant who
+      // started on app.html keeps the same uid and their whole session history.
+      let user;
+      try {
+        user = await admin.auth().getUserByEmail(email);
+      } catch (e) {
+        if (e.code !== 'auth/user-not-found') throw e;
+        user = await admin.auth().createUser({ email, emailVerified: true });
+      }
+
+      // Reaching a code sent to that address is itself proof of control.
+      if (!user.emailVerified) {
+        await admin.auth().updateUser(user.uid, { emailVerified: true });
+      }
+
+      const token = await admin.auth().createCustomToken(user.uid);
+      return res.json({ token });
+    }
+
+    return res.status(400).json({ error: 'bad_action' });
+  }
+);
+
+async function sendLoginCodeEmail(email, code, apiKey) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: AUTH_FROM,
+      to: email,
+      subject: `${code} is your OneCarbot sign-in code`,
+      html: `
+        <div style="font-family:sans-serif;max-width:460px;margin:0 auto;color:#1a1a18;">
+          <p style="font-size:15px;margin:0 0 20px;">Here is your sign-in code for OneCarbot.</p>
+          <p style="font-size:34px;font-weight:600;letter-spacing:8px;margin:0 0 20px;color:#1f355a;">${code}</p>
+          <p style="font-size:14px;color:#555;margin:0 0 8px;">It expires in 10 minutes.</p>
+          <p style="font-size:13px;color:#888;margin:0;">
+            If you didn't ask to sign in, you can ignore this email — nobody can
+            get into your account without this code.
+          </p>
+        </div>
+      `,
+      text:
+        `Your OneCarbot sign-in code is ${code}. It expires in 10 minutes.\n\n` +
+        `If you didn't ask to sign in, ignore this email.`,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Resend error: ${await res.text()}`);
   }
 }

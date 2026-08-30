@@ -7,6 +7,14 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // Sign-in code hashes for the OneCarbot app. Written and read only by the
+    // loginCode function via the Admin SDK. A client that could read these could
+    // brute-force a hash offline, and one that could write could mint its own
+    // code — so nothing here is reachable from a client, ever.
+    match /loginCodes/{email} {
+      allow read, write: if false;
+    }
+
     // Recursive wildcard: rules do NOT cascade into subcollections on their
     // own, and the app stores data under users/{uid}/profile/data and
     // users/{uid}/sessions/{id}. Matching {document=**} covers the user doc
