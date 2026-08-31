@@ -79,6 +79,7 @@ Every `from` address in `functions/index.js` must therefore stay `@send.onecarbo
 | `submitForm` | HTTPS | Form submissions → Firestore + Resend notification |
 | `sendReminders` | daily 09:00 UTC | Emails users 14 days after their last session |
 | `loginCode` | HTTPS | Passwordless sign-in for the OneCarbot app |
+| `deleteAccount` | HTTPS | In-app account deletion, required by App Store 5.1.1(v) |
 
 `loginCode` takes `{action:'request'|'verify', email, code}`. It emails a six-digit code,
 hashes it into `loginCodes/<email>` (SHA-256 with the `LOGIN_CODE_PEPPER` secret, never
@@ -90,6 +91,14 @@ started on `app.html` keeps the same uid and their whole session history.
 
 `loginCodes/` is `allow read, write: if false` in `firestore.rules` — a client that could
 read it could brute-force the hashes offline.
+
+`deleteAccount` takes `Authorization: Bearer <Firebase ID token>` and an empty body. The uid
+comes from `verifyIdToken(token, true)` and **never from the request body** — otherwise the
+endpoint would delete any account on request. It `recursiveDelete`s `users/<uid>` (a client
+SDK cannot: it would orphan the `profile` and `sessions` subcollections), drops any pending
+login code, then deletes the auth user. Firestore goes first deliberately — if that half
+fails the participant can still sign in and retry, whereas the reverse strands data nobody
+can reach.
 
 ## Campaign attribution (UTM)
 `js/utm.js` captures `utm_*` (plus gclid/fbclid/li_fat_id/msclkid) on landing, holds them in

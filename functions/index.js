@@ -408,3 +408,61 @@ async function sendLoginCodeEmail(email, code, apiKey) {
     throw new Error(`Resend error: ${await res.text()}`);
   }
 }
+
+// ══════════════════════════════════════════════════════════
+// ACCOUNT DELETION — App Store guideline 5.1.1(v)
+// POST { }  with  Authorization: Bearer <Firebase ID token>
+//
+// Any app that lets you create an account must let you delete it from inside
+// the app. A client SDK cannot do this itself: deleting users/<uid> leaves the
+// profile and sessions subcollections orphaned, and a client cannot enumerate
+// them for deletion under our rules. So the Admin SDK does it here.
+//
+// The uid comes from the verified ID token and NEVER from the request body —
+// otherwise this endpoint would delete anyone's account on request.
+// ══════════════════════════════════════════════════════════
+
+exports.deleteAccount = onRequest(
+  { cors: true, maxInstances: 5 },
+  async (req, res) => {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'method_not_allowed' });
+    }
+
+    const header = req.get('Authorization') || '';
+    const match = header.match(/^Bearer (.+)$/);
+    if (!match) return res.status(401).json({ error: 'no_token' });
+
+    let uid;
+    let email;
+    try {
+      // checkRevoked: a token from a session that has since been revoked must
+      // not be able to delete an account.
+      const decoded = await admin.auth().verifyIdToken(match[1], true);
+      uid = decoded.uid;
+      email = decoded.email || null;
+    } catch (e) {
+      return res.status(401).json({ error: 'bad_token' });
+    }
+
+    try {
+      // Firestore first. If this half fails we still have the auth user, so the
+      // participant can sign in and retry — the reverse would strand data that
+      // nobody can reach or delete.
+      await db.recursiveDelete(db.collection('users').doc(uid));
+
+      // Any pending sign-in code for that address is now meaningless.
+      if (email) {
+        await db.collection('loginCodes').doc(email.toLowerCase()).delete().catch(() => {});
+      }
+
+      await admin.auth().deleteUser(uid);
+
+      console.log(`Account deleted: ${uid}`);
+      return res.json({ ok: true });
+    } catch (e) {
+      console.error('Account deletion failed', uid, e);
+      return res.status(500).json({ error: 'delete_failed' });
+    }
+  }
+);
