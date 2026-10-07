@@ -1466,8 +1466,16 @@ p {
   margin-top: auto;
 }
 
+/* Last tile stretches to fill an incomplete final row, so no empty grey cell shows */
+@media (min-width: 901px) {
+  .press-grid > :last-child:nth-child(3n+2) { grid-column: span 2; }
+  .press-grid > :last-child:nth-child(3n+1) { grid-column: span 3; }
+}
 @media (max-width: 900px) {
   .press-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 561px) and (max-width: 900px) {
+  .press-grid > :last-child:nth-child(odd) { grid-column: span 2; }
 }
 @media (max-width: 560px) {
   .press-grid { grid-template-columns: 1fr; }
