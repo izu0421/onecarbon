@@ -24,13 +24,15 @@
     /* ── HERO WRAPPER ── */
     .hero {
       position: relative;
-      min-height: calc(100vh - 72px);
+      /* nav (72px) + recognised-by banner (98px) — keeps the banner above the fold */
+      min-height: calc(100vh - 72px - 98px);
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
 
     /* ── MOBILE HERO STILL — pre-rendered neuron, phones only ── */
     .hero-still { display: none; }
+    .hero-explainer-mobile { display: none; }
     .hero-eyebrow, .hero-microline { display: none; }
 
     /* ── NEURON STAGE — full-bleed behind content ── */
@@ -88,9 +90,9 @@
       color: #1f355a;
     }
     .hero-text p {
-      font-size: 16px; line-height: 1.65;
+      font-size: 19px; line-height: 1.6;
       color: var(--text-muted);
-      max-width: 400px;
+      max-width: 470px;
       margin-bottom: 28px;
     }
     .hero-text p a {
@@ -376,6 +378,20 @@
       font-size: 15px !important;
       line-height: 1.75 !important;
     }
+    .hero-right { display: none !important; }
+    .hero-explainer-mobile {
+      display: block;
+      margin: 0;
+      padding: 24px 20px 0;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      background: #F7F5F0;
+    }
+  }
+  /* Short screens: trim hero spacing so the recognised-by banner still fits on first load */
+  @media (min-width: 761px) and (max-height: 760px) {
+    .hero-text { padding-top: 48px; }
   }
   </style>
 </head>
@@ -419,7 +435,7 @@
       <div class="hero-text">
         <h1>Science you can take <em>daily</em></h1>
         <p class="hero-subhead">A supplement built from years of neuroscience research at the University of Cambridge.</p>
-        <p>1C-01 is a living bacterial strain that supports <span style="color:#1f355a;">one-carbon metabolism</span> — the pathway that is important for healthy brain ageing.</p>
+        <p class="hide-mobile">1C-01 is a living bacterial strain that supports <span style="color:#1f355a;">one-carbon metabolism</span> — the pathway that is important for healthy brain ageing.</p>
         <style>
           .hero-quiz-btn:hover{background:#0c1524 !important;}
         </style>
@@ -458,6 +474,8 @@
       </div>
     </div>
   </section>
+  <!-- Mobile: hero explainer moves below the banner so the banner fits on the first screen -->
+  <p class="hero-explainer-mobile">1C-01 is a living bacterial strain that supports <span style="color:#1f355a;">one-carbon metabolism</span> — the pathway that is important for healthy brain ageing.</p>
   <!-- ── BRAIN HEALTH ASSESSMENT QUIZ ── -->
   <div style="background:#F7F5F0;">
   <style>
